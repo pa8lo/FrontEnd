@@ -27,7 +27,9 @@
     "react-table": "6.8.6",
     "reactstrap": "8.0.1",
     "redux": "4.0.0",
-    "redux-thunk": "2.3.0"
+    "redux-thunk": "2.3.0",
+    "css-loader": "2.1.1",
+    "sweetalert2": "8.13.0"
   },
   "scripts": {
     "start": "react-scripts start",
