@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Container, Button } from 'react-floating-action-button'
-// import { faHome } from "@fortawesome/free-solid-svg-icons";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { withRouter } from "react-router-dom";
+
+//CSS
+import HomeIcon from '@material-ui/icons/Home';
 
 class StickyButton extends Component {
     render() {
@@ -17,7 +18,9 @@ class StickyButton extends Component {
                         to="/problems"
                         onClick={() => this.props.history.push('/')}
                     >
-                        {/* <FontAwesomeIcon icon={faHome} color="white" size="lg" /> */}
+
+                    <HomeIcon style={{color:"white"}}/>
+
                     </Button>
                 </Container>
             </div>

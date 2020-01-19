@@ -5,68 +5,18 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import HistoryIcon from '@material-ui/icons/History';
+import { Breadcrumb } from 'react-bootstrap'
 import MenuIcon from '@material-ui/icons/Menu';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
 import roraso from '../../assets/images/roraso.png';
 import Drawer from '@material-ui/core/Drawer';
 import { Redirect } from 'react-router-dom';
-
 import axios from 'axios';
-import Swal from 'sweetalert2'
 
-const styles = {
-  root: {
-    flexGrow: 1,
-  },
-  grow: {
-    flexGrow: 1,
-  },
-  menu:{
-    background: '#4D4D4D'
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
-  },
-  profileAvatar: {
-    margin: 10,
-    margin: 10,
-    width: 170,
-    height: 170,
-    borderRadius: '127px',
-    textAlign: 'center'
-  },
-  welcomeText:{
-    position: 'sticky'
-  },
-  bigAvatar: {
-    margin: 10,
-    width: 40,
-    height: 40,
-    borderRadius: '82px',
-    left: '100%',
-    position: 'sticky'
-  },
-  bottomClose:{
-    top: '100%',
-    fontSize: 13,
-    position: 'sticky'
-  },
-  openProfile:{
-    left: '100%',
-    position: 'sticky'
-  },
-  buttonsLogged:{
-    display: 'contents'
-  },
-  buttonSizes:{
-    height: 50,
-    width: 300,
-    fontSize: 13,
-  }
-};
+//CSS
+import styles from '../../assets/css/Index/IndexMain.jsx';
+import Swal from 'sweetalert2'
 
 class Header extends React.Component {
     constructor(props, context) {
@@ -79,6 +29,8 @@ class Header extends React.Component {
         redirectLogOut: false,
         redirectHome: false,
         redirectChangePassword : false,
+        redirectSection : false,
+        redirectUrlSection : ''
       }
     }
     
@@ -300,7 +252,7 @@ class Header extends React.Component {
                                 title: 'Correcto!',
                                 text: 'Se ha añadido una nuevo pedido',
                                 type: 'success',
-                                // confirmButtonText: 'Sera Redirigido'
+                                // confirmButtonText: 'Confirmar'
                             })
 
                         }
@@ -407,12 +359,24 @@ class Header extends React.Component {
           redirectHome: true
         })
       }
+
+      setRedirectToSection = () => {
+        this.setState({
+          redirectSection: true
+        })
+      }
       
       ToHome(){
-      if (this.state.redirectHome) {
-        return <Redirect to='/' />
+        if (this.state.redirectHome) {
+          return <Redirect to='/' />
+        }
       }
-    }
+
+      ToSection(){
+        if (this.state.redirectSection) {
+          return <Redirect to={`/${this.state.redirectUrlSection}`} />
+        }
+      }
 
     enviarSolicitudesEncoladas = () => {
       let arrayPedido = JSON.parse(localStorage.getItem('enviarPedido'));
@@ -444,7 +408,7 @@ class Header extends React.Component {
                     title: 'Correcto!',
                     text: 'Se ha añadido una nuevo pedido',
                     type: 'success',
-                    // confirmButtonText: 'Sera Redirigido'
+                    // confirmButtonText: 'Confirmar'
                 })
 
             }
@@ -493,8 +457,10 @@ class Header extends React.Component {
       // console.log(this.props)
       if (this.state.redirectLogOut) {
         localStorage.removeItem("access-token");
-        localStorage.removeItem("categorias");
-        localStorage.removeItem("productos");
+        // localStorage.removeItem("categorias");
+        localStorage.removeItem("enviarPedido");
+        // localStorage.removeItem("pedidos");
+        // localStorage.removeItem("productos");
         return <Redirect to='/login' />
       }
     }
@@ -520,11 +486,11 @@ class Header extends React.Component {
           
           profileMenu(props){
             const { classes } = props;
-            
+            // console.log(this.props.auth.user.Name);
             return(
               <Drawer align='center' anchor="right" open={this.state.profile} onClose={this.ProfileClose} id="panel">
                   <img src={roraso} className={classes.profileAvatar}  />
-                  <p color="inherit" style={{textAlign: "center", marginTop: '40px', marginBottom: '5px'}} className={classes.welcomeText}>Hola {this.props.auth.user.Name}</p>
+                  <p color="inherit" style={{textAlign: "center", marginTop: '40px', marginBottom: '5px'}} className={classes.welcomeText}>Hola { this.props.auth.user === undefined ? " " : this.props.auth.user.Name }</p>
                   <p color="inherit" style={{textAlign: "center", marginTop: '20px', marginBottom: '20px'}} className={classes.welcomeText}>Panel de Configuracion</p>
                       <Button className={classes.buttonSizes} color="inherit"  onClick= {this.setRedirectToHome}>Inicio</Button>
                   {this.props.auth.logged &&   <Button className={classes.buttonSizes} color="inherit"  onClick= {this.setRedirectChangePassword}>Cambiar Contraseña</Button>}
@@ -543,7 +509,6 @@ class Header extends React.Component {
         const { classes } = props;
         return (
           <Button color="inherit" onClick= {this.ProfileOpen} >
-            {/* <img src={AvatarVacio} className={classes.bigAvatar}  /> */}
             <MenuIcon />
           </Button>
         );
@@ -551,14 +516,116 @@ class Header extends React.Component {
       
       content(props){
 
-        console.log(this)
+        let directories = window.location.href.split('/')
+        directories.splice(0, 3);
+        var hasNumber = /\d/g;
 
         const { classes } = props;
         return(
           <div className={classes.root}>
           <AppBar position="sticky" className={classes.menu}>
             <Toolbar>
-              <Button onClick={this.returnPreviusPage} color="inherit"><HistoryIcon/></Button>
+
+              <Breadcrumb style={{backgroundColor:"transparent", color:"white", marginBottom: "0px"}}>
+                
+                <Breadcrumb.Item onClick={() => this.setRedirectToHome()}  style={{ color:"white"}}><span style={{marginTop:"60px"}}>Home</span></Breadcrumb.Item>
+                {this.ToHome()}
+
+                {directories.map((dir, index) => {
+
+                  let count = 0;
+                  
+                  count += 1;
+
+
+                  if(dir === "rrhh"){
+
+                    if(this.state.redirectSection === true){
+                      this.state.redirectUrlSection = dir
+                    }
+
+                    return(
+                      <Breadcrumb.Item key={dir} style={{ color:"white"}} onClick={() => this.setRedirectToSection()}>
+                        RRHH
+                      {this.ToSection()}
+                      </Breadcrumb.Item>
+                    )
+                    
+                  }else if(dir === "roles" || dir === "empleados" || dir === "turnos" || dir === "asistencias"){
+
+                    if(this.state.redirectSection === true){
+                      this.state.redirectUrlSection = "rrhh"
+                    }
+
+                    return(
+                      <Breadcrumb.Item  key={dir} style={{ color:"white"}} onClick={() => this.setRedirectToSection()}>
+                        {dir.charAt(0).toUpperCase() + dir.substring(1)}
+                        {this.ToSection()}
+                      </Breadcrumb.Item>
+                    )
+
+                  }else if(dir.indexOf('-') > -1){
+                    
+                    let double_word = dir.split("-")
+
+                    let first_word = (double_word[0].charAt(0).toUpperCase() + double_word[0].substring(1))
+                    let second_word = (double_word[1].charAt(0).toUpperCase() + double_word[1].substring(1))
+
+                    return(
+                      <Breadcrumb.Item disabled key={dir} style={{ color:"white"}}>
+                        {first_word + " " + second_word}
+                      </Breadcrumb.Item>
+                    )
+
+                  }else if(hasNumber.test(dir)){
+
+                    return null
+                    
+                  }else if(dir === "pedido"){
+
+                    if(this.state.redirectSection === true){
+                      this.state.redirectUrlSection = dir+"s"
+                    }
+
+                    return(
+                    <Breadcrumb.Item key={dir} style={{ color:"white"}} onClick={() => this.setRedirectToSection()}>
+                        {dir.charAt(0).toUpperCase() + dir.substring(1)}s
+                        {this.ToSection()}
+                    </Breadcrumb.Item>
+                    )                
+                  }else if(dir === "producto"){
+
+                    if(this.state.redirectSection === true){
+                      this.state.redirectUrlSection = "modulo"
+                    }
+
+                    return(
+                    <React.Fragment>
+                      <Breadcrumb.Item key={dir} style={{ color:"white"}} onClick={() => this.setRedirectToSection()}>
+                          Modulo
+                          {this.ToSection()}
+                      </Breadcrumb.Item>
+                      <Breadcrumb.Item key={count} disabled style={{ color:"white"}}>
+                          {dir.charAt(0).toUpperCase() + dir.substring(1)}
+                      </Breadcrumb.Item>
+                      
+                    </React.Fragment>
+                    )                
+                  }else{
+                    if(this.state.redirectSection === true){
+                      this.state.redirectUrlSection = dir
+                    }
+                    return(
+                      <Breadcrumb.Item key={dir} style={{ color:"white"}} onClick={() => this.setRedirectToSection()}>
+                        {dir.charAt(0).toUpperCase() + dir.substring(1)}
+                        {this.ToSection()}
+                      </Breadcrumb.Item>
+                    )
+                  }
+                })}
+
+              </Breadcrumb>
+
               <Typography variant="h4" style={{textAlign: "center"}} color="inherit" className={classes.grow}>
               {this.props.titulo}
               </Typography>

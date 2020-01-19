@@ -28,7 +28,7 @@ class Clientes extends Component {
                     <ListaClientes/>
                     <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
                         
-                        { permisos.filter(permiso => (permiso.id == 5)) ?  
+                        { permisos.filter(permiso => (permiso.id == 5)).length > 0 ?  
                 
                             <Link to={`/clientes/alta-cliente`} className="btn btn-success">Nuevo Cliente</Link> 
 

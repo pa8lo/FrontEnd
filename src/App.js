@@ -8,9 +8,6 @@ import axios from 'axios'
 import Routes from './Routes';
 import Login from './components/login/Login';
 
-//CSS
-import Swal from 'sweetalert2'
-
 class App extends Component {
 
   constructor(props){
@@ -22,7 +19,7 @@ class App extends Component {
 
   componentDidMount() {
 
-    console.log(this.props.auth.logged);
+    // console.log(this.props.auth.logged);
 
     axios.get('https://roraso.herokuapp.com/User/CurrentUser',
     { headers: { 'access-token': localStorage.getItem('access-token')}})
@@ -43,7 +40,8 @@ class App extends Component {
   }
 
   render() {
-      if(this.props.auth.logged == "null" || this.props.auth.logged == null || this.props.auth.logged === "null" || this.props.auth.logged === null || this.props.auth.logged == "false" || this.props.auth.logged == false || this.props.auth.logged === "false" || this.props.auth.logged === false){
+    console.log(this.props.auth)
+      if(this.props.auth.logged === false){
         return <Login/>;
       }
       else{

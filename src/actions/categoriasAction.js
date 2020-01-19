@@ -100,10 +100,10 @@ export const agregarCategoria = (categoria) => async dispatch => {
                 title: 'Correcto!',
                 text: 'Se ha añadido una nueva categoria',
                 type: 'success',
-                // confirmButtonText: 'Sera Redirigido'
+                // confirmButtonText: 'Confirmar'
             })
             setTimeout(function(){ 
-                window.location.href = "http://localhost:3000/modulo";
+                window.location.href = "/modulo";
             }, 3500);
         }
         else{
@@ -169,10 +169,10 @@ export const eliminarCategoria = (id) => async dispatch => {
                     title: 'Correcto!',
                     text: 'Se ha borrado una categoria',
                     type: 'success',
-                    confirmButtonText: 'Sera Redirigido'
+                    confirmButtonText: 'Confirmar'
                 })
                 setTimeout(function(){ 
-                    window.location.href = "http://localhost:3000//modulo";
+                    window.location.href = "/modulo";
                 }, 3500);
             }
             else{
@@ -222,10 +222,10 @@ export const editarCategoria = (categoria) => async dispatch => {
                 title: 'Correcto!',
                 text: 'Se ha actualizado una categoria',
                 type: 'success',
-                confirmButtonText: 'Sera Redirigido'
+                confirmButtonText: 'Confirmar'
             })
             setTimeout(function(){ 
-                window.location.href = "http://localhost:3000/modulo";
+                window.location.href = "/modulo";
             }, 2500);
         }
         else{

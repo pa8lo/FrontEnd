@@ -46,14 +46,20 @@ class RolIndividual extends Component {
             ProductoView: false,
             ProductoEdit: false,
             ProductoDelete: false,
+            //Permisos
+            PermisosCreate: false,
+            PermisosEdit: false,
+            PermisosDelete: false,
             //Gastos
             GastoCreate: false,
             GastoView: false,
             GastoEdit: false,
             GastoDelete: false,
-            //Permisos
-            // Permisos : [],
-            // Nombre:''
+            //Turnos & Asistencias
+            TACreate: false,
+            TAView: false,
+            TAEdit: false,
+            TADelete: false,
         };
     }
 
@@ -90,72 +96,97 @@ class RolIndividual extends Component {
         this.state.ProductoView= false;
         this.state.ProductoEdit= false;
         this.state.ProductoDelete= false;
+        //Permisos
+        this.state.PermisosCreate= false;
+        this.state.PermisosEdit= false;
+        this.state.PermisosDelete= false;
         //Gastos
         this.state.GastoCreate= false;
         this.state.GastoView= false;
         this.state.GastoEdit= false;
         this.state.GastoDelete= false;
+        //Turnos & Asistencias
+        this.state.TACreate= false;
+        this.state.TAView= false;
+        this.state.TAEdit= false;
+        this.state.TADelete= false;
 
 
         {this.props.rol.Authorizations.map(rol => {
 
             switch(rol.id){
-                  //Usuario
-              case 1 :
-                  this.state.UserCreate = true; break
-              case 2 :
-                  this.state.UserView = true; break
-              case 3 :
-                  this.state.UserEdit = true; break
-              case 4 :
-                  this.state.UserDelete = true; break
-                  //Cliente
-              case 5 :
-                  this.state.ClientCreate = true; break
-              case 6 :
-                  this.state.ClientView = true; break
-              case 7 :
-                  this.state.ClientEdit = true; break
-              case 8 :
-                  this.state.ClientDelete = true; break
-                  //Rol
-              case 9 :
-                  this.state.RolCreate = true; break
-              case 10 :
-                  this.state.RolView = true; break
-              case 1 :
-                  this.state.RolEdit = true; break
-              case 12 :
-                  this.state.RolDelete = true; break
-                  //Pedido
-              case 13 :
-                  this.state.PedidoCreate = true; break
-              case 14 :
-                  this.state.PedidoView = true; break
-              case 15 :
-                  this.state.PedidoEdit = true; break
-              case 16 :
-                  this.state.PedidoDelete = true; break
-                  //Producto
-              case 17 :
-                  this.state.ProductoCreate = true; break
-              case 18 :
-                  this.state.ProductoView = true; break
-              case 19 :
-                  this.state.ProductoEdit = true; break
-              case 20 :
-                  this.state.ProductoDelete = true; break
-                  //Gasto
-              case 21 :
-                  this.state.GastoCreate = true; break
-              case 22 :
-                  this.state.GastoView = true; break
-              case 23 :
-                  this.state.GastoEdit = true; break
-              case 24 :
-                  this.state.GastoDelete = true; break
-              default :
-                  return;
+                    //Usuario
+                case 1 :
+                    this.state.UserCreate = true; break
+                case 2 :
+                    this.state.UserView = true; break
+                case 3 :
+                    this.state.UserEdit = true; break
+                case 4 :
+                    this.state.UserDelete = true; break
+                    //Cliente
+                case 5 :
+                    this.state.ClientCreate = true; break
+                case 6 :
+                    this.state.ClientView = true; break
+                case 7 :
+                    this.state.ClientEdit = true; break
+                case 8 :
+                    this.state.ClientDelete = true; break
+                    //Rol
+                case 9 :
+                    this.state.RolCreate = true; break
+                case 10 :
+                    this.state.RolView = true; break
+                case 11 :
+                    this.state.RolEdit = true; break
+                case 12 :
+                    this.state.RolDelete = true; break
+                    //Pedido
+                case 13 :
+                    this.state.PedidoCreate = true; break
+                case 14 :
+                    this.state.PedidoView = true; break
+                case 15 :
+                    this.state.PedidoEdit = true; break
+                case 16 :
+                    this.state.PedidoDelete = true; break
+                    //Producto
+                case 17 :
+                    this.state.ProductoCreate = true; break
+                case 18 :
+                    this.state.ProductoView = true; break
+                case 19 :
+                    this.state.ProductoEdit = true; break
+                case 20 :
+                    this.state.ProductoDelete = true; break
+                    //Permisos
+                case 21 :
+                    this.state.PermisosCreate = true; break
+                case 22 :
+                    this.state.PermisosEdit = true; break
+                case 23 :
+                    this.state.PermisosDelete = true; break
+                    //Gasto
+                case 24 :
+                    this.state.GastoCreate = true; break
+                case 25 :
+                    this.state.GastoView = true; break
+                case 26 :
+                    this.state.GastoEdit = true; break
+                case 27 :
+                    this.state.GastoDelete = true; break
+                    //Turnos & Asistencias
+                case 28 :
+                    this.state.TACreate = true; break
+                case 29 :
+                    this.state.TAView = true; break
+                case 30 :
+                    this.state.TAEdit = true; break
+                case 31 :
+                    this.state.TADelete = true; break
+                default :
+                    return;
             }
 
         })}
@@ -192,7 +223,9 @@ class RolIndividual extends Component {
                                 <NavItem eventKey="third">Roles</NavItem>
                                 <NavItem eventKey="fourth">Pedidos</NavItem>
                                 <NavItem eventKey="fifth">Productos</NavItem>
-                                <NavItem eventKey="sixth">Gasto</NavItem>
+                                <NavItem eventKey="sixth">Permisos</NavItem>
+                                <NavItem eventKey="seven">Gasto</NavItem>
+                                <NavItem eventKey="eight">Turnos / Asistencias</NavItem>
                             </Nav>
                             </Col>
                             <Col sm={8}>
@@ -312,28 +345,69 @@ class RolIndividual extends Component {
                                         disabled
                                         label="Borrar Productos" />
                                 </Tab.Pane>
-                                {/* Gastos */}
+                                {/* Permisos */}
                                 <Tab.Pane eventKey="sixth">
-                                    <CustomInput type="checkbox"
-                                        checked={this.state.GastoCreate}
+                                    <CustomInput type="checkbox" 
+                                        checked={this.state.PermisosCreate}
                                         id='21'
                                         disabled
-                                        label="Crear Gasto" />
-                                    <CustomInput type="checkbox"
-                                        checked={this.state.GastoView}
+                                        label="Crear Permisos" />
+                                    <CustomInput type="checkbox" 
+                                        checked={this.state.PermisosEdit}
                                         id='22'
                                         disabled
-                                        label="Ver Gasto" />
-                                    <CustomInput type="checkbox"
-                                        checked={this.state.GastoEdit}
+                                        label="Modificar Permisos" />
+                                    <CustomInput type="checkbox" 
+                                        checked={this.state.PermisosDelete}
                                         id='23'
                                         disabled
-                                        label="Modificar Gasto" />
+                                        label="Borrar Permisos" />
+                                </Tab.Pane>
+                                {/* Gastos */}
+                                <Tab.Pane eventKey="seven">
                                     <CustomInput type="checkbox"
-                                        checked={this.state.GastoDelete}
+                                        checked={this.state.GastoCreate} 
                                         id='24'
                                         disabled
+                                        label="Crear Gasto" />
+                                    <CustomInput type="checkbox" 
+                                        checked={this.state.GastoView}
+                                        id='25'
+                                        disabled
+                                        label="Ver Gasto" />
+                                    <CustomInput type="checkbox" 
+                                        checked={this.state.GastoEdit}
+                                        id='26'
+                                        disabled
+                                        label="Modificar Gasto" />
+                                    <CustomInput type="checkbox" 
+                                        checked={this.state.GastoDelete}
+                                        id='27'
+                                        disabled
                                         label="Borrar Gasto" />
+                                </Tab.Pane>
+                                {/* Turnos y Asistencias */}
+                                <Tab.Pane eventKey="eight">
+                                    <CustomInput type="checkbox" 
+                                        checked={this.state.TACreate}
+                                        id='28'
+                                        disabled
+                                        label="Crear Turno / Asistencia" />
+                                    <CustomInput type="checkbox" 
+                                        checked={this.state.TAView}
+                                        id='29'
+                                        disabled
+                                        label="Ver Turno / Asistencia" />
+                                    <CustomInput type="checkbox" 
+                                        checked={this.state.TAEdit}
+                                        id='30'
+                                        disabled
+                                        label="Modificar Turno / Asistencia" />
+                                    <CustomInput type="checkbox" 
+                                        checked={this.state.TADelete}
+                                        id='31'
+                                        disabled
+                                        label="Borrar Turno / Asistencia" />
                                 </Tab.Pane>
                             </Tab.Content>
                             </Col>

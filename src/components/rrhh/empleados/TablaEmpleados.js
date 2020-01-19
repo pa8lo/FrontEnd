@@ -35,7 +35,7 @@ class Empleados extends Component {
                     <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
                         
                         
-                        { permisos.filter(permiso => (permiso.id == 1)) ?  
+                        { permisos.filter(permiso => (permiso.id == 1)).length > 0 ?  
                 
                             <Link to={`/rrhh/alta-empleado`} className="btn btn-success">Nuevo Empleado</Link> 
 

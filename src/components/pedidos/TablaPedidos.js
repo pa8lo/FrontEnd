@@ -27,7 +27,7 @@ class Pedidos extends Component {
                     <ListaPedidos/>
                     <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
                         
-                        { permisos.filter(permiso => (permiso.id == 20)) ?  
+                        { permisos.filter(permiso => (permiso.id == 20)).length > 0 ?  
                 
                             <Link to={`/pedidos/alta-pedido`} className="btn btn-success">Nuevo Pedido</Link>
 
@@ -37,7 +37,7 @@ class Pedidos extends Component {
                         
                         }
 
-                        { permisos.filter(permiso => (permiso.id == 20)) ?  
+                        { permisos.filter(permiso => (permiso.id == 20)).length > 0 ?  
                 
                             <Link to={`/pedido/estados`} className="btn btn-warning" style={{marginLeft: '20px'}}>Nuevo Estado</Link> 
 
@@ -47,7 +47,7 @@ class Pedidos extends Component {
                         
                         }
 
-                        { permisos.filter(permiso => (permiso.id == 6)) ?  
+                        { permisos.filter(permiso => (permiso.id == 6)).length > 0 ?  
                 
                             <Link to={`/clientes`} className="btn btn-danger" style={{marginLeft: '20px'}}>Clientes</Link> 
 
@@ -57,7 +57,7 @@ class Pedidos extends Component {
                         
                         }
 
-                        { permisos.filter(permiso => (permiso.id == 20)) ?  
+                        { permisos.filter(permiso => (permiso.id == 20)).length > 0 ?  
                 
                             <Link to={`/mapa`} className="btn btn-info" style={{marginLeft: '20px'}}>Ver Pedidos en Mapa</Link> 
 

@@ -27,7 +27,7 @@ class Gastos extends Component {
                     <ListaGastos/>
                     <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
                         
-                        { permisos.filter(permiso => (permiso.id == 24)) ?  
+                        { permisos.filter(permiso => (permiso.id == 24)).length > 0 ?  
                 
                             <Link to={`/gastos/alta-gasto`} className="btn btn-success">Nuevo Gasto</Link> 
 

@@ -48,17 +48,14 @@ class EditarCategoria extends Component {
         }else{
             this.setState({error : false});
             this.props.editarCategoria(categoria)
-            // this.props.agregarEmpleado(empleado);
         }
 
         e.currentTarget.reset();
-
-        // console.log(empleado);
     }
 
     render() {
         
-        if(this.props.categoria == "undefinded") return null;
+        if(this.props.categoria === "undefined") return null;
 
         return (
             <div>

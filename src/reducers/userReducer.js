@@ -19,7 +19,8 @@ export default function (state = initialState, action){
             return {
                 ...state, 
                 token: action.payload.token, 
-                logged: true,user:action.payload.user};
+                logged: true,
+                user:action.payload.user};
         case FETCH_CURRENT_USER:
             if (action.payload.sucess === false) {
                 return {...state, logged: false};

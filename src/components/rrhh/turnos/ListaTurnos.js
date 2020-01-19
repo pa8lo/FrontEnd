@@ -60,7 +60,7 @@ class ActionTurnoComponent extends React.Component {
         <td style={columnButtonStyle}>
 
 
-            { permisos.filter(permiso => (permiso.id == 29)) ?  
+            { permisos.filter(permiso => (permiso.id == 29)).length > 0 ?  
                 
                     <Link style={buttonStyle} to={{
                         pathname : `/rrhh/empleados`,
@@ -78,7 +78,7 @@ class ActionTurnoComponent extends React.Component {
                     </Link>
             }
 
-            { permisos.filter(permiso => (permiso.id == 30)) ?  
+            { permisos.filter(permiso => (permiso.id == 30)).length > 0 ?  
                 
                     <Link style={buttonStyle} to={{
                         pathname : `/rrhh/editar-empleados`,
@@ -94,7 +94,7 @@ class ActionTurnoComponent extends React.Component {
                     </Link>
             }
 
-            { permisos.filter(permiso => (permiso.id == 31)) ?  
+            { permisos.filter(permiso => (permiso.id == 31)).length > 0 ?  
                 
                     <button style={buttonStyle} onClick={ this.eliminarTurno } type="button" className="btn btn-danger">Borrar</button>
 

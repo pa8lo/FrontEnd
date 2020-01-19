@@ -44,10 +44,10 @@ class MyVerticallyCenteredModal extends Component {
                     title: 'Correcto!',
                     text: 'Se ha borrado una asistencia',
                     type: 'success',
-                    confirmButtonText: 'Sera Redirigido'
+                    confirmButtonText: 'Confirmar'
                 })
                 setTimeout(function(){ 
-                    window.location.href = "http://localhost:3000/rrhh/asistencias";
+                    window.location.href = "/rrhh/asistencias";
                 }, 3500);
             }
             else{

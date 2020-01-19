@@ -60,7 +60,7 @@ class ActionComboComponent extends React.Component {
     return (
       <td style={columnButtonStyle}>
 
-            { permisos.filter(permiso => (permiso.id == 17)) ?  
+            { permisos.filter(permiso => (permiso.id == 17)).length > 0 ?  
                 
                     <Link
                       style={buttonStyle}
@@ -82,7 +82,7 @@ class ActionComboComponent extends React.Component {
                     </Link>
             }
 
-            { permisos.filter(permiso => (permiso.id == 18)) ?  
+            { permisos.filter(permiso => (permiso.id == 18)).length > 0 ?  
                 
                   <Link
                     style={buttonStyle}
@@ -102,7 +102,7 @@ class ActionComboComponent extends React.Component {
                     </Link>
             }
 
-            { permisos.filter(permiso => (permiso.id == 19)) ?  
+            { permisos.filter(permiso => (permiso.id == 19)).length > 0 ?  
                 
                     <button
                       style={buttonStyle}

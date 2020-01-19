@@ -47,7 +47,7 @@ class MyVerticallyCenteredModal extends Component {
 
     // console.log(data);
 
-    axios.post("http://localhost:1337/User/AddAddress",data,
+    axios.post("https://roraso.herokuapp.com/User/AddAddress",data,
     {headers: { 'access-token': localStorage.getItem('access-token')}})
     .then(res => {
         console.log(res);

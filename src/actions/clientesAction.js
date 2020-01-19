@@ -88,7 +88,7 @@ export const agregarCliente = (cliente) => async dispatch => {
                 title: 'Correcto!',
                 text: 'Se ha añadido una nuevo cliente',
                 type: 'success',
-                confirmButtonText: 'Sera Redirigido'
+                confirmButtonText: 'Confirmar'
             })
             setTimeout(function(){ 
                 window.location.href = "/clientes";
@@ -145,10 +145,10 @@ export const agregarDireccionCliente = (direccion) => async dispatch => {
                 title: 'Correcto!',
                 text: 'Se ha añadido una nueva direccion',
                 type: 'success',
-                confirmButtonText: 'Sera Redirigido'
+                confirmButtonText: 'Confirmar'
             })
             setTimeout(function(){ 
-                window.location.href = "http://localhost:3000/clientes";
+                window.location.href = "/clientes";
             }, 3500);
         }
         else{
@@ -187,10 +187,10 @@ export const eliminarCliente = (id) => async dispatch => {
                     title: 'Correcto!',
                     text: 'Se ha borrado un nuevo cliente',
                     type: 'success',
-                    confirmButtonText: 'Sera Redirigido'
+                    confirmButtonText: 'Confirmar'
                 })
                 setTimeout(function(){ 
-                    window.location.href = "http://localhost:3000/cliente";
+                    window.location.href = "/cliente";
                 }, 3500);
             }
             else{
@@ -239,10 +239,10 @@ export const editarCliente = (cliente) => async dispatch => {
                 title: 'Correcto!',
                 text: 'Se ha actualizado una categoria',
                 type: 'success',
-                confirmButtonText: 'Sera Redirigido'
+                confirmButtonText: 'Confirmar'
             })
             setTimeout(function(){ 
-                window.location.href = "http://localhost:3000/modulo";
+                window.location.href = "/modulo";
             }, 3500);
         }
         else{

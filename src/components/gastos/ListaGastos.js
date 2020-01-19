@@ -58,7 +58,7 @@ class ActionGastoComponent extends React.Component {
         return (
             <td style={columnButtonStyle}>
 
-            { permisos.filter(permiso => (permiso.id == 25)) ?  
+            { permisos.filter(permiso => (permiso.id == 25)).length > 0 ?  
                 
                     <Link style={buttonStyle} to={{
                         pathname: `/gastos/${id}`,
@@ -76,7 +76,7 @@ class ActionGastoComponent extends React.Component {
                     </Link>
             }
 
-            { permisos.filter(permiso => (permiso.id == 26)) ?  
+            { permisos.filter(permiso => (permiso.id == 26)).length > 0 ?  
                 
                     <Link style={buttonStyle} to={{
                         pathname: `/gastos/editar-gasto/${id}`,
@@ -92,7 +92,7 @@ class ActionGastoComponent extends React.Component {
                     </Link>
             }
 
-            { permisos.filter(permiso => (permiso.id == 27)) ?  
+            { permisos.filter(permiso => (permiso.id == 27)).length > 0 ?  
                 
                     <button style={buttonStyle} onClick={this.eliminarGasto} type="button" className="btn btn-danger">Borrar</button>
 
@@ -123,8 +123,8 @@ class ListaGastos extends Component {
         const gastos = this.props.gastos;
         const loaded = this.props.loaded || false;
 
-        console.log(gastos.length)
-        console.log(loaded)
+        // console.log(gastos.length)
+        // console.log(loaded)
 
         if (gastos.length === 0) {
             if (gastos.length === 0 && !loaded) {

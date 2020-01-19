@@ -36,10 +36,14 @@ class HomeRecursosHumanos extends Component {
     constructor(props) {
       super(props);
 
-      const state = store.getState();
+    //   const state = store.getState();
 
       this.state = {
-          logged : state.auth.logged
+        //   logged : state.auth.logged,
+          permisosUsuario : [],
+          permisosRoles : [],
+          permisosTurnos : [],
+          permisosAsistencias : [],
       }
     }
 
@@ -48,10 +52,7 @@ class HomeRecursosHumanos extends Component {
     }
     
     componentDidMount(){
-        // this.mostrarContenido();
-
-        // console.log(this.props);
-        // console.log(this.state);
+        console.log(this)
     }
     
     mostrarContenido(){
@@ -96,7 +97,7 @@ class HomeRecursosHumanos extends Component {
             );
         }else{
 
-            console.log(this.props.usuario)
+            // console.log(this.props.usuario)
             // console.log(this.props.usuario.Authorizations.length)
 
             let permisosUsuario = [];
@@ -126,7 +127,7 @@ class HomeRecursosHumanos extends Component {
         }
     
     
-        switch (this.state.logged) {
+        switch (this.props.usuario.Authorizations.length > 0) {
               case null:
               return;
               case true:

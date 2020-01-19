@@ -92,7 +92,7 @@ export const editarRol = (rol) => async dispatch => {
                 title: 'Correcto!',
                 text: 'Se ha editado un rol',
                 type: 'success',
-                confirmButtonText: 'Sera Redirigido'
+                confirmButtonText: 'Confirmar'
             })
             setTimeout(function(){ 
                 window.history.back();
@@ -134,10 +134,10 @@ export const eliminarRol = (id) => async dispatch => {
                     title: 'Correcto!',
                     text: 'Se ha borrado un rol',
                     type: 'success',
-                    confirmButtonText: 'Sera Redirigido'
+                    confirmButtonText: 'Confirmar'
                 })
                 setTimeout(function(){ 
-                    window.location.href = "http://localhost:3000/rrhh/roles";
+                    window.location.href = "/rrhh/roles";
                 }, 3500);
             }
             else{
@@ -185,10 +185,10 @@ export const agregarRol = (rol) => async dispatch => {
                     title: 'Correcto!',
                     text: 'Se ha añadido un nuevo rol',
                     type: 'success',
-                    confirmButtonText: 'Sera Redirigido'
+                    confirmButtonText: 'Confirmar'
                 })
                 setTimeout(function(){ 
-                    window.location.href = "http://localhost:3000/rrhh/roles";
+                    window.location.href = "/rrhh/roles";
                 }, 3500);
             }
             else{

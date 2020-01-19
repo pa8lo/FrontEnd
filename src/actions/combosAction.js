@@ -14,7 +14,6 @@ export const mostrarCombos = () => async dispatch => {
             payload :  res.data
         })
 
-        // console.log(res.status)
         if(res.status === 200){
             return;
             
@@ -29,8 +28,6 @@ export const mostrarCombos = () => async dispatch => {
         }
     })
     .catch(err => {
-
-        console.log(combos)
 
         if(err.response){
             
@@ -50,11 +47,10 @@ export const mostrarCombos = () => async dispatch => {
                     type: 'error',
                     confirmButtonText: 'Reintentar'
                 })
-                localStorage.removeItem("access-token");
+                // localStorage.removeItem("access-token");
                 setTimeout(function(){ 
                     return window.location.replace("/login");
-                }, 3000);
-                
+                }, 3000); 
             }
         }else{
             const serializedCombo = localStorage.getItem('combos');
@@ -95,10 +91,10 @@ export const agregarCombo = (combo) => async dispatch => {
                     title: 'Correcto!',
                     text: 'Se ha añadido un nuevo combo',
                     type: 'success',
-                    confirmButtonText: 'Sera Redirigido'
+                    confirmButtonText: 'Confirmar'
                 })
                 setTimeout(function(){ 
-                    window.location.href = "http://localhost:3000/combos";
+                    window.location.href = "/combos";
                 }, 3500);
             }
             else{
@@ -154,7 +150,7 @@ export const editarCombo = (combo) => async dispatch => {
                 title: 'Correcto!',
                 text: 'Se ha editado un combo',
                 type: 'success',
-                confirmButtonText: 'Sera Redirigido'
+                confirmButtonText: 'Confirmar'
             })
             setTimeout(function(){ 
                 window.history.back();
@@ -214,10 +210,10 @@ export const eliminarCombo = (id) => async dispatch => {
                     title: 'Correcto!',
                     text: 'Se ha borrado un combo',
                     type: 'success',
-                    confirmButtonText: 'Sera Redirigido'
+                    confirmButtonText: 'Confirmar'
                 })
                 setTimeout(function(){ 
-                    window.location.href = "http://localhost:3000/combos";
+                    window.location.href = "/combos";
                 }, 3500);
             }
             else{

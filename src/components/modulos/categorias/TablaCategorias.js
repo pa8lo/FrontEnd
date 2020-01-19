@@ -27,7 +27,7 @@ class Categorias extends Component {
                     <ListadoCategorias/>
                     <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
                         
-                        { permisos.filter(permiso => (permiso.id == 16)) ?  
+                        { permisos.filter(permiso => (permiso.id == 16)).length > 0 ?  
                 
                             <Link to={`/modulo/alta-categoria`} className="btn btn-success">Nueva Categoria</Link> 
 

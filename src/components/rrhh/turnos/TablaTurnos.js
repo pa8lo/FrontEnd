@@ -27,7 +27,7 @@ class Turnos extends Component {
                     <ListaTurnos/>
                     <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
                         
-                        { permisos.filter(permiso => (permiso.id == 28)) ?  
+                        { permisos.filter(permiso => (permiso.id == 28)).length > 0 ?  
                 
                             <Link to={`/rrhh/alta-turno`} className="btn btn-success">Nuevo Turno</Link> 
 

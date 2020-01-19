@@ -507,7 +507,7 @@ class NuevoPedido extends Component {
                       direcciones : [],
                       redirect : true,
                     })
-                    window.location.href = "http://localhost:3000/clientes";
+                    window.location.href = "/clientes";
                   }
                 })
                 
@@ -543,7 +543,7 @@ class NuevoPedido extends Component {
                       type: 'error',
                       confirmButtonText: 'Reintentar'
                   })
-                  localStorage.removeItem("access-token");
+                  // localStorage.removeItem("access-token");
                   setTimeout(function(){ 
                       return window.location.replace("/login");
                   }, 3000);

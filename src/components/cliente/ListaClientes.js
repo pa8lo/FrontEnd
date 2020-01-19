@@ -58,7 +58,7 @@ class ActionClienteComponent extends React.Component {
     return (
         <td style={columnButtonStyle}>
 
-            { permisos.filter(permiso => (permiso.id == 6)) ?  
+            { permisos.filter(permiso => (permiso.id == 6)).length > 0 ?  
                 
                     <Link style={buttonStyle} to={{
                         pathname : `/cliente/${id}`,
@@ -76,7 +76,7 @@ class ActionClienteComponent extends React.Component {
                     </Link>
             }
 
-            { permisos.filter(permiso => (permiso.id == 7)) ?  
+            { permisos.filter(permiso => (permiso.id == 7)).length > 0 ?  
                 
                     <Link style={buttonStyle} to={{
                         pathname : `/clientes/editar-cliente/${id}`,
@@ -92,7 +92,7 @@ class ActionClienteComponent extends React.Component {
                     </Link>
             }
 
-            { permisos.filter(permiso => (permiso.id == 8)) ?  
+            { permisos.filter(permiso => (permiso.id == 8)).length > 0 ?  
                 
                     <button style={buttonStyle} onClick={ this.eliminarCliente } type="button" className="btn btn-danger">Borrar</button>
 
@@ -101,7 +101,7 @@ class ActionClienteComponent extends React.Component {
                     <button style={buttonStyle} disabled type="button" className="btn btn-danger">Borrar</button>
             }
         
-            { permisos.filter(permiso => (permiso.id == 5)) ?
+            { permisos.filter(permiso => (permiso.id == 5)).length > 0 ?
 
             <Link style={{marginLeft: 10, width: 110}} to={{
                 pathname : `/clientes/agregar-direccion-cliente/${id}`,
@@ -120,7 +120,7 @@ class ActionClienteComponent extends React.Component {
 
             }
 
-            { permisos.filter(permiso => (permiso.id == 6)) ?
+            { permisos.filter(permiso => (permiso.id == 6)).length > 0 ?
 
             <Link style={{marginLeft: 10, width: 110}} to={{
                 pathname : `/clientes/consultar-direccion-cliente/${id}`,

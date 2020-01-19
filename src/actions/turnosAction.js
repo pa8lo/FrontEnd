@@ -67,10 +67,10 @@ export const eliminarTurno = (id) => async dispatch => {
                     title: 'Correcto!',
                     text: 'Se ha borrado un turno',
                     type: 'success',
-                    confirmButtonText: 'Sera Redirigido'
+                    confirmButtonText: 'Confirmar'
                 })
                 setTimeout(function(){ 
-                    window.location.href = "http://localhost:3000/rrhh/turnos";
+                    window.location.href = "/rrhh/turnos";
                 }, 3500);
             }
             else{
@@ -123,10 +123,10 @@ export const agregarTurno = (turno) => async dispatch => {
                     title: 'Correcto!',
                     text: 'Se ha añadido un nuevo turno',
                     type: 'success',
-                    confirmButtonText: 'Sera Redirigido'
+                    confirmButtonText: 'Confirmar'
                 })
                 setTimeout(function(){ 
-                    window.location.href = "http://localhost:3000/rrhh/turnos";
+                    window.location.href = "/rrhh/turnos";
                 }, 3500);
             }
             else{

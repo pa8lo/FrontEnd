@@ -49,7 +49,7 @@ class ComboIndividual extends Component {
     }
 
     mostrarProductosListos = () => {
-        if(this.state.selectedOption == null || this.state.selectedOption === null) return null;
+        if(this.state.selectedOption === null || this.state.selectedOption === null) return null;
         // console.log(this.state.selectedOption);
         // console.log(this.props)
         return (

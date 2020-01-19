@@ -74,10 +74,10 @@ export const agregarEstado = (estado) => async dispatch => {
                    title: 'Correcto!',
                    text: 'Se ha añadido un nuevo estado',
                    type: 'success',
-                   confirmButtonText: 'Sera Redirigido'
+                   confirmButtonText: 'Confirmar'
                })
                setTimeout(function(){
-                   window.location.href = "http://localhost:3000/pedido/estados";
+                   window.location.href = "/pedido/estados";
                }, 3500);
            }
            else if (res.status === 404){
@@ -130,10 +130,10 @@ export const editarEstado = (estado) => async dispatch => {
                    title: 'Correcto!',
                    text: 'Se ha actualizado el estado',
                    type: 'success',
-                   confirmButtonText: 'Sera Redirigido'
+                   confirmButtonText: 'Confirmar'
                })
                setTimeout(function(){
-                   window.location.href = "http://localhost:3000/pedido/estados";
+                   window.location.href = "/pedido/estados";
                }, 3500);
            }
            else{
@@ -172,14 +172,14 @@ export const eliminarEstado = (id) => async dispatch => {
                    title: 'Correcto!',
                    text: 'Se ha borrado un estado',
                    type: 'success',
-                   confirmButtonText: 'Sera Redirigido'
+                   confirmButtonText: 'Confirmar'
                })
                dispatch({
                    type: BORRAR_ESTADO,
                    payload: id
                })
                setTimeout(function(){
-                   window.location.href = "http://localhost:3000/pedido/estados";
+                   window.location.href = "/pedido/estados";
                }, 3500);
            }
            else{

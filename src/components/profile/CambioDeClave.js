@@ -44,7 +44,7 @@ class CambioDeClave extends Component {
               type: 'success'
               
             }, setTimeout(function(){ 
-              window.location.href = "http://localhost:3000/";
+              window.location.href = "/";
             }, 3500))
             return;
           }

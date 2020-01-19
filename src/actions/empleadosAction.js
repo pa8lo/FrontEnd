@@ -85,10 +85,10 @@ export const eliminarEmpleado = (id) => async dispatch => {
                     title: 'Correcto!',
                     text: 'Se ha borrado un empleado',
                     type: 'success',
-                    confirmButtonText: 'Sera Redirigido'
+                    confirmButtonText: 'Confirmar'
                 })
                 setTimeout(function(){ 
-                    window.location.href = "http://localhost:3000/rrhh/empleados";
+                    window.location.href = "/rrhh/empleados";
                 }, 3500);
             }
             else{
@@ -147,10 +147,10 @@ export const agregarEmpleado = (empleado) => async dispatch => {
                 title: 'Correcto!',
                 text: 'Se ha añadido un nuevo empleado',
                 type: 'success',
-                confirmButtonText: 'Sera Redirigido'
+                confirmButtonText: 'Confirmar'
             })
             setTimeout(function(){ 
-                window.location.href = "http://localhost:3000/rrhh/empleados";
+                window.location.href = "/rrhh/empleados";
             }, 3500);
         }
         else{
@@ -211,7 +211,7 @@ export const editarEmpleado = (empleado) => async dispatch => {
                 title: 'Correcto!',
                 text: 'Se ha editado un empleado',
                 type: 'success',
-                confirmButtonText: 'Sera Redirigido'
+                confirmButtonText: 'Confirmar'
             })
             setTimeout(function(){ 
                 window.history.back();

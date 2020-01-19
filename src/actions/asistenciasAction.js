@@ -80,10 +80,10 @@ export const agregarAsistencia = (asistencia) => async dispatch => {
                     title: 'Correcto!',
                     text: 'Se ha añadido una nueva asistencia',
                     type: 'success',
-                    confirmButtonText: 'Sera Redirigido'
+                    confirmButtonText: 'Confirmar'
                 })
                 setTimeout(function(){ 
-                    window.location.href = "http://localhost:3000/rrhh/asistencias";
+                    window.location.href = "/rrhh/asistencias";
                 }, 3500);
             }
             else{
@@ -134,10 +134,10 @@ export const editarAsistencia = (asistencia) => async dispatch => {
                     title: 'Correcto!',
                     text: 'Se ha actualizado una nueva asistencia',
                     type: 'success',
-                    confirmButtonText: 'Sera Redirigido'
+                    confirmButtonText: 'Confirmar'
                 })
                 setTimeout(function(){ 
-                    window.location.href = "http://localhost:3000/rrhh/asistencias";
+                    window.location.href = "/rrhh/asistencias";
                 }, 3500);
             }
             else{
@@ -176,10 +176,10 @@ export const eliminarAsistencia = (id) => async dispatch => {
                     title: 'Correcto!',
                     text: 'Se ha borrado una asistencia',
                     type: 'success',
-                    confirmButtonText: 'Sera Redirigido'
+                    confirmButtonText: 'Confirmar'
                 })
                 setTimeout(function(){ 
-                    window.location.href = "http://localhost:3000/rrhh/asistencias";
+                    window.location.href = "/rrhh/asistencias";
                 }, 3500);
             }
             else{

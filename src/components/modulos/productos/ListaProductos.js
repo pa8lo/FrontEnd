@@ -34,7 +34,7 @@ const buttonStyle = {
 };
 
 
-let col = ["Name", "Description", "Amount", "nameCat", "Actions"];
+let col = ["Name", "Description", "Amount", "catName", "Actions"];
 let tHead = [
     "Nombre",
     "Descripcion",
@@ -61,7 +61,7 @@ class ActionProductoComponent extends React.Component {
     return (
         <td style={columnButtonStyle}>
 
-            { permisos.filter(permiso => (permiso.id == 17)) ?  
+            { permisos.filter(permiso => (permiso.id == 17)).length > 0 ?  
                 
                     <Link style={buttonStyle} to={{
                         pathname : `/producto/productoid/${id}`,
@@ -79,7 +79,7 @@ class ActionProductoComponent extends React.Component {
                     </Link>
             }
 
-            { permisos.filter(permiso => (permiso.id == 18)) ?  
+            { permisos.filter(permiso => (permiso.id == 18)).length > 0 ?  
                 
                     <Link style={buttonStyle} to={{
                         pathname : `/producto/editar-producto/${id}`,
@@ -95,7 +95,7 @@ class ActionProductoComponent extends React.Component {
                     </Link>
             }
 
-            { permisos.filter(permiso => (permiso.id == 19)) ?  
+            { permisos.filter(permiso => (permiso.id == 19)).length > 0 ?  
                 
                     <button style={buttonStyle} onClick={this.eliminarProducto} type="button" className="btn btn-danger">Borrar</button>
 
@@ -150,34 +150,70 @@ class ListadoProductos extends Component {
 
     render() {
         const productos = this.props.productos;
-        var products;
+        const loaded = this.props.loaded || false;
+        let products;
+
         if (productos !== undefined) {
+
             products = productos[0].Products;
+
             var cat = productos[0].Name;
+
             for(var i = 0; i < products.length; i++) {
                 products[i].catName = cat;
             }
-            console.log(products);
         }
-        
-        return (
-            <SortableTbl tblData={products.sort(function(a, b) {return b.id - a.id})}
-                tHead={tHead}
-                Permisos={this.props.usuario}
-                customTd={[
-                            {custd: (ActionProductoComponent), keyItem: "Actions"},
-                            ]}
-                dKey={col}
-                search={true}
-                defaultCSS={true}
-                eliminarProducto = {this.props.eliminarProducto}
-            />
-        );
+
+        if (products === undefined) {
+            if(products === undefined && !loaded){
+                return (
+                    <div style={{ marginTop: '40px', marginBottom: '40px' }}>
+                        <DotLoader
+                            css={override}
+                            size={50} // or 150px
+                            color={"#4D4D4D"}
+                            loading={this.state.loading}
+                        />
+                    </div>
+                )
+            }
+            else {
+                return (
+                    <div>
+                        <h2 align="center" style={{ marginTop: '40px', marginBottom: '40px' }}>
+                            No hay datos
+                        </h2>
+                    </div>
+                )
+            }
+
+        }
+        else {
+            return (
+                
+                <SortableTbl tblData = {
+                    products.sort(function (a, b) {
+                        return b.id - a.id
+                    }) 
+                }
+                    tHead={tHead}
+                    Permisos={this.props.usuario}
+                    customTd={[
+                                {custd: (ActionProductoComponent), keyItem: "Actions"},
+                                ]}
+                    dKey={col}
+                    search={true}
+                    defaultCSS={true}
+                    eliminarProducto = {this.props.eliminarProducto}
+                />
+            );
+        }
     }
 }
 
 const mapStateToProps = state => ({
     productos : state.productos.producto,
+    loaded: state.categorias.loaded,
     usuario : state.usuario.usuario
 });
 

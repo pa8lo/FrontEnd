@@ -29,7 +29,7 @@ class Productos extends Component {
                     />
                     <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
                         
-                        { permisos.filter(permiso => (permiso.id == 16)) ?  
+                        { permisos.filter(permiso => (permiso.id == 16)).length > 0 ?  
                 
                             <Link to={{
                                 pathname : `/modulo/alta-producto`,

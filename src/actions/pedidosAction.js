@@ -6,35 +6,89 @@ import Swal from 'sweetalert2'
 
 export const mostrarPedidos = () => async dispatch => {
     const pedidos = await axios.get('https://roraso.herokuapp.com/Pedido/Pedidos',
-    { headers: { 'access-token': localStorage.getItem('access-token')}});
+    { headers: { 'access-token': localStorage.getItem('access-token')}})
+    .then(res => {
 
-    // console.log(turnos.data);
+        dispatch({
+            type : MOSTRAR_PEDIDOS,
+            payload :  res.data
+        })
 
-    dispatch({
-        type : MOSTRAR_PEDIDOS,
-        payload : pedidos.data
+        // console.log(res.status)
+        if(res.status === 200){
+            return;
+            
+        }else{
+            Swal.fire({
+                title: 'Error!',
+                text: 'Se ha producido un error al intentar mostrar pedidos',
+                type: 'error',
+                confirmButtonText: 'Reintentar'
+            })
+            return;
+        }
+    })
+    .catch(err => {
+
+        // console.log(combos)
+
+        if(err.response){
+            
+            if(err.response.status === 404){
+                Swal.fire({
+                    title: 'Error!',
+                    text: `${err.response.data}`,
+                    type: 'error',
+                    confirmButtonText: 'Reintentar'
+                })
+                return;
+            }
+            if(err.response.status === 401){
+                Swal.fire({
+                    title: 'Error!',
+                    text: `No posee los permisos necesarios`,
+                    type: 'error',
+                    confirmButtonText: 'Reintentar'
+                })
+                // localStorage.removeItem("access-token");
+                setTimeout(function(){ 
+                    return window.location.replace("/");
+                }, 3000);
+                
+            }
+        }else{
+            const serializedPedido = localStorage.getItem('pedidos');
+            let deserializedPedidos;
+
+            deserializedPedidos = JSON.parse(serializedPedido);
+            
+            dispatch({
+                type : MOSTRAR_PEDIDOS,
+                payload : deserializedPedidos
+            })
+        }
     })
 }
 
 export const eliminarPedido = (id) => async dispatch => {
-    await axios.post("https://roraso.herokuapp.com/Turn/DeleteTurn",{'id': id},
+    await axios.post("https://roraso.herokuapp.com/Pedido/Delete",{'id': id},
     { headers: { 'access-token': localStorage.getItem('access-token')}})
         .then(res => {
             if(res.status === 200){
                 Swal.fire({
                     title: 'Correcto!',
-                    text: 'Se ha borrado un turno',
+                    text: 'Se ha borrado un pedido',
                     type: 'success',
-                    confirmButtonText: 'Sera Redirigido'
+                    confirmButtonText: 'Confirmar'
                 })
                 setTimeout(function(){ 
-                    window.location.href = "https://roraso.herokuapp.com/rrhh/turnos";
+                    window.location.href = "/pedidos";
                 }, 3500);
             }
             else{
                 Swal.fire({
                     title: 'Error!',
-                    text: 'Se ha producido un error al intentar borrar el turno',
+                    text: 'Se ha producido un error al intentar borrar el pedido',
                     type: 'error',
                     confirmButtonText: 'Reintentar'
                 })
@@ -78,18 +132,105 @@ export const agregarPedido = (pedido) => async dispatch => {
     await axios.post("https://roraso.herokuapp.com/Pedido/Create",data,
     {headers: { 'access-token': localStorage.getItem('access-token')}})
         .then(res => {
-            if(res.status === 200 || res.status === 500){
+            if(res.status === 200){
+
+                dispatch({
+                    type: AGREGAR_PEDIDO,
+                    payload: pedido
+                })
+
                 Swal.fire({
                     title: 'Correcto!',
                     text: 'Se ha añadido un nuevo pedido',
                     type: 'success',
-                    confirmButtonText: 'Sera Redirigido'
+                    confirmButtonText: 'Confirmar'
                 })
                 setTimeout(function(){ 
-                    window.location.href = "http://localhost:3000/pedidos";
+                    window.location.href = "/pedidos";
                 }, 3500);
             }
             else{
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Se ha producido un error al intentar crear el pedido',
+                    type: 'error',
+                    confirmButtonText: 'Reintentar'
+                })
+                return;
+            }
+        })
+        .catch(err => {
+            Swal.fire({
+                title: 'Atencion!',
+                text: 'La solicitud fue guardada en la bandeja se enviara una vez se restablezca la conexion',
+                type: 'warning',
+                confirmButtonText: 'Ok'
+            })
+    
+            if(localStorage.getItem('enviarPedido').length > 0){
+    
+                let obtenerPedidoAEnviar = localStorage.getItem('enviarPedido');
+                
+                let deserializarPedidoAEnviar 
+    
+                deserializarPedidoAEnviar = JSON.parse(obtenerPedidoAEnviar);
+    
+                deserializarPedidoAEnviar.push(pedido);
+                
+                localStorage.setItem('enviarPedido', JSON.stringify(deserializarPedidoAEnviar))
+            }
+            else{
+                localStorage.setItem('enviarPedido', JSON.stringify(pedido))
+            }
+    
+            let serializedPedido = localStorage.getItem('pedidos');
+    
+            let deserializedPedido;
+    
+            deserializedPedido = JSON.parse(serializedPedido);
+            
+            deserializedPedido.push(pedido);
+    
+            localStorage.setItem('pedidos', JSON.stringify(deserializedPedido))
+    
+            // dispatch({
+            //     type : AGREGAR_CATEGORIA,
+            //     payload : deserializedCategory
+            // })
+    
+            return;
+        })
+
+}
+
+export const asignarDelivery = (line) => async dispatch => {
+
+    const data = {
+        "Delivery": {
+            "id": Number(line[1])
+        },
+        "Pedido": {
+            "id": line[0]
+        }
+    }
+    console.log(data);
+    await axios.post("https://roraso.herokuapp.com/Pedido/Asignar", data, {
+            headers: {
+                'access-token': localStorage.getItem('access-token')
+            }
+        })
+        .then(res => {
+            if (res.status === 200 || res.status === 500) {
+                Swal.fire({
+                    title: 'Correcto!',
+                    text: 'Se ha añadido un nuevo pedido',
+                    type: 'success',
+                    confirmButtonText: 'Confirmar'
+                })
+                setTimeout(function () {
+                    window.location.href = "/mapa";
+                }, 1500);
+            } else {
                 Swal.fire({
                     title: 'Error!',
                     text: 'Se ha producido un error al intentar crear el pedido',
@@ -110,8 +251,8 @@ export const agregarPedido = (pedido) => async dispatch => {
         })
 
     dispatch({
-        type: AGREGAR_PEDIDO,
-        payload: pedido
+        type: ASIGNAR_DELIVERY,
+        payload: line,
     })
 }
 
@@ -141,7 +282,7 @@ export const editarPedido = (pedido) => async dispatch => {
                     title: 'Correcto!',
                     text: 'Se ha añadido un nuevo pedido',
                     type: 'success',
-                    confirmButtonText: 'Sera Redirigido'
+                    confirmButtonText: 'Confirmar'
                 })
                 setTimeout(function(){ 
                     window.location.href = "http://localhost:3000/pedidos";
@@ -172,85 +313,3 @@ export const editarPedido = (pedido) => async dispatch => {
         payload: pedido
     })
 }
-
-export const asignarDelivery = (line) => async dispatch => {
-
-    const data = {
-        "Delivery": {
-            "id": Number(line[1])
-        },
-        "Pedido": {
-            "id": line[0]
-        }
-    }
-    console.log(data);
-    await axios.post("https://roraso.herokuapp.com/Pedido/Asignar", data, {
-            headers: {
-                'access-token': localStorage.getItem('access-token')
-            }
-        })
-        .then(res => {
-            if (res.status === 200 || res.status === 500) {
-                Swal.fire({
-                    title: 'Correcto!',
-                    text: 'Se ha añadido un nuevo pedido',
-                    type: 'success',
-                    confirmButtonText: 'Sera Redirigido'
-                })
-                setTimeout(function () {
-                    window.location.href = "https://roraso.herokuapp.com/mapa";
-                }, 1500);
-            } else {
-                Swal.fire({
-                    title: 'Error!',
-                    text: 'Se ha producido un error al intentar crear el pedido',
-                    type: 'error',
-                    confirmButtonText: 'Reintentar'
-                })
-                return;
-            }
-        })
-        .catch(err => {
-            Swal.fire({
-                title: 'Error!',
-                text: 'El Servidor no ha respondido la solicitud',
-                type: 'error',
-                confirmButtonText: 'Reintentar'
-            })
-            return;
-        })
-
-    dispatch({
-        type: ASIGNAR_DELIVERY,
-        payload: line,
-    })
-}
-
-
-// export const editarRol = (rol) => async dispatch => {
-    
-//     const {id, nombre, descripcion, permisos} = rol;
-
-    /*await axios.post("https://roraso.herokuapp.com/Pedido/", data, {
-        headers: {
-            'access-token': localStorage.getItem('access-token')
-        }
-    })*/
-
-//     const data = {
-//         rol : {
-//             id : id,
-//             Name : nombre,
-//             Description : descripcion,
-//         },
-//         Authorizations : permisos
-//     }
-
-//     console.log(data);
-
-//     dispatch({
-//         type: EDITAR_ROL,
-//         payload: rol
-//     })
-    
-// }

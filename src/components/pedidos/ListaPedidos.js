@@ -63,7 +63,7 @@ class ActionEmpleadoComponent extends React.Component {
         return (
             <td style={columnButtonStyle}>
 
-                { permisos.filter(permiso => (permiso.id == 21)) ?  
+                { permisos.filter(permiso => (permiso.id == 21)).length > 0 ?  
                 
                     <Link style={buttonStyle} to={{
                             pathname: `/pedidos/${id}`,
@@ -81,7 +81,7 @@ class ActionEmpleadoComponent extends React.Component {
                     </Link>
                 }
 
-                { permisos.filter(permiso => (permiso.id == 22)) ?  
+                { permisos.filter(permiso => (permiso.id == 22)).length > 0 ?  
                     
                         <Link style={buttonStyle} to={{
                             pathname: `/pedidos/editar-pedido/${id}`,
@@ -97,7 +97,7 @@ class ActionEmpleadoComponent extends React.Component {
                         </Link>
                 }
 
-                { permisos.filter(permiso => (permiso.id == 23)) ?  
+                { permisos.filter(permiso => (permiso.id == 23)).length > 0 ?  
                     
                         <button style={buttonStyle} onClick={this.eliminarEmpleado} type="button" className="btn btn-danger">Borrar</button>
 

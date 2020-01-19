@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import Categoria from './Categoria';
 import SortableTbl from "react-sort-search-table";
 
 //Redux
@@ -59,7 +58,7 @@ class ActionCategoriasComponent extends React.Component {
         return (
             <td style={columnButtonStyle}>
 
-            { permisos.filter(permiso => (permiso.id == 17)) ?  
+            { permisos.filter(permiso => (permiso.id == 17)).length > 0 ?  
                 
                     <Link style={buttonStyle} to={{
                         pathname: `/producto/${id}`,
@@ -78,7 +77,7 @@ class ActionCategoriasComponent extends React.Component {
                     </Link>
             }
 
-            { permisos.filter(permiso => (permiso.id == 18)) ?  
+            { permisos.filter(permiso => (permiso.id == 18)).length > 0 ?  
                 
                     <Link style={buttonStyle} to={{
                         pathname: `/modulo/editar-categoria/${id}`,
@@ -94,7 +93,7 @@ class ActionCategoriasComponent extends React.Component {
                     </Link>
             }
 
-            { permisos.filter(permiso => (permiso.id == 19)) ?  
+            { permisos.filter(permiso => (permiso.id == 19)).length > 0 ?  
                 
                     <button style={buttonStyle} onClick={this.eliminarCategoria} type="button" className="btn btn-danger">Borrar</button>
 
@@ -153,7 +152,7 @@ class ListadoCategorias extends Component {
                     categorias.sort(function (a, b) {
                         return b.id - a.id
                     })
-                }
+                    }
                     tHead={tHead}
                     Permisos={this.props.usuario}
                     customTd={[

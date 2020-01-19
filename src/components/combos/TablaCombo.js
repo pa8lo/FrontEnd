@@ -27,7 +27,7 @@ class Combo extends Component {
                     <ListaCombos/>
                     <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
                         
-                        { permisos.filter(permiso => (permiso.id == 16)) ?  
+                        { permisos.filter(permiso => (permiso.id == 16)).length > 0 ?  
                 
                             <Link to={`/combos/alta-combo`} className="btn btn-success">Nuevo Combo</Link> 
 

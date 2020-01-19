@@ -44,10 +44,10 @@ class ConsultarDireccionCliente extends Component {
                             title: 'Correcto!',
                             text: 'Se ha borrado una direccion',
                             type: 'success',
-                            confirmButtonText: 'Sera Redirigido'
+                            confirmButtonText: 'Confirmar'
                         })
                         setTimeout(function(){ 
-                            window.location.href = "http://localhost:3000/clientes";
+                            window.location.href = "/clientes";
                         }, 3500);
                     }
                     else{

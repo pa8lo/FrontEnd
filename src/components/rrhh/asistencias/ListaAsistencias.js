@@ -61,10 +61,10 @@ class MyVerticallyCenteredModal extends Component {
                     title: 'Correcto!',
                     text: 'Se ha borrado una asistencia',
                     type: 'success',
-                    confirmButtonText: 'Sera Redirigido'
+                    confirmButtonText: 'Confirmar'
                 })
                 setTimeout(function(){ 
-                    window.location.href = "https://roraso.herokuapp.com/rrhh/asistencias";
+                    window.location.href = "/rrhh/asistencias";
                 }, 3500);
             }
             else{
@@ -212,7 +212,7 @@ class ActionAsistenciaComponent extends React.Component {
             //   borrarasistencia={this.props.eliminarAsistencia()}
             />
 
-            { permisos.filter(permiso => (permiso.id == 29)) ? 
+            { permisos.filter(permiso => (permiso.id == 29)).length > 0 ? 
 
                 <Button
                     style={buttonStyle}

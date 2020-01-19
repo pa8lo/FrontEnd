@@ -47,7 +47,6 @@ export const mostrarProductos = () => async dispatch => {
                         type: 'error',
                         confirmButtonText: 'Reintentar'
                     })
-                    // localStorage.removeItem("access-token");
                     setTimeout(function () {
                         return window.location.replace("/");
                     }, 3000);
@@ -100,10 +99,10 @@ export const agregarProducto = (producto) => async dispatch => {
                     title: 'Correcto!',
                     text: 'Se ha añadido un nuevo producto',
                     type: 'success',
-                    confirmButtonText: 'Sera Redirigido'
+                    confirmButtonText: 'Confirmar'
                 })
                 setTimeout(function () {
-                    window.location.href = "http://localhost:3000/modulo";
+                    window.location.href = "/modulo";
                 }, 3500);
             }
             else {
@@ -143,10 +142,10 @@ export const eliminarProducto = (id) => async dispatch => {
                     title: 'Correcto!',
                     text: 'Se ha borrado un producto',
                     type: 'success',
-                    confirmButtonText: 'Sera Redirigido'
+                    confirmButtonText: 'Confirmar'
                 })
                 setTimeout(function () {
-                    window.location.href = "http://localhost:3000/modulo";
+                    window.location.href = "/modulo";
                 }, 3500);
             }
             else {
@@ -197,10 +196,10 @@ export const editarProducto = (producto) => async dispatch => {
                     title: 'Correcto!',
                     text: 'Se ha actualizado un producto',
                     type: 'success',
-                    confirmButtonText: 'Sera Redirigido'
+                    confirmButtonText: 'Confirmar'
                 })
                 setTimeout(function () {
-                    window.location.href = "http://localhost:3000/modulo";
+                    window.location.href = "/modulo";
                 }, 3500);
             }
             else {

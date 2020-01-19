@@ -19,9 +19,6 @@ export const loginUser = (usuario) => async dispatch => {
 
     const loginRes = await axios.post("https://roraso.herokuapp.com/User/login",user)
 
-    
-    // console.log(this.props);
-
     .then(res => {
         if(res.status === 200){
             localStorage.setItem('access-token', res.data.token);
@@ -30,7 +27,7 @@ export const loginUser = (usuario) => async dispatch => {
                 title: 'Correcto!',
                 text: 'Se ha validado exitosamente',
                 type: 'success',
-                confirmButtonText: 'Sera Redirigido'
+                confirmButtonText: 'Confirmar'
             })
             setTimeout(function(){ 
                 window.location.href = "/";
@@ -69,8 +66,6 @@ export const loginUser = (usuario) => async dispatch => {
             }
         }
     })
-
-    console.log(loginRes);
 
     dispatch({
         type : LOGIN_USER,

@@ -80,7 +80,7 @@ class ActionEmpleadoComponent extends React.Component {
 
     return (
         <td style={columnButtonStyle}>
-            { permisos.filter(permiso => (permiso.id == 2)) ?  
+            { permisos.filter(permiso => (permiso.id == 2)).length > 0 ?  
                 
                     <Link style={buttonStyle} to={{
                         pathname : `/rrhh/empleados/${id}`,
@@ -98,7 +98,7 @@ class ActionEmpleadoComponent extends React.Component {
                     </Link>
             }
 
-            { permisos.filter(permiso => (permiso.id == 3)) ?  
+            { permisos.filter(permiso => (permiso.id == 3)).length > 0 ?  
                 
                     <Link style={buttonStyle} to={{
                         pathname : `/rrhh/editar-empleados/${id}`,
@@ -114,7 +114,7 @@ class ActionEmpleadoComponent extends React.Component {
                     </Link>
             }
 
-            { permisos.filter(permiso => (permiso.id == 4)) ?  
+            { permisos.filter(permiso => (permiso.id == 4)).length > 0 ?  
                 
                     <button style={buttonStyle} onClick={ this.eliminarEmpleado } type="button" className="btn btn-danger">Borrar</button>
 
