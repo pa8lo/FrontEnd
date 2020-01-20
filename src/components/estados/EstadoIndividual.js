@@ -9,7 +9,11 @@ import Header from '../header/IndexHeader';
 import '../../assets/css/empleados/form-alta-empleados.css';
 
 class EstadoIndividual extends Component {
+
     render() {
+
+        console.log(this.props)
+
         return (
             <div>
                 <Header titulo = 'Datos de Estado'/>
@@ -22,7 +26,7 @@ class EstadoIndividual extends Component {
                                     <input type="text" disabled defaultValue={this.props.location.state.Description} className="form-control" required/>
                                 </div>
                                 <div className="form-group">
-                                    <label>Key</label>
+                                    <label>Abreviatura</label>
                                     <input type="text" disabled defaultValue={this.props.location.state.Key} className="form-control" required/>
                                 </div>
                             </form>

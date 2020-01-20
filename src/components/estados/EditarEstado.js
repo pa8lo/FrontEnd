@@ -58,7 +58,7 @@ class EditarEstado extends Component {
                                     <input ref={this.descripcionRef} type="text" defaultValue={this.props.location.state.Description} className="form-control" required/>
                                 </div>
                                 <div className="form-group">
-                                    <label>Key</label>
+                                    <label>Abreviatura</label>
                                     <input ref={this.keyRef} type="text" defaultValue={this.props.location.state.Key} className="form-control" required/>
                                 </div>
                                 <div center="true" align="center" className="form-group">

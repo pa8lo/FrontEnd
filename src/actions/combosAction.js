@@ -47,9 +47,8 @@ export const mostrarCombos = () => async dispatch => {
                     type: 'error',
                     confirmButtonText: 'Reintentar'
                 })
-                // localStorage.removeItem("access-token");
                 setTimeout(function(){ 
-                    return window.location.replace("/login");
+                    return window.location.replace("/");
                 }, 3000); 
             }
         }else{

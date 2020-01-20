@@ -230,7 +230,7 @@ class HomeRecursosHumanos extends Component {
                     </Col>
                     <Col xs={12} md={12}>
                     <div style={{display: "flex"}}>
-                        {this.permisoABMAsistencias()}
+                        {/* {this.permisoABMAsistencias()} */}
                     </div>
                     </Col> 
                 </Row>

@@ -133,7 +133,7 @@ class NuevoPedido extends Component {
           //Revaluo el indice de los elementos dentro del objeto
           this.state.productsToUpdate = Object.entries(this.state.productsToUpdate).reduce((s, [_, v]) => (s[v.Product] = v, s), {});
         }
-  
+
     }
 
     handleComboChange = selectedComboOption => {
@@ -302,6 +302,8 @@ class NuevoPedido extends Component {
 
     generarPedido = (e) => {
         e.preventDefault();
+
+        console.log(this.props)
 
         let idProductos = []
 
@@ -581,22 +583,48 @@ class NuevoPedido extends Component {
 
     render() {
 
-      // console.log(this.props)
-      // console.log(this.state.direElegida)
-      console.log(this.props.location.state.CombosPorPedido);
-      console.log(this.state)
-
         const { selectedComboOption, selectedProductsOption } = this.state;
         let modalClose = () => this.setState({ modalShow: false, direcciones: [] });
         
         return (
             
         <React.Fragment>
-            <Header titulo = 'Alta de Pedidos'/>
+            <Header titulo = 'Editar Pedido'/>
             <div className="table-empleados">
                 <Paper className="col-md-5">
                     <div>
                     <form onSubmit={this.generarPedido} className="col-5">
+                    <div className="form-group">
+                            <label style={{ marginTop: '20px' }}>Buscar Cliente</label>
+                            <input ref={this.searchClient} onChange={this.handleSearchClient} placeholder="Ingrese el Numero de Telefono del Cliente" type="text" className="form-control"/>
+                            <div align="center">
+                            <div align="center" style={{marginBottom:"20px"}} className="form-group">
+                            <label align="center">Coloque un numero de telefono y verifique su existencia</label>
+                            </div>
+                             <Button
+                                className="btn btn-success"
+                                variant="primary"
+                                onClick={() => this.buscarDireccion()}
+                              >
+                                Verificar
+                            </Button>
+
+                            <MyVerticallyCenteredModal
+                              show={this.state.modalShow}
+                              onHide={modalClose}
+                              direcciones={this.state.direcciones}
+                              dire={this.handleClick}
+                            />
+                            {/* {this.mostrarDatos()} */}
+
+                            
+                        </div>
+
+                        <div style={{ marginTop: '20px', marginBottom: '20px' }} className="form-group">
+                          {this.mostrarDireccion()}
+                        </div>
+
+                        </div>
                         <div className="form-group">
                             <label>Seleccione Combo</label>
                             <Select required
@@ -621,38 +649,6 @@ class NuevoPedido extends Component {
                             />
                         </div>
                         {this.mostrarProductosListos()}
-                        <div className="form-group">
-                            <label>Buscar Cliente</label>
-                            <input ref={this.searchClient} onChange={this.handleSearchClient} placeholder="Ingrese el Numero de Telefono Sin 0 y Sin 15" type="text" className="form-control" required/>
-                            <div align="center">
-                            <Button
-                                style={{marginTop: '20px'}}
-                                className="btn btn-success"
-                                variant="primary"
-                                onClick={() => this.buscarDireccion()}
-                                >
-                                Verificar
-                            </Button>
-
-                            <MyVerticallyCenteredModal
-                              show={this.state.modalShow}
-                              onHide={modalClose}
-                              direcciones={this.state.direcciones}
-                              dire={this.handleClick}
-                            />
-                            {/* {this.mostrarDatos()} */}
-
-                            
-                        </div>
-
-                        <div style={{marginTop: '20px'}} className="form-group">
-                          {this.mostrarDireccion()}
-                        </div>
-
-                        </div>
-                        <div align="center" style={{marginBottom:"20px"}} className="form-group">
-                            <label align="center">Coloque un numero de telefono y verifique su existencia</label>
-                        </div>
                         <div align="center" className="form-group">
                             <input type="submit" value="Enviar" className="btn btn-primary" required/>
                         </div>

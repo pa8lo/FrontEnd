@@ -171,6 +171,8 @@ class Routes extends Component {
 
                         <Route path="/pedidos/editar-pedido/:pedidoId" exact component={EditarPedido} />
 
+                        <Route path="/editar-estado-pedido/:pedidoId" exact component={EditarEstadoPedido} />
+
                         <Route path="/pedidos/:pedidoId" exact component={PedidoIndividual} />
 
                         {/* Reportes */}

@@ -49,7 +49,7 @@ class NuevoEstado extends Component {
                             <input ref={this.descripcionRef} placeholder="En Preparacion" type="text" className="form-control" required/>
                         </div>
                         <div className="form-group">
-                            <label>Key</label>
+                            <label>Abreviatura</label>
                             <input ref={this.keyRef} type="text" placeholder="P" className="form-control" required/>
                         </div>
                         <div center="true" align="center" className="form-group">

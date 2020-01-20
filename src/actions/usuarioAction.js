@@ -100,8 +100,6 @@ export const fetchCurrentUser = () => async dispatch => {
     const currentUser = await axios.get(`https://roraso.herokuapp.com/User/Authorizations?id=${userId}`,
     { headers: { 'access-token': localStorage.getItem('access-token')}});
 
-    
-    // console.log(currentUser)
 
     dispatch({
         type : MOSTRAR_CURRENT_USER,

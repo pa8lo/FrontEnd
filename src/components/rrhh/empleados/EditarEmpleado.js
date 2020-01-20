@@ -84,10 +84,8 @@ class EditarEmpleado extends Component {
             rol : this.rolRef.current.value,
         }
 
-
-
         if(Number(empleado.dni) === 'NaN' || empleado.dni === '' || empleado.nombre === '' || empleado.apellido === '' 
-        || empleado.email === '' || empleado.primerTelefono === '' ){
+        || empleado.primerTelefono === '' ){
             // console.log('error');
             this.setState({error : true});
             Swal.fire({

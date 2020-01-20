@@ -224,6 +224,9 @@ class NuevoPedido extends Component {
 
 
   mostrarCombosListos = () => {
+    
+    //Estan los productos en this.props
+
     if (this.state.selectedComboOption == null || this.state.selectedComboOption === null) return null;
     // console.log(this.state.selectedProductsOption);
     return (
@@ -281,8 +284,6 @@ class NuevoPedido extends Component {
       for (var i = 0; i < this.state.selectedProductsOption.length; i++) {
         dictProduct[this.state.selectedProductsOption[i]['value']] = this.state.selectedProductsOption[i];
       }
-
-
 
       // Comparo el selectedProductsOption con el optionsProductsCount para eliminar los productos deseleccionados
 
@@ -643,7 +644,7 @@ class NuevoPedido extends Component {
               <form onSubmit={this.generarPedido} className="col-5">
               <div className="form-group">
                   <label  style={{ marginTop: '20px' }}>Buscar Cliente</label>
-                  <input ref={this.searchClient} onChange={this.handleSearchClient} placeholder="Ingrese el Numero de Telefono Sin 0 y Sin 15" type="text" className="form-control" required />
+                  <input ref={this.searchClient} onChange={this.handleSearchClient} placeholder="Ingrese el Numero de Telefono del Cliente" type="text" className="form-control" required />
                   <div align="center">
                   <div align="center" style={{ marginTop: "20px" }} className="form-group">
                   <label align="center">Coloque un numero de telefono y verifique su existencia</label>
@@ -654,7 +655,7 @@ class NuevoPedido extends Component {
                       onClick={() => this.buscarDireccion()}
                     >
                       Verificar
-                            </Button>
+                    </Button>
 
                     <MyVerticallyCenteredModal
                       show={this.state.modalShow}

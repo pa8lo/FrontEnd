@@ -30,7 +30,7 @@ export const mostrarPedidos = () => async dispatch => {
     })
     .catch(err => {
 
-        // console.log(combos)
+        // console.log(err)
 
         if(err.response){
             

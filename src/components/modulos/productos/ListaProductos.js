@@ -112,7 +112,8 @@ class ActionProductoComponent extends React.Component {
 class ListadoProductos extends Component {
 
     state = {
-        loading: true
+        loading: true,
+        products: []
     };
 
     constructor(...args) {
@@ -123,6 +124,7 @@ class ListadoProductos extends Component {
         var URLactual = window.location.pathname.split('/');
 
         this.props.mostrarProducto(URLactual[2]);
+
         this.props.currentUser();
     }
 
@@ -151,21 +153,29 @@ class ListadoProductos extends Component {
     render() {
         const productos = this.props.productos;
         const loaded = this.props.loaded || false;
-        let products;
+
+        let products
+        let cat
 
         if (productos !== undefined) {
 
-            products = productos[0].Products;
+            this.state.products = productos[0].Products;
 
-            var cat = productos[0].Name;
+            cat = productos[0].Name;
 
-            for(var i = 0; i < products.length; i++) {
-                products[i].catName = cat;
+            for(var i = 0; i < this.state.products.length; i++) {
+                this.state.products[i].catName = cat;
             }
         }
 
-        if (products === undefined) {
-            if(products === undefined && !loaded){
+        // console.log(this.products);
+
+        if (this.state.products == undefined) return null;
+
+        console.log(this.state.products.length);
+
+        if (this.state.products.length === 0) {
+            if(this.state.products.length === 0 && !loaded){
                 return (
                     <div style={{ marginTop: '40px', marginBottom: '40px' }}>
                         <DotLoader
@@ -192,7 +202,7 @@ class ListadoProductos extends Component {
             return (
                 
                 <SortableTbl tblData = {
-                    products.sort(function (a, b) {
+                    this.state.products.sort(function (a, b) {
                         return b.id - a.id
                     }) 
                 }

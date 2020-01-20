@@ -5,8 +5,20 @@ import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import { mostrarEstados } from '../../actions/estadosAction';
 import { eliminarEstado } from '../../actions/estadosAction';
+import { currentUser } from '../../actions/usuarioAction';
 
 import SortableTbl from "react-sort-search-table";
+
+//CSS
+import { css } from "@emotion/core";
+// Another way to import. This is recommended to reduce bundle size
+import DotLoader from "react-spinners/DotLoader";
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: red;
+`;
 
 const columnButtonStyle = {
     maxWidth: "100%",
@@ -35,18 +47,20 @@ class ActionEstadoComponent extends React.Component {
   render() {
     const { id } = this.props.rowData;
 
+    // console.log(this.props.rowData)
+
     return (
         <td style={columnButtonStyle}>
             <Link style={buttonStyle} to={{
                 pathname : `/pedido/estado/${id}`,
-                state : this.props.rowDats
+                state : this.props.rowData
                 }} className="btn btn-primary">
                 Ver
             </Link>
 
             <Link style={buttonStyle} to={{
                 pathname : `/pedido/editar-estado/${id}`,
-                state : this.props.rowDats
+                state : this.props.rowData
                 }} className="btn btn-warning">
                 Editar
             </Link>
@@ -59,14 +73,44 @@ class ActionEstadoComponent extends React.Component {
 
 class ListaEstados extends Component {
 
+    state = {
+        loading: true
+    };
+
     componentDidMount(){
         this.props.mostrarEstados();
+        this.props.currentUser();
     }
 
     render() {
         const estados = this.props.estados;
+        const loaded = this.props.loaded || false;
+        if (estados.length === 0) {
+            if (estados.length === 0 && !loaded) {
+                return (
+                    <div style={{ marginTop: '40px', marginBottom: '40px' }}>
+                        <DotLoader
+                            css={override}
+                            size={50} // or 150px
+                            color={"#4D4D4D"}
+                            loading={this.state.loading}
+                        />
+                    </div>
+                )
+            }
+            else {
+                return (
+                    <div>
+                        <h2 align="center" style={{ marginTop: '40px', marginBottom: '40px' }}>
+                            No hay datos
+                        </h2>
+                    </div>
+                )
+            }
 
-        return (
+        }
+        else {
+            return (
             <SortableTbl tblData={estados.sort(function(a, b) {return b.id - a.id})}
                 tHead={tHead}
                 customTd={[
@@ -77,15 +121,19 @@ class ListaEstados extends Component {
                 defaultCSS={true}
                 eliminarEstado = {this.props.eliminarEstado}
             />
-        );
+            );
+        }
     }
 }
 
 const mapStateToProps = state => ({
-    estados : state.estados.estados
+    estados : state.estados.estados,
+    loaded: state.categorias.loaded,
+    usuario : state.usuario.usuario
 });
 
 export default connect(mapStateToProps, {
     mostrarEstados,
-    eliminarEstado
+    eliminarEstado,
+    currentUser
 })(ListaEstados);
