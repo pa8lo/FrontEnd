@@ -125,7 +125,7 @@ class ListadoProductos extends Component {
 
         this.props.mostrarProducto(URLactual[2]);
 
-        this.props.currentUser();
+        //// this.props.currentUser();
     }
 
     mostrarProducto = () => {

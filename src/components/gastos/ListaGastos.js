@@ -114,7 +114,7 @@ class ListaGastos extends Component {
 
     componentDidMount() {
         this.props.mostrarGastos();
-        this.props.currentUser();
+       // this.props.currentUser();
     }
 
     render() {

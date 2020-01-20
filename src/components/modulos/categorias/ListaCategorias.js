@@ -115,7 +115,7 @@ class ListadoCategorias extends Component {
 
     componentDidMount() {
         this.props.mostrarCategorias();
-        this.props.currentUser();
+       // this.props.currentUser();
     }
 
     render() {

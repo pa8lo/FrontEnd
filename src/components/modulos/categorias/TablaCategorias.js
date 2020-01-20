@@ -9,7 +9,7 @@ import { currentUser } from '../../../actions/usuarioAction';
 
 class Categorias extends Component {
     componentWillMount(){
-        this.props.currentUser();
+        //// this.props.currentUser();
     }
 
     render() {

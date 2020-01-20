@@ -48,7 +48,7 @@ class HomeRecursosHumanos extends Component {
     }
 
     componentWillMount(){
-        this.props.currentUser();
+        //// this.props.currentUser();
     }
     
     componentDidMount(){

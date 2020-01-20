@@ -9,7 +9,7 @@ import { currentUser } from '../../actions/usuarioAction';
 
 class Pedidos extends Component {
     componentWillMount(){
-        this.props.currentUser();
+        //// this.props.currentUser();
     }
 
     render() {

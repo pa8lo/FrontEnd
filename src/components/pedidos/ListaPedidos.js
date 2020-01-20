@@ -118,7 +118,7 @@ class ListadoPedidos extends Component {
 
     componentDidMount() {
         this.props.mostrarPedidos();
-        this.props.currentUser();
+        //// this.props.currentUser();
     }
 
     render() {

@@ -8,7 +8,7 @@ import { currentUser } from '../../../actions/usuarioAction';
 
 class Productos extends Component {
     componentWillMount(){
-        this.props.currentUser();
+        //// this.props.currentUser();
     }
 
     render() {

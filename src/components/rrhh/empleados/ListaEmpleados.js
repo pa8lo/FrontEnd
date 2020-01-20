@@ -137,7 +137,7 @@ class ListadoEmpleados extends Component {
 
     componentWillMount(){
         this.props.mostrarEmpleados();
-        this.props.currentUser();
+        //// this.props.currentUser();
     }
 
     componentDidMount(){

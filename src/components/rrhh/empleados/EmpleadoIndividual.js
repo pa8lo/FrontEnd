@@ -176,7 +176,7 @@ class EmpleadoIndividual extends Component {
 
     componentDidMount(){
       this.props.mostrarEmpleado(this.props.match.params.empleadoId);
-      this.props.currentUser();
+      //// this.props.currentUser();
       // console.log(this.props.empleado); Me da vacio porque la respuesta de la api carga dsp que el didmount
     }
 

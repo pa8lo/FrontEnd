@@ -116,7 +116,7 @@ class ListaTurnos extends Component {
 
     componentDidMount() {
         this.props.mostrarTurnos();
-        this.props.currentUser();
+        //// this.props.currentUser();
     }
 
     render() {

@@ -153,7 +153,7 @@ class ListaClientes extends Component {
 
     componentDidMount(){
         this.props.mostrarClientes();
-        this.props.currentUser();
+       // this.props.currentUser();
     }
 
     render() {

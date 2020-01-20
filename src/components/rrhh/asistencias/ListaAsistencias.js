@@ -249,7 +249,7 @@ class ListaAsistencias extends Component {
 
     componentDidMount(){
         this.props.mostrarAsistencias();
-        this.props.currentUser();
+       // this.props.currentUser();
     }
 
     render() {

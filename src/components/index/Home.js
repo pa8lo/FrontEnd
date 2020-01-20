@@ -87,7 +87,7 @@ class Principal extends Component{
 
   componentDidMount(){
     this.props.fetchCurrentUser();
-    this.props.currentUser();
+   // this.props.currentUser();
   }
 
  pageContent(){

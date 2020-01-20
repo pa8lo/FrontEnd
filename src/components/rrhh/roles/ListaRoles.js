@@ -119,7 +119,7 @@ class ListaRoles extends Component {
 
     componentDidMount(){
         this.props.mostrarRoles();
-        this.props.currentUser();
+        //// this.props.currentUser();
     }
 
     render() {

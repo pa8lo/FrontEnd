@@ -79,7 +79,7 @@ class ListaEstados extends Component {
 
     componentDidMount(){
         this.props.mostrarEstados();
-        this.props.currentUser();
+       // this.props.currentUser();
     }
 
     render() {
