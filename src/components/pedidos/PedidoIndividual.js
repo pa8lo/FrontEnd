@@ -27,14 +27,17 @@ class PedidoIndividual extends Component {
       selectedProductsOption : null,
       optionsProductsName : [],
       modalShow: false,
+      arrayProdEnCombos : []
   }
   }
 
   componentDidMount(){
+    this.obtenerProductosDeCombos();
     this.setState({
       selectedProductsOption : this.state.optionsProductsName,
       selectedComboOption : this.state.optionsComboName
     })
+    
   }
 
   componentWillMount(){
@@ -49,6 +52,21 @@ class PedidoIndividual extends Component {
 
   }
 
+  obtenerProductosDeCombos(){
+    {JSON.parse(localStorage.getItem('combos')).map(prodCombo => {
+
+      prodCombo.ProductosPorCombo.map(productio => {
+
+
+        this.state.arrayProdEnCombos.push({
+            id: prodCombo.id,
+            products : productio.Product.Name + " " + productio.Product.Description
+        });
+
+      })
+
+    })}
+  }
 
    mostrarProductosListos = () => {
         if(this.state.selectedProductsOption == null || this.state.selectedProductsOption === null) return null;
@@ -61,12 +79,12 @@ class PedidoIndividual extends Component {
 
                 {this.state.selectedProductsOption.map(product => (
                     <div className="form-group" key={product.value}>
-                        <Grid style={{marginTop:'20px'}}>
-                        <Row className="show-grid">
+                        <Grid style={{marginTop:'20px', width:'800px'}}>
+                        <Row style={{ width:'800px'}} className="show-grid">
                             <Col xs={8} md={3}>
                                 <p>{product.label}</p>
                             </Col>
-                            <Col xs={4} md={2}>
+                            <Col xs={4} md={6}>
                                 <input disabled defaultValue={product.count} style={{width: '60px'}} type="number" min="1" step="1" title="Numbers only" className="form-control" required/>
                             </Col>
                         </Row>
@@ -82,8 +100,6 @@ class PedidoIndividual extends Component {
 
     mostrarCombosListos = () => {
         if(this.state.selectedComboOption == null || this.state.selectedComboOption === null) return null;
-        // console.log(this.state.selectedOption);
-        // console.log(this.props)
         return (
             <div className="form-group">
                 <label>Cantidad para cada Combo</label>
@@ -91,12 +107,12 @@ class PedidoIndividual extends Component {
 
                 {this.state.selectedComboOption.map(product => (
                     <div className="form-group" key={product.value}>
-                        <Grid style={{marginTop:'20px'}}>
-                        <Row className="show-grid">
-                            <Col xs={8} md={3}>
+                        <Grid style={{marginTop:'20px', width:'800px'}}>
+                        <Row style={{ width:'800px'}} className="show-grid">
+                            <Col xs={8} md={4}>
                                 <p>{product.label}</p>
                             </Col>
-                            <Col xs={4} md={2}>
+                            <Col xs={3} md={4}>
                                 <input disabled defaultValue={product.count} style={{width: '60px'}} type="number" min="1" step="1" title="Numbers only" className="form-control" required/>
                             </Col>
                         </Row>
@@ -111,7 +127,7 @@ class PedidoIndividual extends Component {
 
   mostrarDireccion = () => {
     
-    console.log(this.props.location.state)
+    // console.log(this.props.location.state)
 
       return (
         <div>
@@ -124,7 +140,7 @@ class PedidoIndividual extends Component {
   render() {
 
     // console.log(this.props)
-    console.log(this.state.direElegida)
+    // console.log(this.state.direElegida)
 
       const { selectedComboOption, selectedProductsOption } = this.state;
       // let modalClose = () => this.setState({ modalShow: false, direcciones: [] });

@@ -48,7 +48,7 @@ class HomeRecursosHumanos extends Component {
     }
 
     componentWillMount(){
-        //// this.props.currentUser();
+        this.props.currentUser();
     }
     
     componentDidMount(){
@@ -230,7 +230,7 @@ class HomeRecursosHumanos extends Component {
                     </Col>
                     <Col xs={12} md={12}>
                     <div style={{display: "flex"}}>
-                        {/* {this.permisoABMAsistencias()} */}
+                        {this.permisoABMAsistencias()}
                     </div>
                     </Col> 
                 </Row>

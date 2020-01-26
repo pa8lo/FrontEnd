@@ -103,7 +103,7 @@ export const agregarCategoria = (categoria) => async dispatch => {
                 // confirmButtonText: 'Confirmar'
             })
             setTimeout(function(){ 
-                window.location.href = "/modulo";
+                window.location.href = "/categoria";
             }, 3500);
         }
         else{
@@ -172,7 +172,7 @@ export const eliminarCategoria = (id) => async dispatch => {
                     confirmButtonText: 'Confirmar'
                 })
                 setTimeout(function(){ 
-                    window.location.href = "/modulo";
+                    window.location.href = "/categoria";
                 }, 3500);
             }
             else{
@@ -225,7 +225,7 @@ export const editarCategoria = (categoria) => async dispatch => {
                 confirmButtonText: 'Confirmar'
             })
             setTimeout(function(){ 
-                window.location.href = "/modulo";
+                window.location.href = "/categoria";
             }, 2500);
         }
         else{

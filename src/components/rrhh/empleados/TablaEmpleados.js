@@ -12,7 +12,7 @@ import { currentUser } from '../../../actions/usuarioAction';
 class Empleados extends Component {
 
     componentWillMount(){
-        //// this.props.currentUser();
+        this.props.currentUser();
     }
 
     render() {

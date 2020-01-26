@@ -67,6 +67,9 @@ class MyVerticallyCenteredModal extends Component {
               </div>
             </Modal.Body>
             <Modal.Footer>
+              <Col xs={12} md={1}>
+                  <Button onClick={ () => window.location.href = `/clientes/agregar-direccion-cliente/${this.props.client}`}>Nueva Direccion</Button>
+                </Col>
               <Col xs={12} md={11}>
                 <Button onClick={this.props.onHide}>Cerrar</Button>
               </Col>
@@ -85,6 +88,15 @@ class MyVerticallyCenteredModal extends Component {
 
 class NuevoPedido extends Component {
 
+  nombreRef = React.createRef();
+  apellidoRef = React.createRef();
+  telefonoRef = React.createRef();
+  emailRef = React.createRef();
+  direccionRef = React.createRef();
+  pisoRef = React.createRef();
+  deptoRef = React.createRef();
+  cpRef = React.createRef();
+
   constructor(...args) {
     super(...args);
 
@@ -101,6 +113,12 @@ class NuevoPedido extends Component {
       direcciones: [],
       direElegida: [],
       totalPrice: '',
+      cargaDeCliente : false,
+      direDeCliente : false,
+      cliente_encontrado_offline : '',
+      arrayProdEnCombos : [],
+      finalTotal : '0',
+      finalAmmount : 0
     }
   }
 
@@ -133,10 +151,31 @@ class NuevoPedido extends Component {
     this.props.mostrarCombos();
   }
 
+  componentDidMount(){
+    this.obtenerProductosDeCombos();
+  }
+
   componentDidUpdate() {
     // console.log(this.props)
     this.reorganizarProductos();
     this.reorganizarCombos();
+    this.mostrarValorTotal();
+  }
+
+  obtenerProductosDeCombos(){
+    {JSON.parse(localStorage.getItem('combos')).map(prodCombo => {
+
+      prodCombo.ProductosPorCombo.map(productio => {
+
+
+        this.state.arrayProdEnCombos.push({
+            id: prodCombo.id,
+            products : productio.Product.Name + " " + productio.Product.Description
+        });
+
+      })
+
+    })}
   }
 
   reorganizarProductos = () => {
@@ -158,10 +197,7 @@ class NuevoPedido extends Component {
     }
   }
 
-  commonChange = (event) => {
-
-    // console.log(this.state.optionsProductsName)
-    // console.log(event.target.value);
+  commonChangeProduct = (event) => {
 
     this.setState({
       optionsProductsCount: {
@@ -178,6 +214,7 @@ class NuevoPedido extends Component {
   }
 
   commonChangeCombo = (event) => {
+
     this.setState({
       optionsCombosCount: {
         ...this.state.optionsCombosCount,
@@ -199,14 +236,14 @@ class NuevoPedido extends Component {
 
           {this.state.selectedProductsOption.map(product => (
             <div className="form-group" key={product.value}>
-              <Grid style={{ marginTop: '20px' }}>
-                <Row className="show-grid">
+              <Grid style={{ marginTop: '20px', width:'800px' }}>
+                <Row align="center" style={{ width:'800px'}} className="show-grid">
                   <Col xs={8} md={3}>
                     <p>{product.label}</p>
                   </Col>
-                  <Col xs={4} md={2}>
+                  <Col xs={4} md={6}>
                     <input
-                      onChange={this.commonChange}
+                      onChange={this.commonChangeProduct}
                       name={product.value}
                       style={{ width: '60px' }}
                       type="number" min="1" step="1" title="Numbers only"
@@ -224,24 +261,28 @@ class NuevoPedido extends Component {
 
 
   mostrarCombosListos = () => {
-    
+
     //Estan los productos en this.props
 
     if (this.state.selectedComboOption == null || this.state.selectedComboOption === null) return null;
     // console.log(this.state.selectedProductsOption);
     return (
       <div className="form-group">
-        <label>Coloque una cantidad para cada producto</label>
+        <label>Coloque una cantidad para cada combo</label>
         <div center="true" align="center">
 
           {this.state.selectedComboOption.map(product => (
             <div className="form-group" key={product.value}>
-              <Grid style={{ marginTop: '20px' }}>
-                <Row className="show-grid">
-                  <Col xs={8} md={3}>
+              <Grid style={{ marginTop: '20px', width:'800px' }}>
+                <Row align="center" style={{ width:'800px'}} className="show-grid">
+                  <Col xs={3} md={2}>
                     <p>{product.label}</p>
                   </Col>
-                  <Col xs={4} md={2}>
+                  <Col xs={4} md={3}>
+                  {(this.state.arrayProdEnCombos.filter(prod => (prod.id === product.value))
+                    .map(prod => <span key={prod.products}>- {prod.products}<br></br></span>))}
+                  </Col>
+                  <Col xs={2} md={3}>
                     <input
                       onChange={this.commonChangeCombo}
                       name={product.value}
@@ -259,12 +300,145 @@ class NuevoPedido extends Component {
     )
   }
 
+  mostrarDatosDeCliente = () => {
+    
+    //Estan los productos en this.props
+
+    if (this.state.cargaDeCliente === false) return null;
+    // console.log(this.state.selectedProductsOption);
+    return (
+      <div className="form-group">
+        <div align="center" style={{ marginTop: "20px" }} className="form-group">
+          <label center="true" align="center">Coloque los datos del cliente</label>
+        </div>
+        <div>
+          <div className="form-group">
+              <label>Nombre</label>
+              <input ref={this.nombreRef} type="text" className="form-control" required/>
+          </div>
+          <div className="form-group">
+              <label>Apellido</label>
+              <input ref={this.apellidoRef} type="text" className="form-control"/>
+          </div>
+          <div className="form-group">
+              <label>Email</label>
+              <input ref={this.emailRef} type="email" className="form-control"/>
+          </div>
+          <div className="form-group">
+              <label>Telefono</label>
+              <input ref={this.telefonoRef} defaultValue={this.state.telefono} type="number" min="1" step="1" title="Numbers only" className="form-control" required/>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  mostrarDireDeCliente = () => {
+    
+    //Estan los productos en this.props
+
+    if (this.state.direDeCliente === false) return null;
+    // console.log(this.state.selectedProductsOption);
+    return (
+      <div className="form-group">
+        <div align="center" style={{ marginTop: "20px" }} className="form-group">
+          <label center="true" align="center">Coloque el domicilio del cliente</label>
+        </div>
+        <div>
+          <div className="form-group">
+              <label>Direccion</label>
+              <input ref={this.direccionRef} type="text" className="form-control" placeholder="Solo nombre de la calle y altura" required/>
+          </div>
+          <div className="form-group">
+              <label>Piso</label>
+              <input ref={this.pisoRef} type="text" className="form-control"/>
+          </div>
+          <div className="form-group">
+              <label>Departamento</label>
+              <input ref={this.deptoRef} type="text" className="form-control"/>
+          </div>
+          <div className="form-group">
+              <label>Codigo Postal</label>
+              <input ref={this.cpRef} type="text" className="form-control"/>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  mostrarValorTotal = () => {
+    
+    let calc_arr = [0];
+    let sum = 0;
+    // console.log(this.state.selectedProductsOption)
+
+    if (this.state.optionsCombosCount !== null) {
+
+      var myDataCombo = Object.keys(this.state.optionsCombosCount).map(key => {
+        return this.state.optionsCombosCount[key];
+      })
+      
+    }
+    
+    if(this.state.optionsProductsCount !== null){
+
+      var myDataProduct = Object.keys(this.state.optionsProductsCount).map(key => {
+        return this.state.optionsProductsCount[key];
+      })
+    }
+
+      
+    if (this.state.selectedComboOption !== null) {
+
+      this.state.selectedComboOption.map(combo => {
+          myDataCombo.map(data => {
+            if(combo.value == data.Offer){
+              calc_arr.push(combo.price * data.Count)
+            }
+          })
+      })
+    }
+
+    if(this.state.selectedProductsOption !== null){
+
+      this.state.selectedProductsOption.map(product => {
+        myDataProduct.map(data => {
+          if(product.value == data.Product){
+            calc_arr.push(product.price * data.Count)
+          }
+        })
+      })
+    }
+    
+    if(calc_arr == []){
+
+      calc_arr.push(0)
+
+    }else{
+
+      sum = calc_arr.reduce(function(a, b){
+    
+      return a + b;
+
+    })
+    }
+
+    if(sum !== 0){
+      this.state.finalAmmount = sum
+    }
+
+    // console.log(this.state.finalAmmount)
+    // console.log(calc_arr);
+
+        
+  }
+
   generarPedido = (e) => {
     e.preventDefault();
 
     let idProductos = []
 
-    if (this.state.direElegida.length === 0) {
+    if (this.state.direElegida.length === 0 && localStorage.getItem('status') !== "offline") {
       Swal.fire({
         title: 'Error!',
         text: 'Debe elegir una direccion',
@@ -304,34 +478,6 @@ class NuevoPedido extends Component {
       });
 
 
-      let priceNew = [];
-
-      for (var i = 0; i < productFiltered.length; i++) {
-        priceNew[this.state.selectedProductsOption[i]['value']] = { "value": productFiltered[i]['Product'], "count": productFiltered[i]['Count'] };
-      }
-
-      var priceProd = []
-
-      {
-        price.map(price => {
-          priceProd.push(price.price);
-        })
-      }
-
-      var countProd = []
-
-      {
-        priceNew.map(count => {
-          countProd.push(count.count);
-        })
-      }
-
-      var finalProd = (priceProd.reduce(function (r, a, i) { return r + a * countProd[i] }, 0));
-
-      this.setState({
-        totalPrice: finalProd
-      })
-
     } else {
       productFiltered = []
     }
@@ -362,51 +508,122 @@ class NuevoPedido extends Component {
       });
 
 
-      let comboNew = [];
-
-      for (var i = 0; i < comboFiltered.length; i++) {
-        comboNew[this.state.selectedComboOption[i]['value']] = { "value": comboFiltered[i]['Offer'], "count": comboFiltered[i]['Count'] };
-      }
-
-      var combitoPrice = []
-
-      {
-        priceCombo.map(price => {
-          combitoPrice.push(price.price);
-        })
-      }
-
-      var countCombo = []
-
-      {
-        comboNew.map(count => {
-          countCombo.push(count.count);
-        })
-      }
-
-      var finalCombo = (combitoPrice.reduce(function (r, a, i) { return r + a * countCombo[i] }, 0));
-
-      var finalTotal = this.state.totalPrice + finalCombo
-
     } else {
       comboFiltered = []
     }
 
+    if(productFiltered || comboFiltered == []){
+
+      Swal.fire({
+        title: 'Error!',
+        text: 'Debe ingresar un Producto o un Combo',
+        type: 'error',
+        confirmButtonText: 'Ok'
+      })
+
+    }else{
+
     const a = new Date();
     const fecha = a.toISOString().split('T')[0]
 
-    const pedido = {
-      date: fecha,
-      user: this.props.auth.user.Id,
-      amount: finalTotal,
-      product: productFiltered,
-      combo: comboFiltered,
-      state: 1,
-      client: this.state.direElegida.cliente.cliente,
-      address: this.state.direElegida.id.id
+    if(localStorage.getItem('status') === "offline" && this.state.cargaDeCliente === true && this.state.direDeCliente === true){
+
+      const datos_cliente = {
+        Name : this.nombreRef.current.value,
+        LastName : this.apellidoRef.current.value || "",
+        Email : this.emailRef.current.value || "",
+        Phone : this.telefonoRef.current.value
+      }
+
+      const datos_direccion = {
+        Adress : this.direccionRef.current.value,
+        Floor : this.pisoRef.current.value || "",
+        Department : this.deptoRef.current.value || "",
+        Cp : this.cpRef.current.value || ""
+      }
+
+      const pedido = {
+        Date: fecha,
+        Users: localStorage.getItem('usuario'),
+        Amount: this.state.finalAmmount,
+        ProductosPorPedido: productFiltered,
+        CombosPorPedido: comboFiltered,
+        State: 1,
+        // client: this.state.direElegida.cliente.cliente,
+        // address: this.state.direElegida.id.id
+      }
+
+      let arrayPedido = JSON.parse(localStorage.getItem('pedidoCompleto'));
+
+        arrayPedido.push({
+            pedido: pedido,
+            datos_cliente: datos_cliente,
+            datos_direccion: datos_direccion
+        });
+
+      localStorage.setItem('pedidoCompleto', JSON.stringify(arrayPedido));
+
+      Swal.fire({
+        title: 'Atencion!',
+        text: 'La solicitud fue guardada en la bandeja se enviara una vez se restablezca la conexion',
+        type: 'warning',
+        confirmButtonText: 'Ok'
+      })
+
+    }else if(localStorage.getItem('status') === "offline" && this.state.direDeCliente === true){
+
+      // console.log(this)
+
+      const datos_direccion = {
+        direccion : this.direccionRef.current.value,
+        piso : this.pisoRef.current.value,
+        depto : this.deptoRef.current.value
+      }
+
+      const pedido = {
+        date: fecha,
+        user: localStorage.getItem('usuario'),
+        amount: this.state.finalAmmount,
+        product: productFiltered,
+        combo: comboFiltered,
+        state: 1,
+        client: this.state.cliente_encontrado_offline
+        // address: this.state.direElegida.id.id
+      }
+
+      // console.log(pedido)
+
+      // this.props.agregarPedido(pedido);
+
+    }else{
+
+      if(this.state.direElegida.cliente == undefined){
+        Swal.fire({
+          title: 'Error!',
+          text: 'Debe verificar la existencia de una direccion',
+          type: 'error',
+          confirmButtonText: 'Reintentar'
+        })
+        return;
+      }
+
+      const pedido = {
+        date: fecha,
+        user: localStorage.getItem('usuario'),
+        amount: this.state.finalAmmount,
+        product: productFiltered,
+        combo: comboFiltered,
+        state: 1,
+        client: this.state.direElegida.cliente.cliente,
+        address: this.state.direElegida.id.id
+      }
+
+      this.props.agregarPedido(pedido);
+
+    }
+    
     }
 
-    this.props.agregarPedido(pedido);
   }
 
   buscarDireccion = () => {
@@ -417,7 +634,7 @@ class NuevoPedido extends Component {
       { headers: { 'access-token': localStorage.getItem('access-token') } })
       .then(res => {
 
-        console.log(res.data);
+        // console.log(res.data);
 
         if (res.status === 200) {
 
@@ -427,16 +644,16 @@ class NuevoPedido extends Component {
               correctSearchPhone: true
             })
 
-            console.log("Encontre telefono")
+            // console.log("Encontre telefono")
 
             if (res.data.Cliente.id === this.state.clientId && res.data.Client.Adress.length === this.state.direcciones.length) {
 
-              console.log("No repito direccion")
+              // console.log("No repito direccion")
 
               return
             } else {
 
-              console.log("Guardo las direcciones")
+              // console.log("Guardo las direcciones")
 
               // console.log(res.data.Cliente.Adress.length)
 
@@ -475,14 +692,14 @@ class NuevoPedido extends Component {
 
           } else {
 
-            console.log("No encontre el telefono")
+            // console.log("No encontre el telefono")
 
             this.setState({
               correctSearchPhone: false
             })
             Swal.fire({
               title: 'Sin resultados',
-              text: "Quieres crear el cliente?",
+              text: "¿Quieres crear el cliente?",
               type: 'warning',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
@@ -551,20 +768,24 @@ class NuevoPedido extends Component {
         
         let cliente_encontrado = (clientes.filter(cliente => (cliente.Phone == this.state.telefonoClient)))
       
+        this.state.cliente_encontrado_offline = (cliente_encontrado[0].id)
+
         if(cliente_encontrado[0]["Adress"].length === 0){
           Swal.fire({
             title: 'No se encontraron direcciones',
-            text: "Espere a tener conexion para cargar una direccion",
+            text: "¿Desea cargar una?",
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Confirmar'
           }).then((result) => {
-
+            this.setState({
+              cargaDeCliente: false,
+              direDeCliente : true
+            })
           })
         }else{
-
           cliente_encontrado[0]["Adress"].map(direccion => (
 
             this.state.direcciones.push({ id: direccion.id, LatLong: direccion.LatLong, Client: direccion.Client, Address: direccion.Adress + " " + direccion.Floor + " " + direccion.Department + " " + direccion.Cp })
@@ -572,7 +793,9 @@ class NuevoPedido extends Component {
         
           this.setState({
             modalShow: true,
-            correctSearchPhone: false
+            correctSearchPhone: false,
+            cargaDeCliente: false,
+            direDeCliente : false
           })
 
         }
@@ -581,12 +804,20 @@ class NuevoPedido extends Component {
         this.setState({
           correctSearchPhone: false
         })
-        
+
         Swal.fire({
-          title: 'Error!',
-          text: 'Cliente Inexistente',
-          type: 'error',
-          confirmButtonText: 'Reintentar'
+          title: 'No se encontro cliente',
+          text: "¿Desea cargar uno?",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Confirmar'
+        }).then((result) => {
+          this.setState({
+            cargaDeCliente: true,
+            direDeCliente : true
+          })
         })
 
       }
@@ -628,8 +859,17 @@ class NuevoPedido extends Component {
 
   render() {
 
-    // console.log(this.props)
-    // console.log(this.state.direElegida)
+    this.mostrarValorTotal();
+
+    console.log(this.state.selectedComboOption)
+
+    let id_del_cliente;
+
+    if(this.state.direcciones.length > 0){
+      id_del_cliente = this.state.direcciones[0].Client
+    }else{
+      id_del_cliente = ""
+    }
 
     const { selectedComboOption, selectedProductsOption } = this.state;
     let modalClose = () => this.setState({ modalShow: false, direcciones: [] });
@@ -662,6 +902,7 @@ class NuevoPedido extends Component {
                       onHide={modalClose}
                       direcciones={this.state.direcciones}
                       dire={this.handleClick}
+                      client={id_del_cliente}
                     />
                     {/* {this.mostrarDatos()} */}
 
@@ -673,6 +914,16 @@ class NuevoPedido extends Component {
                   </div>
 
                 </div>
+
+                <hr></hr>
+
+                {this.mostrarDatosDeCliente()}
+                
+                <hr></hr>
+
+                {this.mostrarDireDeCliente()}
+
+                <hr></hr>
                 
                 <div className="form-group">
                   <label>Seleccione Combo</label>
@@ -698,7 +949,15 @@ class NuevoPedido extends Component {
                   />
                 </div>
                 {this.mostrarProductosListos()}
-                <div align="center" className="form-group">
+                <hr></hr>
+                <div style={{marginTop: "20px"}} className="form-group">
+                  <textarea placeholder="Observaciones" className="form-control"></textarea>
+                </div>
+                <div style={{marginTop: "20px", marginBottom:"-10px"}} align="center" className="form-group">
+                <label>Valor Total: {this.mostrarValorTotal()} {this.state.finalAmmount}</label>
+                </div>
+                <hr style={{width: "300px"}}></hr>
+                <div style={{marginTop:"0px"}} align="center" className="form-group">
                   <input type="submit" value="Enviar" className="btn btn-primary" required />
                 </div>
               </form>

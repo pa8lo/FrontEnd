@@ -102,7 +102,7 @@ export const agregarProducto = (producto) => async dispatch => {
                     confirmButtonText: 'Confirmar'
                 })
                 setTimeout(function () {
-                    window.location.href = "/modulo";
+                    window.location.href = "/categoria";
                 }, 3500);
             }
             else {
@@ -145,7 +145,7 @@ export const eliminarProducto = (id) => async dispatch => {
                     confirmButtonText: 'Confirmar'
                 })
                 setTimeout(function () {
-                    window.location.href = "/modulo";
+                    window.location.href = "/categoria";
                 }, 3500);
             }
             else {
@@ -199,7 +199,7 @@ export const editarProducto = (producto) => async dispatch => {
                     confirmButtonText: 'Confirmar'
                 })
                 setTimeout(function () {
-                    window.location.href = "/modulo";
+                    window.location.href = "/categoria";
                 }, 3500);
             }
             else {

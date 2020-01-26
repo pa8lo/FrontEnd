@@ -8,7 +8,7 @@ import { currentUser } from '../../../actions/usuarioAction';
 
 class Productos extends Component {
     componentWillMount(){
-        //// this.props.currentUser();
+        this.props.currentUser();
     }
 
     render() {
@@ -32,7 +32,7 @@ class Productos extends Component {
                         { permisos.filter(permiso => (permiso.id == 16)).length > 0 ?  
                 
                             <Link to={{
-                                pathname : `/modulo/alta-producto`,
+                                pathname : `/categoria/alta-producto`,
                                 state : this.props.match.params.idCat
                                 }} className="btn btn-success">
                                 Nuevo Producto

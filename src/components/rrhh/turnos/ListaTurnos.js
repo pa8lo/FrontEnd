@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Turno from './Turno'
 
-import SortableTbl from "react-sort-search-table";
+import SortableTbl from "../../react-sort-search-table/src/SortableTbl";
 
 //Redux
 import { connect } from 'react-redux';
@@ -12,6 +11,8 @@ import { currentUser } from '../../../actions/usuarioAction';
 
 //CSS
 import { css } from "@emotion/core";
+import Swal from 'sweetalert2'
+
 // Another way to import. This is recommended to reduce bundle size
 import DotLoader from "react-spinners/DotLoader";
 
@@ -45,7 +46,22 @@ class ActionTurnoComponent extends React.Component {
   eliminarTurno = () =>{
         const {id} = this.props.rowData;
 
-        this.props.eliminarTurno(id);
+        Swal.fire({
+            title: '¿Estas seguro que desea eliminar?',
+            text: "Estas a punto de eliminar un turno",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+          }).then((result) => {
+            if (result.value) {
+                this.props.eliminarTurno(id);
+            }
+          })
+
+        
     }
 
   render() {
@@ -116,7 +132,7 @@ class ListaTurnos extends Component {
 
     componentDidMount() {
         this.props.mostrarTurnos();
-        //// this.props.currentUser();
+        this.props.currentUser();
     }
 
     render() {

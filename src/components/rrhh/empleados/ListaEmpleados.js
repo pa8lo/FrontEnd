@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-import SortableTbl from "react-sort-search-table";
+import SortableTbl from "../../react-sort-search-table/src/SortableTbl";
 
 //Redux
 
@@ -58,7 +58,20 @@ class ActionEmpleadoComponent extends React.Component {
             })
         }
         else{
-            this.props.eliminarEmpleado(id);
+            Swal.fire({
+                title: '¿Estas seguro que desea eliminar?',
+                text: "Estas a punto de eliminar un empleado",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar'
+              }).then((result) => {
+                if (result.value) {
+                    this.props.eliminarEmpleado(id);
+                }
+              })
         }
 
         // 
@@ -137,7 +150,7 @@ class ListadoEmpleados extends Component {
 
     componentWillMount(){
         this.props.mostrarEmpleados();
-        //// this.props.currentUser();
+        this.props.currentUser();
     }
 
     componentDidMount(){

@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import Asistencia from './Asistencia';
 import axios from 'axios';
 import Swal from 'sweetalert2'
 import {Modal, Button, Row, Col, Panel } from 'react-bootstrap';
-import SortableTbl from "react-sort-search-table";
+import SortableTbl from "../../react-sort-search-table/src/SortableTbl";
 
 //Redux
 import { connect } from 'react-redux';
@@ -53,40 +52,56 @@ class MyVerticallyCenteredModal extends Component {
     eliminarAsistencia = (id) => {
         // console.log(id)
 
-        axios.post("https://roraso.herokuapp.com/Asisstance/Delete",{'id': id},
-        { headers: { 'access-token': localStorage.getItem('access-token')}})
-        .then(res => {
-            if(res.status === 200){
-                Swal.fire({
-                    title: 'Correcto!',
-                    text: 'Se ha borrado una asistencia',
-                    type: 'success',
-                    confirmButtonText: 'Confirmar'
+        Swal.fire({
+            title: '¿Estas seguro que desea eliminar?',
+            text: "Estas a punto de eliminar un empleado",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+          }).then((result) => {
+            if (result.value) {
+                
+                axios.post("https://roraso.herokuapp.com/Asisstance/Delete",{'id': id},
+                { headers: { 'access-token': localStorage.getItem('access-token')}})
+                .then(res => {
+                    if(res.status === 200){
+                        Swal.fire({
+                            title: 'Correcto!',
+                            text: 'Se ha borrado una asistencia',
+                            type: 'success',
+                            confirmButtonText: 'Confirmar'
+                        })
+                        setTimeout(function(){ 
+                            window.location.href = "/rrhh/asistencias";
+                        }, 3500);
+                    }
+                    else{
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Se ha producido un error al intentar borrar la asistencia',
+                            type: 'error',
+                            confirmButtonText: 'Reintentar'
+                        })
+                        return;
+                    }
+                    
                 })
-                setTimeout(function(){ 
-                    window.location.href = "/rrhh/asistencias";
-                }, 3500);
-            }
-            else{
-                Swal.fire({
-                    title: 'Error!',
-                    text: 'Se ha producido un error al intentar borrar la asistencia',
-                    type: 'error',
-                    confirmButtonText: 'Reintentar'
+                .catch(err => {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'El Servidor no ha respondido la solicitud',
+                        type: 'error',
+                        confirmButtonText: 'Reintentar'
+                    })
+                    return;
                 })
-                return;
             }
-            
-        })
-        .catch(err => {
-            Swal.fire({
-                title: 'Error!',
-                text: 'El Servidor no ha respondido la solicitud',
-                type: 'error',
-                confirmButtonText: 'Reintentar'
-            })
-            return;
-        })
+          })
+
+        
     }
   
     render() {
@@ -249,7 +264,7 @@ class ListaAsistencias extends Component {
 
     componentDidMount(){
         this.props.mostrarAsistencias();
-       // this.props.currentUser();
+        this.props.currentUser();
     }
 
     render() {

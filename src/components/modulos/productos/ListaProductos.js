@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import Producto from './Producto';
-import SortableTbl from "react-sort-search-table";
+import SortableTbl from "../../react-sort-search-table/src/SortableTbl";
 
 //Redux
 
@@ -13,6 +13,8 @@ import { currentUser } from '../../../actions/usuarioAction';
 
 //CSS
 import { css } from "@emotion/core";
+import Swal from 'sweetalert2'
+
 // Another way to import. This is recommended to reduce bundle size
 import DotLoader from "react-spinners/DotLoader";
 
@@ -48,7 +50,21 @@ class ActionProductoComponent extends React.Component {
   eliminarProducto = () => {
       const { id } = this.props.rowData;
 
-      this.props.eliminarProducto(id);
+      Swal.fire({
+        title: '¿Estas seguro que desea eliminar?',
+        text: "Estas a punto de eliminar una categoria",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.value) {
+            this.props.eliminarProducto(id);
+        }
+      })
+      
   }
 
   render() {
@@ -125,7 +141,7 @@ class ListadoProductos extends Component {
 
         this.props.mostrarProducto(URLactual[2]);
 
-        //// this.props.currentUser();
+        this.props.currentUser();
     }
 
     mostrarProducto = () => {

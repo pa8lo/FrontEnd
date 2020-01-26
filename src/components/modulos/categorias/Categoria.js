@@ -47,7 +47,7 @@ class Categoria extends Component {
             </Link>
                 
             <Link style={buttonStyle} to={{
-                pathname : `/modulo/editar-categoria/${id}`,
+                pathname : `/categoria/editar-categoria/${id}`,
                 state : this.props.info
                 }} className="btn btn-warning">
                 Editar

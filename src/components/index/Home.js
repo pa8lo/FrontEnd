@@ -14,6 +14,8 @@ import rrhh from '../../assets/images/rrhh.png';
 import clients from '../../assets/images/clients.png';
 import reports from '../../assets/images/reports.jpg';
 import gastos from '../../assets/images/gastos.jpg';
+import status from '../../assets/images/status.jpg';
+import mapa from '../../assets/images/mapa.jpg';
 
 //CSS
 import styles from '../../assets/css/Home/Home'
@@ -24,51 +26,6 @@ import Header from '../header/IndexHeader';
 //Redux
 import { connect } from 'react-redux';
 import { currentUser, fetchCurrentUser } from '../../actions/usuarioAction';
-
-// const images = [
-//   {
-//     url: pedidos,
-//     title: 'Pedidos',
-//     width: '33.3%',
-//     link: '/pedidos',
-//     id: 1
-//   },
-//   {
-//     url: modulo,
-//     title: 'Categorias',
-//     width: '33.3%',
-//     link: '/modulo',
-//     id: 2
-//   },
-//   {
-//     url: combos,
-//     title: 'Combos',
-//     width: '33.3%',
-//     link: '/combos',
-//     id: 3
-//   },
-//   {
-//     url: rrhh,
-//     title: 'RRHH',
-//     width: '33.3%',
-//     link: '/rrhh',
-//     id: 4
-//   },
-//   {
-//     url: reports,
-//     title: 'Reportes',
-//     width: '33.3%',
-//     link: '/reportes',
-//     id: 5
-//   },
-//   {
-//     url: gastos,
-//     title: 'Gastos',
-//     width: '33.3%',
-//     link: '/gastos',
-//     id: 6
-//   }
-// ];
 
 class Principal extends Component{
   
@@ -87,7 +44,7 @@ class Principal extends Component{
 
   componentDidMount(){
     this.props.fetchCurrentUser();
-   // this.props.currentUser();
+    this.props.currentUser();
   }
 
  pageContent(){
@@ -234,7 +191,7 @@ class Principal extends Component{
 
                 {this.state.permisosCategoria.length > 0 ? 
 
-                <Link key={2} to={'/modulo'} className={classes.root}>
+                <Link key={2} to={'/categoria'} className={classes.root}>
                 <Button
                 focusRipple
                 key="Categoria"
@@ -569,7 +526,7 @@ class Principal extends Component{
                 className={classes.image}
                 focusVisibleClassName={classes.focusVisible}
                 style={{
-                    width: "100%",
+                    width: "33.3%",
                 }}
                 >
                 
@@ -604,7 +561,7 @@ class Principal extends Component{
                 className={classes.image}
                 focusVisibleClassName={classes.focusVisible}
                 style={{
-                    width: "100%",
+                    width: "33.3%",
                 }}
                 >
                 
@@ -631,7 +588,152 @@ class Principal extends Component{
                 </Button>
 
                   }
+                  
+                  {/* Estado */}
 
+                {this.state.permisosClientes.length > 0 ? 
+                <Link key={8} to={'/estados'} className={classes.root}>
+                <Button
+                focusRipple
+                key="Estados"
+                className={classes.image}
+                focusVisibleClassName={classes.focusVisible}
+                style={{
+                    width: "33.3%",
+                }}
+                >
+                
+                <span
+                    className={classes.imageSrc}
+                    style={{
+                    backgroundImage: `url(${status})`,
+                    }}
+                />
+
+                <span className={classes.imageBackdrop} />
+                <span className={classes.imageButton}>
+                    <Typography
+                    component="span"
+                    variant="subtitle1"
+                    color="inherit"
+                    className={classes.imageTitle}
+                    >
+                    Estados
+                    <span className={classes.imageMarked} />
+                    </Typography>
+                </span>
+                </Button>
+                </Link>
+            
+                    :
+
+                    <Button
+                    disabled
+                focusRipple
+                key="Estados"
+                className={classes.image}
+                focusVisibleClassName={classes.focusVisible}
+                style={{
+                    width: "33.3%",
+                }}
+                >
+                
+                <span
+                disabled
+                    className={classes.imageSrc}
+                    style={{
+                    backgroundImage: `url(${status})`,
+                    }}
+                />
+
+                <span className={classes.imageBackdrop} />
+                <span className={classes.imageButton}>
+                    <Typography
+                    component="span"
+                    variant="subtitle1"
+                    color="inherit"
+                    className={classes.imageTitle}
+                    >
+                    Estados
+                    <span className={classes.imageMarked} />
+                    </Typography>
+                </span>
+                </Button>
+
+                  }
+
+                  {/* Mapa */}
+
+                {this.state.permisosClientes.length > 0 ? 
+                <Link key={9} to={'/mapa'} className={classes.root}>
+                <Button
+                focusRipple
+                key="Mapa"
+                className={classes.image}
+                focusVisibleClassName={classes.focusVisible}
+                style={{
+                    width: "33.3%",
+                }}
+                >
+                
+                <span
+                    className={classes.imageSrc}
+                    style={{
+                    backgroundImage: `url(${mapa})`,
+                    }}
+                />
+
+                <span className={classes.imageBackdrop} />
+                <span className={classes.imageButton}>
+                    <Typography
+                    component="span"
+                    variant="subtitle1"
+                    color="inherit"
+                    className={classes.imageTitle}
+                    >
+                    Mapa
+                    <span className={classes.imageMarked} />
+                    </Typography>
+                </span>
+                </Button>
+                </Link>
+            
+                    :
+
+                    <Button
+                    disabled
+                focusRipple
+                key="Mapa"
+                className={classes.image}
+                focusVisibleClassName={classes.focusVisible}
+                style={{
+                    width: "33.3%",
+                }}
+                >
+                
+                <span
+                disabled
+                    className={classes.imageSrc}
+                    style={{
+                    backgroundImage: `url(${mapa})`,
+                    }}
+                />
+
+                <span className={classes.imageBackdrop} />
+                <span className={classes.imageButton}>
+                    <Typography
+                    component="span"
+                    variant="subtitle1"
+                    color="inherit"
+                    className={classes.imageTitle}
+                    >
+                    Mapa
+                    <span className={classes.imageMarked} />
+                    </Typography>
+                </span>
+                </Button>
+
+                  }
             </div> 
   )
 }

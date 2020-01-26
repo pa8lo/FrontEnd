@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import SortableTbl from "react-sort-search-table";
+import SortableTbl from "../../react-sort-search-table/src/SortableTbl";
 
 //Redux
 
@@ -12,6 +12,8 @@ import { currentUser } from '../../../actions/usuarioAction';
 
 //CSS
 import { css } from "@emotion/core";
+import Swal from 'sweetalert2'
+
 // Another way to import. This is recommended to reduce bundle size
 import DotLoader from "react-spinners/DotLoader";
 
@@ -32,6 +34,10 @@ const buttonStyle = {
     width: 80
 };
 
+const buttonStyle2 = {
+    marginLeft: 10,
+    width: 160
+};
 
 let col = ["Name", "Description", "Actions"];
 let tHead = [
@@ -45,7 +51,20 @@ class ActionCategoriasComponent extends React.Component {
     eliminarCategoria = () => {
         const { id } = this.props.rowData;
 
-        this.props.eliminarCategoria(id);
+        Swal.fire({
+            title: '¿Estas seguro que desea eliminar?',
+            text: "Estas a punto de eliminar una categoria",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+          }).then((result) => {
+            if (result.value) {
+                this.props.eliminarCategoria(id);
+            }
+          })
     }
 
     render() {
@@ -60,27 +79,27 @@ class ActionCategoriasComponent extends React.Component {
 
             { permisos.filter(permiso => (permiso.id == 17)).length > 0 ?  
                 
-                    <Link style={buttonStyle} to={{
+                    <Link style={buttonStyle2} to={{
                         pathname: `/producto/${id}`,
                         state: this.props.rowData,
                         nameCat: this.props.rowData.Name
                     }} className="btn btn-primary">
-                        Ver
+                        Ver - Agregar Productos
                     </Link>
 
                     :  
 
-                    <Link style={buttonStyle} 
+                    <Link style={buttonStyle2} 
                         disabled to="#" 
                         className="btn btn-primary">
-                        Ver
+                        Ver - Agregar Productos
                     </Link>
             }
 
             { permisos.filter(permiso => (permiso.id == 18)).length > 0 ?  
                 
                     <Link style={buttonStyle} to={{
-                        pathname: `/modulo/editar-categoria/${id}`,
+                        pathname: `/categoria/editar-categoria/${id}`,
                         state: this.props.rowData
                     }} className="btn btn-warning">
                         Editar
@@ -115,7 +134,7 @@ class ListadoCategorias extends Component {
 
     componentDidMount() {
         this.props.mostrarCategorias();
-       // this.props.currentUser();
+        this.props.currentUser();
     }
 
     render() {

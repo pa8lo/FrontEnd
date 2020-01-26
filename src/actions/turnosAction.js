@@ -118,7 +118,7 @@ export const agregarTurno = (turno) => async dispatch => {
     await axios.post("https://roraso.herokuapp.com/Turn/createTurn",data,
     {headers: { 'access-token': localStorage.getItem('access-token')}})
         .then(res => {
-            if(res.status === 200 || res.status === 500){
+            if(res.status === 200){
                 Swal.fire({
                     title: 'Correcto!',
                     text: 'Se ha añadido un nuevo turno',

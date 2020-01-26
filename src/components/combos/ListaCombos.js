@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { mostrarCombos } from '../../actions/combosAction';
 
-import SortableTbl from "react-sort-search-table";
+import SortableTbl from "../react-sort-search-table/src/SortableTbl";
 import { Link } from "react-router-dom";
 
 import { eliminarCombo } from "../../actions/combosAction";
@@ -12,6 +12,8 @@ import { currentUser } from '../../actions/usuarioAction';
 
 //CSS
 import { css } from "@emotion/core";
+import Swal from 'sweetalert2'
+
 // Another way to import. This is recommended to reduce bundle size
 import DotLoader from "react-spinners/DotLoader";
 
@@ -47,7 +49,22 @@ class ActionComboComponent extends React.Component {
   eliminarCombo = () => {
     const { id } = this.props.rowData;
 
-    this.props.eliminarCombo(id);
+    Swal.fire({
+      title: '¿Estas seguro que desea eliminar?',
+      text: "Estas a punto de eliminar un combo",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.value) {
+          this.props.eliminarCombo(id);
+      }
+    })
+
+    
   };
 
   render() {

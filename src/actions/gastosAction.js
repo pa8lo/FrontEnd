@@ -1,9 +1,6 @@
 import { MOSTRAR_GASTOS, MOSTRAR_GASTO, AGREGAR_GASTO, EDITAR_GASTO, BORRAR_GASTO } from '../actions/types';
 import axios from 'axios';
 
-import React, { Component } from 'react';
-import { Redirect } from 'react-router';
-
 //CSS
 import Swal from 'sweetalert2'
 
@@ -52,7 +49,7 @@ export const mostrarGastos = () => async dispatch => {
                 })
                 // localStorage.removeItem("access-token");
                 setTimeout(function(){ 
-                    return window.location.replace("/");
+                    window.location.href = "/gastos";
                 }, 3000);
                 
             }
@@ -74,7 +71,7 @@ export const agregarGasto = (gasto) => async dispatch => {
     await axios.post("https://roraso.herokuapp.com/Gasto/Create",data,
     {headers: { 'access-token': localStorage.getItem('access-token')}})
         .then(res => {
-            if(res.status === 200 || res.status === 500){
+            if(res.status === 200){
                 Swal.fire({
                     title: 'Correcto!',
                     text: 'Se ha añadido un nuevo gasto',
@@ -82,7 +79,7 @@ export const agregarGasto = (gasto) => async dispatch => {
                     confirmButtonText: 'Confirmar'
                 })
                 setTimeout(function(){ 
-                    window.history.back();
+                    window.location.href = "/gastos";
                 }, 3500);
             }
             else{
@@ -138,7 +135,7 @@ export const editarGasto = (gasto) => async dispatch => {
                     confirmButtonText: 'Confirmar'
                 })
                 setTimeout(function(){ 
-                    window.history.back();
+                    window.location.href = "/gastos";
                 }, 3500);
             }
             else{
@@ -184,7 +181,7 @@ export const eliminarGasto = (id) => async dispatch => {
                     payload: id
                 })
                 setTimeout(function(){ 
-                    window.history.back();
+                    window.location.href = "/gastos";
                 }, 3500);
             }
             else{

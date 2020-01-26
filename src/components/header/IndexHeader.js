@@ -77,6 +77,12 @@ class Header extends React.Component {
 
     }
 
+    if(localStorage.getItem('pedidoCompleto') === null){
+      localStorage.setItem('pedidoCompleto', JSON.stringify([]))
+    }else{
+
+    }
+
     axios.get('https://roraso.herokuapp.com/User/CurrentUser',
     { headers: { 'access-token': localStorage.getItem('access-token')}})
         .then(res => {
@@ -104,12 +110,13 @@ class Header extends React.Component {
         })
     // console.log(this.props);
     if(localStorage.getItem('status') === 'online'){
+      this.savePedidos();
+      this.saveUsuario();
       this.saveCategories();
       this.saveProducts();
       this.saveClients();
       this.saveStates();
       this.saveCombos();
-      this.savePedidos();
     }else{
       return;
     }
@@ -137,6 +144,13 @@ class Header extends React.Component {
           console.log(err);
         })
 
+    }
+
+    saveUsuario = async () => {
+
+      if(this.props.auth.user == undefined) return null;
+
+      localStorage.setItem('usuario', JSON.stringify(this.props.auth.user.Id))
     }
 
     saveProducts = async () => {
@@ -201,6 +215,11 @@ class Header extends React.Component {
           })
 
           // let arrayCat = JSON.parse(localStorage.getItem('enviarPedidos'));
+
+          // console.log(deserializedPedido.length)
+          // console.log(deserializedPedido)
+          // console.log(res.data.length)
+          // console.log(res.data.length)
 
           localStorage.setItem('pedidos', JSON.stringify(pedidos))
 
@@ -362,6 +381,414 @@ class Header extends React.Component {
         }
       }
 
+      // verificarDireccion = (query) => {
+
+        
+
+      /**
+       * 
+       * Agregar pedidos offline, todos los campos
+       */
+
+      enviarSolicitudesEncoladasCompletas = async () => {
+
+        let arrayPedidoCompleto = JSON.parse(localStorage.getItem('pedidoCompleto'));
+
+        let data_dire;
+        let data_pedido;
+
+        this.state = {
+          'address': {
+            'street': '',
+            'city': '',
+            'state': '',
+            'postalCode': '',
+            'country': '',
+          },
+          'query': '',
+          'locationId': '',
+          'isChecked': false,
+          'coords': {},
+          'lat': '',
+          'lon': ''
+        }
+
+        let params = {
+          'app_id': 'N0fRlxF32W9uEEuH5ZSv',
+          'app_code': '0eDtrgamyvY1fxPeA8m0OQ',
+        }
+
+        const self = this;
+
+        for (let i = 0; i < JSON.parse(localStorage.getItem('pedidoCompleto')).length; i++) {
+
+        axios.get('https://autocomplete.geocoder.api.here.com/6.2/suggest.json',
+          {'params': {
+            'app_id': 'N0fRlxF32W9uEEuH5ZSv',
+            'app_code': '0eDtrgamyvY1fxPeA8m0OQ',
+            'query': JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Adress,
+            'maxresults': 1,
+          }}).then(function (response) {
+              if (response.data.suggestions.length > 0) {
+                const id = response.data.suggestions[0].locationId;
+                const address = response.data.suggestions[0].address;
+
+                self.setState({
+                  'address' : address,
+                  'query' : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Adress,
+                  'locationId': id
+                })
+
+                if (self.state.locationId.length > 0) {
+                  params['locationId'] = self.state.locationId;
+                } else {
+                  params['searchtext'] = self.state.address.street
+                    + self.state.address.city
+                    + self.state.address.state
+                    + self.state.address.postalCode
+                    + self.state.address.country;
+                }
+
+                axios.get('https://geocoder.api.here.com/6.2/geocode.json',
+                {'params': params }
+                ).then(function (response) {
+                  const view = response.data.Response.View
+                  if (view.length > 0 && view[0].Result.length > 0) {
+                    const location = view[0].Result[0].Location;
+
+                    self.state.lat = location.DisplayPosition.Latitude;
+                    self.state.lon = location.DisplayPosition.Longitude;
+
+                    
+
+                  } else {
+                    self.setState({
+                      'coords' : null,
+                    })
+                  }
+              
+                  if (self.state.lat === null || self.state.lon === null) {
+                    return (
+                      console.log("Direccion Invalida")
+                    );
+                  } else {
+
+                    let coords = self.state.lat + ";" + self.state.lon
+
+                    return (
+                      axios.post("https://roraso.herokuapp.com/Client/CreateClient",
+                        JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_cliente,
+                        {headers: { 'access-token': localStorage.getItem('access-token')}})
+                        .then(res_cliente => {
+                            if(res_cliente.status === 200){
+                
+                              // console.log(res_cliente)
+                              /**
+                               * Direccion
+                               */
+              
+                              axios.post("https://roraso.herokuapp.com/Client/AddAddress",
+                              data_dire = {
+                                Address : {
+                                    Adress : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Adress,
+                                    Department : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Department,
+                                    Floor : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Floor,
+                                    Cp : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Cp,
+                                    LatLong : coords,
+                                    Client : res_cliente.data.UserId
+                                }
+                              },
+                              {headers: { 'access-token': localStorage.getItem('access-token')}})
+                              .then(res_dire => {
+              
+                                console.log(res_dire)
+                                console.log(data_dire)
+
+                                  if(res_dire.status === 200){
+                      
+                                    console.log(res_dire)
+                                    /**
+                                     * Pedido
+                                     */
+              
+                                    axios.post("https://roraso.herokuapp.com/Pedido/Create",
+                                    data_pedido = {
+                                      Date : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.Date,
+                                      Users : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.Users,
+                                      Amount : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.Amount,
+                                      State : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.State,
+                                      Clients : res_dire.data.Client,
+                                      CombosPorPedido : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.CombosPorPedido,
+                                      ProductosPorPedido : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.ProductosPorPedido,
+                                      Adress : res_dire.data.id
+                                    }
+                                    ,
+                                    {headers: { 'access-token': localStorage.getItem('access-token')}})
+                                        .then(res => {
+              
+              
+                                          console.log(res)
+              
+                                            if(res.status === 200){
+                                                Swal.fire(
+                                                  'Solicitudes enviadas',
+                                                  'Se proceden a actualizar el sistema',
+                                                  'success'
+                                                )
+                                                setTimeout(function(){ 
+                                                    window.location.reload();
+                                                }, 3500);
+                                            }
+                                            else{
+                                                Swal.fire({
+                                                    title: 'Error!',
+                                                    text: 'Se ha producido un error al intentar crear el Pedido',
+                                                    type: 'error',
+                                                    confirmButtonText: 'Reintentar'
+                                                })
+                                                return;
+                                            }
+                                        })
+                                        .catch(err => {
+              
+                                          console.log(err)
+              
+                                            Swal.fire({
+                                                title: 'Error!',
+                                                text: 'El Servidor no ha respondido al alta de Pedido',
+                                                type: 'error',
+                                                confirmButtonText: 'Reintentar'
+                                            })
+                                            return;
+                                        })
+              
+                                  }else{
+              
+                                    Swal.fire({
+                                        title: 'Error!',
+                                        text: 'Se ha producido un error al intentar crear la direccion',
+                                        type: 'error',
+                                        confirmButtonText: 'Reintentar'
+                                    })
+                                    return;
+                                  }
+                              })
+                              .catch(err => {
+              
+                                console.log(err)
+              
+                                  Swal.fire({
+                                      title: 'Error!',
+                                      text: 'El Servidor no ha respondido al alta de la direccion',
+                                      type: 'error',
+                                      confirmButtonText: 'Reintentar'
+                                  })
+                                  return;
+                              })
+              
+                            }else if(res_cliente.status === 400){
+                              Swal.fire({
+                                title: 'Error!',
+                                text: 'Se ha producido un error al intentar crear el cliente',
+                                type: 'error',
+                                confirmButtonText: 'Reintentar'
+                              })
+                              return;
+                            }
+                            else{
+                                Swal.fire({
+                                    title: 'Error!',
+                                    text: 'Se ha producido un error al intentar crear el cliente',
+                                    type: 'error',
+                                    confirmButtonText: 'Reintentar'
+                                })
+                                return;
+                            }
+                        }).catch(err => {
+              
+                          console.log(err)
+              
+                          Swal.fire({
+                              title: 'Error!',
+                              text: 'El Servidor no ha respondido al alta del cliente',
+                              type: 'error',
+                              confirmButtonText: 'Reintentar'
+                          })
+                          return;
+                      })
+                      // console.log(self.state)
+                      // console.log(`Direccion Valida Coodenadas en ${self.state.lat}, ${self.state.lon}`)
+                    );
+                  }
+
+                })
+                .catch(function (error) {
+                  Swal.fire({
+                    title: 'Error!',
+                    text: 'La direccion no pudo ser validada, comuniquese con el cliente',
+                    type: 'error',
+                    confirmButtonText: 'Reintentar'
+                  })
+                  self.setState({
+                    'coords': null,
+                  });
+                });
+              } else {
+                return null;
+              }
+          });
+
+          /**
+           * Cliente
+           */
+          
+        //   await axios.post("https://roraso.herokuapp.com/Client/CreateClient",
+        //   JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_cliente,
+        //   {headers: { 'access-token': localStorage.getItem('access-token')}})
+        //   .then(res_cliente => {
+        //       if(res_cliente.status === 200){
+  
+        //         console.log(res_cliente)
+        //         /**
+        //          * Direccion
+        //          */
+
+        //         axios.post("https://roraso.herokuapp.com/Client/AddAddress",
+        //         data_dire = {
+        //           Address : {
+        //               Adress : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Adress,
+        //               Department : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Department,
+        //               Floor : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Floor,
+        //               Cp : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Cp,
+        //               LatLong : "latlong",
+        //               Client : res_cliente.data.UserId,
+        //           }
+        //         },
+        //         {headers: { 'access-token': localStorage.getItem('access-token')}})
+        //         .then(res_dire => {
+
+        //             if(res_dire.status === 200){
+        
+        //               console.log(res_dire)
+        //               /**
+        //                * Pedido
+        //                */
+
+        //               axios.post("https://roraso.herokuapp.com/Pedido/Create",
+        //               data_pedido = {
+        //                 Date : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.Date,
+        //                 Users : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.Users,
+        //                 Amount : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.Amount,
+        //                 State : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.State,
+        //                 Clients : res_dire.data.Client,
+        //                 CombosPorPedido : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.CombosPorPedido,
+        //                 ProductosPorPedido : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.ProductosPorPedido,
+        //                 Adress : res_dire.data.id
+        //               }
+        //               ,
+        //               {headers: { 'access-token': localStorage.getItem('access-token')}})
+        //                   .then(res => {
+
+
+        //                     console.log(res)
+
+        //                       if(res.status === 200){
+        //                           Swal.fire(
+        //                             'Solicitudes enviadas',
+        //                             'Se proceden a actualizar el sistema',
+        //                             'success'
+        //                           )
+        //                           setTimeout(function(){ 
+        //                               window.location.reload();
+        //                           }, 3500);
+        //                       }
+        //                       else{
+        //                           Swal.fire({
+        //                               title: 'Error!',
+        //                               text: 'Se ha producido un error al intentar crear el cliente',
+        //                               type: 'error',
+        //                               confirmButtonText: 'Reintentar'
+        //                           })
+        //                           return;
+        //                       }
+        //                   })
+        //                   .catch(err => {
+
+        //                     console.log(err)
+
+        //                       Swal.fire({
+        //                           title: 'Error!',
+        //                           text: 'El Servidor no ha respondido la solicitud (Pedido)',
+        //                           type: 'error',
+        //                           confirmButtonText: 'Reintentar'
+        //                       })
+        //                       return;
+        //                   })
+
+        //             }else{
+
+        //               Swal.fire({
+        //                   title: 'Error!',
+        //                   text: 'Se ha producido un error al intentar crear el gasto',
+        //                   type: 'error',
+        //                   confirmButtonText: 'Reintentar'
+        //               })
+        //               return;
+        //             }
+        //         })
+        //         .catch(err => {
+
+        //           console.log(err)
+
+        //             Swal.fire({
+        //                 title: 'Error!',
+        //                 text: 'El Servidor no ha respondido la solicitud',
+        //                 type: 'error',
+        //                 confirmButtonText: 'Reintentar'
+        //             })
+        //             return;
+        //         })
+
+        //       }else if(res_cliente.status === 400){
+        //         Swal.fire({
+        //           title: 'Error!',
+        //           text: 'Se ha producido un error al intentar crear el cliente',
+        //           type: 'error',
+        //           confirmButtonText: 'Reintentar'
+        //         })
+        //         return;
+        //       }
+        //       else{
+        //           Swal.fire({
+        //               title: 'Error!',
+        //               text: 'Se ha producido un error al intentar crear el cliente',
+        //               type: 'error',
+        //               confirmButtonText: 'Reintentar'
+        //           })
+        //           return;
+        //       }
+        //   }).catch(err => {
+
+        //     console.log(err)
+
+        //     Swal.fire({
+        //         title: 'Error!',
+        //         text: 'El Servidor no ha respondido la solicitud',
+        //         type: 'error',
+        //         confirmButtonText: 'Reintentar'
+        //     })
+        //     return;
+        // })
+  
+        }
+  
+      }
+
+      /**
+       * 
+       * Agregar pedidos offline, solo pedidos
+       */
+
     enviarSolicitudesEncoladas = () => {
       let arrayPedido = JSON.parse(localStorage.getItem('enviarPedido'));
 
@@ -478,7 +905,7 @@ class Header extends React.Component {
                   <p color="inherit" style={{textAlign: "center", marginTop: '20px', marginBottom: '20px'}} className={classes.welcomeText}>Panel de Configuracion</p>
                       <Button className={classes.buttonSizes} color="inherit"  onClick= {this.setRedirectToHome}>Inicio</Button>
                   {this.props.auth.logged &&   <Button className={classes.buttonSizes} color="inherit"  onClick= {this.setRedirectChangePassword}>Cambiar Contraseña</Button>}
-                  {this.props.auth.logged &&   <Button className={classes.buttonSizes} color="inherit"  onClick= {this.enviarSolicitudesEncoladas}>Enviar Solicitudes Encoladas</Button>}
+                  {this.props.auth.logged &&   <Button className={classes.buttonSizes} color="inherit"  onClick= {this.enviarSolicitudesEncoladasCompletas}>Enviar Solicitudes Encoladas</Button>}
                   {this.buttonLogged(classes)}
                   {this.statusConnection(classes)}
                   <Button  color="inherit" onClick= {this.ProfileClose} className={classes.bottomClose} >Cerrar</Button>

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import Clientes from './Clientes'
-import SortableTbl from "react-sort-search-table";
+import SortableTbl from "../react-sort-search-table/src/SortableTbl";
 
 //Redux
 import { connect } from 'react-redux';
@@ -12,6 +11,8 @@ import { currentUser } from '../../actions/usuarioAction';
 
 //CSS
 import { css } from "@emotion/core";
+import Swal from 'sweetalert2'
+
 // Another way to import. This is recommended to reduce bundle size
 import DotLoader from "react-spinners/DotLoader";
 
@@ -45,7 +46,20 @@ class ActionClienteComponent extends React.Component {
 
   eliminarCliente = () => {
 
-      this.props.eliminarCliente(this.props.rowData.id);
+    Swal.fire({
+        title: '¿Estas seguro que desea eliminar?',
+        text: "Estas a punto de eliminar un cliente",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.value) {
+            this.props.eliminarCliente(this.props.rowData.id);
+        }
+      })   
   }
 
   render() {
@@ -153,7 +167,7 @@ class ListaClientes extends Component {
 
     componentDidMount(){
         this.props.mostrarClientes();
-       // this.props.currentUser();
+        this.props.currentUser();
     }
 
     render() {

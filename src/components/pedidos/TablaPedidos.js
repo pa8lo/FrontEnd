@@ -7,9 +7,14 @@ import StickyButton from '../bottom/StickyButton';
 import { connect } from 'react-redux';
 import { currentUser } from '../../actions/usuarioAction';
 
+const buttonStyle = {
+    marginLeft: 10,
+    width: 155
+};
+
 class Pedidos extends Component {
     componentWillMount(){
-        //// this.props.currentUser();
+        this.props.currentUser();
     }
 
     render() {
@@ -37,33 +42,13 @@ class Pedidos extends Component {
                         
                         }
 
-                        { permisos.filter(permiso => (permiso.id == 20)).length > 0 ?  
+                        { JSON.parse(localStorage.getItem('enviarPedido')).length > 0 ?  
                 
-                            <Link to={`/pedido/estados`} className="btn btn-warning" style={{marginLeft: '20px'}}>Nuevo Estado</Link> 
+                            <Link to={`/solicitudes-encoladas`} style={buttonStyle} className="btn btn-warning">Solicitudes Encoladas</Link>
 
                             :  
 
-                            <Link to="#" disabled className="btn btn-warning" style={{marginLeft: '20px'}}>Nuevo Estado</Link> 
-                        
-                        }
-
-                        { permisos.filter(permiso => (permiso.id == 6)).length > 0 ?  
-                
-                            <Link to={`/clientes`} className="btn btn-danger" style={{marginLeft: '20px'}}>Clientes</Link> 
-
-                            :  
-
-                            <Link to="#" disabled className="btn btn-danger" style={{marginLeft: '20px'}}>Clientes</Link> 
-                        
-                        }
-
-                        { permisos.filter(permiso => (permiso.id == 20)).length > 0 ?  
-                
-                            <Link to={`/mapa`} className="btn btn-info" style={{marginLeft: '20px'}}>Ver Pedidos en Mapa</Link> 
-
-                            :  
-
-                            <Link to="#" disabled className="btn btn-info" style={{marginLeft: '20px'}}>Ver Pedidos en Mapa</Link> 
+                            <Link to="#" disabled style={buttonStyle} className="btn btn-warning">Solicitudes Encoladas</Link>
                         
                         }
 

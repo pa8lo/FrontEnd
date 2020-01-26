@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
-import SortableTbl from "react-sort-search-table";
+import SortableTbl from "../react-sort-search-table/src/SortableTbl";
 
 //Redux
 import { connect } from 'react-redux';
@@ -11,6 +11,7 @@ import { currentUser } from '../../actions/usuarioAction';
 
 //CSS
 import { css } from "@emotion/core";
+import Swal from 'sweetalert2'
 
 // Another way to import. This is recommended to reduce bundle size
 import DotLoader from "react-spinners/DotLoader";
@@ -34,11 +35,13 @@ const buttonStyle = {
 };
 
 
-let col = ["pedDate", "State", "Users", "Clients", "Adress", "Amount", "Deliverys", "Actions"];
+let col = ["pedDate", "State", 
+            // "Users", 
+            "Clients", "Adress", "Amount", "Deliverys", "Actions"];
 let tHead = [
     "Fecha",
     "Estado",
-    "Empleado",
+    // "Empleado",
     "Cliente",
     "Direccion",
     "Monto",
@@ -51,7 +54,21 @@ class ActionEmpleadoComponent extends React.Component {
     eliminarPedido = () => {
         const { id } = this.props.rowData;
 
-        this.props.eliminarPedido(id);
+        Swal.fire({
+            title: '¿Estas seguro que desea eliminar?',
+            text: "Estas a punto de eliminar un pedido",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+          }).then((result) => {
+            if (result.value) {
+                this.props.eliminarPedido(id);
+            }
+          })
+        
     }
 
     render() {
@@ -77,7 +94,7 @@ class ActionEmpleadoComponent extends React.Component {
                     <Link style={buttonStyle} 
                         disabled to="#" 
                         className="btn btn-primary">
-                        Ver
+                            Ver
                     </Link>
                 }
 
@@ -99,11 +116,29 @@ class ActionEmpleadoComponent extends React.Component {
 
                 { permisos.filter(permiso => (permiso.id == 23)).length > 0 ?  
                     
-                        <button style={buttonStyle} onClick={this.eliminarEmpleado} type="button" className="btn btn-danger">Borrar</button>
+                        <button style={buttonStyle} onClick={this.eliminarPedido} type="button" className="btn btn-danger">Borrar</button>
 
                         :  
 
                         <button style={buttonStyle} disabled type="button" className="btn btn-danger">Borrar</button>
+                }
+
+                { permisos.filter(permiso => (permiso.id == 22)).length > 0 ?  
+                
+                    <Link style={buttonStyle} to={{
+                            pathname: `/pedidos/estado-pedido/${id}`,
+                            state: this.props.rowData
+                        }} className="btn btn-info">
+                            Estado
+                    </Link>
+
+                    :  
+
+                    <Link style={buttonStyle} 
+                        disabled to="#" 
+                        className="btn btn-info">
+                            Estado
+                    </Link>
                 }
             </td>
         );
@@ -118,7 +153,7 @@ class ListadoPedidos extends Component {
 
     componentDidMount() {
         this.props.mostrarPedidos();
-        //// this.props.currentUser();
+        this.props.currentUser();
     }
 
     render() {
@@ -160,7 +195,7 @@ class ListadoPedidos extends Component {
         }
         else {
 
-            if (pedidos[0].State == "" || pedidos[0].Users == "" || pedidos[0].Clients == " ") {
+            if (pedidos[0].State == "" || pedidos[0].Amount == "" || pedidos[0].Clients == " ") {
                 // console.log("Hola")
                 return (
                     <div style={{ marginTop: '40px', marginBottom: '40px' }}>

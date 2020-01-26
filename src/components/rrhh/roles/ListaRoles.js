@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import Rol from './Rol'
-import SortableTbl from "react-sort-search-table";
+import SortableTbl from "../../react-sort-search-table/src/SortableTbl";
 
 //Redux
 import { connect } from 'react-redux';
@@ -11,6 +10,7 @@ import { eliminarRol } from '../../../actions/rolesAction'
 import { currentUser } from '../../../actions/usuarioAction';
 
 //CSS
+import Swal from 'sweetalert2'
 import { css } from "@emotion/core";
 // Another way to import. This is recommended to reduce bundle size
 import DotLoader from "react-spinners/DotLoader";
@@ -45,7 +45,22 @@ class ActionRolComponent extends React.Component {
 
         const {id} = this.props.rowData;
 
-        this.props.eliminarRol(id);
+        Swal.fire({
+            title: '¿Estas seguro que desea eliminar?',
+            text: "Estas a punto de eliminar un rol",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+          }).then((result) => {
+            if (result.value) {
+                this.props.eliminarRol(id);
+            }
+          })
+
+        
     }
 
   render() {
@@ -119,7 +134,7 @@ class ListaRoles extends Component {
 
     componentDidMount(){
         this.props.mostrarRoles();
-        //// this.props.currentUser();
+        this.props.currentUser();
     }
 
     render() {

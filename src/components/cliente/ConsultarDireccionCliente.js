@@ -36,40 +36,56 @@ class ConsultarDireccionCliente extends Component {
 
     eliminarDireccion = async (id) => {
         
-            await axios.post("https://roraso.herokuapp.com/Client/DeleteAddress",{'id': id},
-            { headers: { 'access-token': localStorage.getItem('access-token')}})
-                .then(res => {
-                    if(res.status === 200){
-                        Swal.fire({
-                            title: 'Correcto!',
-                            text: 'Se ha borrado una direccion',
-                            type: 'success',
-                            confirmButtonText: 'Confirmar'
-                        })
-                        setTimeout(function(){ 
-                            window.location.href = "/clientes";
-                        }, 3500);
-                    }
-                    else{
+
+        Swal.fire({
+            title: '¿Estas seguro que desea eliminar?',
+            text: "Estas a punto de eliminar una direccion",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+          }).then((result) => {
+            if (result.value) {
+                axios.post("https://roraso.herokuapp.com/Client/DeleteAddress",{'id': id},
+                { headers: { 'access-token': localStorage.getItem('access-token')}})
+                    .then(res => {
+                        if(res.status === 200){
+                            Swal.fire({
+                                title: 'Correcto!',
+                                text: 'Se ha borrado una direccion',
+                                type: 'success',
+                                confirmButtonText: 'Confirmar'
+                            })
+                            setTimeout(function(){ 
+                                window.location.href = "/clientes";
+                            }, 3500);
+                        }
+                        else{
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'Se ha producido un error al intentar borrar la direccion',
+                                type: 'error',
+                                confirmButtonText: 'Reintentar'
+                            })
+                            return;
+                        }
+                        
+                    })
+                    .catch(err => {
                         Swal.fire({
                             title: 'Error!',
-                            text: 'Se ha producido un error al intentar borrar la asistencia',
+                            text: 'El Servidor no ha respondido la solicitud',
                             type: 'error',
                             confirmButtonText: 'Reintentar'
                         })
                         return;
-                    }
-                    
-                })
-                .catch(err => {
-                    Swal.fire({
-                        title: 'Error!',
-                        text: 'El Servidor no ha respondido la solicitud',
-                        type: 'error',
-                        confirmButtonText: 'Reintentar'
                     })
-                    return;
-                })
+            }
+          })   
+
+            
         
     }
 

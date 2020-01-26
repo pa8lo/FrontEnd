@@ -83,7 +83,8 @@ export const agregarCliente = (cliente) => async dispatch => {
     await axios.post("https://roraso.herokuapp.com/Client/CreateClient",data,
     {headers: { 'access-token': localStorage.getItem('access-token')}})
     .then(res => {
-        if(res.status === 200 || res.status === 500){
+        if(res.status === 200){
+            
             Swal.fire({
                 title: 'Correcto!',
                 text: 'Se ha añadido una nuevo cliente',
@@ -91,7 +92,7 @@ export const agregarCliente = (cliente) => async dispatch => {
                 confirmButtonText: 'Confirmar'
             })
             setTimeout(function(){ 
-                window.location.href = "/clientes";
+                window.location.href = `/clientes/agregar-direccion-cliente/${res.data.UserId}`;
             }, 3500);
         }
         else{
@@ -137,45 +138,47 @@ export const agregarDireccionCliente = (direccion) => async dispatch => {
         }
     }
 
-    await axios.post("https://roraso.herokuapp.com/Client/AddAddress",data,
-    {headers: { 'access-token': localStorage.getItem('access-token')}})
-    .then(res => {
-        if(res.status === 200 || res.status === 500){
-            Swal.fire({
-                title: 'Correcto!',
-                text: 'Se ha añadido una nueva direccion',
-                type: 'success',
-                confirmButtonText: 'Confirmar'
-            })
-            setTimeout(function(){ 
-                window.location.href = "/clientes";
-            }, 3500);
-        }
-        else{
-            Swal.fire({
-                title: 'Error!',
-                text: 'Se ha producido un error al intentar crear la direccion',
-                type: 'error',
-                confirmButtonText: 'Reintentar'
-            })
-            return;
-        }
-        
-    })
-    .catch(err => {
-        Swal.fire({
-            title: 'Error!',
-            text: 'El Servidor no ha respondido la solicitud',
-            type: 'error',
-            confirmButtonText: 'Reintentar'
-        })
-        return;
-    })
+    console.log(data)
 
-    dispatch({
-        type: AGREGAR_DIRECCION_CLIENTE,
-        payload: direccion
-    })
+    // await axios.post("https://roraso.herokuapp.com/Client/AddAddress",data,
+    // {headers: { 'access-token': localStorage.getItem('access-token')}})
+    // .then(res => {
+    //     if(res.status === 200){
+    //         Swal.fire({
+    //             title: 'Correcto!',
+    //             text: 'Se ha añadido una nueva direccion',
+    //             type: 'success',
+    //             confirmButtonText: 'Confirmar'
+    //         })
+    //         setTimeout(function(){ 
+    //             window.location.href = "/pedidos/alta-pedido";
+    //         }, 3500);
+    //     }
+    //     else{
+    //         Swal.fire({
+    //             title: 'Error!',
+    //             text: 'Se ha producido un error al intentar crear la direccion',
+    //             type: 'error',
+    //             confirmButtonText: 'Reintentar'
+    //         })
+    //         return;
+    //     }
+        
+    // })
+    // .catch(err => {
+    //     Swal.fire({
+    //         title: 'Error!',
+    //         text: 'El Servidor no ha respondido la solicitud',
+    //         type: 'error',
+    //         confirmButtonText: 'Reintentar'
+    //     })
+    //     return;
+    // })
+
+    // dispatch({
+    //     type: AGREGAR_DIRECCION_CLIENTE,
+    //     payload: direccion
+    // })
 }
 
 export const eliminarCliente = (id) => async dispatch => {
@@ -190,7 +193,7 @@ export const eliminarCliente = (id) => async dispatch => {
                     confirmButtonText: 'Confirmar'
                 })
                 setTimeout(function(){ 
-                    window.location.href = "/cliente";
+                    window.location.href = "/clientes";
                 }, 3500);
             }
             else{
@@ -222,33 +225,35 @@ export const eliminarCliente = (id) => async dispatch => {
 
 export const editarCliente = (cliente) => async dispatch => {
     // console.log(empleado);
-    const {name, lastname, email, phone} = cliente;
+    const {name, lastname, email, phone, id} = cliente;
 
     const data = {
         Name : name,
         LastName : lastname,
         Email : email,
         Phone : phone,
+        id : id
     }
 
-    await axios.post("https://roraso.herokuapp.com/Category/UpdateCategory",data,
+    await axios.post("https://roraso.herokuapp.com/Client/UpdateUser",data,
     {headers: { 'access-token': localStorage.getItem('access-token')}})
     .then(res => {
-        if(res.status === 200 || res.status === 500){
+        if(res.status === 200){
             Swal.fire({
                 title: 'Correcto!',
-                text: 'Se ha actualizado una categoria',
+                text: 'Se ha actualizado un cliente',
                 type: 'success',
                 confirmButtonText: 'Confirmar'
             })
+            
             setTimeout(function(){ 
-                window.location.href = "/modulo";
+                window.location.href = "/clientes";
             }, 3500);
         }
         else{
             Swal.fire({
                 title: 'Error!',
-                text: 'Se ha producido un error al intentar actualizar la categoria',
+                text: 'Se ha producido un error al intentar actualizar un cliente',
                 type: 'error',
                 confirmButtonText: 'Reintentar'
             })

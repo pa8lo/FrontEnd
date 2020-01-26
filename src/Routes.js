@@ -59,11 +59,11 @@ import NuevoCombo from './components/combos/NuevoCombo';
 import ComboIndividual from './components/combos/ComboIndividual';
 import EditarCombo from './components/combos/EditarCombo';
 
-//Productos
+//Pedidos
 import Pedidos from './components/pedidos/TablaPedidos';
 import NuevoPedido from './components/pedidos/NuevoPedido';
 import PedidoIndividual from './components/pedidos/PedidoIndividual';
-// import EditarPedido from './components/pedidos/EditarPedido';
+import EditarEstadoPedido from './components/pedidos/EditarEstadoPedido';
 
 //Reportes
 import Reportes from './components/reportes/ListaReportes'
@@ -86,6 +86,12 @@ import AsignarPedido from './components/pedidos/mapaPedidos/AsignarPedido'
 import EditarOrder from './components/pedidos/mapaPedidos/editarOrder'
 import EditarPedido from './components/pedidos/EditarPedido';
 import EditarCliente from './components/cliente/EditarCliente';
+
+//Solicitudes Encoladas
+import SolicitudesEncoladas from './components/pedidos/SolicitudesEncoladas'
+
+//Pedidos Offline
+import EnviarPedidoOffline from './components/pedidos/EnviarPedidoOffline'
 
 class Routes extends Component {
 
@@ -171,6 +177,8 @@ class Routes extends Component {
 
                         <Route path="/pedidos/editar-pedido/:pedidoId" exact component={EditarPedido} />
 
+                        <Route path="/pedidos/estado-pedido/:estadoId" exact component={EditarEstadoPedido} />
+
                         {/* <Route path="/editar-estado-pedido/:pedidoId" exact component={EditarEstadoPedido} /> */}
 
                         <Route path="/pedidos/:pedidoId" exact component={PedidoIndividual} />
@@ -193,17 +201,17 @@ class Routes extends Component {
 
                         {/* Categorias */}
 
-                        <Route path="/modulo" exact component={Categorias} />
+                        <Route path="/categoria" exact component={Categorias} />
 
-                        <Route path="/modulo/alta-categoria" exact component={NuevaCategoria} />
+                        <Route path="/categoria/alta-categoria" exact component={NuevaCategoria} />
 
-                        <Route path="/modulo/editar-categoria/:catId" exact component={EditarCategoria} />
+                        <Route path="/categoria/editar-categoria/:catId" exact component={EditarCategoria} />
 
                         {/* Productos */}
 
                         <Route path="/producto/:idCat" exact component={Productos} />
 
-                        <Route path="/modulo/alta-producto" exact component={NuevoProducto} />
+                        <Route path="/categoria/alta-producto" exact component={NuevoProducto} />
                         
                         <Route path="/producto/productoid/:idProd" exact component={ProductoIndividual} />
                         
@@ -223,6 +231,14 @@ class Routes extends Component {
 
                         <Route path="/mapa" exact component={AsignarPedido} />
                         <Route path="/order/editar-orders/:orderId" exact component={EditarOrder} />
+
+                        {/* Solicitudes Encoladas */}
+
+                        <Route path="/solicitudes-encoladas" exact component={SolicitudesEncoladas} />
+
+                        {/* Armar Pedido Offline */}
+
+                        <Route path="/pedido-offline" exact component={EnviarPedidoOffline} />
 
                     </Switch>
                 </Router>

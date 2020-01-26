@@ -180,7 +180,7 @@ export const agregarRol = (rol) => async dispatch => {
     await axios.post("https://roraso.herokuapp.com/Rol/CreateRol",data,
     {headers: { 'access-token': localStorage.getItem('access-token')}})
         .then(res => {
-            if(res.status === 200 || res.status === 500){
+            if(res.status === 200 ){
                 Swal.fire({
                     title: 'Correcto!',
                     text: 'Se ha añadido un nuevo rol',

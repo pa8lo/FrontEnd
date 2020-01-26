@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import Gasto from './Gasto'
-import SortableTbl from "react-sort-search-table";
+import SortableTbl from "../react-sort-search-table/src/SortableTbl";
 
 //Redux
 import { connect } from 'react-redux';
@@ -12,6 +11,8 @@ import { currentUser } from '../../actions/usuarioAction';
 
 //CSS
 import { css } from "@emotion/core";
+import Swal from 'sweetalert2'
+
 // Another way to import. This is recommended to reduce bundle size
 import DotLoader from "react-spinners/DotLoader";
 
@@ -44,7 +45,21 @@ let tHead = [
 class ActionGastoComponent extends React.Component {
 
     eliminarGasto = () => {
-        this.props.eliminarGasto(this.props.rowData.id);
+        Swal.fire({
+            title: '¿Estas seguro que desea eliminar?',
+            text: "Estas a punto de eliminar un gasto",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+          }).then((result) => {
+            if (result.value) {
+                this.props.eliminarGasto(this.props.rowData.id);
+            }
+          })
+        
     }
 
     render() {
@@ -114,7 +129,7 @@ class ListaGastos extends Component {
 
     componentDidMount() {
         this.props.mostrarGastos();
-       // this.props.currentUser();
+        this.props.currentUser();
     }
 
     render() {

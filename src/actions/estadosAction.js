@@ -162,7 +162,56 @@ export const editarEstado = (estado) => async dispatch => {
    })
   
 }
+
+export const editarEstadoPedido = (pedido) => async dispatch => {
+
+    const {id_pedido, id_state} = pedido;
  
+    const data = {
+        State : {
+            id : id_state
+        },
+        Pedido : {
+            id : id_pedido
+       }
+    }
+    await axios.post("https://roraso.herokuapp.com/Pedido/ChangeState",data,
+    { headers: { 'access-token': localStorage.getItem('access-token')}})
+        .then(res => {
+            if(res.status === 200){
+                Swal.fire({
+                    title: 'Correcto!',
+                    text: 'Se ha modificado un estado del pedido',
+                    type: 'success',
+                    confirmButtonText: 'Confirmar'
+                })
+                setTimeout(function(){
+                    window.location.href = "/pedidos";
+                }, 3500);
+            }
+            else{
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Se ha producido un error al intentar modificar un pedido',
+                    type: 'error',
+                    confirmButtonText: 'Reintentar'
+                })
+                return;
+            }
+           
+        })
+        .catch(err => {
+            Swal.fire({
+                title: 'Error!',
+                text: 'El Servidor no ha respondido la solicitud',
+                type: 'error',
+                confirmButtonText: 'Reintentar'
+            })
+            return;
+        })
+  
+ }
+
 export const eliminarEstado = (id) => async dispatch => {
    await axios.post("https://roraso.herokuapp.com/Estado/Delete",{'id': id},
    { headers: { 'access-token': localStorage.getItem('access-token')}})

@@ -7,10 +7,12 @@ import { mostrarEstados } from '../../actions/estadosAction';
 import { eliminarEstado } from '../../actions/estadosAction';
 import { currentUser } from '../../actions/usuarioAction';
 
-import SortableTbl from "react-sort-search-table";
+import SortableTbl from "../react-sort-search-table/src/SortableTbl";
 
 //CSS
 import { css } from "@emotion/core";
+import Swal from 'sweetalert2'
+
 // Another way to import. This is recommended to reduce bundle size
 import DotLoader from "react-spinners/DotLoader";
 
@@ -41,7 +43,20 @@ let tHead = [
 class ActionEstadoComponent extends React.Component {
 
   eliminarEstado = () => {
-    this.props.eliminarEstado(this.props.rowData.id);
+    Swal.fire({
+        title: '¿Estas seguro que desea eliminar?',
+        text: "Estas a punto de eliminar un estado",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.value) {
+            this.props.eliminarEstado(this.props.rowData.id);
+        }
+      })
   }
 
   render() {
@@ -79,7 +94,7 @@ class ListaEstados extends Component {
 
     componentDidMount(){
         this.props.mostrarEstados();
-       // this.props.currentUser();
+        this.props.currentUser();
     }
 
     render() {

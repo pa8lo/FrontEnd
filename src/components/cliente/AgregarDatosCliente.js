@@ -39,8 +39,8 @@ class AgregarDatosCliente extends Component {
     agregarCliente = (e) => {
         e.preventDefault();
 
-        if(this.nombreRef.current.value == undefined || this.apellidoRef.current.value == undefined ||
-            this.telefonoRef.current.value == undefined || this.emailRef.current.value == undefined){
+        if(this.nombreRef.current.value == undefined ||
+            this.telefonoRef.current.value == undefined){
             Swal.fire({
                 title: 'Error!',
                 text: 'Hay datos erroneos o faltan datos en el formulario',
@@ -77,11 +77,11 @@ class AgregarDatosCliente extends Component {
                         </div>
                         <div className="form-group">
                             <label>Apellido</label>
-                            <input ref={this.apellidoRef} type="text" className="form-control" required/>
+                            <input ref={this.apellidoRef} type="text" className="form-control"/>
                         </div>
                         <div className="form-group">
                             <label>Email</label>
-                            <input ref={this.emailRef} type="email" className="form-control" required/>
+                            <input ref={this.emailRef} type="email" className="form-control"/>
                         </div>
                         <div className="form-group">
                             <label>Telefono</label>

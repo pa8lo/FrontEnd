@@ -1,4 +1,4 @@
-import { MOSTRAR_PEDIDOS, MOSTRAR_PEDIDO, AGREGAR_PEDIDO, EDITAR_PEDIDO, BORRAR_PEDIDO, ASIGNAR_DELIVERY } from '../actions/types';
+import { MOSTRAR_PEDIDOS, AGREGAR_PEDIDO, EDITAR_PEDIDO, BORRAR_PEDIDO, ASIGNAR_DELIVERY } from '../actions/types';
 import axios from 'axios';
 
 //CSS
@@ -75,6 +75,14 @@ export const eliminarPedido = (id) => async dispatch => {
     { headers: { 'access-token': localStorage.getItem('access-token')}})
         .then(res => {
             if(res.status === 200){
+
+                const serializedPedido = localStorage.getItem('pedidos');
+                let deserializedPedido = JSON.parse(serializedPedido);
+
+                let nuevo_array = (deserializedPedido.filter(pedido => (pedido.id !== id)));
+
+                localStorage.setItem('pedidos', JSON.stringify(nuevo_array))
+
                 Swal.fire({
                     title: 'Correcto!',
                     text: 'Se ha borrado un pedido',
@@ -127,7 +135,7 @@ export const agregarPedido = (pedido) => async dispatch => {
         Adress : address
     }
 
-    console.log(data)
+    // console.log(data)
 
     await axios.post("https://roraso.herokuapp.com/Pedido/Create",data,
     {headers: { 'access-token': localStorage.getItem('access-token')}})
@@ -183,21 +191,6 @@ export const agregarPedido = (pedido) => async dispatch => {
                 localStorage.setItem('enviarPedido', JSON.stringify(pedido))
             }
     
-            let serializedPedido = localStorage.getItem('pedidos');
-    
-            let deserializedPedido;
-    
-            deserializedPedido = JSON.parse(serializedPedido);
-            
-            deserializedPedido.push(pedido);
-    
-            localStorage.setItem('pedidos', JSON.stringify(deserializedPedido))
-    
-            // dispatch({
-            //     type : AGREGAR_CATEGORIA,
-            //     payload : deserializedCategory
-            // })
-    
             return;
         })
 
@@ -220,7 +213,7 @@ export const asignarDelivery = (line) => async dispatch => {
             }
         })
         .then(res => {
-            if (res.status === 200 || res.status === 500) {
+            if (res.status === 200 ) {
                 Swal.fire({
                     title: 'Correcto!',
                     text: 'Se ha añadido un nuevo pedido',
@@ -233,7 +226,7 @@ export const asignarDelivery = (line) => async dispatch => {
             } else {
                 Swal.fire({
                     title: 'Error!',
-                    text: 'Se ha producido un error al intentar crear el pedido',
+                    text: 'Se ha producido un error al intentar asignar el pedido',
                     type: 'error',
                     confirmButtonText: 'Reintentar'
                 })
@@ -277,7 +270,7 @@ export const editarPedido = (pedido) => async dispatch => {
     await axios.post("https://roraso.herokuapp.com/Pedido/Update",data,
     {headers: { 'access-token': localStorage.getItem('access-token')}})
         .then(res => {
-            if(res.status === 200 || res.status === 500){
+            if(res.status === 200 ){
                 Swal.fire({
                     title: 'Correcto!',
                     text: 'Se ha añadido un nuevo pedido',
@@ -285,13 +278,13 @@ export const editarPedido = (pedido) => async dispatch => {
                     confirmButtonText: 'Confirmar'
                 })
                 setTimeout(function(){ 
-                    window.location.href = "http://localhost:3000/pedidos";
+                    window.location.href = "/pedidos";
                 }, 3500);
             }
             else{
                 Swal.fire({
                     title: 'Error!',
-                    text: 'Se ha producido un error al intentar crear el pedido',
+                    text: 'Se ha producido un error al intentar editar el pedido',
                     type: 'error',
                     confirmButtonText: 'Reintentar'
                 })

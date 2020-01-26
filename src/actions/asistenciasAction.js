@@ -75,7 +75,7 @@ export const agregarAsistencia = (asistencia) => async dispatch => {
     await axios.post("https://roraso.herokuapp.com/Asisstance/Create",data,
     {headers: { 'access-token': localStorage.getItem('access-token')}})
         .then(res => {
-            if(res.status === 200 || res.status === 500){
+            if(res.status === 200){
                 Swal.fire({
                     title: 'Correcto!',
                     text: 'Se ha añadido una nueva asistencia',
@@ -129,7 +129,7 @@ export const editarAsistencia = (asistencia) => async dispatch => {
     await axios.post("https://roraso.herokuapp.com/Asisstance/Update",data,
     {headers: { 'access-token': localStorage.getItem('access-token')}})
         .then(res => {
-            if(res.status === 200 || res.status === 500){
+            if(res.status === 200){
                 Swal.fire({
                     title: 'Correcto!',
                     text: 'Se ha actualizado una nueva asistencia',

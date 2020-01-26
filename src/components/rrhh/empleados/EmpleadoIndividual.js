@@ -171,12 +171,25 @@ class EmpleadoIndividual extends Component {
     }
 
     eliminarEmpleado = () =>{
-      this.props.eliminarEmpleado(this.props.match.params.empleadoId);
+      Swal.fire({
+        title: '¿Estas seguro que desea eliminar?',
+        text: "Estas a punto de eliminar un empleado",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.value) {
+          this.props.eliminarEmpleado(this.props.match.params.empleadoId);
+        }
+      })
     }
 
     componentDidMount(){
       this.props.mostrarEmpleado(this.props.match.params.empleadoId);
-      //// this.props.currentUser();
+      this.props.currentUser();
       // console.log(this.props.empleado); Me da vacio porque la respuesta de la api carga dsp que el didmount
     }
 

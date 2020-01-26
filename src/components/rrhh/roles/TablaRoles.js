@@ -10,7 +10,7 @@ import { currentUser } from '../../../actions/usuarioAction';
 class Roles extends Component {
 
     componentWillMount(){
-        //// this.props.currentUser();
+        this.props.currentUser();
     }
 
 

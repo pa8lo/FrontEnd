@@ -102,7 +102,9 @@ class NuevoPedido extends Component {
         direElegida : [],
         totalPrice : '',
         combosToUpdate : [],
-        productsToUpdate : []
+        productsToUpdate : [],
+        arrayProdEnCombos : [],
+        finalAmmount : 0
     }
     }
 
@@ -134,6 +136,24 @@ class NuevoPedido extends Component {
           this.state.productsToUpdate = Object.entries(this.state.productsToUpdate).reduce((s, [_, v]) => (s[v.Product] = v, s), {});
         }
 
+        this.obtenerProductosDeCombos();
+
+    }
+
+    obtenerProductosDeCombos(){
+      {JSON.parse(localStorage.getItem('combos')).map(prodCombo => {
+  
+        prodCombo.ProductosPorCombo.map(productio => {
+  
+  
+          this.state.arrayProdEnCombos.push({
+              id: prodCombo.id,
+              products : productio.Product.Name + " " + productio.Product.Description
+          });
+  
+        })
+  
+      })}
     }
 
     handleComboChange = selectedComboOption => {
@@ -241,12 +261,12 @@ class NuevoPedido extends Component {
 
                 {this.state.selectedProductsOption.map(product => (
                     <div className="form-group" key={product.value}>
-                        <Grid style={{marginTop:'20px'}}>
-                        <Row className="show-grid">
+                        <Grid style={{marginTop:'20px', width:'800px'}}>
+                        <Row style={{ width:'800px'}} className="show-grid">
                             <Col xs={8} md={3}>
                                 <p>{product.label}</p>
                             </Col>
-                            <Col xs={4} md={2}>
+                            <Col xs={4} md={6}>
                                 <input 
                                     onChange={this.commonChange}
                                     name={product.value}
@@ -271,17 +291,21 @@ class NuevoPedido extends Component {
       // console.log(this.state.selectedProductsOption);
       return (
           <div className="form-group">
-              <label>Coloque una cantidad para cada producto</label>
+              <label>Coloque una cantidad para cada Combo</label>
               <div center="true" align="center">
 
               {this.state.selectedComboOption.map(product => (
                   <div className="form-group" key={product.value}>
-                      <Grid style={{marginTop:'20px'}}>
-                      <Row className="show-grid">
-                          <Col xs={8} md={3}>
+                      <Grid style={{marginTop:'20px', width:'800px'}}>
+                      <Row align="center" style={{ width:'800px'}} className="show-grid">
+                          <Col xs={3} md={2}>
                               <p>{product.label}</p>
                           </Col>
-                          <Col xs={4} md={2}>
+                          <Col xs={3} md={3}>
+                          {(this.state.arrayProdEnCombos.filter(prod => (prod.id === product.value))
+                            .map(prod => <span key={prod.products}>- {prod.products}<br></br></span>))}
+                          </Col>
+                          <Col xs={2} md={2}>
                               <input 
                                   onChange={this.commonChangeCombo}
                                   defaultValue={product.count}
@@ -298,6 +322,73 @@ class NuevoPedido extends Component {
               </div>
           </div>
       )
+  }
+
+  mostrarValorTotal = () => {
+    
+    let calc_arr = [0];
+    let sum = 0;
+    // console.log(this.state.selectedProductsOption)
+
+    if (this.state.optionsCombosCount !== null) {
+
+      var myDataCombo = Object.keys(this.state.optionsCombosCount).map(key => {
+        return this.state.optionsCombosCount[key];
+      })
+      
+    }
+    
+    if(this.state.optionsProductsCount !== null){
+
+      var myDataProduct = Object.keys(this.state.optionsProductsCount).map(key => {
+        return this.state.optionsProductsCount[key];
+      })
+    }
+
+      
+    if (this.state.selectedComboOption !== null) {
+
+      this.state.selectedComboOption.map(combo => {
+          myDataCombo.map(data => {
+            if(combo.value == data.Offer){
+              calc_arr.push(combo.price * data.Count)
+            }
+          })
+      })
+    }
+
+    if(this.state.selectedProductsOption !== null){
+
+      this.state.selectedProductsOption.map(product => {
+        myDataProduct.map(data => {
+          if(product.value == data.Product){
+            calc_arr.push(product.price * data.Count)
+          }
+        })
+      })
+    }
+    
+    if(calc_arr == []){
+
+      calc_arr.push(0)
+
+    }else{
+
+      sum = calc_arr.reduce(function(a, b){
+    
+      return a + b;
+
+    })
+    }
+
+    if(sum !== 0){
+      this.state.finalAmmount = sum
+    }
+
+    // console.log(this.state.finalAmmount)
+    // console.log(calc_arr);
+
+        
   }
 
     generarPedido = (e) => {
@@ -349,31 +440,6 @@ class NuevoPedido extends Component {
               return el != null;
           });
 
-          
-          let priceNew = [];
-          
-          for (var i=0; i<productFiltered.length; i++){
-            priceNew[this.state.selectedProductsOption[i]['value']] = { "value": productFiltered[i]['Product'], "count": productFiltered[i]['Count'] };
-          }
-          
-          var priceProd = []
-          
-          {price.map(price => {
-            priceProd.push(price.price);
-          })}
-          
-          var countProd = []
-          
-          {priceNew.map(count => {
-            countProd.push(count.count);
-          })}
-          
-          var finalProd = (priceProd.reduce(function(r,a,i){return r+a*countProd[i]},0));
-          
-          this.setState({
-            totalPrice : finalProd
-          })
-
         }else{
           productFiltered = []
         }
@@ -402,32 +468,20 @@ class NuevoPedido extends Component {
             return el != null;
           });
 
-
-          let comboNew = [];
-
-          for (var i=0; i<comboFiltered.length; i++){
-            comboNew[this.state.selectedComboOption[i]['value']] = { "value": comboFiltered[i]['Offer'], "count": comboFiltered[i]['Count'] };
-          }
-
-          var combitoPrice = []
-
-          {priceCombo.map(price => {
-            combitoPrice.push(price.price);
-          })}
-
-          var countCombo = []
-
-          {comboNew.map(count => {
-            countCombo.push(count.count);
-          })}
-
-          var finalCombo = (combitoPrice.reduce(function(r,a,i){return r+a*countCombo[i]},0));
-
-          var finalTotal = this.state.totalPrice + finalCombo
-
         }else{
           comboFiltered = []
         }
+
+        if(productFiltered || comboFiltered == []){
+
+          Swal.fire({
+            title: 'Error!',
+            text: 'Debe ingresar un Producto o un Combo',
+            type: 'error',
+            confirmButtonText: 'Ok'
+          })
+    
+        }else{
 
         const a = new Date();
         const fecha = a.toISOString().split('T')[0]
@@ -436,7 +490,7 @@ class NuevoPedido extends Component {
           id: this.props.location.state.id,
           date : fecha,
           user : this.props.auth.user.Id,
-          amount : finalTotal,
+          amount : this.state.finalAmmount,
           product : productFiltered,
           combo : comboFiltered,
           state : 1,
@@ -447,6 +501,8 @@ class NuevoPedido extends Component {
         console.log(pedido);
 
         this.props.editarPedido(pedido);
+
+        }
     }
 
     buscarDireccion = () => {
@@ -649,8 +705,16 @@ class NuevoPedido extends Component {
                             />
                         </div>
                         {this.mostrarProductosListos()}
-                        <div align="center" className="form-group">
-                            <input type="submit" value="Enviar" className="btn btn-primary" required/>
+                        <hr></hr>
+                        <div style={{marginTop: "20px"}} className="form-group">
+                          <textarea placeholder="Observaciones" className="form-control"></textarea>
+                        </div>
+                        <div style={{marginTop: "20px", marginBottom:"-10px"}} align="center" className="form-group">
+                        <label>Valor Total: {this.mostrarValorTotal()} {this.state.finalAmmount}</label>
+                        </div>
+                        <hr style={{width: "300px"}}></hr>
+                        <div style={{marginTop:"0px"}} align="center" className="form-group">
+                          <input type="submit" value="Enviar" className="btn btn-primary" required />
                         </div>
                     </form>
                     </div>

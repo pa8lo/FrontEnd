@@ -9,7 +9,7 @@ import { currentUser } from '../../../actions/usuarioAction';
 
 class Categorias extends Component {
     componentWillMount(){
-        //// this.props.currentUser();
+        this.props.currentUser();
     }
 
     render() {
@@ -29,7 +29,7 @@ class Categorias extends Component {
                         
                         { permisos.filter(permiso => (permiso.id == 16)).length > 0 ?  
                 
-                            <Link to={`/modulo/alta-categoria`} className="btn btn-success">Nueva Categoria</Link> 
+                            <Link to={`/categoria/alta-categoria`} className="btn btn-success">Nueva Categoria</Link> 
 
                             :  
 
