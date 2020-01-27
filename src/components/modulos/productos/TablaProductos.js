@@ -32,7 +32,7 @@ class Productos extends Component {
                         { permisos.filter(permiso => (permiso.id == 16)).length > 0 ?  
                 
                             <Link to={{
-                                pathname : `/categoria/alta-producto`,
+                                pathname : `/productos/alta-producto`,
                                 state : this.props.match.params.idCat
                                 }} className="btn btn-success">
                                 Nuevo Producto

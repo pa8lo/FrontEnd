@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import SortableTbl from "../../react-sort-search-table/src/SortableTbl";
+
+//Redux
+import { connect } from 'react-redux';
+import { currentUser } from '../../../actions/usuarioAction';
+
 //CSS
 import { css } from "@emotion/core";
 // Another way to import. This is recommended to reduce bundle size
@@ -28,7 +33,7 @@ const buttonStyle = {
 
 let col = ["Order", "Delivery", "Actions"];
 let tHead = [
-    "Order",
+    "Pedido",
     "Delivery",
     "Acciones",
 ];
@@ -36,16 +41,59 @@ let tHead = [
 class ActionOrderComponent extends React.Component {
 
   render() {
+
     const { id } = this.props.rowData;
+
+    let pedido = (JSON.parse(localStorage.getItem('pedidos')).filter(pedido => (pedido.id === id)))
+
+    pedido[0].Adress = (pedido[0].Adress.Adress + " " + pedido[0].Adress.Floor + " " + pedido[0].Adress.Department)
+
+    // console.log(pedido[0])
+
+    if(this.props.Permisos.length === 0) return null;
+
+    const permisos = this.props.Permisos.Authorizations;
+
     return (
         <td style={columnButtonStyle}>
 
-            <Link style={buttonStyle} to={{
-                pathname : `/order/editar-orders/${id}`,
-                state : this.props.rowData
-                }} className="btn btn-warning">
-                Editar
-            </Link>
+           { permisos.filter(permiso => (permiso.id == 21)).length > 0 ?  
+                
+                <Link style={buttonStyle} to={{
+                        pathname: `/pedidos/${id}`,
+                        state: pedido[0]
+                    }} className="btn btn-primary">
+                        Ver
+                </Link>
+                
+                :  
+                
+                <Link style={buttonStyle} 
+                    disabled to="#" 
+                    className="btn btn-primary">
+                        Ver
+                </Link>
+            }
+
+
+            { permisos.filter(permiso => (permiso.id == 22)).length > 0 ?  
+
+                <Link style={buttonStyle} to={{
+                    pathname : `/mapa/editar-pedido/${id}`,
+                    state : this.props.rowData
+                    }} className="btn btn-warning">
+                    Editar
+                </Link>
+
+                :
+
+                <Link style={buttonStyle}
+                    disabled to="#" 
+                    className="btn btn-warning">
+                    Editar
+                </Link>
+
+            }
 
         </td> 
     );
@@ -58,14 +106,19 @@ class OrderBox extends React.Component {
         loading: true
     };
 
-    render() {
+    componentDidMount() {
+        this.props.currentUser();
+    }
 
+    render() {
         const pedidos = this.props.pedidos;
+
+        // console.log(pedidos)
 
         var orders = [];
         for(var i = 0; i < pedidos.length; i++) {
-            if (pedidos[i].State.Description != "Entregado") {
-            
+            if (pedidos[i].State.Description != "Entregado" && pedidos[i].State.Description != "Rechazado") {
+
                 if (pedidos[i].Delivery !== null) {
     
                     orders.push({
@@ -75,12 +128,12 @@ class OrderBox extends React.Component {
                         DeliveryId: pedidos[i].Delivery.id,
                     });
                 } else {
-                        orders.push({
-                            id: pedidos[i].id,
-                            Order: "Pedido " + pedidos[i].id,
-                            Delivery: "Sin Asignar",
-                            DeliveryId: null,
-                        });
+                    orders.push({
+                        id: pedidos[i].id,
+                        Order: "Pedido " + pedidos[i].id,
+                        Delivery: "Sin Asignar",
+                        DeliveryId: null,
+                    });
     
                 }
             }
@@ -88,13 +141,10 @@ class OrderBox extends React.Component {
 
         if(pedidos.length === 0) {
             return (
-                <div style={{marginTop: '40px', marginBottom: '40px'}}>
-                    <DotLoader
-                    css={override}
-                    size={50} // or 150px
-                    color={"#4D4D4D"}
-                    loading={this.state.loading}
-                    />
+                <div>
+                    <h2 align="center" style={{ marginTop: '40px', marginBottom: '40px' }}>
+                        No hay datos
+                    </h2>
                 </div>
         )}
         else{
@@ -104,6 +154,7 @@ class OrderBox extends React.Component {
     
                     <SortableTbl tblData = {orders}
                         tHead={tHead}
+                        Permisos={this.props.usuario}
                         customTd={[
                                     {custd: (ActionOrderComponent), keyItem: "Actions"},
                                     ]}
@@ -121,4 +172,10 @@ class OrderBox extends React.Component {
     
 }
 
-export default OrderBox;
+const mapStateToProps = state => ({
+    usuario : state.usuario.usuario
+});
+
+export default connect(mapStateToProps, {
+    currentUser
+})(OrderBox);

@@ -165,6 +165,14 @@ class ListaGastos extends Component {
             }
         }else {
 
+            let new_date_format;
+
+            this.props.gastos.map(date => (
+                new_date_format = date.Date.split('T'),
+                new_date_format = new_date_format[0],
+                date.Date = new_date_format
+            ))
+
             return (
                 < SortableTbl tblData = {
                     gastos.sort(function (a, b) {

@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
 // import LineTo from "react-lineto";
 
-import axios from 'axios';
-
-//Componentes
-import Paper from '@material-ui/core/Paper';
-import Header from '../../header/IndexHeader';
-
 //Redux
 import { connect } from 'react-redux';
 import { mostrarPedidos } from '../../../actions/pedidosAction';
@@ -47,7 +41,7 @@ class MapaPedidos extends Component {
 
             const pedidos = this.props.pedidos;
             for (var i = 0; i < pedidos.length; i++) {
-              if (pedidos[i].State.Description != "Entregado") {
+              if (pedidos[i].State.Description != "Rechazado" && pedidos[i].State.Description != "Entregado") {
 
                 location.push(pedidos[i].Adress.LatLong.split(";"));
                 order_id.push(pedidos[i].id);

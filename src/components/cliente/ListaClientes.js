@@ -63,7 +63,18 @@ class ActionClienteComponent extends React.Component {
   }
 
   render() {
-    if(this.props.Permisos.length === 0) return null;
+    if(this.props.Permisos.length === 0) return (
+
+        <div style={{ marginTop: '40px', marginBottom: '40px' }}>
+            <DotLoader
+                css={override}
+                size={50} // or 150px
+                color={"#4D4D4D"}
+                loading={this.state.loading}
+            />
+        </div>
+        
+    );
 
     const permisos = this.props.Permisos.Authorizations;
 
@@ -173,6 +184,19 @@ class ListaClientes extends Component {
     render() {
         const clientes = this.props.clientes;
         const loaded = this.props.loaded || false;
+
+        if(this.props.clientes == null || this.props.clientes == undefined) return (
+
+            <div style={{ marginTop: '40px', marginBottom: '40px' }}>
+                <DotLoader
+                    css={override}
+                    size={50} // or 150px
+                    color={"#4D4D4D"}
+                    loading={this.state.loading}
+                />
+            </div>
+            
+        );
 
         if(clientes.length === 0) {
             if (clientes.length === 0 && !loaded) {

@@ -40,7 +40,7 @@ class EditarEstado extends Component {
         key : this.keyRef.current.value,
         }
 
-        // console.log(gasto);
+        // console.log(estado);
         this.props.editarEstado(estado);
     }
   }
@@ -52,7 +52,7 @@ class EditarEstado extends Component {
                 <div className="table-empleados">
                     <Paper className="col-md-4">
                         <div align="center">
-                            <form onSubmit={this.editarGasto} className="col-8">
+                            <form onSubmit={this.editarEstado} className="col-8">
                                 <div className="form-group">
                                     <label>Descripcion</label>
                                     <input ref={this.descripcionRef} type="text" defaultValue={this.props.location.state.Description} className="form-control" required/>

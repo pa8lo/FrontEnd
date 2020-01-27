@@ -85,18 +85,38 @@ class BreadcumbMenu extends Component {
                       </Breadcrumb.Item>
                     )
                     
-                  }else if(a === "editar-producto"){
+                  }else if(dir === "cliente"){
 
-                    // console.log()
+                    if(this.state.redirectSection === true){
+                      this.state.redirectUrlSection = "clientes"
+                    }
+
+                    return(
+                      <Breadcrumb.Item  key={dir} style={{ color:"white"}} onClick={() => this.setRedirectToSection()}>
+                        {dir.charAt(0).toUpperCase() + dir.substring(1) + "s"}
+                        {this.ToSection()}
+                      </Breadcrumb.Item>
+                    )
+
+                  }
+                  else if(dir === "productos"){
 
                     if(this.state.redirectSection === true){
                       this.state.redirectUrlSection = "categoria"
                     }
 
-                    if(this.state.redirectSection === true){
-                      this.state.redirectUrlProduct = "categoria/producto"
-                    }
-                    
+                    return(
+                    <React.Fragment>
+                      <Breadcrumb.Item key={dir} style={{ color:"white"}} onClick={() => this.setRedirectToSection()}>
+                          Categoria
+                          {this.ToSection()}
+                      </Breadcrumb.Item>
+
+                      
+                    </React.Fragment>
+                    )                
+                  }
+                  else if(a === "editar-producto"){
 
                     return(
                     <React.Fragment>
@@ -104,17 +124,10 @@ class BreadcumbMenu extends Component {
                           Categoria
                           {this.ToSection()}
                       </Breadcrumb.Item>
-                      <Breadcrumb.Item key={count} onClick={() => this.redirectProduct()} style={{ color:"white"}}>
-                          Productos
-                          {this.ToProduct()}
-                      </Breadcrumb.Item>
-                      <Breadcrumb.Item key={count} onClick={() => this.redirectProduct()} style={{ color:"white"}}>
-                          {dir.charAt(0).toUpperCase() + dir.substring(1)}
-                      </Breadcrumb.Item>
-                      
                     </React.Fragment>
                     )                
-                  }else if(dir === "roles" || dir === "empleados" || dir === "turnos" || dir === "asistencias"){
+                  }
+                  else if(dir === "roles" || dir === "empleados" || dir === "turnos" || dir === "asistencias"){
 
                     if(this.state.redirectSection === true){
                       this.state.redirectUrlSection = "rrhh"
@@ -174,24 +187,6 @@ class BreadcumbMenu extends Component {
                         {dir.charAt(0).toUpperCase() + dir.substring(1)}s
                         {this.ToSection()}
                     </Breadcrumb.Item>
-                    )                
-                  }else if(dir === "producto"){
-
-                    if(this.state.redirectSection === true){
-                      this.state.redirectUrlSection = "categoria"
-                    }
-
-                    return(
-                    <React.Fragment>
-                      <Breadcrumb.Item key={dir} style={{ color:"white"}} onClick={() => this.setRedirectToSection()}>
-                          Categoria
-                          {this.ToSection()}
-                      </Breadcrumb.Item>
-                      <Breadcrumb.Item key={count} disabled style={{ color:"white"}}>
-                          {dir.charAt(0).toUpperCase() + dir.substring(1)}
-                      </Breadcrumb.Item>
-                      
-                    </React.Fragment>
                     )                
                   }else{
                     if(this.state.redirectSection === true){

@@ -42,7 +42,7 @@ class HomeRecursosHumanos extends Component {
         //   logged : state.auth.logged,
           permisosUsuario : [],
           permisosRoles : [],
-          permisosTurnos : [],
+        //   permisosTurnos : [],
           permisosAsistencias : [],
       }
     }
@@ -77,13 +77,13 @@ class HomeRecursosHumanos extends Component {
                             </Link>
                         </div>
                         </Col>
-                        <Col xs={12} md={12}>
+                        {/* <Col xs={12} md={12}>
                         <div style={{display: "flex"}}>
                             <Link style={buttonStyle} to="#" disabled className="btn btn-info">
                                 <h3>Turnos</h3>
                             </Link>
                         </div>
-                        </Col>
+                        </Col> */}
                         <Col xs={12} md={12}>
                         <div style={{display: "flex"}}>
                             <Link style={buttonStyle} disabled to="#" className="btn btn-danger">
@@ -112,11 +112,11 @@ class HomeRecursosHumanos extends Component {
 
             this.state.permisosRoles = permisosRoles;
 
-            let permisosTurnos = [];
+            // let permisosTurnos = [];
             
-            permisosTurnos = this.props.usuario.Authorizations.filter(permiso => (permiso.id >= 28 && permiso.id <= 31));
+            // permisosTurnos = this.props.usuario.Authorizations.filter(permiso => (permiso.id >= 28 && permiso.id <= 31));
 
-            this.state.permisosTurnos = permisosTurnos;
+            // this.state.permisosTurnos = permisosTurnos;
 
             let permisosAsistencias = [];
             
@@ -176,21 +176,21 @@ class HomeRecursosHumanos extends Component {
         }
     }
 
-    permisoABMTurnos(){
-        if(this.state.permisosTurnos.length === 0){
-            return(
-            <Link style={buttonStyle} to="#" disabled className="btn btn-info">
-                <h3>Turnos</h3>
-            </Link>
-            )
-        }else{
-            return(
-            <Link style={buttonStyle} to={`/rrhh/turnos`} className="btn btn-info">
-                <h3>Turnos</h3>
-            </Link>
-            )
-        }
-    }
+    // permisoABMTurnos(){
+    //     if(this.state.permisosTurnos.length === 0){
+    //         return(
+    //         <Link style={buttonStyle} to="#" disabled className="btn btn-info">
+    //             <h3>Turnos</h3>
+    //         </Link>
+    //         )
+    //     }else{
+    //         return(
+    //         <Link style={buttonStyle} to={`/rrhh/turnos`} className="btn btn-info">
+    //             <h3>Turnos</h3>
+    //         </Link>
+    //         )
+    //     }
+    // }
 
     permisoABMAsistencias(){
         if(this.state.permisosAsistencias.length === 0){
@@ -223,11 +223,11 @@ class HomeRecursosHumanos extends Component {
                         {this.permisoABMRoles()}
                     </div>
                     </Col>
-                    <Col xs={12} md={12}>
+                    {/* <Col xs={12} md={12}>
                     <div style={{display: "flex"}}>
                         {this.permisoABMTurnos()}
                     </div>
-                    </Col>
+                    </Col> */}
                     <Col xs={12} md={12}>
                     <div style={{display: "flex"}}>
                         {this.permisoABMAsistencias()}

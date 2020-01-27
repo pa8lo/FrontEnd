@@ -1,7 +1,8 @@
 import { MOSTRAR_PEDIDOS, MOSTRAR_PEDIDO, AGREGAR_PEDIDO, EDITAR_PEDIDO, BORRAR_PEDIDO, ASIGNAR_DELIVERY } from '../actions/types';
 
 const initialState = {
-    pedidos : []
+    pedidos : [],
+    loaded: false
 };
 
 export default function (state = initialState, action){
@@ -9,7 +10,8 @@ export default function (state = initialState, action){
         case MOSTRAR_PEDIDOS : 
             return {
                 ...state,
-                pedidos : action.payload
+                pedidos : action.payload,
+                loaded: true
             }
         case MOSTRAR_PEDIDO : 
             return {

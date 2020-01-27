@@ -80,7 +80,7 @@ class ActionCategoriasComponent extends React.Component {
             { permisos.filter(permiso => (permiso.id == 17)).length > 0 ?  
                 
                     <Link style={buttonStyle2} to={{
-                        pathname: `/producto/${id}`,
+                        pathname: `/categoria/${id}`,
                         state: this.props.rowData,
                         nameCat: this.props.rowData.Name
                     }} className="btn btn-primary">

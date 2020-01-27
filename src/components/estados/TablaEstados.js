@@ -14,7 +14,7 @@ class Estados extends Component {
                 <div className="col-12 col-md-12">
                     <ListaEstados/>
                     <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
-                        <Link to={`/pedido/alta-estado`} className="btn btn-success">Nuevo Estado</Link> 
+                        <Link to={`/estados/alta-estado`} className="btn btn-success">Nuevo Estado</Link> 
                     </div>
                 </div>
             </div>

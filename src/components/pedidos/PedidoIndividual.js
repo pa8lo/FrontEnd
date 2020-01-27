@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 //Componentes
 import Paper from '@material-ui/core/Paper';
@@ -15,6 +16,11 @@ import { connect } from 'react-redux';
 import { agregarPedido } from '../../actions/pedidosAction';
 import { mostrarProductos } from '../../actions/productosAction';
 import { mostrarCombos } from '../../actions/combosAction'
+
+const buttonStyle = {
+  marginLeft: 10,
+  width: 80
+};
 
 class PedidoIndividual extends Component {
 
@@ -42,13 +48,29 @@ class PedidoIndividual extends Component {
 
   componentWillMount(){
 
-    {this.props.location.state.ProductosPorPedido.map(producto => (
-      this.state.optionsProductsName.push({value: producto.id,label: producto.Product.Name + " " + producto.Product.Description,count: producto.Count})
-    ))}
+    console.log(this.props)
 
-    {this.props.location.state.CombosPorPedido.map(producto => (
-      this.state.optionsComboName.push({value: producto.id,label: producto.Offer.Name ,count: producto.Count})
-    ))}
+    // if(this.props.location.state == [] || this.props.location.state == undefined || this.props.location.state == null) return null;
+
+    if(this.props.location.state.ProductosPorPedido !== undefined || this.props.location.state.ProductosPorPedido.length !== 0){
+
+      {this.props.location.state.ProductosPorPedido.map(producto => (
+        this.state.optionsProductsName.push({value: producto.id,label: producto.Product.Name + " " + producto.Product.Description,count: producto.Count})
+      ))}
+
+    }else{
+      return;
+    }
+
+    if(this.props.location.state.CombosPorPedido !== undefined || this.props.location.state.CombosPorPedido.length !== 0){
+
+      {this.props.location.state.CombosPorPedido.map(producto => (
+        this.state.optionsComboName.push({value: producto.id,label: producto.Offer.Name ,count: producto.Count})
+      ))}
+
+    }else{
+      return;
+    }
 
   }
 
@@ -148,7 +170,7 @@ class PedidoIndividual extends Component {
       return (
           
       <React.Fragment>
-          <Header titulo = 'Alta de Pedidos'/>
+          <Header titulo = 'Pedido'/>
           <div className="table-empleados">
               <Paper className="col-md-5">
                   <div>
@@ -189,7 +211,18 @@ class PedidoIndividual extends Component {
                       </div>
                   </form>
                   </div>
+
+                  <div style={{marginTop: "30px", marginBottom: "40px"}} align="center">
+                  <Link style={buttonStyle} to={{
+                      pathname : `/mapa`,
+                      // state : this.props.rowData
+                      }} className="btn btn-primary">
+                      Mapa
+                  </Link>
+              </div>
+
               </Paper>
+
           </div>
       </React.Fragment>
       );

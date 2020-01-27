@@ -59,12 +59,12 @@ class ComboIndividual extends Component {
 
                 {this.state.selectedOption.map(product => (
                     <div className="form-group" key={product.value}>
-                        <Grid style={{marginTop:'20px'}}>
-                        <Row className="show-grid">
+                        <Grid style={{marginTop:'20px', width:'800px'}}>
+                        <Row style={{ width:'800px'}} className="show-grid">
                             <Col xs={8} md={3}>
                                 <p>{product.label}</p>
                             </Col>
-                            <Col xs={4} md={2}>
+                            <Col xs={4} md={6}>
                                 <input disabled defaultValue={product.count} style={{width: '60px'}} type="number" min="1" step="1" title="Numbers only" className="form-control" required/>
                             </Col>
                         </Row>

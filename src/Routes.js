@@ -209,28 +209,28 @@ class Routes extends Component {
 
                         {/* Productos */}
 
-                        <Route path="/producto/:idCat" exact component={Productos} />
+                        <Route path="/categoria/:idCat" exact component={Productos} />
 
-                        <Route path="/categoria/alta-producto" exact component={NuevoProducto} />
+                        <Route path="/productos/alta-producto" exact component={NuevoProducto} />
                         
-                        <Route path="/producto/productoid/:idProd" exact component={ProductoIndividual} />
+                        <Route path="/productos/:idProd" exact component={ProductoIndividual} />
                         
-                        <Route path="/producto/editar-producto/:idProd" exact component={EditarProducto} />
+                        <Route path="/productos/editar-producto/:idProd" exact component={EditarProducto} />
                         
                         {/* Estados */}
 
-                        <Route path="/pedido/estados" exact component={Estados} />
+                        <Route path="/estados" exact component={Estados} />
 
-                        <Route path="/pedido/alta-estado" exact component={NuevoEstado} />
+                        <Route path="/estados/alta-estado" exact component={NuevoEstado} />
 
-                        <Route path="/pedido/estado/:estadoId" exact component={EstadoIndividual} />
+                        <Route path="/estados/:estadoId" exact component={EstadoIndividual} />
 
-                        <Route path="/pedido/editar-estado/:estadoId" exact component={EditarEstado} />
+                        <Route path="/estados/editar-estado/:estadoId" exact component={EditarEstado} />
 
                         {/* Mapa de Pedidos */}
 
                         <Route path="/mapa" exact component={AsignarPedido} />
-                        <Route path="/order/editar-orders/:orderId" exact component={EditarOrder} />
+                        <Route path="/mapa/editar-pedido/:orderId" exact component={EditarOrder} />
 
                         {/* Solicitudes Encoladas */}
 

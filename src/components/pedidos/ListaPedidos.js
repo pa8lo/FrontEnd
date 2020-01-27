@@ -210,7 +210,7 @@ class ListadoPedidos extends Component {
             }else{
 
             //we can solve this problem using the initial values after.
-                console.log(pedidos)
+                // console.log(pedidos)
 
                 for (var i = 0; i < pedidos.length; i++) {
                     if (pedidos[i].Date !== null) {

@@ -175,12 +175,12 @@ class EditarCombo extends Component {
 
                     {this.state.selectedOption.map(product => (
                         <div className="form-group" key={product.value}>
-                            <Grid style={{ marginTop: '20px' }}>
-                                <Row className="show-grid">
+                            <Grid style={{ marginTop: '20px', width:'800px' }}>
+                                <Row align="center" style={{ width:'800px'}} className="show-grid">
                                     <Col xs={8} md={3}>
                                         <p>{product.label}</p>
                                     </Col>
-                                    <Col xs={4} md={2}>
+                                    <Col xs={4} md={6}>
                                         <input style={{ width: '60px' }}
                                             onChange={this.commonChange}
                                             name={product.value}
@@ -262,9 +262,9 @@ class EditarCombo extends Component {
             productos: filtered
         }
 
-        console.log(combo)
+        // console.log(combo)
 
-        // this.props.editarCombo(combo);
+        this.props.editarCombo(combo);
     }
 
 

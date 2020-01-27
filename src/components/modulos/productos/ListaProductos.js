@@ -52,7 +52,7 @@ class ActionProductoComponent extends React.Component {
 
       Swal.fire({
         title: '¿Estas seguro que desea eliminar?',
-        text: "Estas a punto de eliminar una categoria",
+        text: "Estas a punto de eliminar un producto",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -80,7 +80,7 @@ class ActionProductoComponent extends React.Component {
             { permisos.filter(permiso => (permiso.id == 17)).length > 0 ?  
                 
                     <Link style={buttonStyle} to={{
-                        pathname : `/producto/productoid/${id}`,
+                        pathname : `/productos/${id}`,
                         state : this.props.rowData
                         }} className="btn btn-primary">
                         Ver
@@ -98,7 +98,7 @@ class ActionProductoComponent extends React.Component {
             { permisos.filter(permiso => (permiso.id == 18)).length > 0 ?  
                 
                     <Link style={buttonStyle} to={{
-                        pathname : `/producto/editar-producto/${id}`,
+                        pathname : `/productos/editar-producto/${id}`,
                         state : this.props.rowData
                         }} className="btn btn-warning">
                         Editar
@@ -173,6 +173,19 @@ class ListadoProductos extends Component {
         let products
         let cat
 
+        if (this.props.productos == undefined || this.props.productos == null || this.props.productos == []) return (
+
+            <div style={{ marginTop: '40px', marginBottom: '40px' }}>
+                <DotLoader
+                    css={override}
+                    size={50} // or 150px
+                    color={"#4D4D4D"}
+                    loading={this.state.loading}
+                />
+            </div>
+            
+        );
+
         if (productos !== undefined) {
 
             this.state.products = productos[0].Products;
@@ -186,9 +199,18 @@ class ListadoProductos extends Component {
 
         // console.log(this.products);
 
-        if (this.state.products == undefined) return null;
+        if (this.state.products == undefined || this.state.products == null || this.state.products == []) return (
 
-        console.log(this.state.products.length);
+            <div style={{ marginTop: '40px', marginBottom: '40px' }}>
+                <DotLoader
+                    css={override}
+                    size={50} // or 150px
+                    color={"#4D4D4D"}
+                    loading={this.state.loading}
+                />
+            </div>
+            
+        );
 
         if (this.state.products.length === 0) {
             if(this.state.products.length === 0 && !loaded){

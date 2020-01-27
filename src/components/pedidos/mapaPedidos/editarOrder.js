@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
-import axios from 'axios'
-import {Navigation} from 'react-router';
 
 //Componentes
 import Paper from '@material-ui/core/Paper';
 import Header from '../../header/IndexHeader';
-import ListadoRolesEmpleados from '../../rrhh/empleados/ListaRolEmpleado';
 
 //CSS
-import Swal from 'sweetalert2'
 import '../../../assets/css/empleados/form-alta-empleados.css';
 
 //Redux
@@ -52,7 +48,7 @@ class EditarOrder extends Component {
 
         return (
             <div>
-                <Header titulo = 'Edit Order'/>
+                <Header titulo = 'Editar Asignacion Pedido'/>
                 <div className="table-empleados">
                     <Paper className="col-md-4">
                         <div align="center">

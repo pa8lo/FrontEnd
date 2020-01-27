@@ -64,11 +64,9 @@ export const agregarAsistencia = (asistencia) => async dispatch => {
 
     const data = {
         Asistencia : {
-
             InTime : timeIn,
             OutTime : timeOut,
             User : user
-            
         }
     }
 

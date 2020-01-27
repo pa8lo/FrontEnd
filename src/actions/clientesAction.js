@@ -138,47 +138,47 @@ export const agregarDireccionCliente = (direccion) => async dispatch => {
         }
     }
 
-    console.log(data)
+    // console.log(data)
 
-    // await axios.post("https://roraso.herokuapp.com/Client/AddAddress",data,
-    // {headers: { 'access-token': localStorage.getItem('access-token')}})
-    // .then(res => {
-    //     if(res.status === 200){
-    //         Swal.fire({
-    //             title: 'Correcto!',
-    //             text: 'Se ha añadido una nueva direccion',
-    //             type: 'success',
-    //             confirmButtonText: 'Confirmar'
-    //         })
-    //         setTimeout(function(){ 
-    //             window.location.href = "/pedidos/alta-pedido";
-    //         }, 3500);
-    //     }
-    //     else{
-    //         Swal.fire({
-    //             title: 'Error!',
-    //             text: 'Se ha producido un error al intentar crear la direccion',
-    //             type: 'error',
-    //             confirmButtonText: 'Reintentar'
-    //         })
-    //         return;
-    //     }
+    await axios.post("https://roraso.herokuapp.com/Client/AddAddress",data,
+    {headers: { 'access-token': localStorage.getItem('access-token')}})
+    .then(res => {
+        if(res.status === 200){
+            Swal.fire({
+                title: 'Correcto!',
+                text: 'Se ha añadido una nueva direccion',
+                type: 'success',
+                confirmButtonText: 'Confirmar'
+            })
+            setTimeout(function(){ 
+                window.location.href = "/pedidos/alta-pedido";
+            }, 3500);
+        }
+        else{
+            Swal.fire({
+                title: 'Error!',
+                text: 'Se ha producido un error al intentar crear la direccion',
+                type: 'error',
+                confirmButtonText: 'Reintentar'
+            })
+            return;
+        }
         
-    // })
-    // .catch(err => {
-    //     Swal.fire({
-    //         title: 'Error!',
-    //         text: 'El Servidor no ha respondido la solicitud',
-    //         type: 'error',
-    //         confirmButtonText: 'Reintentar'
-    //     })
-    //     return;
-    // })
+    })
+    .catch(err => {
+        Swal.fire({
+            title: 'Error!',
+            text: 'El Servidor no ha respondido la solicitud',
+            type: 'error',
+            confirmButtonText: 'Reintentar'
+        })
+        return;
+    })
 
-    // dispatch({
-    //     type: AGREGAR_DIRECCION_CLIENTE,
-    //     payload: direccion
-    // })
+    dispatch({
+        type: AGREGAR_DIRECCION_CLIENTE,
+        payload: direccion
+    })
 }
 
 export const eliminarCliente = (id) => async dispatch => {

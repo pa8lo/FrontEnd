@@ -92,7 +92,7 @@ class ConsultarDireccionCliente extends Component {
     render() {
 
 
-        console.log(this.props)
+        console.log(this.props.location.state.Adress)
 
         return(
 
@@ -100,7 +100,9 @@ class ConsultarDireccionCliente extends Component {
 
             <Header titulo = 'Consulta de Direcciones'/>
 
-            {this.props.location.state.Adress.map(address => (
+            { this.props.location.state.Adress.length > 0 ?
+            
+            this.props.location.state.Adress.map(address => (
 
                 <div key={address.id} style={{marginTop: "50px"}}>
                     <Col xs={12} md={6}>
@@ -144,7 +146,16 @@ class ConsultarDireccionCliente extends Component {
                     </Col>
                 </div>
                 )
-        )}
+            )
+
+            :
+
+            <div align="center" className="form-group">
+                <h2 style={{marginTop:'20px'}}>No hay datos</h2>
+            </div>
+
+            }
+            
         
         </React.Fragment>        
         )

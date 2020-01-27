@@ -165,7 +165,8 @@ class EmpleadoIndividual extends Component {
 
         this.state = {
             empleado : [],
-            modalShow: false
+            modalShow: false,
+            roles : []
         }
 
     }
@@ -187,6 +188,26 @@ class EmpleadoIndividual extends Component {
       })
     }
 
+    componentWillMount(){
+
+      var accessToken =  localStorage.getItem('access-token');
+      
+      axios.get('https://roraso.herokuapp.com/Rol/rols', {headers: {'access-token': accessToken}})
+          .then(res => {
+              if(res.data.length === 0){
+                  return null;
+              }else{
+                  this.setState({
+                      roles : res.data
+                  })
+                  // const rolEmpleado = this.state.roles;
+              }
+          })
+          .catch(err => {
+              console.log(err);
+          })
+  }
+
     componentDidMount(){
       this.props.mostrarEmpleado(this.props.match.params.empleadoId);
       this.props.currentUser();
@@ -197,7 +218,37 @@ class EmpleadoIndividual extends Component {
 
       if(this.props.empleado == undefined) return null;
 
-      console.log(this.props.empleado);
+      if(this.state.roles.length === 0) return null;
+
+      console.log(this.props);
+
+      let rol_encontrado = [];
+
+      this.state.roles.map(rol => (
+          rol_encontrado = this.state.roles.filter(id_rol => (id_rol.id === this.props.empleado.user.Rols))
+      ))
+
+      if(this.props.rol == "undefinded" && rol_encontrado.length === 0) return(
+        <div style={{marginTop: '40px', marginBottom: '40px'}}>
+            <DotLoader
+            css={override}
+            size={50} // or 150px
+            color={"#4D4D4D"}
+            loading={this.state.loading}
+            />
+        </div>
+      );
+
+      if(rol_encontrado[0] == undefined) return (
+          <div style={{marginTop: '40px', marginBottom: '40px'}}>
+              <DotLoader
+              css={override}
+              size={50} // or 150px
+              color={"#4D4D4D"}
+              loading={this.state.loading}
+              />
+          </div>
+      )
 
       return (
           <React.Fragment>
@@ -211,7 +262,7 @@ class EmpleadoIndividual extends Component {
                   <h2 xs={4}>Apellido: {this.props.empleado.user.LastName}</h2>
                   <h2>Email: {this.props.empleado.user.Email}</h2>
                   <h2>DNI: {this.props.empleado.user.Dni}</h2>
-                  <h2>Rol: {this.props.empleado.user.Rols}</h2></Panel.Body>
+                  <h2>Rol: {rol_encontrado[0].Name}</h2></Panel.Body>
               
               <Panel.Heading>
                     <Panel.Title componentClass="h3" style={{textAlign:'center'}}>Domicilios</Panel.Title>
@@ -241,7 +292,16 @@ class EmpleadoIndividual extends Component {
 
         const permisos = this.props.usuario.Authorizations;
 
-        if(this.props.empleado == undefined) return null;
+        if(this.props.empleado == undefined) return (
+          <div style={{marginTop: '40px', marginBottom: '40px'}}>
+              <DotLoader
+              css={override}
+              size={50} // or 150px
+              color={"#4D4D4D"}
+              loading={this.state.loading}
+              />
+          </div>
+      );
 
         if(this.props.usuario.length == 0) {
 

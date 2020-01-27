@@ -77,7 +77,7 @@ export const agregarEstado = (estado) => async dispatch => {
                    confirmButtonText: 'Confirmar'
                })
                setTimeout(function(){
-                   window.location.href = "/pedido/estados";
+                   window.location.href = "/estados";
                }, 3500);
            }
            else if (res.status === 404){
@@ -90,7 +90,7 @@ export const agregarEstado = (estado) => async dispatch => {
            else{
                Swal.fire({
                    title: 'Error!',
-                   text: 'Se ha producido un error al intentar crear un gasto',
+                   text: 'Se ha producido un error al intentar crear un estado',
                    type: 'error',
                    confirmButtonText: 'Reintentar'
                })
@@ -115,11 +115,14 @@ export const agregarEstado = (estado) => async dispatch => {
  
 export const editarEstado = (estado) => async dispatch => {
   
-   const {descripcion, key} = estado;
+   const {descripcion, key, id} = estado;
  
    const data = {
-       Description : descripcion,
-       Key : key,
+        Estado : {
+            id : id,
+            Description : descripcion,
+            Key : key,
+        }
    }
  
    await axios.post("https://roraso.herokuapp.com/Estado/Update",data,
@@ -133,7 +136,7 @@ export const editarEstado = (estado) => async dispatch => {
                    confirmButtonText: 'Confirmar'
                })
                setTimeout(function(){
-                   window.location.href = "/pedido/estados";
+                   window.location.href = "/estados";
                }, 3500);
            }
            else{
@@ -228,7 +231,7 @@ export const eliminarEstado = (id) => async dispatch => {
                    payload: id
                })
                setTimeout(function(){
-                   window.location.href = "/pedido/estados";
+                   window.location.href = "/estados";
                }, 3500);
            }
            else{

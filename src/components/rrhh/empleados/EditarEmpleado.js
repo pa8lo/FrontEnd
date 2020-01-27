@@ -10,10 +10,20 @@ import ListadoRolesEmpleados from './ListaRolEmpleado';
 //CSS
 import Swal from 'sweetalert2'
 import '../../../assets/css/empleados/form-alta-empleados.css';
+import { css } from "@emotion/core";
+
+// Another way to import. This is recommended to reduce bundle size
+import DotLoader from "react-spinners/DotLoader";
 
 //Redux
 import { connect } from 'react-redux';
 import { editarEmpleado } from '../../../actions/empleadosAction'
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: red;
+`;
 
 class EditarEmpleado extends Component {
 
@@ -27,18 +37,6 @@ class EditarEmpleado extends Component {
     componentDidMount(){
 
         const rol = parseInt(this.props.location.state.Rols);
-
-        // if(rol == 1){
-        //     this.setState({
-        //         rol: 'Admin'
-        //     }); 
-        //     return;
-        // }
-        // else if (rol == 2){
-        //     this.setState({
-        //         rol: 'Usuario'
-        //     });
-        // }
     }
 
     dniRef = React.createRef();
@@ -99,17 +97,38 @@ class EditarEmpleado extends Component {
             this.setState({error : false});
             this.props.editarEmpleado(empleado)
         }
-
-        // e.currentTarget.reset();
-
-        // console.log(empleado);
     }
 
     render() {
-        
-        if(this.props.rol == "undefinded") return null;
 
-        console.log(this.props);
+        let rol_encontrado = [];
+
+        this.state.roles.map(rol => (
+            rol_encontrado = this.state.roles.filter(id_rol => (id_rol.id === this.props.location.state.Rols))
+        ))
+
+        
+        if(this.props.rol == "undefinded" && rol_encontrado.length === 0) return(
+            <div style={{marginTop: '40px', marginBottom: '40px'}}>
+                <DotLoader
+                css={override}
+                size={50} // or 150px
+                color={"#4D4D4D"}
+                loading={this.state.loading}
+                />
+            </div>
+        );
+
+        if(rol_encontrado[0] == undefined) return (
+            <div style={{marginTop: '40px', marginBottom: '40px'}}>
+                <DotLoader
+                css={override}
+                size={50} // or 150px
+                color={"#4D4D4D"}
+                loading={this.state.loading}
+                />
+            </div>
+        )
 
         return (
             <div>
@@ -145,7 +164,7 @@ class EditarEmpleado extends Component {
                                 <div className="form-group">
                                     <label>Rol</label>
                                     <select ref={this.rolRef} className="form-control">
-                                        <option value={this.props.location.state.Rols}>{this.state.rol}</option>
+                                        <option defaultValue={this.props.location.state.Rols}>{rol_encontrado[0].Name}</option>
                                         
                                         {this.state.roles.map(rol => (
                                             <ListadoRolesEmpleados

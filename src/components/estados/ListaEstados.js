@@ -67,14 +67,14 @@ class ActionEstadoComponent extends React.Component {
     return (
         <td style={columnButtonStyle}>
             <Link style={buttonStyle} to={{
-                pathname : `/pedido/estado/${id}`,
+                pathname : `/estados/${id}`,
                 state : this.props.rowData
                 }} className="btn btn-primary">
                 Ver
             </Link>
 
             <Link style={buttonStyle} to={{
-                pathname : `/pedido/editar-estado/${id}`,
+                pathname : `/estados/editar-estado/${id}`,
                 state : this.props.rowData
                 }} className="btn btn-warning">
                 Editar

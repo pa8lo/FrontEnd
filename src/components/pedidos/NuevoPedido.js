@@ -512,7 +512,12 @@ class NuevoPedido extends Component {
       comboFiltered = []
     }
 
-    if(productFiltered || comboFiltered == []){
+
+
+    if(productFiltered.length === 0 || comboFiltered.length === 0){
+
+      console.log(productFiltered)
+      console.log(comboFiltered)
 
       Swal.fire({
         title: 'Error!',
@@ -526,8 +531,8 @@ class NuevoPedido extends Component {
     const a = new Date();
     const fecha = a.toISOString().split('T')[0]
 
-    if(localStorage.getItem('status') === "offline" && this.state.cargaDeCliente === true && this.state.direDeCliente === true){
-
+    if(localStorage.getItem('status') == "offline" && this.state.cargaDeCliente === true && this.state.direDeCliente === true){
+      
       const datos_cliente = {
         Name : this.nombreRef.current.value,
         LastName : this.apellidoRef.current.value || "",
@@ -570,9 +575,7 @@ class NuevoPedido extends Component {
         confirmButtonText: 'Ok'
       })
 
-    }else if(localStorage.getItem('status') === "offline" && this.state.direDeCliente === true){
-
-      // console.log(this)
+    }else if(localStorage.getItem('status') == "offline" && this.state.direDeCliente === true){
 
       const datos_direccion = {
         direccion : this.direccionRef.current.value,
@@ -590,10 +593,6 @@ class NuevoPedido extends Component {
         client: this.state.cliente_encontrado_offline
         // address: this.state.direElegida.id.id
       }
-
-      // console.log(pedido)
-
-      // this.props.agregarPedido(pedido);
 
     }else{
 

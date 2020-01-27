@@ -134,9 +134,9 @@ export const editarCombo = (combo) => async dispatch => {
             Name : nombre,
             Description : descripcion,
             Amount : monto,
-            id : id
-        },
-        Products : productos
+            id : id,
+            ProductosPorCombo : productos
+        }
     }
 
     console.log(data)
@@ -189,6 +189,14 @@ export const editarCombo = (combo) => async dispatch => {
                 setTimeout(function(){ 
                     return window.location.replace("/");
                 }, 3000);
+            }else{
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Se ha producido un error al intentar editar el combo',
+                    type: 'error',
+                    confirmButtonText: 'Reintentar'
+                })
+                return;
             }
         }
     })

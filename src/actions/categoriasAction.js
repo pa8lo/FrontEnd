@@ -218,6 +218,12 @@ export const editarCategoria = (categoria) => async dispatch => {
     {headers: { 'access-token': localStorage.getItem('access-token')}})
     .then(res => {
         if(res.status === 200){
+
+            dispatch({
+                type: EDITAR_CATEGORIA,
+                payload: categoria
+            })
+            
             Swal.fire({
                 title: 'Correcto!',
                 text: 'Se ha actualizado una categoria',
@@ -249,8 +255,4 @@ export const editarCategoria = (categoria) => async dispatch => {
         return;
     })
 
-    dispatch({
-        type: EDITAR_CATEGORIA,
-        payload: categoria
-    })
 }
