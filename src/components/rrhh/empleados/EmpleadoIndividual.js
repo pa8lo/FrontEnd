@@ -286,6 +286,10 @@ class EmpleadoIndividual extends Component {
       );
     }
 
+    goBack(){
+      window.history.back();
+    }
+
     render() {
 
         let modalClose = () => this.setState({ modalShow: false });
@@ -387,6 +391,10 @@ class EmpleadoIndividual extends Component {
                     <Link style={buttonStyle} to="#" disabled className="btn btn-info">Permisos</Link> 
               
                   }
+
+                  <div align="center" style={{marginTop:"50px"}} className="form-group">
+                      <button type="button" className="btn" style={{color:"white", backgroundColor: "#4D4D4D"}} onClick={ () => this.goBack()}>Volver</button>
+                  </div>
 
                     <MyVerticallyCenteredModal
                       show={this.state.modalShow}

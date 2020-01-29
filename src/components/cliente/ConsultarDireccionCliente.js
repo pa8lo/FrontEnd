@@ -89,7 +89,13 @@ class ConsultarDireccionCliente extends Component {
         
     }
 
+    goBack(){
+      window.history.back();
+    }
+
+
     render() {
+
 
 
         console.log(this.props.location.state.Adress)
@@ -131,14 +137,9 @@ class ConsultarDireccionCliente extends Component {
                     </Col>
                     <Col align="center" xs={12} md={12} style={{marginTop:'20px',marginBottom:'40px'}}>
 
-                    {/* <Link className={buttonStyle} style={{color:"white", backgroundColor: "#4D4D4D"}} to={{
-                        pathname : `/rrhh/asistencias/${address.id}`,
-                        state : address,
-                        idUser : address.asistenciaid,
-                        userName : address
-                        }} className="btn">
-                        Editar Direccion
-                    </Link> */}
+                    <button className={buttonStyle} style={{color:"white", backgroundColor: "#4D4D4D"}} onClick={ () => this.goBack()} className="btn">
+                        Volver
+                    </button>
 
                     <button style={{marginLeft: 10, width: 140}} name="idEliminarAsistencia" 
                     onClick={() => this.eliminarDireccion(address.id)} 

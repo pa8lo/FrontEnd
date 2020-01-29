@@ -10,6 +10,10 @@ import '../../assets/css/empleados/form-alta-empleados.css';
 
 class EstadoIndividual extends Component {
 
+    goBack(){
+      window.history.back();
+    }
+
     render() {
 
         console.log(this.props)
@@ -30,6 +34,9 @@ class EstadoIndividual extends Component {
                                     <input type="text" disabled defaultValue={this.props.location.state.Key} className="form-control" required/>
                                 </div>
                             </form>
+                        </div>
+                        <div align="center" style={{marginTop:"20px"}} className="form-group">
+                            <button type="button" className="btn" style={{color:"white", backgroundColor: "#4D4D4D"}} onClick={ () => this.goBack()}>Volver</button>
                         </div>
                     </Paper>
                 </div>

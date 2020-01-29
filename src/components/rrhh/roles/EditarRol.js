@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { CustomInput } from 'reactstrap';
 import { Tab, Row, Col, Nav, NavItem, Checkbox } from 'react-bootstrap';
 import Paper from '@material-ui/core/Paper';
+import { Redirect } from 'react-router-dom';
 
 //Assets
 import Header from '../../header/IndexHeader';
@@ -57,6 +58,8 @@ class EditarRol extends Component {
         TAView: false,
         TAEdit: false,
         TADelete: false,
+        //Home
+        redirectHome: false,
     };
 
     nombreRef = React.createRef();
@@ -566,6 +569,18 @@ class EditarRol extends Component {
         
     }
 
+    ToHome(){
+      if (this.state.redirectHome) {
+        return <Redirect to='/' />
+      }
+    }
+
+    setRedirectToHome = () => {
+      this.setState({
+        redirectHome: true
+      })
+    }
+
     mostrarRol = () => {
         
         if(this.props.rol == undefined) return null;
@@ -821,6 +836,8 @@ class EditarRol extends Component {
                         </div>
                         <div style={{marginLeft: 370}} className="form-group">
                             <input type="submit" value="Enviar" className="btn btn-primary"/>
+                            <button style={{marginLeft: 20, width: 80}} onClick={this.setRedirectToHome} type="button" className="btn btn-danger">Cancelar</button>
+                            {this.ToHome()}
                         </div>
                     </form>
                 </div>

@@ -193,6 +193,10 @@ class RolIndividual extends Component {
         
     }
 
+    goBack(){
+      window.history.back();
+    }
+
     mostrarRol = () => {
 
         if(this.props.rol == undefined) return null;
@@ -415,6 +419,9 @@ class RolIndividual extends Component {
                         </Tab.Container>
                     </div>
                 </form>
+                </div>
+                <div align="center" style={{marginTop:"20px"}} className="form-group">
+                    <button type="button" className="btn" style={{color:"white", backgroundColor: "#4D4D4D"}} onClick={ () => this.goBack()}>Volver</button>
                 </div>
             </Paper>
             </div>

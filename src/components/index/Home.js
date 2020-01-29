@@ -745,7 +745,7 @@ class Principal extends Component{
       <div>
         
         <Header 
-          titulo="DASHBOARD"
+          titulo="RORASO"
         />
 
          <div className="App-body">

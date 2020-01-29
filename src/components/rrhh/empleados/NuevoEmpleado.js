@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import { Redirect } from 'react-router-dom';
 
 //Componentes
 import Paper from '@material-ui/core/Paper';
@@ -18,7 +19,8 @@ class NuevoEmpleado extends Component {
 
     state = {
         roles : [],
-        error : false
+        error : false,
+        redirectHome: false,
     }
 
     dniRef = React.createRef();
@@ -51,6 +53,18 @@ class NuevoEmpleado extends Component {
             .catch(err => {
                 console.log(err);
             })
+    }
+
+    ToHome(){
+      if (this.state.redirectHome) {
+        return <Redirect to='/' />
+      }
+    }
+
+    setRedirectToHome = () => {
+      this.setState({
+        redirectHome: true
+      })
     }
 
     crearEmpleado = (e) => {
@@ -144,6 +158,8 @@ class NuevoEmpleado extends Component {
                                 </div>
                                 <div className="form-group">
                                     <input type="submit" value="Enviar" className="btn btn-primary"/>
+                                    <button style={{marginLeft: 20, width: 80}} onClick={this.setRedirectToHome} type="button" className="btn btn-danger">Cancelar</button>
+                                    {this.ToHome()}
                                 </div>
                             </form>
                         </div>

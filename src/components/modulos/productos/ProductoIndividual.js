@@ -14,6 +14,10 @@ class ProductoIndividual extends Component {
     console.log(this.props);
   }
 
+  goBack(){
+    window.history.back();
+  }
+
     render() {
         return (
             <div>
@@ -38,6 +42,9 @@ class ProductoIndividual extends Component {
                                     <input type="submit" disabled value="Enviar" className="btn btn-primary"/>
                                 </div> */}
                             </form>
+                        </div>
+                        <div align="center" style={{marginTop:"20px"}} className="form-group">
+                            <button type="button" className="btn" style={{color:"white", backgroundColor: "#4D4D4D"}} onClick={ () => this.goBack()}>Volver</button>
                         </div>
                     </Paper>
                 </div>

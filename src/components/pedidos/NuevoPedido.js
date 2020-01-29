@@ -6,6 +6,7 @@ import Header from '../header/IndexHeader';
 import Select from 'react-select';
 import { Grid, Modal, Button, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 //CSS
 import '../../assets/css/empleados/form-alta-empleados.css';
@@ -118,7 +119,8 @@ class NuevoPedido extends Component {
       cliente_encontrado_offline : '',
       arrayProdEnCombos : [],
       finalTotal : '0',
-      finalAmmount : 0
+      finalAmmount : 0,
+      redirectHome: false,
     }
   }
 
@@ -223,6 +225,18 @@ class NuevoPedido extends Component {
           Count: parseInt(event.target.value)
         }
       }
+    })
+  }
+
+  ToHome(){
+    if (this.state.redirectHome) {
+      return <Redirect to='/' />
+    }
+  }
+
+  setRedirectToHome = () => {
+    this.setState({
+      redirectHome: true
     })
   }
 
@@ -347,7 +361,7 @@ class NuevoPedido extends Component {
         <div>
           <div className="form-group">
               <label>Direccion</label>
-              <input ref={this.direccionRef} type="text" className="form-control" placeholder="Solo nombre de la calle y altura" required/>
+              <input ref={this.direccionRef} type="text" className="form-control" placeholder="Ingrese calle, altura y ciudad" required/>
           </div>
           <div className="form-group">
               <label>Piso</label>
@@ -514,7 +528,7 @@ class NuevoPedido extends Component {
 
 
 
-    if(productFiltered.length === 0 || comboFiltered.length === 0){
+    if(comboFiltered.length === 0 && productFiltered.length === 0){
 
       console.log(productFiltered)
       console.log(comboFiltered)
@@ -540,11 +554,21 @@ class NuevoPedido extends Component {
         Phone : this.telefonoRef.current.value
       }
 
-      const datos_direccion = {
+      let datos_direccion = {
         Adress : this.direccionRef.current.value,
-        Floor : this.pisoRef.current.value || "",
-        Department : this.deptoRef.current.value || "",
-        Cp : this.cpRef.current.value || ""
+        Floor : this.pisoRef.current.value,
+        Department : this.deptoRef.current.value,
+        Cp : this.cpRef.current.value
+      }
+
+      if(datos_direccion.Floor == ""){
+
+        delete datos_direccion.Floor
+
+      }if(datos_direccion.Department == ""){
+
+        delete datos_direccion.Department
+
       }
 
       const pedido = {
@@ -554,8 +578,6 @@ class NuevoPedido extends Component {
         ProductosPorPedido: productFiltered,
         CombosPorPedido: comboFiltered,
         State: 1,
-        // client: this.state.direElegida.cliente.cliente,
-        // address: this.state.direElegida.id.id
       }
 
       let arrayPedido = JSON.parse(localStorage.getItem('pedidoCompleto'));
@@ -580,7 +602,8 @@ class NuevoPedido extends Component {
       const datos_direccion = {
         direccion : this.direccionRef.current.value,
         piso : this.pisoRef.current.value,
-        depto : this.deptoRef.current.value
+        depto : this.deptoRef.current.value,
+        Cp : this.cpRef.current.value
       }
 
       const pedido = {
@@ -860,7 +883,7 @@ class NuevoPedido extends Component {
 
     this.mostrarValorTotal();
 
-    console.log(this.state.selectedComboOption)
+    // console.log(this.state.selectedComboOption)
 
     let id_del_cliente;
 
@@ -958,6 +981,8 @@ class NuevoPedido extends Component {
                 <hr style={{width: "300px"}}></hr>
                 <div style={{marginTop:"0px"}} align="center" className="form-group">
                   <input type="submit" value="Enviar" className="btn btn-primary" required />
+                  <button style={{marginLeft: 20, width: 80}} onClick={this.setRedirectToHome} type="button" className="btn btn-danger">Cancelar</button>
+                  {this.ToHome()}
                 </div>
               </form>
             </div>

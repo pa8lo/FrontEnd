@@ -392,6 +392,55 @@ class Header extends React.Component {
 
       enviarSolicitudesEncoladasCompletas = async () => {
 
+        let arrayPedido = JSON.parse(localStorage.getItem('enviarPedido'));
+
+        for (let i = 0; i < JSON.parse(localStorage.getItem('enviarPedido')).length; i++) {
+
+
+        let data = {
+          Date : JSON.parse(localStorage.getItem('enviarPedido'))[i].date,
+          Users : JSON.parse(localStorage.getItem('enviarPedido'))[i].user,
+          Amount : JSON.parse(localStorage.getItem('enviarPedido'))[i].amount,
+          State : JSON.parse(localStorage.getItem('enviarPedido'))[i].state,
+          Clients : JSON.parse(localStorage.getItem('enviarPedido'))[i].client,
+          CombosPorPedido : JSON.parse(localStorage.getItem('enviarPedido'))[i].combo,
+          ProductosPorPedido : JSON.parse(localStorage.getItem('enviarPedido'))[i].product,
+          Adress : JSON.parse(localStorage.getItem('enviarPedido'))[i].address
+        }
+
+        // console.log(data);
+
+        axios.post("https://roraso.herokuapp.com/Pedido/Create",data,
+        {headers: { 'access-token': localStorage.getItem('access-token')}})
+        .then(res => {
+            if(res.status === 200){
+
+                Swal.fire({
+                    title: 'Correcto!',
+                    text: 'Se ha creado una nuevo pedido',
+                    type: 'success',
+                    // confirmButtonText: 'Confirmar'
+                })
+
+                arrayPedido.splice(i, 1);
+                localStorage.setItem('enviarPedido', JSON.stringify(arrayPedido));
+
+            }
+            else{
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Se ha producido un error al intentar crear el pedido',
+                    type: 'error',
+                    confirmButtonText: 'Reintentar'
+                })
+                return;
+            }
+        })
+
+      }
+
+      // localStorage.setItem('enviarPedido', JSON.stringify([]))
+
         let arrayPedidoCompleto = JSON.parse(localStorage.getItem('pedidoCompleto'));
 
         let data_dire;
@@ -481,8 +530,7 @@ class Header extends React.Component {
                         {headers: { 'access-token': localStorage.getItem('access-token')}})
                         .then(res_cliente => {
                             if(res_cliente.status === 200){
-                
-                              // console.log(res_cliente)
+
                               /**
                                * Direccion
                                */
@@ -500,13 +548,9 @@ class Header extends React.Component {
                               },
                               {headers: { 'access-token': localStorage.getItem('access-token')}})
                               .then(res_dire => {
-              
-                                console.log(res_dire)
-                                console.log(data_dire)
 
                                   if(res_dire.status === 200){
                       
-                                    console.log(res_dire)
                                     /**
                                      * Pedido
                                      */
@@ -530,9 +574,14 @@ class Header extends React.Component {
                                           console.log(res)
               
                                             if(res.status === 200){
+
+                                              arrayPedidoCompleto.splice(i, 1);
+
+                                              localStorage.setItem('pedidoCompleto', JSON.stringify(arrayPedidoCompleto));
+
                                                 Swal.fire(
-                                                  'Solicitudes enviadas',
-                                                  'Se proceden a actualizar el sistema',
+                                                  'Correcto!',
+                                                  'Se ha creado un nuevo Cliente, Direccion y Pedido',
                                                   'success'
                                                 )
                                                 setTimeout(function(){ 
@@ -616,8 +665,6 @@ class Header extends React.Component {
                           })
                           return;
                       })
-                      // console.log(self.state)
-                      // console.log(`Direccion Valida Coodenadas en ${self.state.lat}, ${self.state.lon}`)
                     );
                   }
 
@@ -636,215 +683,26 @@ class Header extends React.Component {
               } else {
                 return null;
               }
+          })
+          .catch(function (error) {
+            Swal.fire({
+              title: 'Error!',
+              text: 'La direccion no pudo ser validada, comuniquese con el cliente',
+              type: 'error',
+              confirmButtonText: 'Reintentar'
+            })
           });
 
-          /**
-           * Cliente
-           */
-          
-        //   await axios.post("https://roraso.herokuapp.com/Client/CreateClient",
-        //   JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_cliente,
-        //   {headers: { 'access-token': localStorage.getItem('access-token')}})
-        //   .then(res_cliente => {
-        //       if(res_cliente.status === 200){
-  
-        //         console.log(res_cliente)
-        //         /**
-        //          * Direccion
-        //          */
-
-        //         axios.post("https://roraso.herokuapp.com/Client/AddAddress",
-        //         data_dire = {
-        //           Address : {
-        //               Adress : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Adress,
-        //               Department : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Department,
-        //               Floor : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Floor,
-        //               Cp : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Cp,
-        //               LatLong : "latlong",
-        //               Client : res_cliente.data.UserId,
-        //           }
-        //         },
-        //         {headers: { 'access-token': localStorage.getItem('access-token')}})
-        //         .then(res_dire => {
-
-        //             if(res_dire.status === 200){
-        
-        //               console.log(res_dire)
-        //               /**
-        //                * Pedido
-        //                */
-
-        //               axios.post("https://roraso.herokuapp.com/Pedido/Create",
-        //               data_pedido = {
-        //                 Date : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.Date,
-        //                 Users : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.Users,
-        //                 Amount : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.Amount,
-        //                 State : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.State,
-        //                 Clients : res_dire.data.Client,
-        //                 CombosPorPedido : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.CombosPorPedido,
-        //                 ProductosPorPedido : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.ProductosPorPedido,
-        //                 Adress : res_dire.data.id
-        //               }
-        //               ,
-        //               {headers: { 'access-token': localStorage.getItem('access-token')}})
-        //                   .then(res => {
-
-
-        //                     console.log(res)
-
-        //                       if(res.status === 200){
-        //                           Swal.fire(
-        //                             'Solicitudes enviadas',
-        //                             'Se proceden a actualizar el sistema',
-        //                             'success'
-        //                           )
-        //                           setTimeout(function(){ 
-        //                               window.location.reload();
-        //                           }, 3500);
-        //                       }
-        //                       else{
-        //                           Swal.fire({
-        //                               title: 'Error!',
-        //                               text: 'Se ha producido un error al intentar crear el cliente',
-        //                               type: 'error',
-        //                               confirmButtonText: 'Reintentar'
-        //                           })
-        //                           return;
-        //                       }
-        //                   })
-        //                   .catch(err => {
-
-        //                     console.log(err)
-
-        //                       Swal.fire({
-        //                           title: 'Error!',
-        //                           text: 'El Servidor no ha respondido la solicitud (Pedido)',
-        //                           type: 'error',
-        //                           confirmButtonText: 'Reintentar'
-        //                       })
-        //                       return;
-        //                   })
-
-        //             }else{
-
-        //               Swal.fire({
-        //                   title: 'Error!',
-        //                   text: 'Se ha producido un error al intentar crear el gasto',
-        //                   type: 'error',
-        //                   confirmButtonText: 'Reintentar'
-        //               })
-        //               return;
-        //             }
-        //         })
-        //         .catch(err => {
-
-        //           console.log(err)
-
-        //             Swal.fire({
-        //                 title: 'Error!',
-        //                 text: 'El Servidor no ha respondido la solicitud',
-        //                 type: 'error',
-        //                 confirmButtonText: 'Reintentar'
-        //             })
-        //             return;
-        //         })
-
-        //       }else if(res_cliente.status === 400){
-        //         Swal.fire({
-        //           title: 'Error!',
-        //           text: 'Se ha producido un error al intentar crear el cliente',
-        //           type: 'error',
-        //           confirmButtonText: 'Reintentar'
-        //         })
-        //         return;
-        //       }
-        //       else{
-        //           Swal.fire({
-        //               title: 'Error!',
-        //               text: 'Se ha producido un error al intentar crear el cliente',
-        //               type: 'error',
-        //               confirmButtonText: 'Reintentar'
-        //           })
-        //           return;
-        //       }
-        //   }).catch(err => {
-
-        //     console.log(err)
-
-        //     Swal.fire({
-        //         title: 'Error!',
-        //         text: 'El Servidor no ha respondido la solicitud',
-        //         type: 'error',
-        //         confirmButtonText: 'Reintentar'
-        //     })
-        //     return;
-        // })
-  
         }
   
-      }
-
-      /**
-       * 
-       * Agregar pedidos offline, solo pedidos
-       */
-
-    enviarSolicitudesEncoladas = () => {
-      let arrayPedido = JSON.parse(localStorage.getItem('enviarPedido'));
-
-      // console.log(arrayPedido.slice(0,1))
-
-      for (let i = 0; i < JSON.parse(localStorage.getItem('enviarPedido')).length; i++) {
-        // const element = array[i];
-
-        let data = {
-          Date : JSON.parse(localStorage.getItem('enviarPedido'))[i].date,
-          Users : JSON.parse(localStorage.getItem('enviarPedido'))[i].user,
-          Amount : JSON.parse(localStorage.getItem('enviarPedido'))[i].amount,
-          State : JSON.parse(localStorage.getItem('enviarPedido'))[i].state,
-          Clients : JSON.parse(localStorage.getItem('enviarPedido'))[i].client,
-          CombosPorPedido : JSON.parse(localStorage.getItem('enviarPedido'))[i].combo,
-          ProductosPorPedido : JSON.parse(localStorage.getItem('enviarPedido'))[i].product,
-          Adress : JSON.parse(localStorage.getItem('enviarPedido'))[i].address
-        }
-
-        // console.log(data);
-
-        axios.post("https://roraso.herokuapp.com/Pedido/Create",data,
-        {headers: { 'access-token': localStorage.getItem('access-token')}})
-        .then(res => {
-            if(res.status === 200){
-
-                Swal.fire({
-                    title: 'Correcto!',
-                    text: 'Se ha añadido una nuevo pedido',
-                    type: 'success',
-                    // confirmButtonText: 'Confirmar'
-                })
-
-            }
-            else{
-                Swal.fire({
-                    title: 'Error!',
-                    text: 'Se ha producido un error al intentar crear el pedido',
-                    type: 'error',
-                    confirmButtonText: 'Reintentar'
-                })
-                return;
-            }
-        })
+        Swal.fire(
+          'Se esta procesando las solicitudes',
+          'Aguarde por favor',
+          'success'
+        )
 
       }
 
-      Swal.fire(
-        'Solicitudes enviadas',
-        'Se proceden a actualizar las categorias.',
-        'success'
-      )
-
-      localStorage.setItem('enviarPedido', JSON.stringify([]))
-
-    }
     
     setRedirectChangePassword = () => {
       this.setState({

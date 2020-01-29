@@ -4,6 +4,7 @@ import Swal from 'sweetalert2'
 //Componentes
 import Paper from '@material-ui/core/Paper';
 import Header from '../../header/IndexHeader';
+import { Redirect } from 'react-router-dom';
 
 //CSS
 import '../../../assets/css/empleados/form-alta-empleados.css';
@@ -15,7 +16,8 @@ import { editarProducto } from '../../../actions/productosAction'
 class EditarProducto extends Component {
 
     state = {
-        error : false
+        error : false,
+        redirectHome: false,
     }
 
     nombreRef = React.createRef();
@@ -58,6 +60,18 @@ class EditarProducto extends Component {
 
     }
 
+    ToHome(){
+      if (this.state.redirectHome) {
+        return <Redirect to='/' />
+      }
+    }
+
+    setRedirectToHome = () => {
+      this.setState({
+        redirectHome: true
+      })
+    }
+
     render() {
         return (
             <div>
@@ -80,6 +94,8 @@ class EditarProducto extends Component {
                                 </div>
                                 <div className="form-group">
                                     <input type="submit" value="Enviar" className="btn btn-primary"/>
+                                    <button style={{marginLeft: 20, width: 80}} onClick={this.setRedirectToHome} type="button" className="btn btn-danger">Cancelar</button>
+                                    {this.ToHome()}
                                 </div>
                             </form>
                         </div>

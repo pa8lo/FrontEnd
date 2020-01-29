@@ -7,7 +7,6 @@ import Select from 'react-select';
 import { Grid, Row, Col } from 'react-bootstrap';
 
 //CSS
-import Swal from 'sweetalert2'
 import '../../assets/css/empleados/form-alta-empleados.css';
 
 //Redux
@@ -74,11 +73,11 @@ class EnviarPedidoOffline extends Component {
       reorganizarProductos = () => {
         // console.log(this.props)
         if (this.state.optionsProductsName.length == this.props.productos.length) return null;
-        {
+        
           this.props.productos.map(producto => (
             this.state.optionsProductsName.push({ value: producto.id, label: producto.Name + " " + producto.Description, price: parseInt(producto.Amount) })
           ))
-        }
+        
       }
     
       reorganizarCombos = () => {
@@ -117,7 +116,7 @@ class EnviarPedidoOffline extends Component {
 
     componentDidMount () {
 
-        if(this.props.location.search != ""){
+        if(this.props.location.search !== ""){
         let a  = (this.props.location.search).split("?=")
 
             this.setState({
@@ -196,20 +195,6 @@ class EnviarPedidoOffline extends Component {
 
     generarPedido = (e) => {
         e.preventDefault();
-    
-        let idProductos = []
-    
-        // if (this.state.direElegida.length === 0) {
-        //   Swal.fire({
-        //     title: 'Error!',
-        //     text: 'Debe elegir una direccion',
-        //     type: 'error',
-        //     confirmButtonText: 'Reintentar'
-        //   })
-        //   return;
-        // }
-    
-        // var proddd = {};
     
     
         /*-----------------------Productos---------------------*/

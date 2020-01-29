@@ -4,6 +4,7 @@ import Swal from 'sweetalert2'
 //Componentes
 import Paper from '@material-ui/core/Paper';
 import Header from '../header/IndexHeader';
+import { Redirect } from 'react-router-dom';
 
 //CSS
 import '../../assets/css/empleados/form-alta-empleados.css';
@@ -15,7 +16,8 @@ import { editarGasto } from '../../actions/gastosAction';
 class EditarGasto extends Component {
 
   state = {
-    date : ''
+    date : '',
+    redirectHome: false,
   }
 
     detalleRef = React.createRef();
@@ -33,6 +35,18 @@ class EditarGasto extends Component {
       date : dateFinal
     })
 
+  }
+
+  ToHome(){
+    if (this.state.redirectHome) {
+      return <Redirect to='/' />
+    }
+  }
+
+  setRedirectToHome = () => {
+    this.setState({
+      redirectHome: true
+    })
   }
 
   editarGasto = (e) => {
@@ -89,6 +103,8 @@ class EditarGasto extends Component {
                                 </div>
                                 <div center="true" align="center" className="form-group">
                                     <input type="submit" value="Enviar" className="btn btn-primary" required/>
+                                    <button style={{marginLeft: 20, width: 80}} onClick={this.setRedirectToHome} type="button" className="btn btn-danger">Cancelar</button>
+                                    {this.ToHome()}
                                 </div>
                             </form>
                         </div>

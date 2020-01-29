@@ -168,30 +168,42 @@ export const agregarPedido = (pedido) => async dispatch => {
             }
         })
         .catch(err => {
-            Swal.fire({
-                title: 'Atencion!',
-                text: 'La solicitud fue guardada en la bandeja se enviara una vez se restablezca la conexion',
-                type: 'warning',
-                confirmButtonText: 'Ok'
-            })
-    
-            if(localStorage.getItem('enviarPedido').length > 0){
-    
-                let obtenerPedidoAEnviar = localStorage.getItem('enviarPedido');
-                
-                let deserializarPedidoAEnviar 
-    
-                deserializarPedidoAEnviar = JSON.parse(obtenerPedidoAEnviar);
-    
-                deserializarPedidoAEnviar.push(pedido);
-                
-                localStorage.setItem('enviarPedido', JSON.stringify(deserializarPedidoAEnviar))
+
+            if(localStorage.getItem('status') == 'offline'){
+
+                Swal.fire({
+                    title: 'Atencion!',
+                    text: 'La solicitud fue guardada en la bandeja se enviara una vez se restablezca la conexion',
+                    type: 'warning',
+                    confirmButtonText: 'Ok'
+                })
+        
+                if(localStorage.getItem('enviarPedido').length > 0){
+        
+                    let obtenerPedidoAEnviar = localStorage.getItem('enviarPedido');
+                    
+                    let deserializarPedidoAEnviar 
+        
+                    deserializarPedidoAEnviar = JSON.parse(obtenerPedidoAEnviar);
+        
+                    deserializarPedidoAEnviar.push(pedido);
+                    
+                    localStorage.setItem('enviarPedido', JSON.stringify(deserializarPedidoAEnviar))
+                }
+                else{
+                    localStorage.setItem('enviarPedido', JSON.stringify(pedido))
+                }
+        
+                return;
+            }else{
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'El Servidor no ha respondido la solicitud',
+                    type: 'error',
+                    confirmButtonText: 'Reintentar'
+                })
+                return;
             }
-            else{
-                localStorage.setItem('enviarPedido', JSON.stringify(pedido))
-            }
-    
-            return;
         })
 
 }

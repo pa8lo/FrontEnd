@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
 //Componentes
 import Paper from '@material-ui/core/Paper';
 import Header from '../header/IndexHeader';
+import { Redirect } from 'react-router-dom';
 
 //Redux
 import { connect } from 'react-redux';
@@ -17,10 +17,23 @@ class NuevoEstado extends Component {
 
     state = {
         // currentUser : ''
+        redirectHome: false,
     }
 
     descripcionRef = React.createRef();
     keyRef = React.createRef();
+
+    ToHome(){
+      if (this.state.redirectHome) {
+        return <Redirect to='/' />
+      }
+    }
+
+    setRedirectToHome = () => {
+      this.setState({
+        redirectHome: true
+      })
+    }
 
     agregarEstado = (e) => {
         e.preventDefault();
@@ -54,6 +67,8 @@ class NuevoEstado extends Component {
                         </div>
                         <div center="true" align="center" className="form-group">
                             <input type="submit" value="Enviar" className="btn btn-primary" required/>
+                            <button style={{marginLeft: 20, width: 80}} onClick={this.setRedirectToHome} type="button" className="btn btn-danger">Cancelar</button>
+                            {this.ToHome()}
                         </div>
                     </form>
                     </div>

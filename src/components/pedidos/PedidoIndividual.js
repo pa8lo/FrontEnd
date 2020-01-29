@@ -159,6 +159,10 @@ class PedidoIndividual extends Component {
     
   }
 
+  goBack(){
+    window.history.back();
+  }
+
   render() {
 
     // console.log(this.props)
@@ -213,6 +217,11 @@ class PedidoIndividual extends Component {
                   </div>
 
                   <div style={{marginTop: "30px", marginBottom: "40px"}} align="center">
+
+
+                  <button type="button" className="btn" style={{color:"white", backgroundColor: "#4D4D4D"}} onClick={ () => this.goBack()}>Volver</button>
+
+                  
                   <Link style={buttonStyle} to={{
                       pathname : `/mapa`,
                       // state : this.props.rowData

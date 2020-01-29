@@ -15,14 +15,16 @@ class ProductoIndividual extends Component {
   }
 
   componentDidMount(){
-    // console.log(this.props);
-    // const { Details, Amount, Date, id } = this.props.location.state
     console.log(this.props.location.state.Date);
     let date1 = this.props.location.state.Date.split('/');
     const dateFinal = `${date1[2]}-${date1[1]}-${date1[0]}`
     this.setState({
       date : dateFinal
     })
+  }
+
+  goBack(){
+    window.history.back();
   }
 
     render() {
@@ -46,6 +48,9 @@ class ProductoIndividual extends Component {
                                     <input type="date" disabled defaultValue={this.state.date} className="form-control" required/>
                                 </div>
                             </form>
+                        </div>
+                        <div align="center" className="form-group">
+                            <button type="button" className="btn" style={{color:"white", backgroundColor: "#4D4D4D"}} onClick={ () => this.goBack()}>Volver</button>
                         </div>
                     </Paper>
                 </div>

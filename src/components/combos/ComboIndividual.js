@@ -77,6 +77,9 @@ class ComboIndividual extends Component {
         )
     }
 
+    goBack(){
+      window.history.back();
+    }
     
     render() {
         const { selectedOption } = this.state;
@@ -115,6 +118,9 @@ class ComboIndividual extends Component {
                         </div>
                         {this.mostrarProductosListos()}
                     </form>
+                    </div>
+                    <div align="center" style={{marginTop:"20px"}} className="form-group">
+                        <button type="button" className="btn" style={{color:"white", backgroundColor: "#4D4D4D"}} onClick={ () => this.goBack()}>Volver</button>
                     </div>
                 </Paper>
             </div>

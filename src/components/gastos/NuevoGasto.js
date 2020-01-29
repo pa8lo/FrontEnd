@@ -4,6 +4,7 @@ import axios from 'axios';
 //Componentes
 import Paper from '@material-ui/core/Paper';
 import Header from '../header/IndexHeader';
+import { Redirect } from 'react-router-dom';
 
 //Redux
 import { connect } from 'react-redux';
@@ -16,7 +17,8 @@ import '../../assets/css/empleados/form-alta-empleados.css';
 class NuevoGasto extends Component {
 
     state = {
-        currentUser : ''
+        currentUser : '',
+        redirectHome: false,
     }
 
     detalleRef = React.createRef();
@@ -38,6 +40,18 @@ class NuevoGasto extends Component {
                 return;
             })
         // console.log(this.props);
+    }
+
+    ToHome(){
+      if (this.state.redirectHome) {
+        return <Redirect to='/' />
+      }
+    }
+
+    setRedirectToHome = () => {
+      this.setState({
+        redirectHome: true
+      })
     }
 
     agregarGasto = (e) => {
@@ -92,6 +106,8 @@ class NuevoGasto extends Component {
                         </div>
                         <div center="true" align="center" className="form-group">
                             <input type="submit" value="Enviar" className="btn btn-primary" required/>
+                            <button style={{marginLeft: 20, width: 80}} onClick={this.setRedirectToHome} type="button" className="btn btn-danger">Cancelar</button>
+                            {this.ToHome()}
                         </div>
                     </form>
                     </div>

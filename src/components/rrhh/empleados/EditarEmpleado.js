@@ -19,6 +19,8 @@ import DotLoader from "react-spinners/DotLoader";
 import { connect } from 'react-redux';
 import { editarEmpleado } from '../../../actions/empleadosAction'
 
+import { Redirect } from 'react-router-dom';
+
 const override = css`
   display: block;
   margin: 0 auto;
@@ -30,7 +32,8 @@ class EditarEmpleado extends Component {
     state = {
         rol : '',
         roles : [],
-        error : false
+        error : false,
+        redirectHome: false,
     }
 
 
@@ -65,6 +68,18 @@ class EditarEmpleado extends Component {
             .catch(err => {
                 console.log(err);
             })
+    }
+
+    ToHome(){
+      if (this.state.redirectHome) {
+        return <Redirect to='/' />
+      }
+    }
+
+    setRedirectToHome = () => {
+      this.setState({
+        redirectHome: true
+      })
     }
 
     crearEmpleado = (e) => {
@@ -132,7 +147,7 @@ class EditarEmpleado extends Component {
 
         return (
             <div>
-                <Header titulo = 'Alta de Empleado'/>
+                <Header titulo = 'Editar Empleado'/>
                 <div className="table-empleados">
                     <Paper className="col-md-4">
                         <div align="center">
@@ -178,6 +193,8 @@ class EditarEmpleado extends Component {
                                 </div>
                                 <div className="form-group">
                                     <input type="submit" value="Enviar" className="btn btn-primary"/>
+                                    <button style={{marginLeft: 20, width: 80}} onClick={this.setRedirectToHome} type="button" className="btn btn-danger">Cancelar</button>
+                                    {this.ToHome()}
                                 </div>
                             </form>
                         </div>

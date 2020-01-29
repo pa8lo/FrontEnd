@@ -4,6 +4,7 @@ import AddressInput from './AddressInput';
 import axios from 'axios';
 
 import Swal from 'sweetalert2'
+import { Redirect } from 'react-router-dom';
 
 //Redux
 import { connect } from 'react-redux';
@@ -16,7 +17,7 @@ class AddressForm extends Component {
   constructor(props) {
     super(props);
 
-    console.log(this.props)
+    // console.log(this.props)
 
     this.state = this.getInitialState();
 
@@ -77,7 +78,8 @@ class AddressForm extends Component {
       'query': '',
       'locationId': '',
       'isChecked': false,
-      'coords': {}
+      'coords': {},
+      'redirectHome': false,
     }
   }
 
@@ -106,8 +108,7 @@ class AddressForm extends Component {
       })
       return;
     }
-    
-    
+
 
     const Address = {
       "address" : this.state.address.street,
@@ -122,6 +123,18 @@ class AddressForm extends Component {
 
     // console.log(this.props)
     this.props.agregarDireccionCliente(Address)
+  }
+
+  ToHome(){
+    if (this.state.redirectHome) {
+      return <Redirect to='/' />
+    }
+  }
+
+  setRedirectToHome = () => {
+    this.setState({
+      redirectHome: true
+    })
   }
 
   onCheck(evt) {
@@ -217,6 +230,10 @@ class AddressForm extends Component {
     })
   }
 
+  goBack(){
+    window.history.back();
+  }
+
   render() {
     let result = this.alert();
     return (
@@ -238,11 +255,15 @@ class AddressForm extends Component {
           <br/>
           { result }
           <div center="true" align="center" className="form-group">
+          <button type="submit" style={{marginLeft: "10px", width: 80}} className="btn btn-primary" onClick={() => this.enviarDatos()}>Enviar</button>
+          <button style={{marginLeft: 10, width: 80}} onClick={this.setRedirectToHome} type="button" className="btn btn-danger">Cancelar</button>
+          {this.ToHome()}
           <button type="submit" style={{marginLeft: "10px"}} className="btn btn-info" onClick={this.onCheck}>Validar Direccion</button>
-          <button type="submit" style={{marginLeft: "10px"}} className="btn btn-outline-secondary" onClick={this.onClear}>Limpiar Datos</button>
-          <button type="submit" style={{marginLeft: "10px"}} className="btn btn-primary" onClick={() => this.enviarDatos()}>Enviar</button>
+          {/* <button type="submit" style={{marginLeft: "10px"}} className="btn btn-outline-secondary" onClick={this.onClear}>Limpiar Datos</button> */}
+          
           </div>
         </div>
+        
       );
   }
 }

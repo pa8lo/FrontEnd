@@ -78,11 +78,11 @@ class ActionOrderComponent extends React.Component {
 
             { permisos.filter(permiso => (permiso.id == 22)).length > 0 ?  
 
-                <Link style={buttonStyle} to={{
+                <Link style={{marginLeft: 10, width: 120}} to={{
                     pathname : `/mapa/editar-pedido/${id}`,
                     state : this.props.rowData
                     }} className="btn btn-warning">
-                    Editar
+                    Asignar Delivery
                 </Link>
 
                 :
@@ -90,7 +90,7 @@ class ActionOrderComponent extends React.Component {
                 <Link style={buttonStyle}
                     disabled to="#" 
                     className="btn btn-warning">
-                    Editar
+                    Asignar Delivery
                 </Link>
 
             }
