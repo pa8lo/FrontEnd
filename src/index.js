@@ -8,14 +8,14 @@ import { Provider } from 'react-redux';
 import reducers from './reducers';
 import thunk from 'redux-thunk';
 
-function saveToLocalStorage(state){
-    try{
-        const serializedState = JSON.stringify(state)
-        localStorage.setItem('state', serializedState)
-    }catch(e){
-        console.log(e)
-    }
-}
+// function saveToLocalStorage(state){
+//     try{
+//         const serializedState = JSON.stringify(state)
+//         localStorage.setItem('state', serializedState)
+//     }catch(e){
+//         console.log(e)
+//     }
+// }
 
 const initialState = {};
 
@@ -29,6 +29,6 @@ ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementB
 
 serviceWorker.unregister();
 
-store.subscribe(() => saveToLocalStorage(store.getState()))
+// store.subscribe(() => saveToLocalStorage(store.getState()))
 
 export default store;

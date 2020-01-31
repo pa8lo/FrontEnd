@@ -218,7 +218,7 @@ export const asignarDelivery = (line) => async dispatch => {
             "id": line[0]
         }
     }
-    console.log(data);
+    //console.log(data);
     await axios.post("https://roraso.herokuapp.com/Pedido/Asignar", data, {
             headers: {
                 'access-token': localStorage.getItem('access-token')
@@ -277,7 +277,7 @@ export const editarPedido = (pedido) => async dispatch => {
         Adress : address
     }
 
-    console.log(data)
+    //console.log(data)
 
     await axios.post("https://roraso.herokuapp.com/Pedido/Update",data,
     {headers: { 'access-token': localStorage.getItem('access-token')}})
@@ -285,7 +285,7 @@ export const editarPedido = (pedido) => async dispatch => {
             if(res.status === 200 ){
                 Swal.fire({
                     title: 'Correcto!',
-                    text: 'Se ha añadido un nuevo pedido',
+                    text: 'Se ha modificado un pedido',
                     type: 'success',
                     confirmButtonText: 'Confirmar'
                 })

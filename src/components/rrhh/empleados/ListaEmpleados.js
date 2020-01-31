@@ -49,10 +49,10 @@ class ActionEmpleadoComponent extends React.Component {
     eliminarEmpleado = () =>{
         const {id} = this.props.rowData;
 
-        if(id === this.props.currentIdUser){
+        if(id === this.props.currentIdUser || id === 1){
             Swal.fire({
                 title: 'Error!',
-                text: 'No puedes borrar tu usuario actual',
+                text: 'No puedes borrar el usuario',
                 type: 'error',
                 confirmButtonText: 'Reintentar'
             })
@@ -77,7 +77,56 @@ class ActionEmpleadoComponent extends React.Component {
         // 
     }
 
-    
+    resetClave = (usuario) => {
+
+        if(parseInt(localStorage.getItem('usuario')) === 1){
+
+        //     const data = {
+        //       NewPassword : usuario.props.rowData.Password
+        //     }
+        
+        //     var accessToken =  localStorage.getItem('access-token');
+        //     axios.post("https://roraso.herokuapp.com/User/ChangePassword",data,{headers: {'access-token': accessToken}})
+        //       .then(res => {
+        //         if(res.status === 200){
+        //           Swal.fire({
+        //             title: 'Correcto!',
+        //             text: 'Se han reseteado la contraseña del usuario',
+        //             type: 'success'
+                    
+        //           }, setTimeout(function(){ 
+        //             window.location.href = "/";
+        //           }, 3500))
+        //           return;
+        //         }
+        //       }).catch(err => {
+        //         Swal.fire({
+        //           title: 'Error!',
+        //           text: 'El servidor no ha respondido',
+        //           type: 'error',
+        //           confirmButtonText: 'Reintentar'
+        //         })
+        //         return;
+        //       })
+        // }else{
+        //   Swal.fire({
+        //     title: 'Error!',
+        //     text: 'Usuario sin permisos',
+        //     type: 'error',
+        //     confirmButtonText: 'Reintentar'
+        //   })
+        //   return;
+
+        Swal.fire({
+          title: 'Error!',
+          text: 'Esperando creacion de Endpoint',
+          type: 'error',
+          confirmButtonText: 'Reintentar'
+        })
+          
+        }
+
+    }
 
   render() {
       
@@ -135,6 +184,16 @@ class ActionEmpleadoComponent extends React.Component {
 
                      <button style={buttonStyle} disabled type="button" className="btn btn-danger">Borrar</button>
             }
+
+            { 
+                this.props.currentIdUser === 1 ?
+
+                <button style={{marginLeft: 10, width: 120}} onClick={ () => this.resetClave(this) } type="button" className="btn btn-info">Resetear Clave</button>
+
+                :
+
+                null
+            }
             
         </td> 
     );
@@ -166,7 +225,7 @@ class ListadoEmpleados extends Component {
                 }
             })
             .catch(err => {
-                console.log(err)
+                // console.log(err)
             })
 
     }

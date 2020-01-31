@@ -201,7 +201,7 @@ export const editarEmpleado = (empleado) => async dispatch => {
         }
     }
 
-    console.log(data);
+    //console.log(data);
 
     await axios.put("https://roraso.herokuapp.com/User/UpdateUser",data,
     {headers: { 'access-token': localStorage.getItem('access-token')}})
@@ -259,7 +259,7 @@ export const agregarDireccion = direccionUser => async dispatch => {
         }
     }
 
-    console.log(data);
+    //console.log(data);
 
     // await axios.post("https://roraso.herokuapp.com/User/AddAddress",data,
     // {headers: { 'access-token': localStorage.getItem('access-token')}})

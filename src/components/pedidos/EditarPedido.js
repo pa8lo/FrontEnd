@@ -115,14 +115,14 @@ class NuevoPedido extends Component {
 
     componentDidMount(){
 
-        // this.setState({
-        //     selectedProductsOption : this.state.optionsProductsName,
-        //     selectedComboOption : this.state.optionsComboName
-        //   })
-  
+      let pedidoEditar = JSON.parse(localStorage.getItem('pedidos')).filter(order => (order.id === this.props.location.state.id))
+
+      console.log(pedidoEditar)
+
+      this.state.direElegida = { cliente : { cliente : pedidoEditar[0].Clients.id}, id : {id : pedidoEditar[0].Adress.id}}
           
           {this.props.location.state.ProductosPorPedido.map(producto => (
-              console.log(producto),
+              // console.log(producto),
               this.state.productsToUpdate.push({Product: producto.Product.id, Count: producto.Count})
           ))}
   
@@ -486,7 +486,7 @@ class NuevoPedido extends Component {
           comboFiltered = []
         }
 
-        if(productFiltered || comboFiltered == []){
+        if(comboFiltered.length === 0 && productFiltered.length === 0){
 
           Swal.fire({
             title: 'Error!',
@@ -512,7 +512,7 @@ class NuevoPedido extends Component {
           address : this.state.direElegida.id.id
         }
 
-        console.log(pedido);
+        // console.log(pedido);
 
         this.props.editarPedido(pedido);
 

@@ -72,6 +72,7 @@ class ActionEmpleadoComponent extends React.Component {
     }
 
     render() {
+
         if(this.props.Permisos.length === 0) return null;
 
         const permisos = this.props.Permisos.Authorizations;
@@ -151,9 +152,17 @@ class ListadoPedidos extends Component {
         loading: true
     };
 
-    componentDidMount() {
+    componentWillMount() {
+        this.props.mostrarPedidos();
+    }
+
+    componentDidMount(){
         this.props.mostrarPedidos();
         this.props.currentUser();
+    }
+
+    reload = () => {
+        this.props.mostrarPedidos();
     }
 
     render() {
@@ -195,6 +204,8 @@ class ListadoPedidos extends Component {
         }
         else {
 
+            console.log(this.props)
+
             if (pedidos[0].State == "" || pedidos[0].Amount == "" || pedidos[0].Clients == " ") {
                 // console.log("Hola")
                 return (
@@ -209,8 +220,9 @@ class ListadoPedidos extends Component {
                 )
             }else{
 
-            //we can solve this problem using the initial values after.
-                // console.log(pedidos)
+                if (pedidos[0].State == "" || pedidos[0].Amount == "" || pedidos[0].Clients == " ") {
+                    this.reload();
+                }
 
                 for (var i = 0; i < pedidos.length; i++) {
                     if (pedidos[i].Date !== null) {
@@ -267,7 +279,7 @@ class ListadoPedidos extends Component {
                     } else {
                         pedidos[i].Deliverys = pedidos[i].Delivery.Name + " " + pedidos[i].Delivery.LastName;
                     }
-            }
+                }
 
                 return (
                     <SortableTbl tblData={pedidos.sort(function(a, b) {return b.id - a.id})}

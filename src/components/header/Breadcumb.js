@@ -69,7 +69,7 @@ class BreadcumbMenu extends Component {
                   
                   count += 1;
 
-                  console.log(dir)
+                  //console.log(dir)
 
 
                   if(dir === "rrhh"){

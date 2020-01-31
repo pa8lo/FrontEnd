@@ -530,8 +530,6 @@ class NuevoPedido extends Component {
 
     if(comboFiltered.length === 0 && productFiltered.length === 0){
 
-      console.log(productFiltered)
-      console.log(comboFiltered)
 
       Swal.fire({
         title: 'Error!',
@@ -599,23 +597,49 @@ class NuevoPedido extends Component {
 
     }else if(localStorage.getItem('status') == "offline" && this.state.direDeCliente === true){
 
-      const datos_direccion = {
-        direccion : this.direccionRef.current.value,
-        piso : this.pisoRef.current.value,
-        depto : this.deptoRef.current.value,
-        Cp : this.cpRef.current.value
+      let datos_direccion = {
+        Adress : this.direccionRef.current.value,
+        Floor : this.pisoRef.current.value,
+        Department : this.deptoRef.current.value,
+        Cp : this.cpRef.current.value,
+        Client: this.state.cliente_encontrado_offline,
+      }
+
+      if(datos_direccion.Floor == ""){
+
+        delete datos_direccion.Floor
+
+      }if(datos_direccion.Department == ""){
+
+        delete datos_direccion.Department
+
       }
 
       const pedido = {
-        date: fecha,
-        user: localStorage.getItem('usuario'),
-        amount: this.state.finalAmmount,
-        product: productFiltered,
-        combo: comboFiltered,
-        state: 1,
-        client: this.state.cliente_encontrado_offline
-        // address: this.state.direElegida.id.id
+        Date: fecha,
+        Users: localStorage.getItem('usuario'),
+        Amount: this.state.finalAmmount,
+        ProductosPorPedido: productFiltered,
+        CombosPorPedido: comboFiltered,
+        Client: this.state.cliente_encontrado_offline,
+        State: 1,
       }
+
+      let arrayPedidoSemiCompleto = JSON.parse(localStorage.getItem('pedidoSemiCompleto'));
+
+      arrayPedidoSemiCompleto.push({
+          pedido: pedido,
+          datos_direccion: datos_direccion
+      });
+
+      localStorage.setItem('pedidoSemiCompleto', JSON.stringify(arrayPedidoSemiCompleto));
+
+      Swal.fire({
+        title: 'Atencion!',
+        text: 'La solicitud fue guardada en la bandeja se enviara una vez se restablezca la conexion',
+        type: 'warning',
+        confirmButtonText: 'Ok'
+      })
 
     }else{
 

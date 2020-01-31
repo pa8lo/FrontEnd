@@ -139,7 +139,7 @@ export const editarCombo = (combo) => async dispatch => {
         }
     }
 
-    console.log(data)
+    //console.log(data)
 
     await axios.post("https://roraso.herokuapp.com/Offerts/Update",data,
     {headers: { 'access-token': localStorage.getItem('access-token')}})

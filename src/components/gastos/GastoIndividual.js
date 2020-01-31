@@ -15,7 +15,7 @@ class ProductoIndividual extends Component {
   }
 
   componentDidMount(){
-    console.log(this.props.location.state.Date);
+    //console.log(this.props.location.state.Date);
     let date1 = this.props.location.state.Date.split('/');
     const dateFinal = `${date1[2]}-${date1[1]}-${date1[0]}`
     this.setState({

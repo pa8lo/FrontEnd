@@ -31,11 +31,11 @@ class ComboIndividual extends Component {
 
     //   console.log(this.props.location.state);
 
-      console.log(this.props.location.state.ProductosPorCombo);
+      //console.log(this.props.location.state.ProductosPorCombo);
     }
 
     componentWillMount(){
-    console.log(this.props.location.state.ProductosPorCombo)
+    //console.log(this.props.location.state.ProductosPorCombo)
       {this.props.location.state.ProductosPorCombo.map(producto => (
         // console.log(producto),
         // producto.Product.map(prod => (

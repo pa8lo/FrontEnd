@@ -8,7 +8,7 @@ export const mostrarProductos = () => async dispatch => {
     const productos = await axios.get('https://roraso.herokuapp.com/Product/Products',
         { headers: { 'access-token': localStorage.getItem('access-token') } })
         .then(res => {
-            console.log(res.data)
+            //console.log(res.data)
             dispatch({
                 type: MOSTRAR_PRODUCTOS,
                 payload: res.data
@@ -106,7 +106,7 @@ export const agregarProducto = (producto) => async dispatch => {
                 }, 3500);
             }
             else {
-                console.log(res)
+                //console.log(res)
                 Swal.fire({
                     title: 'Error!',
                     text: 'Se ha producido un error al intentar crear el producto',

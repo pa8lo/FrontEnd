@@ -106,7 +106,7 @@ class Principal extends Component{
   
   this.state.permisosClientes = permisosClientes;
 
-  console.log(this.state)
+  //console.log(this.state)
 
   return(
 
@@ -591,7 +591,7 @@ class Principal extends Component{
                   
                   {/* Estado */}
 
-                {this.state.permisosClientes.length > 0 ? 
+                {this.state.permisosPedidos.length > 0 ? 
                 <Link key={8} to={'/estados'} className={classes.root}>
                 <Button
                 focusRipple
@@ -664,7 +664,7 @@ class Principal extends Component{
 
                   {/* Mapa */}
 
-                {this.state.permisosClientes.length > 0 ? 
+                {this.state.permisosPedidos.length > 0 ? 
                 <Link key={9} to={'/mapa'} className={classes.root}>
                 <Button
                 focusRipple
@@ -700,8 +700,8 @@ class Principal extends Component{
             
                     :
 
-                    <Button
-                    disabled
+                <Button
+                disabled
                 focusRipple
                 key="Mapa"
                 className={classes.image}

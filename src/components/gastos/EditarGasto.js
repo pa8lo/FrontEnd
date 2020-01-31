@@ -25,9 +25,9 @@ class EditarGasto extends Component {
     fechaRef = React.createRef();
 
   componentDidMount(){
-    console.log(this.props);
+    //console.log(this.props);
     // const { Details, Amount, Date, id } = this.props.location.state
-    console.log(this.props.location.state.Date);
+    //console.log(this.props.location.state.Date);
     let date1 = this.props.location.state.Date.split('/');
     const dateFinal = `${date1[2]}-${date1[1]}-${date1[0]}`
     
@@ -56,8 +56,8 @@ class EditarGasto extends Component {
 
     const fecha = fechaArr[2] + "/" + fechaArr[1] + "/" + fechaArr[0];
 
-    console.log(fecha)
-    console.log(this.montoRef.current.value)
+    //console.log(fecha)
+    //console.log(this.montoRef.current.value)
 
     if(fechaArr[0].length == 5 || fechaArr[0].length === 5){
         Swal.fire({

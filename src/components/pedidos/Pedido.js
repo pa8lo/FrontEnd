@@ -48,6 +48,7 @@ class Pedido extends Component {
         const Users = this.props.info.Users.Dni;
         const State = this.props.info.State.Description;
         const Clients = this.props.info.Clients.Name + " " + this.props.info.Clients.LastName;
+        const Client_Number = this.props.info.Clients.Telephone;
         const Adress = this.props.info.Adress.Adress + " " + this.props.info.Adress.Floor + " " + this.props.info.Adress.Department;
         const Amount = this.props.info.Amount.toFixed(0);
 
@@ -60,7 +61,7 @@ class Pedido extends Component {
         }
         
         // cost Adress =  this.props.info.Adress.Adress + " " + this.props.info.Adress.Floor + " " + this.props.info.Adress.Department;
-        console.log(this.props.info)
+        // console.log(this.props.info)
 
         return (
             <React.Fragment>

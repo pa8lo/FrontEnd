@@ -1,102 +1,118 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 
 //Componentes
 import Paper from '@material-ui/core/Paper';
 import Header from '../header/IndexHeader';
 import Select from 'react-select';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Grid, Modal, Button, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 //CSS
 import '../../assets/css/empleados/form-alta-empleados.css';
-
-
 //Redux
 import { connect } from 'react-redux';
-import { agregarPedido } from '../../actions/pedidosAction';
+import { editarPedido } from '../../actions/pedidosAction';
 import { mostrarProductos } from '../../actions/productosAction';
 import { mostrarCombos } from '../../actions/combosAction'
 
 const buttonStyle = {
   marginLeft: 10,
-  width: 80
+  width: 80,
 };
 
 class PedidoIndividual extends Component {
 
-  constructor(...args) {
-  super(...args);
+    constructor(...args) {
+    super(...args);
 
-  this.state = {
-      selectedComboOption : null,
-      optionsComboName : [],
-      selectedProductsOption : null,
-      optionsProductsName : [],
-      modalShow: false,
-      arrayProdEnCombos : []
-  }
-  }
+    this.state = {
+        selectedComboOption : null,
+        optionsComboName : [],
+        selectedProductsOption : null,
+        optionsProductsName : [],
+        optionsProductsCount : [],
+        optionsCombosCount : [],
+        modalShow: false,
+        telefonoClient : '',
+        correctSearchPhone : false,
+        direcciones : [],
+        direElegida : [],
+        totalPrice : '',
+        combosToUpdate : [],
+        productsToUpdate : [],
+        arrayProdEnCombos : [],
+        finalAmmount : 0,
+        redirectHome: false,
+    }
+    }
 
-  componentDidMount(){
-    this.obtenerProductosDeCombos();
-    this.setState({
-      selectedProductsOption : this.state.optionsProductsName,
-      selectedComboOption : this.state.optionsComboName
-    })
+    searchClient = React.createRef();
     
-  }
 
-  componentWillMount(){
+    componentDidMount(){
+  
+          
+          {this.props.location.state.ProductosPorPedido.map(producto => (
+              console.log(producto),
+              this.state.productsToUpdate.push({Product: producto.Product.id, Count: producto.Count})
+          ))}
 
-    console.log(this.props)
+          if(this.state.productsToUpdate === undefined){
+              return null;
+          }else{
+          //Revaluo el indice de los elementos dentro del objeto
+          this.state.productsToUpdate = Object.entries(this.state.productsToUpdate).reduce((s, [_, v]) => (s[v.Product] = v, s), {});
+        }
 
-    // if(this.props.location.state == [] || this.props.location.state == undefined || this.props.location.state == null) return null;
+        this.obtenerProductosDeCombos();
 
-    if(this.props.location.state.ProductosPorPedido !== undefined || this.props.location.state.ProductosPorPedido.length !== 0){
+    }
 
+    obtenerProductosDeCombos(){
+      {JSON.parse(localStorage.getItem('combos')).map(prodCombo => {
+  
+        prodCombo.ProductosPorCombo.map(productio => {
+  
+  
+          this.state.arrayProdEnCombos.push({
+              id: prodCombo.id,
+              products : productio.Product.Name + " " + productio.Product.Description
+          });
+  
+        })
+  
+      })}
+    }
+
+    componentWillMount(){
+      
+      this.props.mostrarProductos();
+      this.props.mostrarCombos();
+      this.state.selectedProductsOption = [];
       {this.props.location.state.ProductosPorPedido.map(producto => (
-        this.state.optionsProductsName.push({value: producto.id,label: producto.Product.Name + " " + producto.Product.Description,count: producto.Count})
+        this.state.selectedProductsOption.push({value: producto.Product.id, price: producto.Product.Amount, label: producto.Product.Name + " " + producto.Product.Description,count: producto.Count})
       ))}
-
-    }else{
-      return;
-    }
-
-    if(this.props.location.state.CombosPorPedido !== undefined || this.props.location.state.CombosPorPedido.length !== 0){
-
+      {this.props.location.state.ProductosPorPedido.map(producto => (
+        this.state.optionsProductsCount[producto.Product.id] = {Product: producto.Product.id, Count: producto.Count}
+      ))}
+      
+      this.state.selectedComboOption = [];
       {this.props.location.state.CombosPorPedido.map(producto => (
-        this.state.optionsComboName.push({value: producto.id,label: producto.Offer.Name ,count: producto.Count})
+        this.state.selectedComboOption.push({value: producto.Offer.id, price: producto.Offer.Amount, label: producto.Offer.Name ,count: producto.Count})
+      ))}
+      {this.props.location.state.CombosPorPedido.map(producto => (
+        this.state.optionsCombosCount[producto.Offer.id] = {Offer: producto.Offer.id, Count: producto.Count}
       ))}
 
-    }else{
-      return;
     }
 
-  }
 
-  obtenerProductosDeCombos(){
-    {JSON.parse(localStorage.getItem('combos')).map(prodCombo => {
-
-      prodCombo.ProductosPorCombo.map(productio => {
-
-
-        this.state.arrayProdEnCombos.push({
-            id: prodCombo.id,
-            products : productio.Product.Name + " " + productio.Product.Description
-        });
-
-      })
-
-    })}
-  }
-
-   mostrarProductosListos = () => {
+    mostrarProductosListos = () => {
         if(this.state.selectedProductsOption == null || this.state.selectedProductsOption === null) return null;
-        // console.log(this.state.selectedOption);
-        // console.log(this.props)
+        // console.log(this.state.selectedProductsOption);
         return (
             <div className="form-group">
-                <label>Cantidad para cada producto</label>
+                <label>Coloque una cantidad para cada producto</label>
                 <div center="true" align="center">
 
                 {this.state.selectedProductsOption.map(product => (
@@ -107,7 +123,13 @@ class PedidoIndividual extends Component {
                                 <p>{product.label}</p>
                             </Col>
                             <Col xs={4} md={6}>
-                                <input disabled defaultValue={product.count} style={{width: '60px'}} type="number" min="1" step="1" title="Numbers only" className="form-control" required/>
+                                <input 
+                                    disabled
+                                    name={product.value}
+                                    defaultValue={product.count}
+                                    style={{width: '60px'}} 
+                                    type="number" min="1" step="1" title="Numbers only" 
+                                    className="form-control" required/>
                             </Col>
                         </Row>
                         </Grid>
@@ -121,127 +143,198 @@ class PedidoIndividual extends Component {
 
 
     mostrarCombosListos = () => {
-        if(this.state.selectedComboOption == null || this.state.selectedComboOption === null) return null;
-        return (
-            <div className="form-group">
-                <label>Cantidad para cada Combo</label>
-                <div center="true" align="center">
+      if(this.state.selectedComboOption == null || this.state.selectedComboOption === null) return null;
+      // console.log(this.state.selectedProductsOption);
+      return (
+          <div className="form-group">
+              <label>Coloque una cantidad para cada Combo</label>
+              <div center="true" align="center">
 
-                {this.state.selectedComboOption.map(product => (
-                    <div className="form-group" key={product.value}>
-                        <Grid style={{marginTop:'20px', width:'800px'}}>
-                        <Row style={{ width:'800px'}} className="show-grid">
-                            <Col xs={8} md={4}>
-                                <p>{product.label}</p>
-                            </Col>
-                            <Col xs={3} md={4}>
-                                <input disabled defaultValue={product.count} style={{width: '60px'}} type="number" min="1" step="1" title="Numbers only" className="form-control" required/>
-                            </Col>
-                        </Row>
-                        </Grid>
-                    </div>
-                ))}
+              {this.state.selectedComboOption.map(product => (
+                  <div className="form-group" key={product.value}>
+                      <Grid style={{marginTop:'20px', width:'800px'}}>
+                      <Row align="center" style={{ width:'800px'}} className="show-grid">
+                          <Col xs={3} md={2}>
+                              <p>{product.label}</p>
+                          </Col>
+                          <Col xs={3} md={3}>
+                          {(this.state.arrayProdEnCombos.filter(prod => (prod.id === product.value))
+                            .map(prod => <span key={prod.products}>- {prod.products}<br></br></span>))}
+                          </Col>
+                          <Col xs={2} md={2}>
+                              <input
+                                  disabled
+                                  onChange={this.commonChangeCombo}
+                                  defaultValue={product.count}
+                                  name={product.value}
+                                  style={{width: '60px'}} 
+                                  type="number" min="1" step="1" title="Numbers only" 
+                                  className="form-control" required/>
+                          </Col>
+                      </Row>
+                      </Grid>
+                  </div>
+              ))}
 
-                </div>
-            </div>
-        )
+              </div>
+          </div>
+      )
+  }
+
+  mostrarValorTotal = () => {
+    
+    let calc_arr = [0];
+    let sum = 0;
+    // console.log(this.state.selectedProductsOption)
+
+    if (this.state.optionsCombosCount !== null) {
+
+      var myDataCombo = Object.keys(this.state.optionsCombosCount).map(key => {
+        return this.state.optionsCombosCount[key];
+      })
+      
+    }
+    
+    if(this.state.optionsProductsCount !== null){
+
+      var myDataProduct = Object.keys(this.state.optionsProductsCount).map(key => {
+        return this.state.optionsProductsCount[key];
+      })
     }
 
-  mostrarDireccion = () => {
-    
-    // console.log(this.props.location.state)
+      
+    if (this.state.selectedComboOption !== null) {
 
+      this.state.selectedComboOption.map(combo => {
+          myDataCombo.map(data => {
+            if(combo.value == data.Offer){
+              calc_arr.push(combo.price * data.Count)
+            }
+          })
+      })
+    }
+
+    if(this.state.selectedProductsOption !== null){
+
+      this.state.selectedProductsOption.map(product => {
+        myDataProduct.map(data => {
+          if(product.value == data.Product){
+            calc_arr.push(product.price * data.Count)
+          }
+        })
+      })
+    }
+    
+    if(calc_arr == []){
+
+      calc_arr.push(0)
+
+    }else{
+
+      sum = calc_arr.reduce(function(a, b){
+    
+      return a + b;
+
+    })
+    }
+
+    if(sum !== 0){
+      this.state.finalAmmount = sum
+    }
+
+    // console.log(this.state.finalAmmount)
+    // console.log(calc_arr);
+
+        
+  }
+
+    mostrarDireccion = () => {
       return (
         <div>
-          <input disabled value={this.props.location.state.Adress} type="text" className="form-control" required/>
+          <input disabled value={this.props.location.state.Adress} type="text" className="form-control" required />
         </div>
       );
-    
-  }
+    }
 
-  goBack(){
-    window.history.back();
-  }
+    goBack(){
+      window.history.back();
+    }
 
-  render() {
+    render() {
 
-    // console.log(this.props)
-    // console.log(this.state.direElegida)
+        const { selectedComboOption, selectedProductsOption } = this.state;
+        let modalClose = () => this.setState({ modalShow: false, direcciones: [] });
+        
+        return (
+            
+        <React.Fragment>
+            <Header titulo = 'Mostrar Pedido'/>
+            <div className="table-empleados">
+                <Paper className="col-md-5">
+                    <div>
+                    <form onSubmit={this.generarPedido} className="col-5">
+                    <div className="form-group">
 
-      const { selectedComboOption, selectedProductsOption } = this.state;
-      // let modalClose = () => this.setState({ modalShow: false, direcciones: [] });
-      
-      return (
-          
-      <React.Fragment>
-          <Header titulo = 'Pedido'/>
-          <div className="table-empleados">
-              <Paper className="col-md-5">
-                  <div>
-                  <form className="col-5">
-                      <div className="form-group">
-                          <label>Combo Seleccionados</label>
-                          <Select required
-                              placeholder="Ingrese o Selecciones el Combo"
-                              isDisabled
-                              value={selectedComboOption}
-                              options={this.state.optionsComboName}
-                              isMulti
-                              isSearchable
-                              isDisabled
-                          />
-                      </div>
-                      {this.mostrarCombosListos()}
-                      <div className="form-group">
-                          <label>Productos Seleccionados</label>
-                          <Select required
-                              placeholder="Ingrese o Selecciones los Productos"
-                              isDisabled
-                              value={selectedProductsOption}
-                              options={this.state.optionsProductsName}
-                              isMulti
-                              isSearchable
-                              isDisabled
-                          />
-                      </div>
-                      {this.mostrarProductosListos()}
-                      <div className="form-group">
-                          <label>Direccion Cliente</label>
+                        <div style={{ marginTop: '20px', marginBottom: '20px' }} className="form-group">
+                          {this.mostrarDireccion()}
+                        </div>
 
-                      <div className="form-group">
-                      {this.mostrarDireccion()}
-                      </div>
-
-                      </div>
-                  </form>
-                  </div>
-
-                  <div style={{marginTop: "30px", marginBottom: "40px"}} align="center">
-
-
-                  <button type="button" className="btn" style={{color:"white", backgroundColor: "#4D4D4D"}} onClick={ () => this.goBack()}>Volver</button>
-
-                  
-                  <Link style={buttonStyle} to={{
-                      pathname : `/mapa`,
-                      // state : this.props.rowData
-                      }} className="btn btn-primary">
-                      Mapa
-                  </Link>
-              </div>
-
-              </Paper>
-
-          </div>
-      </React.Fragment>
-      );
-  }
+                        </div>
+                        <div className="form-group">
+                            <label>Seleccione Combo</label>
+                            <Select required
+                                placeholder="Ingrese o Selecciones el Combo"
+                                value={selectedComboOption}
+                                isDisabled
+                                options={this.state.optionsComboName}
+                                isMulti
+                                isSearchable
+                            />
+                        </div>
+                        {this.mostrarCombosListos()}
+                        <div className="form-group">
+                            <label>Seleccione Productos</label>
+                            <Select required
+                                placeholder="Ingrese o Selecciones los Productos"
+                                value={selectedProductsOption}
+                                isDisabled
+                                options={this.state.optionsProductsName}
+                                isMulti
+                                isSearchable
+                            />
+                        </div>
+                        {this.mostrarProductosListos()}
+                        <hr></hr>
+                        <div style={{marginTop: "20px"}} className="form-group">
+                          <textarea disabled placeholder="Observaciones" className="form-control"></textarea>
+                        </div>
+                        <div style={{marginTop: "20px", marginBottom:"-10px"}} align="center" className="form-group">
+                        <label>Valor Total: {this.mostrarValorTotal()} {this.state.finalAmmount}</label>
+                        </div>
+                        <hr style={{width: "300px"}}></hr>
+                        <div style={{marginTop: "30px", marginBottom: "40px"}} align="center">
+                        <button type="button" className="btn" style={{color:"white", backgroundColor: "#4D4D4D"}} onClick={ () => this.goBack()}>Volver</button>
+                        <Link style={buttonStyle} to={{
+                            pathname : `/mapa`,
+                            // state : this.props.rowData
+                            }} className="btn btn-primary">
+                            Mapa
+                        </Link>
+                    </div>
+                    </form>
+                    </div>
+                </Paper>
+            </div>
+        </React.Fragment>
+        );
+    }
 }
 
 const mapStateToProps = state => ({
-  combos : state.combos.combos,
-  productos : state.productos.productos,
-  pedidos : state.pedidos.pedidos
+    combos : state.combos.combos,
+    productos : state.productos.productos,
+    pedidos : state.pedidos.pedidos,
+    auth: state.auth
 });
 
-export default connect(mapStateToProps, {mostrarCombos, mostrarProductos, agregarPedido})(PedidoIndividual);
+export default connect(mapStateToProps, {mostrarCombos, mostrarProductos, editarPedido})(PedidoIndividual);

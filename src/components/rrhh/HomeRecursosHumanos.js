@@ -21,7 +21,8 @@ const buttonStyle = {
     marginLeft: 10,
     marginTop: 50,
     height: 150,
-    width: '100%',
+    width: '40%',
+    display: 'inline-block'
 };
 
 const tableStyle = {
@@ -63,15 +64,13 @@ class HomeRecursosHumanos extends Component {
 
                 <Grid>
                     <Row className="show-grid">
-                        <Col xs={12} md={12}>
-                        <div style={{display: "flex"}}>
+                        <Col align="center" xs={12} md={12}>
+                        <div style={{display: "inline"}}>
                             <Link style={buttonStyle} disabled to="#" className="btn btn-warning">
                                 <h3>Empleados</h3>
                             </Link>
                         </div>
-                        </Col>
-                        <Col xs={12} md={12}>
-                        <div style={{display: "flex"}}>
+                        <div style={{display: "inline" , marginLeft:"50px"}}>
                             <Link style={buttonStyle} disabled to="#" className="btn btn-success">
                                 <h3>Roles</h3>
                             </Link>
@@ -84,8 +83,8 @@ class HomeRecursosHumanos extends Component {
                             </Link>
                         </div>
                         </Col> */}
-                        <Col xs={12} md={12}>
-                        <div style={{display: "flex"}}>
+                        <Col align="center" xs={12} md={12}>
+                        <div style={{display: "inline"}}>
                             <Link style={buttonStyle} disabled to="#" className="btn btn-danger">
                                 <h3>Asistencias</h3>
                             </Link>
@@ -213,13 +212,11 @@ class HomeRecursosHumanos extends Component {
         return(
             <Grid>
                 <Row className="show-grid">
-                    <Col xs={12} md={12}>
-                    <div style={{display: "flex"}}>
+                    <Col align="center" xs={12} md={12}>
+                    <div style={{display: "inline"}}>
                         {this.permisoABMUsuario()}
                     </div>
-                    </Col>
-                    <Col xs={12} md={12}>
-                    <div style={{display: "flex"}}>
+                    <div style={{display: "inline", marginLeft:"50px"}}>
                         {this.permisoABMRoles()}
                     </div>
                     </Col>
@@ -228,8 +225,8 @@ class HomeRecursosHumanos extends Component {
                         {this.permisoABMTurnos()}
                     </div>
                     </Col> */}
-                    <Col xs={12} md={12}>
-                    <div style={{display: "flex"}}>
+                    <Col align="center" xs={12} md={12}>
+                    <div style={{display: "inline"}}>
                         {this.permisoABMAsistencias()}
                     </div>
                     </Col> 

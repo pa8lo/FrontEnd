@@ -94,7 +94,7 @@ export const fetchCurrentUser = () => async dispatch => {
             // console.log(res.data.User.Id)
         })
         .catch( err => {
-            console.log(err)
+            //console.log(err)
         })
 
     const currentUser = await axios.get(`https://roraso.herokuapp.com/User/Authorizations?id=${userId}`,

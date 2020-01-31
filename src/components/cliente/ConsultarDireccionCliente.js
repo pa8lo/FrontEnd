@@ -98,7 +98,7 @@ class ConsultarDireccionCliente extends Component {
 
 
 
-        console.log(this.props.location.state.Adress)
+        //console.log(this.props.location.state.Adress)
 
         return(
 
