@@ -455,16 +455,16 @@ class mostrarPedidosOffline extends Component {
             
             this.state.arrayPedido.map((pedido, index) => (
 
-                   <div key={pedido.pedido.Amount} style={{marginTop: "30px", marginBottom: "50px"}}>
+                   <div key={pedido.pedido.amount} style={{marginTop: "30px", marginBottom: "50px"}}>
                     <Col align="center" xs={12} md={12}>
                     <div className="form-group">
                         <label><h3>Pedido</h3></label>
-                        <h5><b>Fecha: </b>  {pedido.pedido.Date} <b>Precio: </b> {pedido.pedido.Amount || "Sin Monto"} 
+                        <h5><b>Fecha: </b>  {pedido.pedido.date} <b>Precio: </b> {pedido.pedido.amount || "Sin Monto"} 
                         <b> Estado: </b>
                         {JSON.parse(localStorage.getItem('estados')).length > 0 ?
                         
 
-                                JSON.parse(localStorage.getItem('estados')).filter( estado => (pedido.pedido.State == estado.id))[0].Description
+                                JSON.parse(localStorage.getItem('estados')).filter( estado => (pedido.pedido.state == estado.id))[0].Description
 
                                 :
 
