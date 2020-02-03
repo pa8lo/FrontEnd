@@ -330,17 +330,11 @@ class mostrarPedidosOffline extends Component {
             <h2 style={{marginTop:"50px"}}>Pedidos con Cliente</h2>
             </div>
 
+            { this.state.arrayPedidoCompleto.length > 0 ||  this.state.arrayPedidoSemiCompleto.length > 0 || this.state.arrayPedido.length > 0 ?
             
-            
-            <hr></hr>
+            this.state.arrayPedidoSemiCompleto.map((pedido, index) => (
 
-            <div align="center">
-            <h2 style={{marginTop:"50px"}}>Solo Pedidos</h2>
-            </div>{ this.state.arrayPedidoSemiCompleto.length > 0 ||  this.state.arrayPedidoSemiCompleto.length > 0 || this.state.arrayPedido.length > 0 ?
-            
-            this.state.arrayPedidoSemiCompleto.map(pedido => (
-
-                   <div key={pedido.datos_cliente.Phone} style={{marginTop: "30px", marginBottom: "50px"}}>
+                   <div key={pedido.datos_direccion.Adress} style={{marginTop: "30px", marginBottom: "50px"}}>
                     <Col align="center" xs={12} md={12}>
                     <div className="form-group">
                         <label><h3>Domicilio</h3></label>
@@ -432,12 +426,6 @@ class mostrarPedidosOffline extends Component {
                             >
                             Modificar Pedido
                         </button>
-                        {/* <Link to={{
-                            pathname: `/pedidos/editar-pedido/1`,
-                            pedidos: pedido.pedido
-                        }} className="btn btn-primary">
-                            Ver
-                        </Link> */}
                     </div>
                     </Col>
                     <div align="center">
@@ -456,6 +444,12 @@ class mostrarPedidosOffline extends Component {
             </div>
 
             }
+            
+            <hr></hr>
+
+            <div align="center">
+            <h2 style={{marginTop:"50px"}}>Solo Pedidos</h2>
+            </div>
 
             {/* { this.state.arrayPedido.length > 0 ||  this.state.arrayPedidoSemiCompleto.length > 0 || this.state.arrayPedido.length > 0 ?
             
