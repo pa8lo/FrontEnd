@@ -454,7 +454,7 @@ class mostrarPedidosOffline extends Component {
 //             { this.state.arrayPedido.length > 0 ?
             
 //             this.state.arrayPedido.map((pedido, index) => (
-
+//
 //                    <div key={pedido.pedido.amount} style={{marginTop: "30px", marginBottom: "50px"}}>
 //                     <Col align="center" xs={12} md={12}>
 //                     <div className="form-group">
