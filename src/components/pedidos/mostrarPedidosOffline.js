@@ -193,7 +193,7 @@ class mostrarPedidosOffline extends Component {
             <h2 style={{marginTop:"50px"}}>Pedidos Completos</h2>
             </div>
             
-            { this.state.arrayPedidoCompleto.length > 0 ||  this.state.arrayPedidoSemiCompleto.length > 0 || this.state.arrayPedido.length > 0 ?
+            { this.state.arrayPedidoCompleto.length > 0 ?
             
             this.state.arrayPedidoCompleto.map((pedido, index) => (
 
@@ -330,7 +330,7 @@ class mostrarPedidosOffline extends Component {
             <h2 style={{marginTop:"50px"}}>Pedidos con Cliente</h2>
             </div>
 
-            { this.state.arrayPedidoCompleto.length > 0 ||  this.state.arrayPedidoSemiCompleto.length > 0 || this.state.arrayPedido.length > 0 ?
+            { this.state.arrayPedidoSemiCompleto.length > 0 ?
             
             this.state.arrayPedidoSemiCompleto.map((pedido, index) => (
 
@@ -451,11 +451,82 @@ class mostrarPedidosOffline extends Component {
             <h2 style={{marginTop:"50px"}}>Solo Pedidos</h2>
             </div>
 
-            {/* { this.state.arrayPedido.length > 0 ||  this.state.arrayPedidoSemiCompleto.length > 0 || this.state.arrayPedido.length > 0 ?
+            { this.state.arrayPedido.length > 0 ?
             
-            this.state.arrayPedidoCompleto.map(pedido => (
+            this.state.arrayPedido.map((pedido, index) => (
 
-                    console.log(pedido)
+                   <div key={pedido.pedido.Amount} style={{marginTop: "30px", marginBottom: "50px"}}>
+                    <Col align="center" xs={12} md={12}>
+                    <div className="form-group">
+                        <label><h3>Pedido</h3></label>
+                        <h5><b>Fecha: </b>  {pedido.pedido.Date} <b>Precio: </b> {pedido.pedido.Amount || "Sin Monto"} 
+                        <b> Estado: </b>
+                        {JSON.parse(localStorage.getItem('estados')).length > 0 ?
+                        
+
+                                JSON.parse(localStorage.getItem('estados')).filter( estado => (pedido.pedido.State == estado.id))[0].Description
+
+                                :
+
+                                " -Estado no reconocido"
+
+                        }
+                        <b> Combo: </b>
+                        {JSON.parse(localStorage.getItem('combos')).length > 0  ?
+                        
+
+                        pedido.pedido.CombosPorPedido.map(combo_a_encontrar => (
+                            (JSON.parse(localStorage.getItem('combos')).filter( combo => (combo_a_encontrar.Offer == combo.id)).length > 0) ?
+                                
+                                " -"+(JSON.parse(localStorage.getItem('combos')).filter( combo => (combo_a_encontrar.Offer == combo.id))[0].Name)
+
+                                :
+
+                                " -Combo no reconocido"
+                        ))
+
+                        :
+
+                        " -Combo no reconocido"
+
+                        }
+                        <b> Productos: </b>
+                        {JSON.parse(localStorage.getItem('combos')).length > 0 ?
+                        
+
+                        pedido.pedido.ProductosPorPedido.map(producto_a_encontrar => (
+
+                            (JSON.parse(localStorage.getItem('productos')).filter( producto => (producto_a_encontrar.Product == producto.id)).length > 0) ?
+
+                            " -"+(JSON.parse(localStorage.getItem('productos')).filter( producto => (producto_a_encontrar.Product == producto.id))[0].Description)
+                        
+                            :
+                        
+                            " -Productos no reconocido"
+                        ))
+
+                        :
+
+                        " -Productos no reconocido"
+
+                        }
+                        </h5>
+
+                        <button
+                            style={{marginTop: "10px"}}
+                            className="btn btn-primary"
+                            variant="primary"
+                            onClick={() => this.pedidoEnviar()}
+                            >
+                            Modificar Pedido
+                        </button>
+                    </div>
+                    </Col>
+                    <div align="center">
+                    {/* <button onClick={() => this.pedidoEnviar(pedido)} type="button" className="btn btn-primary">Enviar</button> */}
+                    </div>
+                    <hr style={{width:"700px"}}></hr>
+                    </div>
 
                 )
             )
@@ -466,7 +537,7 @@ class mostrarPedidosOffline extends Component {
                 <h3 style={{marginTop:'20px'}}>No hay datos</h3>
             </div>
 
-            } */}
+            }
             
         
         </React.Fragment>        
