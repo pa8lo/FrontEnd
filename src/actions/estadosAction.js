@@ -59,11 +59,10 @@ export const mostrarEstados = () => async dispatch => {
  
 export const agregarEstado = (estado) => async dispatch => {
  
-   const {descripcion, key} = estado;
+   const {descripcion} = estado;
  
    const data = {
-       Description : descripcion,
-       Key : key,
+       Description : descripcion
    }
  
    await axios.post("https://roraso.herokuapp.com/Estado/Create",data,
@@ -115,13 +114,12 @@ export const agregarEstado = (estado) => async dispatch => {
  
 export const editarEstado = (estado) => async dispatch => {
   
-   const {descripcion, key, id} = estado;
+   const {descripcion, id} = estado;
  
    const data = {
         Estado : {
             id : id,
-            Description : descripcion,
-            Key : key,
+            Description : descripcion
         }
    }
  

@@ -33,10 +33,9 @@ const buttonStyle = {
     width: 80
 };
 
-let col = ["Description", "Key", "Actions"];
+let col = ["Description", "Actions"];
 let tHead = [
     "Descripcion",
-    "Abreviatura",
     "Acciones",
 ];
 

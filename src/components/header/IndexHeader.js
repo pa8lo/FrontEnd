@@ -94,6 +94,12 @@ class Header extends React.Component {
     }else{
 
     }
+
+    if(localStorage.getItem('direccionesErroneas') === null){
+      localStorage.setItem('direccionesErroneas', 0)
+    }else{
+
+    }
     
     axios.get('https://roraso.herokuapp.com/User/CurrentUser',
     { headers: { 'access-token': localStorage.getItem('access-token')}})
@@ -228,9 +234,9 @@ class Header extends React.Component {
 
           localStorage.setItem('pedidos', JSON.stringify(pedidos))
 
-          if(deserializedPedido.length > res.data.length && deserializedPedido.length > 0){
+          if(JSON.parse(localStorage.getItem('pedidoSemiCompleto')).length > 0 || JSON.parse(localStorage.getItem('pedidoCompleto')).length > 0 || JSON.parse(localStorage.getItem('enviarPedido')).length > 0){
 
-            if(localStorage.getItem('status') === 'online'){
+            if(localStorage.getItem('status') === 'offline'){
               
               Swal.fire({
                 title: 'Solicitudes Encoladas',
@@ -504,9 +510,6 @@ class Header extends React.Component {
                                     ,
                                     {headers: { 'access-token': localStorage.getItem('access-token')}})
                                         .then(res => {
-              
-              
-                                          console.log(res)
               
                                             if(res.status === 200){
 
@@ -822,7 +825,12 @@ class Header extends React.Component {
                   });
                 });
               } else {
-                return null;
+                Swal.fire({
+                  title: 'Error!',
+                  text: 'La direccion no pudo ser validada, comuniquese con el cliente',
+                  type: 'error',
+                  confirmButtonText: 'Reintentar'
+                })
               }
           })
           .catch(function (error) {
@@ -834,6 +842,11 @@ class Header extends React.Component {
             })
           });
 
+          let countDirErr = localStorage.getItem('direccionesErroneas')
+
+          countDirErr++
+
+          localStorage.setItem('direccionesErroneas', countDirErr)
         }
   
         Swal.fire(

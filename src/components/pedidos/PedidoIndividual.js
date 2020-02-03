@@ -51,6 +51,8 @@ class PedidoIndividual extends Component {
 
     componentDidMount(){
   
+
+      // console.log(this.props)
           
           {this.props.location.state.ProductosPorPedido.map(producto => (
               console.log(producto),

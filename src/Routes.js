@@ -90,6 +90,9 @@ import EditarCliente from './components/cliente/EditarCliente';
 //Solicitudes Encoladas
 import SolicitudesEncoladas from './components/pedidos/SolicitudesEncoladas'
 
+//Pedidos Encolados
+import PedidosEncolados from './components/pedidos/mostrarPedidosOffline'
+
 class Routes extends Component {
 
     render() {
@@ -232,6 +235,10 @@ class Routes extends Component {
                         {/* Solicitudes Encoladas */}
 
                         <Route path="/solicitudes-encoladas" exact component={SolicitudesEncoladas} />
+
+                        {/* Mostrar Pedidos Encoladas */}
+
+                        <Route path="/pedidos-encolados" exact component={PedidosEncolados} />
 
                     </Switch>
                 </Router>

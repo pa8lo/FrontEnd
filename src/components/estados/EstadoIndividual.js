@@ -29,10 +29,6 @@ class EstadoIndividual extends Component {
                                     <label>Descripcion</label>
                                     <input type="text" disabled defaultValue={this.props.location.state.Description} className="form-control" required/>
                                 </div>
-                                <div className="form-group">
-                                    <label>Abreviatura</label>
-                                    <input type="text" disabled defaultValue={this.props.location.state.Key} className="form-control" required/>
-                                </div>
                             </form>
                         </div>
                         <div align="center" style={{marginTop:"20px"}} className="form-group">

@@ -50,8 +50,7 @@ class EditarEstado extends Component {
     }else{
         const estado = {
         id : this.props.location.state.id,
-        descripcion : this.descripcionRef.current.value,
-        key : this.keyRef.current.value,
+        descripcion : this.descripcionRef.current.value
         }
 
         // console.log(estado);
@@ -71,10 +70,6 @@ class EditarEstado extends Component {
                                 <div className="form-group">
                                     <label>Descripcion</label>
                                     <input ref={this.descripcionRef} type="text" defaultValue={this.props.location.state.Description} className="form-control" required/>
-                                </div>
-                                <div className="form-group">
-                                    <label>Abreviatura</label>
-                                    <input ref={this.keyRef} type="text" defaultValue={this.props.location.state.Key} className="form-control" required/>
                                 </div>
                                 <div center="true" align="center" className="form-group">
                                     <input type="submit" value="Enviar" className="btn btn-primary" required/>

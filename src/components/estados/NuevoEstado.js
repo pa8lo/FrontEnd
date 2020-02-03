@@ -39,8 +39,7 @@ class NuevoEstado extends Component {
         e.preventDefault();
 
         const estado = {
-        descripcion : this.descripcionRef.current.value,
-        key : this.keyRef.current.value,
+        descripcion : this.descripcionRef.current.value
         }
 
         this.props.agregarEstado(estado);
@@ -60,10 +59,6 @@ class NuevoEstado extends Component {
                         <div className="form-group">
                             <label>Descripcion</label>
                             <input ref={this.descripcionRef} placeholder="En Preparacion" type="text" className="form-control" required/>
-                        </div>
-                        <div className="form-group">
-                            <label>Abreviatura</label>
-                            <input ref={this.keyRef} type="text" placeholder="P" className="form-control" required/>
                         </div>
                         <div center="true" align="center" className="form-group">
                             <input type="submit" value="Enviar" className="btn btn-primary" required/>
