@@ -1,33 +1,10 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
 
-import { Col } from 'react-bootstrap';
-import Header from '../header/IndexHeader';
-
-//CSS
-import { css } from "@emotion/core";
-
-import axios from 'axios';
+import { Col, Button, Modal } from 'react-bootstrap';
+import Header, {enviarSolicitudesEncoladasCompletas} from '../header/IndexHeader';
 
 //CSS
 import Swal from 'sweetalert2'
-
-const override = css`
-  display: block;
-  margin: 0 auto;
-  border-color: red;
-`;
-
-const columnButtonStyle = {
-    maxWidth: "100%",
-    minWidth: "100%",
-    paddingTop: 3
-};
-
-const buttonStyle = {
-    marginLeft: 10,
-    width: 80
-};
 
 class mostrarPedidosOffline extends Component {
 
@@ -36,146 +13,467 @@ class mostrarPedidosOffline extends Component {
         arrayPedidoCompleto : [],
         arrayPedidoSemiCompleto : [],
         arrayPedido : [],
-        mostrarDire : false
+        mostrarDire : false,
+        mostrarPedido : false,
+        mostrarDireSemi : false,
+        mostrarPedidoSemi : false,
+        mostrarSoloPedido : false
     };
+
+    direccionNuevaRef = React.createRef();
+    pisoNuevoRef = React.createRef();
+    dptoNuevoRef = React.createRef();
+    cpNuevoRef = React.createRef();
+
+    estadoRef = React.createRef();
 
     componentDidMount(){
         this.state.arrayPedidoCompleto = JSON.parse(localStorage.getItem('pedidoCompleto'));
         this.state.arrayPedidoSemiCompleto = JSON.parse(localStorage.getItem('pedidoSemiCompleto'));
         this.state.arrayPedido = JSON.parse(localStorage.getItem('enviarPedido'));
+        this.state.arrayEstados = JSON.parse(localStorage.getItem('estados'));
     }
 
-    eliminarDireccion = async (id) => {
-        
+    /**
+     * 
+     * Pedido Completo
+     */
 
-        // Swal.fire({
-        //     title: '¿Estas seguro que desea eliminar?',
-        //     text: "Estas a punto de eliminar una direccion",
-        //     icon: 'warning',
-        //     showCancelButton: true,
-        //     confirmButtonColor: '#3085d6',
-        //     cancelButtonColor: '#d33',
-        //     confirmButtonText: 'Confirmar',
-        //     cancelButtonText: 'Cancelar'
-        //   }).then((result) => {
-        //     if (result.value) {
-        //         axios.post("https://roraso.herokuapp.com/Client/DeleteAddress",{'id': id},
-        //         { headers: { 'access-token': localStorage.getItem('access-token')}})
-        //             .then(res => {
-        //                 if(res.status === 200){
-        //                     Swal.fire({
-        //                         title: 'Correcto!',
-        //                         text: 'Se ha borrado una direccion',
-        //                         type: 'success',
-        //                         confirmButtonText: 'Confirmar'
-        //                     })
-        //                     setTimeout(function(){ 
-        //                         window.location.href = "/clientes";
-        //                     }, 3500);
-        //                 }
-        //                 else{
-        //                     Swal.fire({
-        //                         title: 'Error!',
-        //                         text: 'Se ha producido un error al intentar borrar la direccion',
-        //                         type: 'error',
-        //                         confirmButtonText: 'Reintentar'
-        //                     })
-        //                     return;
-        //                 }
-                        
-        //             })
-        //             .catch(err => {
-        //                 Swal.fire({
-        //                     title: 'Error!',
-        //                     text: 'El Servidor no ha respondido la solicitud',
-        //                     type: 'error',
-        //                     confirmButtonText: 'Reintentar'
-        //                 })
-        //                 return;
-        //             })
-        //     }
-        //   })   
-
-        
-
-            
-        
+    mostrarListaDireccion = (pedido, index) => {
+        this.setState({
+            mostrarDire : true,
+            index_actual : index,
+            pedido : pedido
+        })
     }
 
-    mostrarDirecciones = (pedido) => {
+    mostrarListaPedidos = (pedido, index) => {
+        this.setState({
+            mostrarPedido : true,
+            index_actual : index,
+            pedido : pedido
+        })
+    }
 
-        let a
+    /**
+     * 
+     * Pedido Semi Completo
+     */
+
+    mostrarListaDireccionSemi = (pedido, index) => {
+        this.setState({
+            mostrarDireSemi : true,
+            index_actual : index,
+            pedido : pedido
+        })
+    }
+
+    mostrarListaPedidosSemi = (pedido, index) => {
+        this.setState({
+            mostrarPedidoSemi : true,
+            index_actual : index,
+            pedido : pedido
+        })
+    }
+
+    /**
+     * 
+     * Solo Pedido
+     */
+
+    mostrarListaSoloPedidos = (pedido, index) => {
+        this.setState({
+            mostrarSoloPedido : true,
+            index_actual : index,
+            pedido : pedido
+        })
+    }
+
+    mostrarDirecciones = () => {
 
         return(
-            <div style={{marginTop: "10px"}}>
-                <label>Direccion</label>
-                <input style={{width:"250px"}} id="direccion_nueva" defaultValue={pedido.datos_direccion.Adress} type="text" className="form-control" required/>
-                <label>Piso</label>
-                <input style={{width:"250px"}} id="piso_nuevo" defaultValue={pedido.datos_direccion.Floor || ""} type="text" className="form-control" required/>
-                <label>Dpto</label>
-                <input style={{width:"250px"}} id="dpto_nuevo" defaultValue={pedido.datos_direccion.Department || ""} type="text" className="form-control" required/>
-                <label>Codigo Postal</label>
-                <input style={{width:"250px"}} id="cp_nuevo" defaultValue={pedido.datos_direccion.Cp || ""} type="text" className="form-control" required/>
-                
-                {/* {console.log(document.getElementById('direccion_nueva').value)} */}
+            <div className="static-modal">
+            <Modal.Dialog style={{marginTop: "150px"}}>
+                <Modal.Header>
+                <Modal.Title>Modificar Direccion</Modal.Title>
+                </Modal.Header>
 
+                <Modal.Body>
+                <input style={{width:"250px"}} ref={this.direccionNuevaRef} defaultValue={this.state.pedido.datos_direccion.Adress} type="text" className="form-control" required/>
+                <label>Piso</label>
+                <input style={{width:"250px"}} ref={this.pisoNuevoRef} defaultValue={this.state.pedido.datos_direccion.Floor} type="text" className="form-control" required/>
+                <label>Dpto</label>
+                <input style={{width:"250px"}} ref={this.dptoNuevoRef} defaultValue={this.state.pedido.datos_direccion.Department} type="text" className="form-control" required/>
+                <label>Codigo Postal</label>
+                <input style={{width:"250px"}} ref={this.cpNuevoRef} defaultValue={this.state.pedido.datos_direccion.Cp} type="text" className="form-control" required/>
+                </Modal.Body>
+
+                <Modal.Footer>
+                <Button style={{marginTop:"10px"}} onClick={ () => this.setState({
+                    mostrarDire : false
+                })}>Cerrar</Button>
                 <button
                     style={{marginTop: "10px"}}
                     className="btn btn-primary"
                     variant="primary"
-                    onClick={() => this.modificarDire(pedido, document.getElementById('direccion_nueva').value,
-                    document.getElementById('piso_nuevo').value, document.getElementById('dpto_nuevo').value,
-                    document.getElementById('cp_nuevo').value)}
+                    // onClick={ () => console.log(this.descripcionRef.current.value)}
+                    onClick={() => this.modificarDire(this.state.pedido.datos_direccion,this.direccionNuevaRef.current.value,
+                        this.pisoNuevoRef.current.value, this.dptoNuevoRef.current.value,
+                        this.cpNuevoRef.current.value, this.state.index_actual)}
                     >
-                    Aceptar
+                    Confirmar
                 </button>
+                </Modal.Footer>
+            </Modal.Dialog>
             </div>
         )
     }
+
+    mostrarPedidos = () => {
+
+        // console.log(this.state.arrayEstados.filter(estado => (this.state.pedido.pedido.State == estado.id))[0].Description)
+        return(
+            <div className="static-modal">
+            <Modal.Dialog style={{marginTop: "150px"}}>
+                <Modal.Header>
+                <Modal.Title>Modificar Estado Pedido</Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body>
+                <div className="form-group">
+                    <label>Estado</label>
+                    <select style={{width: "200px"}} ref={this.estadoRef} className="form-control">
+                        <option value={this.state.pedido.pedido.State}>{this.state.arrayEstados.filter(estado => (this.state.pedido.pedido.State == estado.id))[0].Description}</option>
+                        {this.state.arrayEstados.map(estado => (
+                            <option key={estado.id} value={estado.id}>{estado.Description}</option>
+                        ))}
+                    </select>
+                </div>
+                </Modal.Body>
+
+                <Modal.Footer>
+                <Button style={{marginTop:"10px"}} onClick={ () => this.setState({
+                    mostrarPedido : false
+                })}>Cerrar</Button>
+                <button
+                    style={{marginTop: "10px"}}
+                    className="btn btn-primary"
+                    variant="primary"
+                    // onClick={ () => console.log(this.descripcionRef.current.value)}
+                    onClick={() => this.modificarPedido(this.state.pedido.pedido, 
+                        this.estadoRef.current.value, this.state.index_actual)}
+                    >
+                    Confirmar
+                </button>
+                </Modal.Footer>
+            </Modal.Dialog>
+            </div>
+        )
+    }
+
 
     goBack(){
       window.history.back();
     }
 
-    mostrarListaDireccion = () => {
-        this.setState({
-            mostrarDire : true
-        })
-    }
-
-    modificarDire = (direccion_vieja, direccion_nueva, piso_nuevo, dpto_nuevo, cp_nuevo) => {
-
-        direccion_vieja.datos_direccion.Adress = direccion_nueva
-        direccion_vieja.datos_direccion.Floor = piso_nuevo
-        direccion_vieja.datos_direccion.Department = dpto_nuevo
-        direccion_vieja.datos_direccion.Cp = cp_nuevo
 
 
-        if(direccion_vieja.datos_direccion.Floor == ""){
+    modificarDire = (direccion_vieja, direccion_nueva, piso_nuevo, dpto_nuevo, cp_nuevo, index) => {
 
-            delete direccion_vieja.datos_direccion.Floor
+        direccion_vieja.Adress = direccion_nueva
+        direccion_vieja.Floor = piso_nuevo
+        direccion_vieja.Department = dpto_nuevo
+        direccion_vieja.Cp = cp_nuevo
 
-        }if(direccion_vieja.datos_direccion.Department == ""){
+        if(direccion_vieja.Floor == ""){
 
-            delete direccion_vieja.datos_direccion.Department
+            delete direccion_vieja.Floor
 
-        }if(direccion_vieja.datos_direccion.Cp == ""){
+        }if(direccion_vieja.Department == ""){
 
-            delete direccion_vieja.datos_direccion.Cp
+            delete direccion_vieja.Department
+
+        }if(direccion_vieja.Cp == ""){
+
+            delete direccion_vieja.Cp
   
         }
 
-        console.log(direccion_vieja)
+        let array_pedido_completo = (JSON.parse(localStorage.getItem('pedidoCompleto')));
+
+        //Dice direccion vieja, pero en realidad es la nueva
+        array_pedido_completo[index].datos_direccion = direccion_vieja
+
+        localStorage.setItem('pedidoCompleto', JSON.stringify(array_pedido_completo))
+
+        Swal.fire({
+            title: 'Correcto!',
+            text: 'Se ha modificado una direccion',
+            type: 'success',
+            confirmButtonText: 'Confirmar'
+        }).then((result) => {
+            this.setState({
+                mostrarDire : false
+            })
+        })
 
     }
 
-    pedidoEnviar = (pedido) => {
+    modificarPedido = (pedido_viejo, estado_actual, index) => {
 
-        // pedido.datos_direccion.Adress = "Una Nueva Direccion"
+        pedido_viejo.State = parseInt(estado_actual)
 
-        // console.log(pedido)
+        let array_pedido_estado_completo = (JSON.parse(localStorage.getItem('pedidoCompleto')));
+
+        //Dice direccion vieja, pero en realidad es la nueva
+        array_pedido_estado_completo[index].pedido = pedido_viejo
+
+        // console.log(array_pedido_estado_completo)
+
+        localStorage.setItem('pedidoCompleto', JSON.stringify(array_pedido_estado_completo))
+
+        Swal.fire({
+            title: 'Correcto!',
+            text: 'Se ha modificado un pedido',
+            type: 'success',
+            confirmButtonText: 'Confirmar'
+        }).then((result) => {
+            this.setState({
+                mostrarPedido : false
+            })
+        })
 
     }
+
+    mostrarDireccionesSemi = () => {
+
+        return(
+            <div className="static-modal">
+            <Modal.Dialog style={{marginTop: "150px"}}>
+                <Modal.Header>
+                <Modal.Title>Modificar Direccion</Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body>
+                <input style={{width:"250px"}} ref={this.direccionNuevaRef} defaultValue={this.state.pedido.datos_direccion.Adress} type="text" className="form-control" required/>
+                <label>Piso</label>
+                <input style={{width:"250px"}} ref={this.pisoNuevoRef} defaultValue={this.state.pedido.datos_direccion.Floor} type="text" className="form-control" required/>
+                <label>Dpto</label>
+                <input style={{width:"250px"}} ref={this.dptoNuevoRef} defaultValue={this.state.pedido.datos_direccion.Department} type="text" className="form-control" required/>
+                <label>Codigo Postal</label>
+                <input style={{width:"250px"}} ref={this.cpNuevoRef} defaultValue={this.state.pedido.datos_direccion.Cp} type="text" className="form-control" required/>
+                </Modal.Body>
+
+                <Modal.Footer>
+                <Button style={{marginTop:"10px"}} onClick={ () => this.setState({
+                    mostrarDireSemi : false
+                })}>Cerrar</Button>
+                <button
+                    style={{marginTop: "10px"}}
+                    className="btn btn-primary"
+                    variant="primary"
+                    // onClick={ () => console.log(this.descripcionRef.current.value)}
+                    onClick={() => this.modificarDireSemi(this.state.pedido.datos_direccion,this.direccionNuevaRef.current.value,
+                        this.pisoNuevoRef.current.value, this.dptoNuevoRef.current.value,
+                        this.cpNuevoRef.current.value, this.state.index_actual)}
+                    >
+                    Confirmar
+                </button>
+                </Modal.Footer>
+            </Modal.Dialog>
+            </div>
+        )
+    }
+
+    mostrarPedidosSemi = () => {
+
+        // console.log(this.state.arrayEstados.filter(estado => (this.state.pedido.pedido.State == estado.id))[0].Description)
+        return(
+            <div className="static-modal">
+            <Modal.Dialog style={{marginTop: "150px"}}>
+                <Modal.Header>
+                <Modal.Title>Modificar Estado Pedido</Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body>
+                <div className="form-group">
+                    <label>Estado</label>
+                    <select style={{width: "200px"}} ref={this.estadoRef} className="form-control">
+                        <option value={this.state.pedido.pedido.State}>{this.state.arrayEstados.filter(estado => (this.state.pedido.pedido.State == estado.id))[0].Description}</option>
+                        {this.state.arrayEstados.map(estado => (
+                            <option key={estado.id} value={estado.id}>{estado.Description}</option>
+                        ))}
+                    </select>
+                </div>
+                </Modal.Body>
+
+                <Modal.Footer>
+                <Button style={{marginTop:"10px"}} onClick={ () => this.setState({
+                    mostrarPedidoSemi : false
+                })}>Cerrar</Button>
+                <button
+                    style={{marginTop: "10px"}}
+                    className="btn btn-primary"
+                    variant="primary"
+                    // onClick={ () => console.log(this.descripcionRef.current.value)}
+                    onClick={() => this.modificarPedidoSemi(this.state.pedido.pedido, 
+                        this.estadoRef.current.value, this.state.index_actual)}
+                    >
+                    Confirmar
+                </button>
+                </Modal.Footer>
+            </Modal.Dialog>
+            </div>
+        )
+    }
+
+    modificarDireSemi = (direccion_vieja, direccion_nueva, piso_nuevo, dpto_nuevo, cp_nuevo, index) => {
+
+        direccion_vieja.Adress = direccion_nueva
+        direccion_vieja.Floor = piso_nuevo
+        direccion_vieja.Department = dpto_nuevo
+        direccion_vieja.Cp = cp_nuevo
+
+        if(direccion_vieja.Floor == ""){
+
+            delete direccion_vieja.Floor
+
+        }if(direccion_vieja.Department == ""){
+
+            delete direccion_vieja.Department
+
+        }if(direccion_vieja.Cp == ""){
+
+            delete direccion_vieja.Cp
+  
+        }
+
+        let array_pedido_completo = (JSON.parse(localStorage.getItem('pedidoSemiCompleto')));
+
+        // console.log(direccion_vieja)
+
+        //Dice direccion vieja, pero en realidad es la nueva
+        array_pedido_completo[index].datos_direccion = direccion_vieja
+
+        localStorage.setItem('pedidoSemiCompleto', JSON.stringify(array_pedido_completo))
+
+        Swal.fire({
+            title: 'Correcto!',
+            text: 'Se ha modificado una direccion',
+            type: 'success',
+            confirmButtonText: 'Confirmar'
+        }).then((result) => {
+            this.setState({
+                mostrarDireSemi : false
+            })
+        })
+
+    }
+
+    modificarPedidoSemi = (pedido_viejo, estado_actual, index) => {
+
+        pedido_viejo.State = parseInt(estado_actual)
+
+        let array_pedido_estado_completo = (JSON.parse(localStorage.getItem('pedidoSemiCompleto')));
+
+        //Dice direccion vieja, pero en realidad es la nueva
+        array_pedido_estado_completo[index].pedido = pedido_viejo
+
+        // console.log(array_pedido_estado_completo)
+
+        localStorage.setItem('pedidoSemiCompleto', JSON.stringify(array_pedido_estado_completo))
+
+        Swal.fire({
+            title: 'Correcto!',
+            text: 'Se ha modificado un pedido',
+            type: 'success',
+            confirmButtonText: 'Confirmar'
+        }).then((result) => {
+            this.setState({
+                mostrarPedidoSemi : false
+            })
+        })
+
+    }
+
+    mostrarSoloPedidos = () => {
+
+        console.log(this.state)
+        return(
+            <div className="static-modal">
+            <Modal.Dialog style={{marginTop: "150px"}}>
+                <Modal.Header>
+                <Modal.Title>Modificar Estado Pedido</Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body>
+                <div className="form-group">
+                    <label>Estado</label>
+                    <select style={{width: "200px"}} ref={this.estadoRef} className="form-control">
+                        <option value={this.state.pedido.state}>{this.state.arrayEstados.filter(estado => (this.state.pedido.state == estado.id))[0].Description}</option>
+                        {this.state.arrayEstados.map(estado => (
+                            <option key={estado.id} value={estado.id}>{estado.Description}</option>
+                        ))}
+                    </select>
+                </div>
+                </Modal.Body>
+
+                <Modal.Footer>
+                <Button style={{marginTop:"10px"}} onClick={ () => this.setState({
+                    mostrarSoloPedido : false
+                })}>Cerrar</Button>
+                <button
+                    style={{marginTop: "10px"}}
+                    className="btn btn-primary"
+                    variant="primary"
+                    // onClick={ () => console.log(this.descripcionRef.current.value)}
+                    onClick={() => this.modificarSoloPedido(this.state.pedido, 
+                        this.estadoRef.current.value, this.state.index_actual)}
+                    >
+                    Confirmar
+                </button>
+                </Modal.Footer>
+            </Modal.Dialog>
+            </div>
+        )
+    }
+
+    modificarSoloPedido = (pedido_viejo, estado_actual, index) => {
+
+        pedido_viejo.state = parseInt(estado_actual)
+
+        let array_solo_pedido_estado = (JSON.parse(localStorage.getItem('enviarPedido')));
+
+        //Dice direccion vieja, pero en realidad es la nueva
+        array_solo_pedido_estado[index] = pedido_viejo
+
+        // console.log(array_solo_pedido_estado)
+
+        localStorage.setItem('enviarPedido', JSON.stringify(array_solo_pedido_estado))
+
+        Swal.fire({
+            title: 'Correcto!',
+            text: 'Se ha modificado un pedido',
+            type: 'success',
+            confirmButtonText: 'Confirmar'
+        }).then((result) => {
+            this.setState({
+                mostrarSoloPedido : false
+            })
+        })
+
+    }
+
+    // pedidoEnviar = () => {
+
+    //     return(
+    //     this.enviarSolicitudesEncoladasCompletas()
+    //     )
+    //     // pedido.datos_direccion.Adress = "Una Nueva Direccion"
+
+    //     // console.log(pedido)
+
+    // }
 
 
     render() {
@@ -197,9 +495,6 @@ class mostrarPedidosOffline extends Component {
             
             this.state.arrayPedidoCompleto.map((pedido, index) => (
 
-
-                    // console.log(pedido),
-
                     <div key={pedido.datos_cliente.Phone} style={{marginTop: "30px", marginBottom: "50px"}}>
                     <Col xs={12} md={12}>
                     <div align="center" className="form-group">
@@ -217,16 +512,16 @@ class mostrarPedidosOffline extends Component {
                                     C. Postal: </b> {pedido.datos_direccion.Cp || "Sin CP"}</h5>
                             <button
                                 style={{marginTop: "10px"}}
-                                className="btn btn-success"
+                                className="btn btn-primary"
                                 variant="primary"
-                                onClick={() => this.mostrarListaDireccion()}
+                                onClick={() => this.mostrarListaDireccion(pedido, index)}
                                 >
                                 Modificar Direccion
                             </button>
                             {
-                                this.state.mostrarDire == true ?
+                                this.state.mostrarDire == true ? 
                             
-                                    this.mostrarDirecciones(pedido)
+                                    this.mostrarDirecciones()
                             
                                     :
                                     
@@ -290,21 +585,23 @@ class mostrarPedidosOffline extends Component {
 
                         }
                         </h5>
-
-                        <button
-                            style={{marginTop: "10px"}}
-                            className="btn btn-primary"
-                            variant="primary"
-                            onClick={() => this.pedidoEnviar()}
-                            >
-                            Modificar Pedido
-                        </button>
-                        {/* <Link to={{
-                            pathname: `/pedidos/editar-pedido/1`,
-                            pedidos: pedido.pedido
-                        }} className="btn btn-primary">
-                            Ver
-                        </Link> */}
+                            <button
+                                style={{marginTop: "10px"}}
+                                className="btn btn-primary"
+                                variant="primary"
+                                onClick={() => this.mostrarListaPedidos(pedido, index)}
+                                >
+                                Modificar Estado
+                            </button>
+                            {
+                                this.state.mostrarPedido == true ? 
+                            
+                                    this.mostrarPedidos()
+                            
+                                    :
+                                    
+                                    null
+                            }
                     </div>
                     </Col>
                     <div align="center">
@@ -327,14 +624,43 @@ class mostrarPedidosOffline extends Component {
             <hr></hr>
 
             <div align="center">
-            <h2 style={{marginTop:"50px"}}>Pedidos con Cliente</h2>
+            <h2 style={{marginTop:"50px"}}>Pedidos Con Cliente Existente</h2>
             </div>
 
             { this.state.arrayPedidoSemiCompleto.length > 0 ?
             
+                
+
             this.state.arrayPedidoSemiCompleto.map((pedido, index) => (
 
+                // console.log(
+                //     JSON.parse(localStorage.getItem('clientes')).filter(cliente => (pedido.datos_direccion.Client == cliente.id))[0]
+                // ),
+
                    <div key={pedido.datos_direccion.Adress} style={{marginTop: "30px", marginBottom: "50px"}}>
+                    <Col xs={12} md={12}>
+                    <div align="center" className="form-group">
+                        <label><h3>Datos Cliente</h3></label>
+                        {
+                            JSON.parse(localStorage.getItem('clientes')).filter(cliente => (pedido.datos_direccion.Client == cliente.id)).length > 0 ?
+                        
+                            <h5>
+                            <b>Nombre: </b>  {JSON.parse(localStorage.getItem('clientes')).filter(cliente => (pedido.datos_direccion.Client == cliente.id))[0].Name} 
+                            <b> Apellido: </b> {JSON.parse(localStorage.getItem('clientes')).filter(cliente => (pedido.datos_direccion.Client == cliente.id))[0].LastName} 
+                            <b> Telefono: </b> {JSON.parse(localStorage.getItem('clientes')).filter(cliente => (pedido.datos_direccion.Client == cliente.id))[0].Phone}
+                            </h5>
+                        
+                            :
+
+                            <h5>
+                            <b>Nombre: </b>  Sin Datos 
+                            <b> Apellido: </b> Sin Datos
+                            <b> Telefono: </b> Sin Datos
+                            </h5>
+
+                        }
+                    </div>
+                    </Col>
                     <Col align="center" xs={12} md={12}>
                     <div className="form-group">
                         <label><h3>Domicilio</h3></label>
@@ -344,16 +670,16 @@ class mostrarPedidosOffline extends Component {
                                     C. Postal: </b> {pedido.datos_direccion.Cp || "Sin CP"}</h5>
                             <button
                                 style={{marginTop: "10px"}}
-                                className="btn btn-success"
+                                className="btn btn-primary"
                                 variant="primary"
-                                onClick={() => this.mostrarListaDireccion()}
+                                onClick={() => this.mostrarListaDireccionSemi(pedido, index)}
                                 >
                                 Modificar Direccion
                             </button>
                             {
-                                this.state.mostrarDire == true ?
+                                this.state.mostrarDireSemi == true ? 
                             
-                                    this.mostrarDirecciones(pedido)
+                                    this.mostrarDireccionesSemi()
                             
                                     :
                                     
@@ -422,10 +748,19 @@ class mostrarPedidosOffline extends Component {
                             style={{marginTop: "10px"}}
                             className="btn btn-primary"
                             variant="primary"
-                            onClick={() => this.pedidoEnviar()}
+                            onClick={() => this.mostrarListaPedidosSemi(pedido, index)}
                             >
-                            Modificar Pedido
+                            Modificar Estado
                         </button>
+                        {
+                            this.state.mostrarPedidoSemi == true ? 
+                        
+                                this.mostrarPedidosSemi()
+                        
+                                :
+                                
+                                null
+                        }
                     </div>
                     </Col>
                     <div align="center">
@@ -451,95 +786,156 @@ class mostrarPedidosOffline extends Component {
             <h2 style={{marginTop:"50px"}}>Solo Pedidos</h2>
             </div>
 
-//             { this.state.arrayPedido.length > 0 ?
+           { this.state.arrayPedido.length > 0 ?
             
-//             this.state.arrayPedido.map((pedido, index) => (
-//
-//                    <div key={pedido.pedido.amount} style={{marginTop: "30px", marginBottom: "50px"}}>
-//                     <Col align="center" xs={12} md={12}>
-//                     <div className="form-group">
-//                         <label><h3>Pedido</h3></label>
-//                         <h5><b>Fecha: </b>  {pedido.pedido.date} <b>Precio: </b> {pedido.pedido.amount || "Sin Monto"} 
-//                         <b> Estado: </b>
-//                         {JSON.parse(localStorage.getItem('estados')).length > 0 ?
+            this.state.arrayPedido.map((pedido, index) => (
+
+                // console.log(pedido),
+
+                   <div key={pedido.amount} style={{marginTop: "30px", marginBottom: "50px"}}>
+                    <Col xs={12} md={12}>
+                    <div align="center" className="form-group">
+                        <label><h3>Datos Cliente</h3></label>
+                        {
+                            JSON.parse(localStorage.getItem('clientes')).filter(cliente => (pedido.client == cliente.id)).length > 0 ?
+                        
+                            <h5>
+                            <b>Nombre: </b>  {JSON.parse(localStorage.getItem('clientes')).filter(cliente => (pedido.client == cliente.id))[0].Name} 
+                            <b> Apellido: </b> {JSON.parse(localStorage.getItem('clientes')).filter(cliente => (pedido.client == cliente.id))[0].LastName} 
+                            <b> Telefono: </b> {JSON.parse(localStorage.getItem('clientes')).filter(cliente => (pedido.client == cliente.id))[0].Phone}
+                            </h5>
+                        
+                            :
+
+                            <h5>
+                            <b>Nombre: </b>  Sin Datos 
+                            <b> Apellido: </b> Sin Datos
+                            <b> Telefono: </b> Sin Datos
+                            </h5>
+
+                        }
+                    </div>
+                    </Col>
+                    <Col xs={12} md={12}>
+                    <div align="center" className="form-group">
+                        <label><h3>Domicilio</h3></label>
+                        {/* {console.log(JSON.parse(localStorage.getItem('clientes')).filter(cliente => (pedido.client == cliente.id))[0])} */}
+                        {
+                            JSON.parse(localStorage.getItem('clientes')).filter(cliente => (pedido.client == cliente.id)).length > 0 ?
+                            
+
+                            <h5>
+                                <b> Direccion: </b>  {JSON.parse(localStorage.getItem('clientes')).filter(cliente => (pedido.client == cliente.id))[0].Adress.filter(direccion => (pedido.address == direccion.id))[0].Adress}  
+                                <b> Piso: </b> {JSON.parse(localStorage.getItem('clientes')).filter(cliente => (pedido.client == cliente.id))[0].Adress.filter(direccion => (pedido.address == direccion.id))[0].Floor || "Sin piso"} 
+                                <b> Dpto: </b> {JSON.parse(localStorage.getItem('clientes')).filter(cliente => (pedido.client == cliente.id))[0].Adress.filter(direccion => (pedido.address == direccion.id))[0].Department || "Sin Dpto"} 
+                                <b> C. Postal: </b> {JSON.parse(localStorage.getItem('clientes')).filter(cliente => (pedido.client == cliente.id))[0].Adress.filter(direccion => (pedido.address == direccion.id))[0].Cp || "Sin CP"}
+                            </h5>
+                        
+                            :
+
+                            <h5>
+                                <b>Direccion: </b>  Sin Datos 
+                                <b> Piso: </b> Sin Datos
+                                <b> Dpto: </b> Sin Datos
+                                <b> C. Postal: </b>Sin Datos
+                            </h5>
+              
+
+                        }
+                    </div>
+                    </Col>
+                    <Col align="center" xs={12} md={12}>
+                    <div className="form-group">
+                        <label><h3>Pedido</h3></label>
+                        <h5><b>Fecha: </b>  {pedido.date} <b>Precio: </b> {pedido.amount || "Sin Monto"} 
+                        <b> Estado: </b>
+                        {JSON.parse(localStorage.getItem('estados')).length > 0 ?
                         
 
-//                                 JSON.parse(localStorage.getItem('estados')).filter( estado => (pedido.pedido.state == estado.id))[0].Description
+                                JSON.parse(localStorage.getItem('estados')).filter( estado => (pedido.state == estado.id))[0].Description
 
-//                                 :
+                                :
 
-//                                 " -Estado no reconocido"
+                                " -Estado no reconocido"
 
-//                         }
-//                         <b> Combo: </b>
-//                         {JSON.parse(localStorage.getItem('combos')).length > 0  ?
+                        }
+                        <b> Combo: </b>
+                        {JSON.parse(localStorage.getItem('combos')).length > 0  ?
                         
 
-//                         pedido.pedido.CombosPorPedido.map(combo_a_encontrar => (
-//                             (JSON.parse(localStorage.getItem('combos')).filter( combo => (combo_a_encontrar.Offer == combo.id)).length > 0) ?
+                        pedido.combo.map(combo_a_encontrar => (
+                            (JSON.parse(localStorage.getItem('combos')).filter( combo => (combo_a_encontrar.Offer == combo.id)).length > 0) ?
                                 
-//                                 " -"+(JSON.parse(localStorage.getItem('combos')).filter( combo => (combo_a_encontrar.Offer == combo.id))[0].Name)
+                                " -"+(JSON.parse(localStorage.getItem('combos')).filter( combo => (combo_a_encontrar.Offer == combo.id))[0].Name)
 
-//                                 :
+                                :
 
-//                                 " -Combo no reconocido"
-//                         ))
+                                " -Combo no reconocido"
+                        ))
 
-//                         :
+                        :
 
-//                         " -Combo no reconocido"
+                        " -Combo no reconocido"
 
-//                         }
-//                         <b> Productos: </b>
-//                         {JSON.parse(localStorage.getItem('combos')).length > 0 ?
+                        }
+                        <b> Productos: </b>
+                        {JSON.parse(localStorage.getItem('combos')).length > 0 ?
                         
 
-//                         pedido.pedido.ProductosPorPedido.map(producto_a_encontrar => (
+                        pedido.product.map(producto_a_encontrar => (
 
-//                             (JSON.parse(localStorage.getItem('productos')).filter( producto => (producto_a_encontrar.Product == producto.id)).length > 0) ?
+                            (JSON.parse(localStorage.getItem('productos')).filter( producto => (producto_a_encontrar.Product == producto.id)).length > 0) ?
 
-//                             " -"+(JSON.parse(localStorage.getItem('productos')).filter( producto => (producto_a_encontrar.Product == producto.id))[0].Description)
+                            " -"+(JSON.parse(localStorage.getItem('productos')).filter( producto => (producto_a_encontrar.Product == producto.id))[0].Description)
                         
-//                             :
+                            :
                         
-//                             " -Productos no reconocido"
-//                         ))
+                            " -Productos no reconocido"
+                        ))
 
-//                         :
+                        :
 
-//                         " -Productos no reconocido"
+                        " -Productos no reconocido"
 
-//                         }
-//                         </h5>
+                        }
+                        </h5>
 
-//                         <button
-//                             style={{marginTop: "10px"}}
-//                             className="btn btn-primary"
-//                             variant="primary"
-//                             onClick={() => this.pedidoEnviar()}
-//                             >
-//                             Modificar Pedido
-//                         </button>
-//                     </div>
-//                     </Col>
-//                     <div align="center">
-//                     {/* <button onClick={() => this.pedidoEnviar(pedido)} type="button" className="btn btn-primary">Enviar</button> */}
-//                     </div>
-//                     <hr style={{width:"700px"}}></hr>
-//                     </div>
+                            <button
+                                style={{marginTop: "10px"}}
+                                className="btn btn-primary"
+                                variant="primary"
+                                onClick={() => this.mostrarListaSoloPedidos(pedido, index)}
+                                >
+                                Modificar Estado
+                            </button>
+                            {
+                                this.state.mostrarSoloPedido == true ? 
+                            
+                                    this.mostrarSoloPedidos()
+                            
+                                    :
+                                    
+                                    null
+                            }
+                    </div>
+                    </Col>
+                    <div align="center">
+                    {/* <button onClick={() => this.pedidoEnviar(pedido)} type="button" className="btn btn-primary">Enviar</button> */}
+                    </div>
+                    <hr style={{width:"700px"}}></hr>
+                    </div>
 
-//                 )
-//             )
+                )
+            )
 
-//             :
+            :
 
-//             <div align="center" className="form-group">
-//                 <h3 style={{marginTop:'20px'}}>No hay datos</h3>
-//             </div>
+            <div align="center" className="form-group">
+                <h3 style={{marginTop:'20px'}}>No hay datos</h3>
+            </div>
 
-//             }
+            }
             
-        
         </React.Fragment>        
         )
 

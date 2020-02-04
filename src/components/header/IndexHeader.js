@@ -799,15 +799,126 @@ class Header extends React.Component {
                             }
                         }).catch(err => {
               
-                          console.log(err)
+                          const response = err.response
+                          // console.log(response.data.split("\"")[3])
+
+                          axios.get(`https://roraso.herokuapp.com/Client/Client?Phone=${response.data.split("\"")[3]}`,
+                            { headers: { 'access-token': localStorage.getItem('access-token') } })
+                            .then(res => {
+                              
+                              axios.post("https://roraso.herokuapp.com/Client/AddAddress",
+                              data_dire = {
+                                Address : {
+                                    Adress : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Adress,
+                                    Department : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Department,
+                                    Floor : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Floor,
+                                    Cp : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Cp,
+                                    LatLong : coords,
+                                    Client : res.data.Cliente.id
+                                }
+                              },
+                              {headers: { 'access-token': localStorage.getItem('access-token')}})
+                              .then(res_dire => {
+
+                                  if(res_dire.status === 200){
+                      
+                                    /**
+                                     * Pedido
+                                     */
               
-                          Swal.fire({
-                              title: 'Error!',
-                              text: 'El Servidor no ha respondido al alta del cliente',
-                              type: 'error',
-                              confirmButtonText: 'Reintentar'
-                          })
-                          return;
+                                    axios.post("https://roraso.herokuapp.com/Pedido/Create",
+                                    data_pedido = {
+                                      Date : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.Date,
+                                      Users : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.Users,
+                                      Amount : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.Amount,
+                                      State : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.State,
+                                      Clients : res_dire.data.Client,
+                                      CombosPorPedido : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.CombosPorPedido,
+                                      ProductosPorPedido : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.ProductosPorPedido,
+                                      Adress : res_dire.data.id
+                                    }
+                                    ,
+                                    {headers: { 'access-token': localStorage.getItem('access-token')}})
+                                        .then(res => {
+              
+              
+                                          console.log(res)
+              
+                                            if(res.status === 200){
+
+                                              arrayPedidoCompleto.splice(i, 1);
+
+                                              localStorage.setItem('pedidoCompleto', JSON.stringify(arrayPedidoCompleto));
+
+                                                Swal.fire(
+                                                  'Correcto!',
+                                                  'Se ha creado un nuevo Cliente, Direccion y Pedido',
+                                                  'success'
+                                                )
+                                                setTimeout(function(){ 
+                                                    window.location.reload();
+                                                }, 3500);
+                                            }
+                                            else{
+                                                Swal.fire({
+                                                    title: 'Error!',
+                                                    text: 'Se ha producido un error al intentar crear el Pedido',
+                                                    type: 'error',
+                                                    confirmButtonText: 'Reintentar'
+                                                })
+                                                return;
+                                            }
+                                        })
+                                        .catch(err => {
+              
+                                          console.log(err)
+              
+                                            Swal.fire({
+                                                title: 'Error!',
+                                                text: 'El Servidor no ha respondido al alta de Pedido',
+                                                type: 'error',
+                                                confirmButtonText: 'Reintentar'
+                                            })
+                                            return;
+                                        })
+              
+                                  }else{
+              
+                                    Swal.fire({
+                                        title: 'Error!',
+                                        text: 'Se ha producido un error al intentar crear la direccion',
+                                        type: 'error',
+                                        confirmButtonText: 'Reintentar'
+                                    })
+                                    return;
+                                  }
+                              })
+                              .catch(err => {
+              
+                                console.log(err)
+              
+                                  Swal.fire({
+                                      title: 'Error!',
+                                      text: 'El Servidor no ha respondido al alta de la direccion',
+                                      type: 'error',
+                                      confirmButtonText: 'Reintentar'
+                                  })
+                                  return;
+                              })
+
+                            })
+                            .catch(err => {
+
+                              Swal.fire({
+                                title: 'Error!',
+                                text: 'El Servidor no ha respondido al alta del cliente',
+                                type: 'error',
+                                confirmButtonText: 'Reintentar'
+                            })
+                            return;
+
+                            })
+                          
                       })
                     );
                   }
