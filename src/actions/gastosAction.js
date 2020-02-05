@@ -49,7 +49,7 @@ export const mostrarGastos = () => async dispatch => {
                 })
                 // localStorage.removeItem("access-token");
                 setTimeout(function(){ 
-                    window.location.href = "/gastos";
+                    window.location.href = "/";
                 }, 3000);
                 
             }

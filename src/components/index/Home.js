@@ -90,7 +90,7 @@ class Principal extends Component{
   
   let permisosRRHH = [];
   
-  permisosRRHH = this.props.usuario.Authorizations.filter(permiso => (permiso.id >= 28 && permiso.id <= 31));
+  permisosRRHH = this.props.usuario.Authorizations.filter(permiso => (permiso.id >= 1 && permiso.id <= 4 || permiso.id >= 28 && permiso.id <= 31));
   
   this.state.permisosRRHH = permisosRRHH;
 
@@ -107,6 +107,8 @@ class Principal extends Component{
   this.state.permisosClientes = permisosClientes;
 
   //console.log(this.state)
+
+  console.log(this.props)
 
   return(
 
@@ -336,7 +338,7 @@ class Principal extends Component{
 
                     {/* RRHH */}
 
-                {this.state.permisosCombos.length > 0 ? 
+                {this.state.permisosRRHH.length > 0 ? 
                 <Link key={4} to={'/rrhh'} className={classes.root}>
                 <Button
                 focusRipple

@@ -81,48 +81,50 @@ class ActionEmpleadoComponent extends React.Component {
 
         if(parseInt(localStorage.getItem('usuario')) === 1){
 
-        //     const data = {
-        //       NewPassword : usuario.props.rowData.Password
-        //     }
-        
-        //     var accessToken =  localStorage.getItem('access-token');
-        //     axios.post("https://roraso.herokuapp.com/User/ChangePassword",data,{headers: {'access-token': accessToken}})
-        //       .then(res => {
-        //         if(res.status === 200){
-        //           Swal.fire({
-        //             title: 'Correcto!',
-        //             text: 'Se han reseteado la contraseña del usuario',
-        //             type: 'success'
-                    
-        //           }, setTimeout(function(){ 
-        //             window.location.href = "/";
-        //           }, 3500))
-        //           return;
-        //         }
-        //       }).catch(err => {
-        //         Swal.fire({
-        //           title: 'Error!',
-        //           text: 'El servidor no ha respondido',
-        //           type: 'error',
-        //           confirmButtonText: 'Reintentar'
-        //         })
-        //         return;
-        //       })
-        // }else{
-        //   Swal.fire({
-        //     title: 'Error!',
-        //     text: 'Usuario sin permisos',
-        //     type: 'error',
-        //     confirmButtonText: 'Reintentar'
-        //   })
-        //   return;
+            console.log(usuario)
 
-        Swal.fire({
-          title: 'Error!',
-          text: 'Esperando creacion de Endpoint',
-          type: 'error',
-          confirmButtonText: 'Reintentar'
-        })
+            const data = {
+              id : usuario.props.rowData.id
+            }
+        
+            var accessToken =  localStorage.getItem('access-token');
+            axios.post("https://roraso.herokuapp.com/User/ResetPassword",data,{headers: {'access-token': accessToken}})
+              .then(res => {
+                if(res.status === 200){
+                  Swal.fire({
+                    title: 'Correcto!',
+                    text: 'Se ha reseteado la contraseña al DNI del usuario',
+                    type: 'success',
+                    confirmButtonText: 'Confirmar'
+                  }, setTimeout(function(){ 
+                    window.location.href = "/rrhh/empleados";
+                  }, 3500))
+                  return;
+                }
+              }).catch(err => {
+                Swal.fire({
+                  title: 'Error!',
+                  text: 'El servidor no ha respondido',
+                  type: 'error',
+                  confirmButtonText: 'Reintentar'
+                })
+                return;
+              })
+        }else{
+          Swal.fire({
+            title: 'Error!',
+            text: 'Usuario sin permisos',
+            type: 'error',
+            confirmButtonText: 'Reintentar'
+          })
+          return;
+
+        // Swal.fire({
+        //   title: 'Error!',
+        //   text: 'Esperando creacion de Endpoint',
+        //   type: 'error',
+        //   confirmButtonText: 'Reintentar'
+        // })
           
         }
 
