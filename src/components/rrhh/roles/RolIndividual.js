@@ -229,7 +229,7 @@ class RolIndividual extends Component {
                                 <NavItem eventKey="fifth">Productos</NavItem>
                                 <NavItem eventKey="sixth">Permisos</NavItem>
                                 <NavItem eventKey="seven">Gasto</NavItem>
-                                <NavItem eventKey="eight">Turnos / Asistencias</NavItem>
+                                <NavItem eventKey="eight">Turnos</NavItem>
                             </Nav>
                             </Col>
                             <Col sm={8}>
@@ -396,22 +396,22 @@ class RolIndividual extends Component {
                                         checked={this.state.TACreate}
                                         id='28'
                                         disabled
-                                        label="Crear Turno / Asistencia" />
+                                        label="Crear Turno" />
                                     <CustomInput type="checkbox" 
                                         checked={this.state.TAView}
                                         id='29'
                                         disabled
-                                        label="Ver Turno / Asistencia" />
+                                        label="Ver Turno" />
                                     <CustomInput type="checkbox" 
                                         checked={this.state.TAEdit}
                                         id='30'
                                         disabled
-                                        label="Modificar Turno / Asistencia" />
+                                        label="Modificar Turno" />
                                     <CustomInput type="checkbox" 
                                         checked={this.state.TADelete}
                                         id='31'
                                         disabled
-                                        label="Borrar Turno / Asistencia" />
+                                        label="Borrar Turno" />
                                 </Tab.Pane>
                             </Tab.Content>
                             </Col>

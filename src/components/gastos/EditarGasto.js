@@ -28,8 +28,9 @@ class EditarGasto extends Component {
     //console.log(this.props);
     // const { Details, Amount, Date, id } = this.props.location.state
     //console.log(this.props.location.state.Date);
-    let date1 = this.props.location.state.Date.split('/');
-    const dateFinal = `${date1[2]}-${date1[1]}-${date1[0]}`
+    // let date1 = this.props.location.state.Date.split('/');
+    // const dateFinal = `${date1[2]}-${date1[1]}-${date1[0]}`
+    const dateFinal = this.props.location.state.Date
     
     this.setState({
       date : dateFinal

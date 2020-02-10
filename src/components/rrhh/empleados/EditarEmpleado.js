@@ -166,7 +166,7 @@ class EditarEmpleado extends Component {
                                 </div>
                                 <div className="form-group">
                                     <label>Email</label>
-                                    <input ref={this.emailRef} type="email" defaultValue={this.props.location.state.Email} className="form-control" />
+                                    <input ref={this.emailRef} type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" defaultValue={this.props.location.state.Email} className="form-control" />
                                 </div>
                                 <div className="form-group">
                                     <label>1º Telefono / Celular</label>
@@ -179,7 +179,7 @@ class EditarEmpleado extends Component {
                                 <div className="form-group">
                                     <label>Rol</label>
                                     <select ref={this.rolRef} className="form-control">
-                                        <option defaultValue={this.props.location.state.Rols}>{rol_encontrado[0].Name}</option>
+                                        <option disabled defaultValue={this.props.location.state.Rols}>Actual: {rol_encontrado[0].Name}</option>
                                         
                                         {this.state.roles.map(rol => (
                                             <ListadoRolesEmpleados

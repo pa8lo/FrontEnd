@@ -35,13 +35,9 @@ class AsistenciaIndividual extends Component {
 
   componentWillMount(){
 
-    // console.log(this.props.location.state.id)
+    console.log(this.props)
 
-    this.setState({
-      idEmpleado : this.props.location.idUser,
-      nombreEmpleado : this.props.location.userName,
-      timeIn : this.props.location.state.InTime
-    })
+    
 
     axios.get('https://roraso.herokuapp.com/User/Users',
     { headers: { 'access-token': localStorage.getItem('access-token')}})
@@ -58,26 +54,55 @@ class AsistenciaIndividual extends Component {
             console.log(err);
         })
 
-      this.state.timeIn = this.props.location.state.InTime.split("/");
-
-      var timeIn1 = this.state.timeIn[2].split(' ');
-
-      var timeIn2 = timeIn1[1].split(':');
-
-      var timeIn3 = timeIn1[0] + "-" + this.state.timeIn[1] + "-" + this.state.timeIn[0] + "T" + timeIn2[0] + ':' + timeIn2[1];
-
-      this.setState({
-        timeInForm : timeIn3,
-      })
 
       // this.props.location.state.InTime
+    }
+
+    componentDidMount(){
+      this.setState({
+        idEmpleado : this.props.location.idUser,
+        nombreEmpleado : this.props.location.userName,
+        timeIn : this.props.location.state.InTime
+      })
+      
+
+      this.state.timeIn = this.props.location.state.InTime.split("T");
+
+      //The format is "yyyy-MM-ddThh:mm" followed by optional ":ss" or ":ss.SSS".
+
+      // console.log(this.state)
+
+      var timeIn1 = this.state.timeIn[0] + "T" + this.state.timeIn[1].split('.')[0]
+
+      // console.log(timeIn1)
+
+      // var timeIn2 = timeIn1[1].split(':');
+
+      // var timeIn3 = timeIn1[0] + "-" + this.state.timeIn[1] + "-" + this.state.timeIn[0] + "T" + timeIn2[0] + ':' + timeIn2[1];
+
+      this.setState({
+        timeInForm : timeIn1,
+      })
     }
 
     actualizarAsistencia = (e) => {
        
       e.preventDefault();
 
-      this.setState.timeIn = this.state.timeIn.replace('.',':');
+      //"fecha invalida se espera DD/MM/YYYY HH:MM:SS:MS"
+
+      let timeIn1 = this.state.timeIn.split('T')[0];
+
+      let timeIn3 = timeIn1.split('-')
+
+      let timeIn4 = timeIn3[2] + "/" + timeIn3[1] + "/" + timeIn3[0]
+
+      let timeIn2 = this.state.timeIn.split('T')[1].split('Z')[0].split('.')[0]
+
+      let timeIn5 = timeIn2 + ":00"
+
+      // console.log(timeIn1 + " " + timeIn2)
+      this.setState.timeIn = timeIn4 + " " + timeIn5
 
       this.setState.timeOut = this.state.timeOut.split("-");
       
@@ -98,7 +123,7 @@ class AsistenciaIndividual extends Component {
         timeOut : timeOut5
       }
 
-      console.log(asistencias);
+      // console.log(asistencias);
 
       this.props.editarAsistencia(asistencias)
 

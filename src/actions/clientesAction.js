@@ -107,6 +107,16 @@ export const agregarCliente = (cliente) => async dispatch => {
         
     })
     .catch(err => {
+
+        if(err.response.status == 400){
+        Swal.fire({
+            title: 'Error!',
+            text: 'Cliente existente',
+            type: 'error',
+            confirmButtonText: 'Reintentar'
+        })
+            return;
+        }else{
         Swal.fire({
             title: 'Error!',
             text: 'El Servidor no ha respondido la solicitud',
@@ -114,6 +124,7 @@ export const agregarCliente = (cliente) => async dispatch => {
             confirmButtonText: 'Reintentar'
         })
         return;
+        }
     })
 
     dispatch({
@@ -135,6 +146,7 @@ export const agregarDireccionCliente = (direccion) => async dispatch => {
             Cp : cp,
             LatLong : latlong,
             Client : client,
+            Validado : true
         }
     }
 
@@ -214,7 +226,7 @@ export const eliminarCliente = (id) => async dispatch => {
                 type: 'error',
                 confirmButtonText: 'Reintentar'
             })
-            return;
+            return window.location.reload();
         })
 
     dispatch({

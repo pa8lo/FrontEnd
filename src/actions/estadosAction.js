@@ -239,7 +239,7 @@ export const eliminarEstado = (id) => async dispatch => {
                    type: 'error',
                    confirmButtonText: 'Reintentar'
                })
-               return;
+               return window.location.reload();
            }
           
        })

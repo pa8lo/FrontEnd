@@ -5,6 +5,7 @@ import Paper from '@material-ui/core/Paper';
 import Header from '../header/IndexHeader';
 import Select from 'react-select';
 import { Grid, Row, Col } from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
 
 //CSS
 import '../../assets/css/empleados/form-alta-empleados.css';
@@ -27,7 +28,8 @@ class EditarEstadoPedido extends Component {
             selectedProductsOption : null,
             optionsProductsName : [],
             modalShow: false,
-            arrayProdEnCombos : []
+            arrayProdEnCombos : [],
+            redirectHome: false,
         }
         }
       
@@ -156,6 +158,18 @@ class EditarEstadoPedido extends Component {
             
             this.props.editarEstadoPedido(estado_pedido);
         }
+
+        ToHome(){
+          if (this.state.redirectHome) {
+            return <Redirect to='/' />
+          }
+        }
+    
+        setRedirectToHome = () => {
+          this.setState({
+            redirectHome: true
+          })
+        }
       
         render() {
       
@@ -204,7 +218,7 @@ class EditarEstadoPedido extends Component {
                             <div className="form-group">
                                 <label>Estado</label>
                                 <select ref={this.estadoRef} className="form-control">
-                                    <option disabled={true}>{this.props.location.state.State}</option>
+                                    <option disabled={true}>Actual: {this.props.location.state.State}</option>
                                     {this.props.estados.map(estado => (
                                         <option key={estado.id} value={estado.id}>{estado.Description}</option>
                                     ))}
@@ -212,6 +226,8 @@ class EditarEstadoPedido extends Component {
                             </div>
                             <div style={{marginTop:"0px"}} align="center" className="form-group">
                                 <input type="submit" value="Enviar" className="btn btn-primary" required />
+                                <button style={{marginLeft: 20, width: 80}} onClick={this.setRedirectToHome} type="button" className="btn btn-danger">Cancelar</button>
+                                {this.ToHome()}
                             </div>
                         </form>
                         </div>

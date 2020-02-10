@@ -476,6 +476,18 @@ class mostrarPedidosOffline extends Component {
     // }
 
 
+    eliminarPedidoStorage = (index) => {
+        // alert(index)
+
+        let arrayPedidoCompleto = JSON.parse(localStorage.getItem('pedidoCompleto'));
+
+        arrayPedidoCompleto.splice(index, 1);
+
+        localStorage.setItem('pedidoCompleto', JSON.stringify(arrayPedidoCompleto));
+
+        window.location.reload();
+    }
+
     render() {
 
         var direccion_pedido_completo
@@ -491,9 +503,9 @@ class mostrarPedidosOffline extends Component {
             <h2 style={{marginTop:"50px"}}>Pedidos Completos</h2>
             </div>
             
-            { this.state.arrayPedidoCompleto.length > 0 ?
+            { JSON.parse(localStorage.getItem('pedidoCompleto')).length > 0 ?
             
-            this.state.arrayPedidoCompleto.map((pedido, index) => (
+            JSON.parse(localStorage.getItem('pedidoCompleto')).map((pedido, index) => (
 
                     <div key={pedido.datos_cliente.Phone} style={{marginTop: "30px", marginBottom: "50px"}}>
                     <Col xs={12} md={12}>
@@ -605,7 +617,7 @@ class mostrarPedidosOffline extends Component {
                     </div>
                     </Col>
                     <div align="center">
-                    {/* <button onClick={() => this.pedidoEnviar(pedido)} type="button" className="btn btn-primary">Enviar</button> */}
+                    <button onClick={() => this.eliminarPedidoStorage(index)} type="button" className="btn btn-danger">Borrar</button>
                     </div>
                     <hr style={{width:"700px"}}></hr>
                     </div>
@@ -627,11 +639,11 @@ class mostrarPedidosOffline extends Component {
             <h2 style={{marginTop:"50px"}}>Pedidos Con Cliente Existente</h2>
             </div>
 
-            { this.state.arrayPedidoSemiCompleto.length > 0 ?
+            { JSON.parse(localStorage.getItem('pedidoSemiCompleto')).length > 0 ?
             
                 
 
-            this.state.arrayPedidoSemiCompleto.map((pedido, index) => (
+            JSON.parse(localStorage.getItem('pedidoSemiCompleto')).map((pedido, index) => (
 
                 // console.log(
                 //     JSON.parse(localStorage.getItem('clientes')).filter(cliente => (pedido.datos_direccion.Client == cliente.id))[0]
@@ -786,9 +798,9 @@ class mostrarPedidosOffline extends Component {
             <h2 style={{marginTop:"50px"}}>Solo Pedidos</h2>
             </div>
 
-           { this.state.arrayPedido.length > 0 ?
+           { JSON.parse(localStorage.getItem('enviarPedido')).length > 0 ?
             
-            this.state.arrayPedido.map((pedido, index) => (
+            JSON.parse(localStorage.getItem('enviarPedido')).map((pedido, index) => (
 
                 // console.log(pedido),
 

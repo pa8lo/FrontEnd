@@ -469,7 +469,7 @@ class NuevoRol extends Component {
                                     <NavItem eventKey="fifth">Productos</NavItem>
                                     <NavItem eventKey="sixth">Permisos</NavItem>
                                     <NavItem eventKey="seven">Gasto</NavItem>
-                                    <NavItem eventKey="eight">Turnos / Asistencias</NavItem>
+                                    <NavItem eventKey="eight">Turnos</NavItem>
                                 </Nav>
                                 </Col>
                                 <Col sm={8}>
@@ -664,25 +664,25 @@ class NuevoRol extends Component {
                                             value="28" 
                                             checked={this.state.TACreate}
                                             onChange={this.toggleChangeTACreate}
-                                            label="Crear Turno / Asistencia" />
+                                            label="Crear Turno" />
                                         <CustomInput type="checkbox" 
                                             id='29'
                                             value="29" 
                                             checked={this.state.TAView}
                                             onChange={this.toggleChangeTAView}
-                                            label="Ver Turno / Asistencia" />
+                                            label="Ver Turno" />
                                         <CustomInput type="checkbox" 
                                             id='30'
                                             value="30" 
                                             checked={this.state.TAEdit}
                                             onChange={this.toggleChangeTAEdit}
-                                            label="Modificar Turno / Asistencia" />
+                                            label="Modificar Turno" />
                                         <CustomInput type="checkbox" 
                                             id='31'
                                             value="31" 
                                             checked={this.state.TADelete}
                                             onChange={this.toggleChangeTADelete}
-                                            label="Borrar Turno / Asistencia" />
+                                            label="Borrar Turno" />
                                     </Tab.Pane>
                                 </Tab.Content>
                                 </Col>

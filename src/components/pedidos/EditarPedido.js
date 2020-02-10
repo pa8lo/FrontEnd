@@ -417,7 +417,7 @@ class NuevoPedido extends Component {
               title: 'Error!',
               text: 'Debe elegir una direccion',
               type: 'error',
-              confirmButtonText: 'Reintentar'
+              confirmButtonText: 'Ok'
           })
           return;
         }
@@ -546,6 +546,23 @@ class NuevoPedido extends Component {
 
                   {res.data.Cliente.Adress.map(direccion => (
                     
+                    direccion.Department == "null" || direccion.Department == null ?
+                  
+                    direccion.Department = ""
+
+                    :
+
+                    direccion.Department = direccion.Department,
+                  
+
+                    direccion.Floor == "null" || direccion.Floor == null ?
+                  
+                    direccion.Floor = ""
+
+                    :
+
+                    direccion.Floor = direccion.Floor,
+
                     this.state.direcciones.push({id: direccion.id, LatLong: direccion.LatLong, Client: direccion.Client, Address : direccion.Adress + " " + direccion.Floor + " " + direccion.Department + " " + direccion.Cp})
                   ))}
 
@@ -559,7 +576,7 @@ class NuevoPedido extends Component {
 
               }else{
                 
-                console.log("No encontre el telefono")
+                // console.log("No encontre el telefono")
 
                 this.setState({
                   correctSearchPhone : false

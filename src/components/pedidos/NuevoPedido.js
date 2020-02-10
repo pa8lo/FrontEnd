@@ -336,7 +336,7 @@ class NuevoPedido extends Component {
           </div>
           <div className="form-group">
               <label>Email</label>
-              <input ref={this.emailRef} type="email" className="form-control"/>
+              <input ref={this.emailRef} type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" className="form-control"/>
           </div>
           <div className="form-group">
               <label>Telefono</label>
@@ -457,7 +457,7 @@ class NuevoPedido extends Component {
         title: 'Error!',
         text: 'Debe elegir una direccion',
         type: 'error',
-        confirmButtonText: 'Reintentar'
+        confirmButtonText: 'Ok'
       })
       return;
     }
@@ -701,7 +701,7 @@ class NuevoPedido extends Component {
 
               // console.log("Guardo las direcciones")
 
-              // console.log(res.data.Cliente.Adress.length)
+              // console.log(res.data.Cliente.Adress)
 
               if(res.data.Cliente.Adress.length === 0){
                 Swal.fire({
@@ -724,6 +724,25 @@ class NuevoPedido extends Component {
 
                 res.data.Cliente.Adress.map(direccion => (
 
+                  
+                  direccion.Department == "null" || direccion.Department == null ?
+                  
+                    direccion.Department = ""
+
+                    :
+
+                    direccion.Department = direccion.Department,
+                  
+
+                  direccion.Floor == "null" || direccion.Floor == null ?
+                
+                  direccion.Floor = ""
+
+                  :
+
+                  direccion.Floor = direccion.Floor,
+
+                  // console.log(direccion)
                   this.state.direcciones.push({ id: direccion.id, LatLong: direccion.LatLong, Client: direccion.Client, Address: direccion.Adress + " " + direccion.Floor + " " + direccion.Department + " " + direccion.Cp })
                 ))
               
@@ -833,6 +852,23 @@ class NuevoPedido extends Component {
           })
         }else{
           cliente_encontrado[0]["Adress"].map(direccion => (
+
+            direccion.Department == "null" || direccion.Department == null ?
+                  
+              direccion.Department = ""
+
+              :
+
+              direccion.Department = direccion.Department,
+                  
+
+              direccion.Floor == "null" || direccion.Floor == null ?
+          
+              direccion.Floor = ""
+
+              :
+
+              direccion.Floor = direccion.Floor,
 
             this.state.direcciones.push({ id: direccion.id, LatLong: direccion.LatLong, Client: direccion.Client, Address: direccion.Adress + " " + direccion.Floor + " " + direccion.Department + " " + direccion.Cp })
           ))

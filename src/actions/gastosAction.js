@@ -191,7 +191,7 @@ export const eliminarGasto = (id) => async dispatch => {
                     type: 'error',
                     confirmButtonText: 'Reintentar'
                 })
-                return;
+                return window.location.reload();
             }
             
         })

@@ -94,7 +94,7 @@ class AgregarDatosCliente extends Component {
                         </div>
                         <div className="form-group">
                             <label>Email</label>
-                            <input ref={this.emailRef} type="email" className="form-control"/>
+                            <input ref={this.emailRef} type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" className="form-control"/>
                         </div>
                         <div className="form-group">
                             <label>Telefono</label>

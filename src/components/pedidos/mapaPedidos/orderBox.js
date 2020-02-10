@@ -31,16 +31,29 @@ const buttonStyle = {
     width: 80,
 };
 
-let col = ["Order", "Delivery", "Actions"];
+let col = ["Order", "Delivery", "Direccion", "Actions"];
 let tHead = [
     "Pedido",
     "Delivery",
+    "Direccion",
     "Acciones",
 ];
 
 class ActionOrderComponent extends React.Component {
 
+
+    state= {
+        address : []
+    }
+
   render() {
+
+    // console.log(this.props)
+
+    // this.props.Direccion.map(dire => {
+    //     this.state.address.push(dire.Adress.Adress + " " + dire.Adress.Department +
+    //                 " " + dire.Adress.Floor + " " + dire.Adress.Cp)
+    // })
 
     const { id } = this.props.rowData;
 
@@ -103,7 +116,7 @@ class ActionOrderComponent extends React.Component {
 class OrderBox extends React.Component {
     
     state = {
-        loading: true
+        loading : true
     };
 
     componentDidMount() {
@@ -113,7 +126,7 @@ class OrderBox extends React.Component {
     render() {
         const pedidos = this.props.pedidos;
 
-        // console.log(pedidos)
+
 
         var orders = [];
         for(var i = 0; i < pedidos.length; i++) {
@@ -121,16 +134,45 @@ class OrderBox extends React.Component {
 
                 if (pedidos[i].Delivery !== null) {
     
+                    if(pedidos[i].Adress.Department == null || pedidos[i].Adress.Department == "null"){
+                        pedidos[i].Adress.Department = ""
+                    }else{
+                        pedidos[i].Adress.Department = pedidos[i].Adress.Department
+                    }
+
+                    if(pedidos[i].Adress.Floor == null || pedidos[i].Adress.Floor == "null"){
+                        pedidos[i].Adress.Floor = ""
+                    }else{
+                        pedidos[i].Adress.Floor = pedidos[i].Adress.Floor
+                    }
+
                     orders.push({
                         id: pedidos[i].id,
                         Order: "Pedido " + pedidos[i].id,
+                        Direccion : pedidos[i].Adress.Adress + " " + pedidos[i].Adress.Floor + 
+                        " " + pedidos[i].Adress.Department + " " + pedidos[i].Adress.Cp,
                         Delivery: pedidos[i].Delivery.Name + " " + pedidos[i].Delivery.LastName,
                         DeliveryId: pedidos[i].Delivery.id,
                     });
                 } else {
+
+                    if(pedidos[i].Adress.Department == null || pedidos[i].Adress.Department == "null"){
+                        pedidos[i].Adress.Department = ""
+                    }else{
+                        pedidos[i].Adress.Department = pedidos[i].Adress.Department
+                    }
+
+                    if(pedidos[i].Adress.Floor == null || pedidos[i].Adress.Floor == "null"){
+                        pedidos[i].Adress.Floor = ""
+                    }else{
+                        pedidos[i].Adress.Floor = pedidos[i].Adress.Floor
+                    }
+
                     orders.push({
                         id: pedidos[i].id,
                         Order: "Pedido " + pedidos[i].id,
+                        Direccion : pedidos[i].Adress.Adress + " " + pedidos[i].Adress.Floor + 
+                        " " + pedidos[i].Adress.Department + " " + pedidos[i].Adress.Cp,
                         Delivery: "Sin Asignar",
                         DeliveryId: null,
                     });
@@ -155,6 +197,7 @@ class OrderBox extends React.Component {
                     <SortableTbl tblData = {orders}
                         tHead={tHead}
                         Permisos={this.props.usuario}
+                        // Direccion={this.props.pedidos}
                         customTd={[
                                     {custd: (ActionOrderComponent), keyItem: "Actions"},
                                     ]}

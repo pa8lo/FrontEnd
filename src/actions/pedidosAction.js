@@ -111,7 +111,7 @@ export const eliminarPedido = (id) => async dispatch => {
                 type: 'error',
                 confirmButtonText: 'Reintentar'
             })
-            return;
+            return window.location.reload();
         })
 
     dispatch({

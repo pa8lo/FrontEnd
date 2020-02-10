@@ -42,16 +42,15 @@ class Pedidos extends Component {
                         
                         }
 
-                        { JSON.parse(localStorage.getItem('enviarPedido')).length > 0 ?  
+                        { JSON.parse(localStorage.getItem('pedidoCompleto')).length > 0 || JSON.parse(localStorage.getItem('pedidoSemiCompleto')).length > 0 || JSON.parse(localStorage.getItem('enviarPedido')).length > 0 ?  
                 
-                            <Link to={`/solicitudes-encoladas`} style={buttonStyle} className="btn btn-warning">Solicitudes Encoladas</Link>
+                            <Link to={`/pedidos-encolados`} style={buttonStyle} className="btn btn-warning">Solicitudes Encoladas</Link>
 
                             :  
 
                             <Link to="#" disabled style={buttonStyle} className="btn btn-warning">Solicitudes Encoladas</Link>
                         
                         }
-
                         
                     </div>          
                 </div>

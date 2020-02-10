@@ -42,7 +42,7 @@ class doughnut extends Component {
 
 		if(this.props.gastos.length === 0) return <h3 style={{textAlign: 'center'}}>No hay valores para mostrar</h3>;
 		
-		console.log(this.props.gastos);
+		// console.log(this.props.gastos);
 
 		this.props.gastos.map(cat => {
 			this.state.nombreCategoria.push(cat.Details);
