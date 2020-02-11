@@ -81,7 +81,7 @@ class BreadcumbMenu extends Component {
 
                     return(
                     <React.Fragment>
-                      <Breadcrumb.Item key={dir} style={{ color:"white"}} onClick={() => window.location.replace("/rrhh")}>
+                      <Breadcrumb.Item key={dir+"546848165"} style={{ color:"white"}} onClick={() => window.location.replace("/rrhh")}>
                           RRHH
                       </Breadcrumb.Item>
                       <Breadcrumb.Item key={dir} style={{ color:"white"}} onClick={() => this.setRedirectToSection()}>
@@ -100,7 +100,7 @@ class BreadcumbMenu extends Component {
 
                     return(
                     <React.Fragment>
-                      <Breadcrumb.Item key={dir} style={{ color:"white"}} onClick={() => window.location.replace("/rrhh")}>
+                      <Breadcrumb.Item key={dir+"546848164"} style={{ color:"white"}} onClick={() => window.location.replace("/rrhh")}>
                           RRHH
                       </Breadcrumb.Item>
                       <Breadcrumb.Item key={dir} style={{ color:"white"}} onClick={() => this.setRedirectToSection()}>
@@ -118,7 +118,7 @@ class BreadcumbMenu extends Component {
 
                     return(
                     <React.Fragment>
-                      <Breadcrumb.Item key={dir} style={{ color:"white"}} onClick={() => window.location.replace("/rrhh")}>
+                      <Breadcrumb.Item key={dir+"546848161"} style={{ color:"white"}} onClick={() => window.location.replace("/rrhh")}>
                           RRHH
                       </Breadcrumb.Item>
                       <Breadcrumb.Item key={dir} style={{ color:"white"}} onClick={() => this.setRedirectToSection()}>

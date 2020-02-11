@@ -612,7 +612,7 @@ class EditarRol extends Component {
                                     <NavItem eventKey="third">Roles</NavItem>
                                     <NavItem eventKey="fourth">Pedidos</NavItem>
                                     <NavItem eventKey="fifth">Productos</NavItem>
-                                    <NavItem eventKey="sixth">Permisos</NavItem>
+                                    <NavItem eventKey="sixth">Reportes</NavItem>
                                     <NavItem eventKey="seven">Gasto</NavItem>
                                     <NavItem eventKey="eight">Turnos</NavItem>
                                 </Nav>
@@ -703,25 +703,25 @@ class EditarRol extends Component {
                                     {/* Pedidos */}
                                     <Tab.Pane eventKey="fourth">
                                         <CustomInput type="checkbox" 
-                                            id='13'
+                                            id='20'
                                             value="20" 
                                             checked={this.state.PedidoCreate}
                                             onChange={this.toggleChangePedidoCreate}
                                             label="Crear Pedidos" />
                                         <CustomInput type="checkbox" 
-                                            id='14'
+                                            id='21'
                                             value="21" 
                                             checked={this.state.PedidoView}
                                             onChange={this.toggleChangePedidoView}
                                             label="Ver Pedidos" />
                                         <CustomInput type="checkbox" 
-                                            id='15'
+                                            id='22'
                                             value="22"
                                             checked={this.state.PedidoEdit}
                                             onChange={this.toggleChangePedidoEdit}
                                             label="Modificar Pedidos" />
                                         <CustomInput type="checkbox" 
-                                            id='16'
+                                            id='23'
                                             value="23" 
                                             checked={this.state.PedidoDelete}
                                             onChange={this.toggleChangePedidoDelete}
@@ -730,25 +730,25 @@ class EditarRol extends Component {
                                     {/* Productos */}
                                     <Tab.Pane eventKey="fifth">
                                         <CustomInput type="checkbox" 
-                                            id='17'
+                                            id='16'
                                             value="16" 
                                             checked={this.state.ProductoCreate}
                                             onChange={this.toggleChangeProductoCreate}
                                             label="Crear Productos" />
                                         <CustomInput type="checkbox" 
-                                            id='18'
+                                            id='17'
                                             value="17" 
                                             checked={this.state.ProductoView}
                                             onChange={this.toggleChangeProductoView}
                                             label="Ver Productos" />
                                         <CustomInput type="checkbox" 
-                                            id='19'
+                                            id='18'
                                             value="18" 
                                             checked={this.state.ProductoEdit}
                                             onChange={this.toggleChangeProductoEdit}
                                             label="Modificar Productos" />
                                         <CustomInput type="checkbox" 
-                                            id='20'
+                                            id='19'
                                             value="19" 
                                             checked={this.state.ProductoDelete}
                                             onChange={this.toggleChangeProductoDelete}
@@ -757,12 +757,12 @@ class EditarRol extends Component {
                                     {/* Permisos */}
                                     <Tab.Pane eventKey="sixth">
                                         <CustomInput type="checkbox" 
-                                            id='21'
+                                            id='13'
                                             value="13" 
                                             checked={this.state.PermisosCreate}
                                             onChange={this.toggleChangePermisosCreate}
-                                            label="Crear Permisos" />
-                                        <CustomInput type="checkbox" 
+                                            label="Ver Reportes" />
+                                        {/* <CustomInput type="checkbox" 
                                             id='22'
                                             value="14" 
                                             checked={this.state.PermisosEdit}
@@ -773,7 +773,7 @@ class EditarRol extends Component {
                                             value="15" 
                                             checked={this.state.PermisosDelete}
                                             onChange={this.toggleChangePermisosDelete}
-                                            label="Borrar Permisos" />
+                                            label="Borrar Permisos" /> */}
                                     </Tab.Pane>
                                     {/* Gastos */}
                                     <Tab.Pane eventKey="seven">
@@ -835,7 +835,7 @@ class EditarRol extends Component {
                             </Tab.Container>
                         </div>
                         <div style={{marginLeft: 370}} className="form-group">
-                            <input type="submit" value="Enviar" className="btn btn-primary"/>
+                            <input type="submit" value="Aceptar" className="btn btn-primary"/>
                             <button style={{marginLeft: 20, width: 80}} onClick={this.setRedirectToHome} type="button" className="btn btn-danger">Cancelar</button>
                             {this.ToHome()}
                         </div>

@@ -337,6 +337,8 @@ class Header extends React.Component {
 
       enviarSolicitudesEncoladasCompletas = async () => {
 
+        this.setState({ profile: false})
+        
         let arrayPedido = JSON.parse(localStorage.getItem('enviarPedido'));
 
         for (let i = 0; i < JSON.parse(localStorage.getItem('enviarPedido')).length; i++) {
@@ -1348,9 +1350,24 @@ class Header extends React.Component {
     }
     
     setRedirectLogOut = () => {
-      this.setState({
-        redirectLogOut: true
+      this.setState({ profile: false})
+      Swal.fire({
+        title: '¿Estas seguro que desea eliminar?',
+        text: "Estas a punto de eliminar una direccion",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.value) {
+          this.setState({
+            redirectLogOut: true
+          })
+        }
       })
+      
     }
     
     SignOut(){

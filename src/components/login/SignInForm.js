@@ -66,7 +66,7 @@ class SignInForm extends Component {
                       <input ref={this.claveRef} placeholder="*******" type="password" className="form-control" />
                   </div>
                   <div className="form-group">
-                      <input type="submit" value="Enviar" className="btn btn-primary"/>
+                      <input type="submit" value="Aceptar" className="btn btn-primary"/>
                   </div>
                 </form>
               </Paper>

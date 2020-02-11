@@ -39,7 +39,7 @@ class ProductoIndividual extends Component {
                                     <input type="number" disabled defaultValue={this.props.location.state.Amount} min="1" step="1" title="Numbers only" className="form-control" required/>
                                 </div>
                                 {/* <div className="form-group">
-                                    <input type="submit" disabled value="Enviar" className="btn btn-primary"/>
+                                    <input type="submit" disabled value="Aceptar" className="btn btn-primary"/>
                                 </div> */}
                             </form>
                         </div>

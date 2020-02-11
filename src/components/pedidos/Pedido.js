@@ -40,9 +40,7 @@ class Pedido extends Component {
             var HourFormated = DateFormated[1].split(".");
             Date = DateFormated[0] + " " + HourFormated[0];
         }
-
-
-
+        
         // console.log(DateFormated);
 
         const Users = this.props.info.Users.Dni;
@@ -71,6 +69,7 @@ class Pedido extends Component {
                 <td style={tableStyle}>{Users}</td>
                 <td style={tableStyle}>{Clients.substr(0,8)}</td>
                 <td style={tableStyle}>{Adress}</td>
+                <td style={tableStyle}>{Client_Number}</td>
                 <td style={tableStyle}>$ {Amount}</td>
                 <td style={tableStyle}>{Delivery}</td>
                 <td style={columnButtonStyle}>

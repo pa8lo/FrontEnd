@@ -64,7 +64,7 @@ class EditarOrder extends Component {
                                 </select>
                             </div>
                             <div className="form-group">
-                                <input type="button" value="Enviar" className="btn btn-primary" onClick={(event) => this.editOrder(event)}/>
+                                <input type="button" value="Aceptar" className="btn btn-primary" onClick={(event) => this.editOrder(event)}/>
                             </div>
                         </div>
                     </Paper>

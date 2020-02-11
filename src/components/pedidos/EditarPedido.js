@@ -115,6 +115,8 @@ class NuevoPedido extends Component {
 
     componentDidMount(){
 
+      // console.log(this)
+
       let pedidoEditar = JSON.parse(localStorage.getItem('pedidos')).filter(order => (order.id === this.props.location.state.id))
 
       // console.log(pedidoEditar)
@@ -745,7 +747,7 @@ class NuevoPedido extends Component {
                         </div>
                         <hr style={{width: "300px"}}></hr>
                         <div style={{marginTop:"0px"}} align="center" className="form-group">
-                          <input type="submit" value="Enviar" className="btn btn-primary" required />
+                          <input type="submit" value="Aceptar" className="btn btn-primary" required />
                           <button style={{marginLeft: 20, width: 80}} onClick={this.setRedirectToHome} type="button" className="btn btn-danger">Cancelar</button>
                           {this.ToHome()}
                         </div>

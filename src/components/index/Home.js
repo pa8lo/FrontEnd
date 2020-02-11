@@ -38,7 +38,8 @@ class Principal extends Component{
       permisosCombos : [],
       permisosRRHH : [],
       permisosGastos : [],
-      permisosClientes : []
+      permisosClientes : [],
+      permisosReportes : []
     }
   }
 
@@ -106,7 +107,13 @@ class Principal extends Component{
   
   this.state.permisosClientes = permisosClientes;
 
-  //console.log(this.state)
+  let permisosReportes = [];
+  
+  permisosReportes = this.props.usuario.Authorizations.filter(permiso => (permiso.id >= 13 && permiso.id <= 15));
+  
+  this.state.permisosReportes = permisosReportes;
+
+  console.log(this.state.permisosReportes)
 
   console.log(this.props)
 
@@ -411,6 +418,7 @@ class Principal extends Component{
 
                     {/* Reportes */}
 
+                {this.state.permisosReportes.length > 0 ? 
                 <Link key={5} to={'/reportes'} className={classes.root}>
                 <Button
                 focusRipple
@@ -443,7 +451,44 @@ class Principal extends Component{
                 </span>
                 </Button>
                 </Link>
+                
+            
+                :
 
+                <Button
+                disabled
+                focusRipple
+                key="Reportes"
+                className={classes.image}
+                focusVisibleClassName={classes.focusVisible}
+                style={{
+                    width: "33.3%",
+                }}
+                >
+                
+                <span
+                    disabled
+                    className={classes.imageSrc}
+                    style={{
+                    backgroundImage: `url(${reports})`,
+                    }}
+                />
+
+                <span className={classes.imageBackdrop} />
+                <span className={classes.imageButton}>
+                    <Typography
+                    component="span"
+                    variant="subtitle1"
+                    color="inherit"
+                    className={classes.imageTitle}
+                    >
+                    Reportes
+                    <span className={classes.imageMarked} />
+                    </Typography>
+                </span>
+                </Button>
+
+                }
 
                     {/* Gastos */}
 

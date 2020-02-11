@@ -316,6 +316,7 @@ class PedidoIndividual extends Component {
                         <hr style={{width: "300px"}}></hr>
                         <div style={{marginTop: "30px", marginBottom: "40px"}} align="center">
                         <button type="button" className="btn" style={{color:"white", backgroundColor: "#4D4D4D"}} onClick={ () => this.goBack()}>Volver</button>
+                        <button type="button" className="btn btn-warning" style={{marginLeft: "10px"}} onClick={() => window.print()}>Imprimir</button>
                         <Link style={buttonStyle} to={{
                             pathname : `/mapa`,
                             // state : this.props.rowData

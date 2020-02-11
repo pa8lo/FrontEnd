@@ -334,7 +334,7 @@ class EmpleadoIndividual extends Component {
 
                   <div center="true" align="center" className="form-group">
 
-                  { permisos.filter(permiso => (permiso.id == 5)) ?  
+                  {/* { permisos.filter(permiso => (permiso.id == 5)) ?  
                   
                     <Link style={buttonStyle} to={{
                         pathname : `/rrhh/editar-empleados/${this.props.match.params.empleadoId}`,
@@ -358,7 +358,7 @@ class EmpleadoIndividual extends Component {
 
                   <button style={buttonStyle} type="button" className="btn btn-danger">Borrar</button> 
               
-                  }
+                  } */}
 
 
                   { permisos.filter(permiso => (permiso.id == 5)) ?  
@@ -383,12 +383,12 @@ class EmpleadoIndividual extends Component {
                         pathname : `/rrhh/roles/${this.props.empleado.user.Rols}`
                         }} className="btn btn-info"
                         variant="info">
-                            Permisos
+                            Ver Rol
                     </Link>
 
                   :  
 
-                    <Link style={buttonStyle} to="#" disabled className="btn btn-info">Permisos</Link> 
+                    <Link style={buttonStyle} to="#" disabled className="btn btn-info">Ver Rol</Link> 
               
                   }
 

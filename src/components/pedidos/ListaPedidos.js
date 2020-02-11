@@ -73,6 +73,8 @@ class ActionEmpleadoComponent extends React.Component {
 
     render() {
 
+        // console.log(this.props)
+
         if(this.props.Permisos.length === 0) return null;
 
         const permisos = this.props.Permisos.Authorizations;
@@ -167,6 +169,8 @@ class ListadoPedidos extends Component {
 
     render() {
 
+        // console.log(this.props.pedidos)
+
         let direccion = "";
         let piso = "";
         let dpto = "";
@@ -204,7 +208,7 @@ class ListadoPedidos extends Component {
         }
         else {
 
-            console.log(this.props)
+            
 
             if (pedidos[0].State == "" || pedidos[0].Amount == "" || pedidos[0].Clients == " ") {
                 // console.log("Hola")

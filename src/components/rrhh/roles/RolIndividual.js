@@ -143,22 +143,22 @@ class RolIndividual extends Component {
                 case 12 :
                     this.state.RolDelete = true; break
                     //Pedido
-                case 13 :
+                case 20 :
                     this.state.PedidoCreate = true; break
-                case 14 :
+                case 21 :
                     this.state.PedidoView = true; break
-                case 15 :
+                case 22 :
                     this.state.PedidoEdit = true; break
-                case 16 :
+                case 23 :
                     this.state.PedidoDelete = true; break
                     //Producto
-                case 17 :
+                case 16 :
                     this.state.ProductoCreate = true; break
-                case 18 :
+                case 17 :
                     this.state.ProductoView = true; break
-                case 19 :
+                case 18 :
                     this.state.ProductoEdit = true; break
-                case 20 :
+                case 19 :
                     this.state.ProductoDelete = true; break
                     //Permisos
                 case 21 :
@@ -227,7 +227,7 @@ class RolIndividual extends Component {
                                 <NavItem eventKey="third">Roles</NavItem>
                                 <NavItem eventKey="fourth">Pedidos</NavItem>
                                 <NavItem eventKey="fifth">Productos</NavItem>
-                                <NavItem eventKey="sixth">Permisos</NavItem>
+                                <NavItem eventKey="sixth">Reportes</NavItem>
                                 <NavItem eventKey="seven">Gasto</NavItem>
                                 <NavItem eventKey="eight">Turnos</NavItem>
                             </Nav>
@@ -307,22 +307,22 @@ class RolIndividual extends Component {
                                 <Tab.Pane eventKey="fourth">
                                     <CustomInput type="checkbox"
                                         checked={this.state.PedidoCreate}
-                                        id='13'
+                                        id='20'
                                         disabled
                                         label="Crear Pedidos" />
                                     <CustomInput type="checkbox"
                                         checked={this.state.PedidoView}
-                                        id='14'
+                                        id='21'
                                         disabled
                                         label="Ver Pedidos" />
                                     <CustomInput type="checkbox"
                                         checked={this.state.PedidoEdit}
-                                        id='15'
+                                        id='22'
                                         disabled
                                         label="Modificar Pedidos" />
                                     <CustomInput type="checkbox"
                                         checked={this.state.PedidoDelete}
-                                        id='16'
+                                        id='23'
                                         disabled
                                         label="Borrar Pedidos" />
                                 </Tab.Pane>
@@ -330,22 +330,22 @@ class RolIndividual extends Component {
                                 <Tab.Pane eventKey="fifth">
                                     <CustomInput type="checkbox"
                                         checked={this.state.ProductoCreate}
-                                        id='17'
+                                        id='16'
                                         disabled
                                         label="Crear Productos" />
                                     <CustomInput type="checkbox"
                                         checked={this.state.ProductoView}
-                                        id='18'
+                                        id='17'
                                         disabled
                                         label="Ver Productos" />
                                     <CustomInput type="checkbox"
                                         checked={this.state.ProductoEdit}
-                                        id='19'
+                                        id='18'
                                         disabled
                                         label="Modificar Productos" />
                                     <CustomInput type="checkbox"
                                         checked={this.state.ProductoDelete}
-                                        id='20'
+                                        id='19'
                                         disabled
                                         label="Borrar Productos" />
                                 </Tab.Pane>
@@ -353,19 +353,19 @@ class RolIndividual extends Component {
                                 <Tab.Pane eventKey="sixth">
                                     <CustomInput type="checkbox" 
                                         checked={this.state.PermisosCreate}
-                                        id='21'
+                                        id='13'
                                         disabled
-                                        label="Crear Permisos" />
-                                    <CustomInput type="checkbox" 
+                                        label="Ver Reportes" />
+                                    {/* <CustomInput type="checkbox" 
                                         checked={this.state.PermisosEdit}
-                                        id='22'
+                                        id='14'
                                         disabled
                                         label="Modificar Permisos" />
                                     <CustomInput type="checkbox" 
                                         checked={this.state.PermisosDelete}
-                                        id='23'
+                                        id='15'
                                         disabled
-                                        label="Borrar Permisos" />
+                                        label="Borrar Permisos" /> */}
                                 </Tab.Pane>
                                 {/* Gastos */}
                                 <Tab.Pane eventKey="seven">
