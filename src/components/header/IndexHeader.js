@@ -367,6 +367,7 @@ class Header extends React.Component {
           this.setState({
             redirectLogOut: true
           })
+          window.location.reload();
         }
       })
       
