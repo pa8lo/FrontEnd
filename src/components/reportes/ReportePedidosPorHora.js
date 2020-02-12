@@ -21,7 +21,7 @@ import axios from 'axios';
 //   ]
 // };
 
-class bar extends Component {
+class ReportePedidosPorHora extends Component {
 
   state = {
       reporte_gastos : [],
@@ -34,33 +34,36 @@ class bar extends Component {
   }
 
   handleEvent = (event, picker) => {
-    const gastos = axios.get(`https://roraso.herokuapp.com/Reports/Gasto?min=${picker.startDate.format('YYYY-MM-DD')}&max=${picker.endDate.format('YYYY-MM-DD')}`,
+    const gastos = axios.get(`https://roraso.herokuapp.com/Reports/Pedidos`,
     { headers: { 'access-token': localStorage.getItem('access-token')}})
         .then(res => {
             if(res.status === 200){
                 this.setState({
-                    reporte_gastos : res.data,
-                    gastos_total : res.data
+                    reporte_pedidos_hr : res.data,
+                    pedidos_hr_total : res.data,
+                    fecha_pedidos_hr : [],
+                    monto_pedidos_hr : []
                 })
 
-              if(this.state.reporte_gastos.length > 0){
-                this.state.reporte_gastos.map(gasto => {
-                  this.state.fecha_gasto.push(gasto.datos[0].Date)
-                  this.state.monto_gasto.push(gasto.datos[0].Amount)
-                  this.state.datos_gasto.push(gasto.datos[0].Details)
+                if(this.state.reporte_pedidos_hr.length > 0){
+
+                  this.state.reporte_pedidos_hr.map(pedido => {
+
+                    this.state.fecha_pedidos_hr.push(pedido.day)
+                    this.state.monto_pedidos_hr.push(pedido.amount)
                 })
 
                 this.state.data_chart = {
-                  labels: this.state.fecha_gasto,
+                  labels: this.state.fecha_pedidos_hr,
                   datasets: [
                     {
-                      label: 'Monto de Gastado',
+                      label: 'Monto Pedido Por Hora',
                       backgroundColor: 'rgba(255,99,132,0.2)',
                       borderColor: 'rgba(255,99,132,1)',
                       borderWidth: 1,
                       hoverBackgroundColor: 'rgba(255,99,132,0.4)',
                       hoverBorderColor: 'rgba(255,99,132,1)',
-                      data: this.state.monto_gasto
+                      data: this.state.monto_pedidos_hr
                     }
                   ]
                 };
@@ -91,7 +94,7 @@ class bar extends Component {
       let count = 1
 
 			return(
-        <div style={{height : 500, width : "100%"}}>
+        <div style={{height : 500, width : "100%", display: "inline-block"}}>
         <React.Fragment>
           <Bar style={{height : 150, width : 150}}
           data={this.state.data_chart}
@@ -104,7 +107,7 @@ class bar extends Component {
         </React.Fragment>
         <React.Fragment>
           <h3 style={{textAlign:"center"}}>Datos Especificos</h3>
-          <Table responsive>
+          {/* <Table responsive>
           <thead>
             <tr style={{textAlign:"center"}}>
               <th style={{textAlign:"center"}}>#</th>
@@ -127,7 +130,7 @@ class bar extends Component {
                 
               ))}
           </tbody>
-          </Table>
+          </Table> */}
         </React.Fragment>
         </div>
 			)
@@ -143,7 +146,7 @@ class bar extends Component {
           <div align="center" style={{textAlign: "center"}}>
           <Row align="center" style={{ width:'800px'}} className="show-grid">
             <Col xs={1} md={4}>
-            <button className="btn btn-primary">Ingrese una rango de fechas</button>
+            <button className="btn btn-primary" style={{width:"195px"}}>Consultar Pedidos</button>
             </Col>
             <Col style={{textAlign: "center"}} align="center" xs={11} md={7}>
             {/* <span align="center" centered={true} style={{textAlign: "center"}}>Debe ingresar un rango de fechas para visualizar el Reporte Gastos</span> */}
@@ -152,11 +155,11 @@ class bar extends Component {
           </div>
         </DateRangePicker>
 
-        <h3 style={{textAlign: 'center'}}>Gastos</h3>
+        <h3 style={{textAlign: 'center'}}>Pedidos Por Hora</h3>
         {this.mostrarInfo()}
       </div>
     );
   }
 }
 
-export default bar;
+export default ReportePedidosPorHora;

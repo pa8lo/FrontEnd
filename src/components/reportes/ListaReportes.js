@@ -4,9 +4,13 @@ import axios from 'axios';
 import DoughnutExample from './doughnut';
 import DynamicDoughnutExample from './dynamic-doughnut';
 import PieExample from './pie';
-import LineExample from './line';
-import BarExample from './bar';
 import HorizontalBarExample from './horizontalBar';
+
+import ReporteGanancias from './ReporteGanancias';
+import ReporteGastos from './ReporteGastos';
+import ReportePedidosPorHora from './ReportePedidosPorHora'
+
+
 import Header from '../header/IndexHeader';
 
 import DateRangePicker from 'react-bootstrap-daterangepicker';
@@ -57,10 +61,17 @@ class ListaReportes extends Component {
                     <hr />
                     {/* <PieExample /> */}
                     <hr />
-                    <LineExample />
+                    <div >
+                    <ReporteGanancias />
+                    </div>
                     <hr />
-                    <BarExample />
+                    <div>
+                    <ReporteGastos />
+                    </div>
                     <hr />
+                    <div>
+                    <ReportePedidosPorHora/>
+                    </div>
                     {/* <HorizontalBarExample /> */}
                     <hr /> 
                 </div>

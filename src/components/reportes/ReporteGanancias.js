@@ -6,7 +6,7 @@ import { Table, Row, Col } from 'react-bootstrap';
 
 import axios from 'axios';
 
-class line extends Component {
+class ReporteGanancias extends Component {
 
   state = {
     reporte_ganancias : [],
@@ -27,7 +27,9 @@ class line extends Component {
 
                 this.setState({
                     reporte_ganancias : res.data,
-                    ganancia_total : res.data
+                    ganancia_total : res.data,
+                    fecha_ganancia : [],
+                    monto_ganancia : []
                 })
 
                 if(this.state.reporte_ganancias.length > 0){
@@ -124,7 +126,7 @@ class line extends Component {
       let count = 1
 
 			return(
-        <div style={{height : 500, width : "100%"}}>
+        <div style={{height : 500, width : "100%", display: "inline-block"}}>
         <React.Fragment>
           <Line style={{height : 150, width : 150}}
           data={this.state.data_chart}
@@ -196,4 +198,4 @@ class line extends Component {
   }
 }
 
-export default line;
+export default ReporteGanancias;

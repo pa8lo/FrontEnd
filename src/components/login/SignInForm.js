@@ -50,23 +50,23 @@ class SignInForm extends Component {
         return (
           <React.Fragment>
             <CssBaseline />
-            <main className={classes.layout}>
-              <Paper className={classes.paper}>
+            <main className={classes.layout} style={{height : "400px", width: "70%"}}>
+              <Paper style={{height : "465px"}} className={classes.paper}>
 
-                <Typography component="h1" variant="h5">
+                <h3>
                   Iniciar Sesión
-                </Typography>
-                <form onSubmit={this.signIn} className={classes.form}>
-                  <div className="form-group">
+                </h3>
+                <form style={{marginTop : "50px"}} onSubmit={this.signIn} className={classes.form}>
+                  <div align="center" className="form-group">
                       <label>DNI</label>
                       <input ref={this.dniRef} placeholder="Nº de DNI" type="text" className="form-control"/>
                   </div>
-                  <div className="form-group">
+                  <div style={{marginTop : "20px"}} align="center" className="form-group">
                       <label>Contraseña</label>
                       <input ref={this.claveRef} placeholder="*******" type="password" className="form-control" />
                   </div>
-                  <div className="form-group">
-                      <input type="submit" value="Aceptar" className="btn btn-primary"/>
+                  <div align="center" className="form-group">
+                      <input style={{marginTop:"50px"}}  type="submit" value="Ingresar" className="btn btn-primary"/>
                   </div>
                 </form>
               </Paper>

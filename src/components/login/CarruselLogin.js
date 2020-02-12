@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import {Carousel, Image} from 'react-bootstrap';
 import StylesCarruselLogin from '../../assets/css/Login/StylesCarruselLogin'
-import PropTypes from 'prop-types';
+
+//Images
+import Estado from '../../assets/images/Estado.png';
+import DeteccionAutomatica from '../../assets/images/DeteccionAutomatica.png';
+import PedidosEncolados from '../../assets/images/PedidosEncolados.png';
 
 class CarruselLogin extends Component {
   state = {  }
@@ -11,27 +15,27 @@ class CarruselLogin extends Component {
 
     return (
       <React.Fragment>
-    <div style={StylesCarruselLogin}>
-    <Carousel>
+    <div style={{height : "200px", width: "100%"}} style={StylesCarruselLogin}>
+    <Carousel style={{height : "150%", width: "150%"}}>
       <Carousel.Item>
-        <Image src="https://placeralplato.com/files/2016/01/Pizza-con-pepperoni.jpg" rounded />
+        <Image src={Estado} rounded />
         <Carousel.Caption>
-          <h3>First slide label</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+          <h3>Estado de Conexion</h3>
+          <p>Podra verificar su estado de conexion en el menu.</p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-      <Image src="https://placeralplato.com/files/2016/01/Pizza-con-pepperoni.jpg" rounded />
+      <Image src={PedidosEncolados} rounded />
         <Carousel.Caption>
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <h3>Solicitudes Encoladas</h3>
+          <p>Puedes ver las solicitudes encoladas en manera offline.</p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-      <Image src="https://placeralplato.com/files/2016/01/Pizza-con-pepperoni.jpg" rounded />
+      <Image src={DeteccionAutomatica} rounded />
         <Carousel.Caption>
-          <h3>Third slide label</h3>
-          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+          <h3>Deteccion Automatica</h3>
+          <p>Deteccion automatica de perdida y recupero de internet.</p>
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>
