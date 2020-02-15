@@ -614,7 +614,7 @@ class EditarRol extends Component {
                                     <NavItem eventKey="fifth">Productos</NavItem>
                                     <NavItem eventKey="sixth">Reportes</NavItem>
                                     <NavItem eventKey="seven">Gasto</NavItem>
-                                    <NavItem eventKey="eight">Turnos</NavItem>
+                                    <NavItem eventKey="eight">Asistencias</NavItem>
                                 </Nav>
                                 </Col>
                                 <Col sm={8}>

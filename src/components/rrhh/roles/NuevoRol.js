@@ -469,7 +469,7 @@ class NuevoRol extends Component {
                                     <NavItem eventKey="fifth">Productos</NavItem>
                                     <NavItem eventKey="sixth">Reportes</NavItem>
                                     <NavItem eventKey="seven">Gasto</NavItem>
-                                    <NavItem eventKey="eight">Turnos</NavItem>
+                                    <NavItem eventKey="eight">Asistencias</NavItem>
                                 </Nav>
                                 </Col>
                                 <Col sm={8}>
@@ -558,25 +558,25 @@ class NuevoRol extends Component {
                                     {/* Pedidos */}
                                     <Tab.Pane eventKey="fourth">
                                         <CustomInput type="checkbox" 
-                                            id='13'
+                                            id='20'
                                             value="20" 
                                             checked={this.state.PedidoCreate}
                                             onChange={this.toggleChangePedidoCreate}
                                             label="Crear Pedidos" />
                                         <CustomInput type="checkbox" 
-                                            id='14'
+                                            id='21'
                                             value="21" 
                                             checked={this.state.PedidoView}
                                             onChange={this.toggleChangePedidoView}
                                             label="Ver Pedidos" />
                                         <CustomInput type="checkbox" 
-                                            id='15'
+                                            id='22'
                                             value="22"
                                             checked={this.state.PedidoEdit}
                                             onChange={this.toggleChangePedidoEdit}
                                             label="Modificar Pedidos" />
                                         <CustomInput type="checkbox" 
-                                            id='16'
+                                            id='23'
                                             value="23" 
                                             checked={this.state.PedidoDelete}
                                             onChange={this.toggleChangePedidoDelete}
@@ -585,25 +585,25 @@ class NuevoRol extends Component {
                                     {/* Productos */}
                                     <Tab.Pane eventKey="fifth">
                                         <CustomInput type="checkbox" 
-                                            id='17'
+                                            id='16'
                                             value="16" 
                                             checked={this.state.ProductoCreate}
                                             onChange={this.toggleChangeProductoCreate}
                                             label="Crear Productos" />
                                         <CustomInput type="checkbox" 
-                                            id='18'
+                                            id='17'
                                             value="17" 
                                             checked={this.state.ProductoView}
                                             onChange={this.toggleChangeProductoView}
                                             label="Ver Productos" />
                                         <CustomInput type="checkbox" 
-                                            id='19'
+                                            id='18'
                                             value="18" 
                                             checked={this.state.ProductoEdit}
                                             onChange={this.toggleChangeProductoEdit}
                                             label="Modificar Productos" />
                                         <CustomInput type="checkbox" 
-                                            id='20'
+                                            id='19'
                                             value="19" 
                                             checked={this.state.ProductoDelete}
                                             onChange={this.toggleChangeProductoDelete}

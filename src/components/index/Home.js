@@ -49,14 +49,23 @@ class Principal extends Component{
   }
 
  pageContent(){
+
+    console.log(this.props)
+
+    if(localStorage.getItem('status') === "online"){
       switch (this.props.auth.logged) {
         case null:
-        return;
+        return this.LoggedContent(this.props);
         case true:
         return this.LoggedContent(this.props)
         case false:
         return this.NotLoggedContent()
       }
+    }else{
+        return(
+            this.LoggedContentOffline(this.props)
+        )
+    }
   }
 
   NotLoggedContent(){
@@ -784,6 +793,412 @@ class Principal extends Component{
             </div> 
   )
 }
+
+
+LoggedContentOffline(props){
+
+    const { classes } = props;
+  
+    // if(this.props.usuario.Authorizations === undefined) return;
+  
+    // let permisosPedidos = [];
+    
+    // permisosPedidos = this.props.usuario.Authorizations.filter(permiso => (permiso.id >= 20 && permiso.id <= 23));
+  
+    // this.state.permisosPedidos = permisosPedidos;
+  
+    return(
+  
+      <div className={classes.root}>
+  
+                  {/* Pedidos */}
+  
+                  {/* {this.state.permisosPedidos.length > 0 ?  */}
+  
+                  <Link key={1} to={'/pedidos'} className={classes.root}>
+                    <Button
+                    focusRipple
+                    key="Pedido"
+                    className={classes.image}
+                    focusVisibleClassName={classes.focusVisible}
+                    style={{
+                        width: "33.3%",
+                    }}
+                    >
+                    
+                    <span
+                        className={classes.imageSrc}
+                        style={{
+                        backgroundImage: `url(${pedidos})`,
+                        }}
+                    />
+  
+                    <span className={classes.imageBackdrop} />
+                    <span className={classes.imageButton}>
+                        <Typography
+                        component="span"
+                        variant="subtitle1"
+                        color="inherit"
+                        className={classes.imageTitle}
+                        >
+                        Pedido
+                        <span className={classes.imageMarked} />
+                        </Typography>
+                    </span>
+                    </Button>
+                  </Link>
+  
+                      {/* :
+  
+                    <Button
+                    disabled
+                    focusRipple
+                    key="Pedido"
+                    className={classes.image}
+                    focusVisibleClassName={classes.focusVisible}
+                    style={{
+                        width: "33.3%",
+                    }}
+                    >
+                    
+                    <span
+                        disabled
+                        className={classes.imageSrc}
+                        style={{
+                        backgroundImage: `url(${pedidos})`,
+                        }}
+                    />
+  
+                    <span disabled className={classes.imageBackdrop} />
+                    <span disabled className={classes.imageButton}>
+                        <Typography
+                        disabled
+                        component="span"
+                        variant="subtitle1"
+                        color="inherit"
+                        className={classes.imageTitle}
+                        >
+                        Pedido
+                        <span disabled className={classes.imageMarked} />
+                        </Typography>
+                    </span>
+                    </Button>
+  
+                  } */}
+  
+                    {/* Categorias */}
+  
+                  
+  
+  
+                  <Button
+                  disabled
+                  focusRipple
+                  key="Categoria"
+                  className={classes.image}
+                  focusVisibleClassName={classes.focusVisible}
+                  style={{
+                      width: "33.3%",
+                  }}
+                  >
+                  
+                  <span
+                      disabled
+                      className={classes.imageSrc}
+                      style={{
+                      backgroundImage: `url(${modulo})`,
+                      }}
+                  />
+  
+                  <span className={classes.imageBackdrop} />
+                  <span className={classes.imageButton}>
+                      <Typography
+                      component="span"
+                      variant="subtitle1"
+                      color="inherit"
+                      className={classes.imageTitle}
+                      >
+                      Categoria
+                      <span className={classes.imageMarked} />
+                      </Typography>
+                  </span>
+                  </Button>
+                  
+                  
+  
+                      {/* Combos */}
+                  
+  
+                  <Button
+                  disabled
+                  focusRipple
+                  key="Combos"
+                  className={classes.image}
+                  focusVisibleClassName={classes.focusVisible}
+                  style={{
+                      width: "33.3%",
+                  }}
+                  >
+                  
+                  <span
+                  disabled
+                      className={classes.imageSrc}
+                      style={{
+                      backgroundImage: `url(${combos})`,
+                      }}
+                  />
+  
+                  <span className={classes.imageBackdrop} />
+                  <span className={classes.imageButton}>
+                      <Typography
+                      component="span"
+                      variant="subtitle1"
+                      color="inherit"
+                      className={classes.imageTitle}
+                      >
+                      Combos
+                      <span className={classes.imageMarked} />
+                      </Typography>
+                  </span>
+                  </Button>
+  
+                    
+  
+                      {/* RRHH */}
+  
+                  
+  
+                  <Button
+                  disabled
+                  focusRipple
+                  key="RRHH"
+                  className={classes.image}
+                  focusVisibleClassName={classes.focusVisible}
+                  style={{
+                      width: "33.3%",
+                  }}
+                  >
+                  
+                  <span
+                      disabled
+                      className={classes.imageSrc}
+                      style={{
+                      backgroundImage: `url(${rrhh})`,
+                      }}
+                  />
+  
+                  <span className={classes.imageBackdrop} />
+                  <span className={classes.imageButton}>
+                      <Typography
+                      component="span"
+                      variant="subtitle1"
+                      color="inherit"
+                      className={classes.imageTitle}
+                      >
+                      RRHH
+                      <span className={classes.imageMarked} />
+                      </Typography>
+                  </span>
+                  </Button>
+  
+                  
+  
+                      {/* Reportes */}
+  
+                  
+  
+                  <Button
+                  disabled
+                  focusRipple
+                  key="Reportes"
+                  className={classes.image}
+                  focusVisibleClassName={classes.focusVisible}
+                  style={{
+                      width: "33.3%",
+                  }}
+                  >
+                  
+                  <span
+                      disabled
+                      className={classes.imageSrc}
+                      style={{
+                      backgroundImage: `url(${reports})`,
+                      }}
+                  />
+  
+                  <span className={classes.imageBackdrop} />
+                  <span className={classes.imageButton}>
+                      <Typography
+                      component="span"
+                      variant="subtitle1"
+                      color="inherit"
+                      className={classes.imageTitle}
+                      >
+                      Reportes
+                      <span className={classes.imageMarked} />
+                      </Typography>
+                  </span>
+                  </Button>
+  
+                  
+  
+                      {/* Gastos */}
+  
+                  
+  
+                  <Button
+                  disabled
+                  focusRipple
+                  key="Gastos"
+                  className={classes.image}
+                  focusVisibleClassName={classes.focusVisible}
+                  style={{
+                      width: "33.3%",
+                  }}
+                  >
+                  
+                  <span
+                      disabled
+                      className={classes.imageSrc}
+                      style={{
+                      backgroundImage: `url(${gastos})`,
+                      }}
+                  />
+  
+                  <span className={classes.imageBackdrop} />
+                  <span className={classes.imageButton}>
+                      <Typography
+                      component="span"
+                      variant="subtitle1"
+                      color="inherit"
+                      className={classes.imageTitle}
+                      >
+                      Gastos
+                      <span className={classes.imageMarked} />
+                      </Typography>
+                  </span>
+                  </Button>
+  
+                  
+  
+                  {/* Cliente */}
+  
+                  
+  
+                      <Button
+                      disabled
+                  focusRipple
+                  key="Clientes"
+                  className={classes.image}
+                  focusVisibleClassName={classes.focusVisible}
+                  style={{
+                      width: "33.3%",
+                  }}
+                  >
+                  
+                  <span
+                  disabled
+                      className={classes.imageSrc}
+                      style={{
+                      backgroundImage: `url(${clients})`,
+                      }}
+                  />
+  
+                  <span className={classes.imageBackdrop} />
+                  <span className={classes.imageButton}>
+                      <Typography
+                      component="span"
+                      variant="subtitle1"
+                      color="inherit"
+                      className={classes.imageTitle}
+                      >
+                      Clientes
+                      <span className={classes.imageMarked} />
+                      </Typography>
+                  </span>
+                  </Button>
+  
+                    
+                    
+                    {/* Estado */}
+  
+                  
+                      <Button
+                      disabled
+                  focusRipple
+                  key="Estados"
+                  className={classes.image}
+                  focusVisibleClassName={classes.focusVisible}
+                  style={{
+                      width: "33.3%",
+                  }}
+                  >
+                  
+                  <span
+                  disabled
+                      className={classes.imageSrc}
+                      style={{
+                      backgroundImage: `url(${status})`,
+                      }}
+                  />
+  
+                  <span className={classes.imageBackdrop} />
+                  <span className={classes.imageButton}>
+                      <Typography
+                      component="span"
+                      variant="subtitle1"
+                      color="inherit"
+                      className={classes.imageTitle}
+                      >
+                      Estados
+                      <span className={classes.imageMarked} />
+                      </Typography>
+                  </span>
+                  </Button>
+
+                    
+  
+                    {/* Mapa */}
+  
+                  
+  
+                  <Button
+                  disabled
+                  focusRipple
+                  key="Mapa"
+                  className={classes.image}
+                  focusVisibleClassName={classes.focusVisible}
+                  style={{
+                      width: "33.3%",
+                  }}
+                  >
+                  
+                  <span
+                  disabled
+                      className={classes.imageSrc}
+                      style={{
+                      backgroundImage: `url(${mapa})`,
+                      }}
+                  />
+  
+                  <span className={classes.imageBackdrop} />
+                  <span className={classes.imageButton}>
+                      <Typography
+                      component="span"
+                      variant="subtitle1"
+                      color="inherit"
+                      className={classes.imageTitle}
+                      >
+                      Mapa
+                      <span className={classes.imageMarked} />
+                      </Typography>
+                  </span>
+                  </Button>
+  
+                    
+              </div> 
+    )
+  }
 
  render() {
 
