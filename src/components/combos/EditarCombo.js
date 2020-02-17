@@ -229,7 +229,7 @@ class EditarCombo extends Component {
                 title: 'Error!',
                 text: 'Faltan datos en el formulario',
                 type: 'error',
-                confirmButtonText: 'Reintentar'
+                confirmButtonText: 'Aceptar'
             })
             return;
         }
@@ -301,7 +301,7 @@ class EditarCombo extends Component {
                                     <input ref={this.descripcionRef} type="text" defaultValue={this.props.location.state.Description} className="form-control" required />
                                 </div>
                                 <div className="form-group">
-                                    <label>Monto</label>
+                                    <label>Precio</label>
                                     <input ref={this.montoRef} type="number" defaultValue={this.props.location.state.Amount} min="1" step="1" title="Numbers only" className="form-control" required />
                                 </div>
                                 <div className="form-group">

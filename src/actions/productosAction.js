@@ -22,7 +22,7 @@ export const mostrarProductos = () => async dispatch => {
                     title: 'Error!',
                     text: 'Se ha producido un error al intentar mostrar estados',
                     type: 'error',
-                    confirmButtonText: 'Reintentar'
+                    confirmButtonText: 'Aceptar'
                 })
                 return;
             }
@@ -36,7 +36,7 @@ export const mostrarProductos = () => async dispatch => {
                         title: 'Error!',
                         text: `${err.response.data}`,
                         type: 'error',
-                        confirmButtonText: 'Reintentar'
+                        confirmButtonText: 'Aceptar'
                     })
                     return;
                 }
@@ -45,7 +45,7 @@ export const mostrarProductos = () => async dispatch => {
                         title: 'Error!',
                         text: `No posee los permisos necesarios`,
                         type: 'error',
-                        confirmButtonText: 'Reintentar'
+                        confirmButtonText: 'Aceptar'
                     })
                     setTimeout(function () {
                         return window.location.replace("/");
@@ -111,7 +111,7 @@ export const agregarProducto = (producto) => async dispatch => {
                     title: 'Error!',
                     text: 'Se ha producido un error al intentar crear el producto',
                     type: 'error',
-                    confirmButtonText: 'Reintentar'
+                    confirmButtonText: 'Aceptar'
                 })
                 return;
             }
@@ -122,7 +122,7 @@ export const agregarProducto = (producto) => async dispatch => {
                 title: 'Error!',
                 text: 'El Servidor no ha respondido la solicitud',
                 type: 'error',
-                confirmButtonText: 'Reintentar'
+                confirmButtonText: 'Aceptar'
             })
             return;
         })
@@ -153,7 +153,7 @@ export const eliminarProducto = (id) => async dispatch => {
                     title: 'Error!',
                     text: 'Se ha producido un error al intentar borrar el producto',
                     type: 'error',
-                    confirmButtonText: 'Reintentar'
+                    confirmButtonText: 'Aceptar'
                 })
                 return;
             }
@@ -164,7 +164,7 @@ export const eliminarProducto = (id) => async dispatch => {
                 title: 'Error!',
                 text: 'El Servidor no ha respondido la solicitud',
                 type: 'error',
-                confirmButtonText: 'Reintentar'
+                confirmButtonText: 'Aceptar'
             })
             return window.location.reload();
         })
@@ -207,7 +207,7 @@ export const editarProducto = (producto) => async dispatch => {
                     title: 'Error!',
                     text: 'Se ha producido un error al intentar actualizar el producto',
                     type: 'error',
-                    confirmButtonText: 'Reintentar'
+                    confirmButtonText: 'Aceptar'
                 })
                 return;
             }
@@ -218,7 +218,7 @@ export const editarProducto = (producto) => async dispatch => {
                 title: 'Error!',
                 text: 'El Servidor no ha respondido la solicitud',
                 type: 'error',
-                confirmButtonText: 'Reintentar'
+                confirmButtonText: 'Aceptar'
             })
             return;
         })

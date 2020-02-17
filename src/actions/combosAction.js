@@ -22,7 +22,7 @@ export const mostrarCombos = () => async dispatch => {
                 title: 'Error!',
                 text: 'Se ha producido un error al intentar mostrar combos',
                 type: 'error',
-                confirmButtonText: 'Reintentar'
+                confirmButtonText: 'Aceptar'
             })
             return;
         }
@@ -36,7 +36,7 @@ export const mostrarCombos = () => async dispatch => {
                     title: 'Error!',
                     text: `${err.response.data}`,
                     type: 'error',
-                    confirmButtonText: 'Reintentar'
+                    confirmButtonText: 'Aceptar'
                 })
                 return;
             }
@@ -45,7 +45,7 @@ export const mostrarCombos = () => async dispatch => {
                     title: 'Error!',
                     text: `No posee los permisos necesarios`,
                     type: 'error',
-                    confirmButtonText: 'Reintentar'
+                    confirmButtonText: 'Aceptar'
                 })
                 setTimeout(function(){ 
                     return window.location.replace("/");
@@ -101,7 +101,7 @@ export const agregarCombo = (combo) => async dispatch => {
                     title: 'Error!',
                     text: 'Se ha producido un error al intentar crear el combo',
                     type: 'error',
-                    confirmButtonText: 'Reintentar'
+                    confirmButtonText: 'Aceptar'
                 })
                 return;
             }
@@ -111,7 +111,7 @@ export const agregarCombo = (combo) => async dispatch => {
                 title: 'Error!',
                 text: 'El Servidor no ha respondido la solicitud',
                 type: 'error',
-                confirmButtonText: 'Reintentar'
+                confirmButtonText: 'Aceptar'
             })
             return;
         })
@@ -160,7 +160,7 @@ export const editarCombo = (combo) => async dispatch => {
                 title: 'Error!',
                 text: 'Se ha producido un error al intentar editar el combo',
                 type: 'error',
-                confirmButtonText: 'Reintentar'
+                confirmButtonText: 'Aceptar'
             })
             return;
         }
@@ -174,7 +174,7 @@ export const editarCombo = (combo) => async dispatch => {
                     title: 'Error!',
                     text: `${err.response.data}`,
                     type: 'error',
-                    confirmButtonText: 'Reintentar'
+                    confirmButtonText: 'Aceptar'
                 })
                 return;
             }
@@ -183,7 +183,7 @@ export const editarCombo = (combo) => async dispatch => {
                     title: 'Error!',
                     text: `No posee los permisos necesarios`,
                     type: 'error',
-                    confirmButtonText: 'Reintentar'
+                    confirmButtonText: 'Aceptar'
                 })
                 // localStorage.removeItem("access-token");
                 setTimeout(function(){ 
@@ -194,7 +194,7 @@ export const editarCombo = (combo) => async dispatch => {
                     title: 'Error!',
                     text: 'Se ha producido un error al intentar editar el combo',
                     type: 'error',
-                    confirmButtonText: 'Reintentar'
+                    confirmButtonText: 'Aceptar'
                 })
                 return;
             }
@@ -228,7 +228,7 @@ export const eliminarCombo = (id) => async dispatch => {
                     title: 'Error!',
                     text: 'Se ha producido un error al intentar borrar el combo',
                     type: 'error',
-                    confirmButtonText: 'Reintentar'
+                    confirmButtonText: 'Aceptar'
                 })
                 return;
             }
@@ -239,7 +239,7 @@ export const eliminarCombo = (id) => async dispatch => {
                 title: 'Error!',
                 text: 'El Servidor no ha respondido la solicitud',
                 type: 'error',
-                confirmButtonText: 'Reintentar'
+                confirmButtonText: 'Aceptar'
             })
             return window.location.reload();
         })

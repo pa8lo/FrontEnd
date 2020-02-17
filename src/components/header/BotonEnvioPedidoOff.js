@@ -70,7 +70,7 @@ class EnviarPedidosOff extends Component {
                     title: 'Error!',
                     text: 'Se ha producido un error al intentar crear el pedido',
                     type: 'error',
-                    confirmButtonText: 'Reintentar'
+                    confirmButtonText: 'Aceptar'
                 })
                 return;
             }
@@ -161,7 +161,7 @@ class EnviarPedidosOff extends Component {
                     //   title: 'Error! La direccion no pudo ser validada',
                     //   text: 'Comuniquese con el cliente',
                     //   type: 'error',
-                    //   confirmButtonText: 'Reintentar'
+                    //   confirmButtonText: 'Aceptar'
                     // })
 
                     return (
@@ -221,7 +221,7 @@ class EnviarPedidosOff extends Component {
                                                     title: 'Error!',
                                                     text: 'Se ha producido un error al intentar crear el Pedido',
                                                     type: 'error',
-                                                    confirmButtonText: 'Reintentar'
+                                                    confirmButtonText: 'Aceptar'
                                                 })
                                                 return;
                                             }
@@ -234,7 +234,7 @@ class EnviarPedidosOff extends Component {
                                                 title: 'Error!',
                                                 text: 'El Servidor no ha respondido al alta de Pedido',
                                                 type: 'error',
-                                                confirmButtonText: 'Reintentar'
+                                                confirmButtonText: 'Aceptar'
                                             })
                                             return;
                                         })
@@ -245,7 +245,7 @@ class EnviarPedidosOff extends Component {
                                         title: 'Error!',
                                         text: 'Se ha producido un error al intentar crear la direccion',
                                         type: 'error',
-                                        confirmButtonText: 'Reintentar'
+                                        confirmButtonText: 'Aceptar'
                                     })
                                     return;
                                   }
@@ -258,7 +258,7 @@ class EnviarPedidosOff extends Component {
                                       title: 'Error!',
                                       text: 'El Servidor no ha respondido al alta de la direccion',
                                       type: 'error',
-                                      confirmButtonText: 'Reintentar'
+                                      confirmButtonText: 'Aceptar'
                                   })
                                   return;
                               })
@@ -269,7 +269,7 @@ class EnviarPedidosOff extends Component {
                       //   title: 'Error! La direccion no pudo ser validada',
                       //   text: 'Comuniquese con el cliente',
                       //   type: 'error',
-                      //   confirmButtonText: 'Reintentar'
+                      //   confirmButtonText: 'Aceptar'
                       // })
                     );
                   } else {
@@ -334,7 +334,7 @@ class EnviarPedidosOff extends Component {
                                                     title: 'Error!',
                                                     text: 'Se ha producido un error al intentar crear el Pedido',
                                                     type: 'error',
-                                                    confirmButtonText: 'Reintentar'
+                                                    confirmButtonText: 'Aceptar'
                                                 })
                                                 return;
                                             }
@@ -347,7 +347,7 @@ class EnviarPedidosOff extends Component {
                                                 title: 'Error!',
                                                 text: 'El Servidor no ha respondido al alta de Pedido',
                                                 type: 'error',
-                                                confirmButtonText: 'Reintentar'
+                                                confirmButtonText: 'Aceptar'
                                             })
                                             return;
                                         })
@@ -358,7 +358,7 @@ class EnviarPedidosOff extends Component {
                                         title: 'Error!',
                                         text: 'Se ha producido un error al intentar crear la direccion',
                                         type: 'error',
-                                        confirmButtonText: 'Reintentar'
+                                        confirmButtonText: 'Aceptar'
                                     })
                                     return;
                                   }
@@ -371,7 +371,7 @@ class EnviarPedidosOff extends Component {
                                       title: 'Error!',
                                       text: 'El Servidor no ha respondido al alta de la direccion',
                                       type: 'error',
-                                      confirmButtonText: 'Reintentar'
+                                      confirmButtonText: 'Aceptar'
                                   })
                                   return;
                               })
@@ -385,7 +385,7 @@ class EnviarPedidosOff extends Component {
                     title: 'Error!',
                     text: 'La direccion no pudo ser validada, comuniquese con el cliente',
                     type: 'error',
-                    confirmButtonText: 'Reintentar'
+                    confirmButtonText: 'Aceptar'
                   })
                   self.setState({
                     'coords': null,
@@ -400,7 +400,7 @@ class EnviarPedidosOff extends Component {
               title: 'Error!',
               text: 'La direccion no pudo ser validada, comuniquese con el cliente',
               type: 'error',
-              confirmButtonText: 'Reintentar'
+              confirmButtonText: 'Aceptar'
             })
           });
   
@@ -465,7 +465,7 @@ class EnviarPedidosOff extends Component {
                         title: 'Error! La direccion no pudo ser validada',
                         text: 'Comuniquese con el cliente',
                         type: 'error',
-                        confirmButtonText: 'Reintentar'
+                        confirmButtonText: 'Aceptar'
                       })
 
                       /*-----------------------------------------------------------------------*/
@@ -544,7 +544,7 @@ class EnviarPedidosOff extends Component {
                                                     title: 'Error!',
                                                     text: 'Se ha producido un error al intentar crear el Pedido',
                                                     type: 'error',
-                                                    confirmButtonText: 'Reintentar'
+                                                    confirmButtonText: 'Aceptar'
                                                 })
                                                 return;
                                             }
@@ -557,7 +557,7 @@ class EnviarPedidosOff extends Component {
                                                 title: 'Error!',
                                                 text: 'El Servidor no ha respondido al alta de Pedido',
                                                 type: 'error',
-                                                confirmButtonText: 'Reintentar'
+                                                confirmButtonText: 'Aceptar'
                                             })
                                             return;
                                         })
@@ -568,7 +568,7 @@ class EnviarPedidosOff extends Component {
                                         title: 'Error!',
                                         text: 'Se ha producido un error al intentar crear la direccion',
                                         type: 'error',
-                                        confirmButtonText: 'Reintentar'
+                                        confirmButtonText: 'Aceptar'
                                     })
                                     return;
                                   }
@@ -581,7 +581,7 @@ class EnviarPedidosOff extends Component {
                                       title: 'Error!',
                                       text: 'El Servidor no ha respondido al alta de la direccion',
                                       type: 'error',
-                                      confirmButtonText: 'Reintentar'
+                                      confirmButtonText: 'Aceptar'
                                   })
                                   return;
                               })
@@ -591,7 +591,7 @@ class EnviarPedidosOff extends Component {
                                 title: 'Error!',
                                 text: 'Se ha producido un error al intentar crear el cliente',
                                 type: 'error',
-                                confirmButtonText: 'Reintentar'
+                                confirmButtonText: 'Aceptar'
                               })
                               return;
                             }
@@ -600,7 +600,7 @@ class EnviarPedidosOff extends Component {
                                     title: 'Error!',
                                     text: 'Se ha producido un error al intentar crear el cliente',
                                     type: 'error',
-                                    confirmButtonText: 'Reintentar'
+                                    confirmButtonText: 'Aceptar'
                                 })
                                 return;
                             }
@@ -672,7 +672,7 @@ class EnviarPedidosOff extends Component {
                                                     title: 'Error!',
                                                     text: 'Se ha producido un error al intentar crear el Pedido',
                                                     type: 'error',
-                                                    confirmButtonText: 'Reintentar'
+                                                    confirmButtonText: 'Aceptar'
                                                 })
                                                 return;
                                             }
@@ -685,7 +685,7 @@ class EnviarPedidosOff extends Component {
                                                 title: 'Error!',
                                                 text: 'El Servidor no ha respondido al alta de Pedido',
                                                 type: 'error',
-                                                confirmButtonText: 'Reintentar'
+                                                confirmButtonText: 'Aceptar'
                                             })
                                             return;
                                         })
@@ -696,7 +696,7 @@ class EnviarPedidosOff extends Component {
                                         title: 'Error!',
                                         text: 'Se ha producido un error al intentar crear la direccion',
                                         type: 'error',
-                                        confirmButtonText: 'Reintentar'
+                                        confirmButtonText: 'Aceptar'
                                     })
                                     return;
                                   }
@@ -709,7 +709,7 @@ class EnviarPedidosOff extends Component {
                                       title: 'Error!',
                                       text: 'El Servidor no ha respondido al alta de la direccion',
                                       type: 'error',
-                                      confirmButtonText: 'Reintentar'
+                                      confirmButtonText: 'Aceptar'
                                   })
                                   return;
                               })
@@ -721,7 +721,7 @@ class EnviarPedidosOff extends Component {
                                 title: 'Error!',
                                 text: 'El Servidor no ha respondido al alta del cliente',
                                 type: 'error',
-                                confirmButtonText: 'Reintentar'
+                                confirmButtonText: 'Aceptar'
                             })
                             return;
 
@@ -737,7 +737,7 @@ class EnviarPedidosOff extends Component {
                     title: 'Error!',
                     text: 'La direccion no pudo ser validada, comuniquese con el cliente',
                     type: 'error',
-                    confirmButtonText: 'Reintentar'
+                    confirmButtonText: 'Aceptar'
                   })
                   self.setState({
                     'coords': null,
@@ -748,7 +748,7 @@ class EnviarPedidosOff extends Component {
                 //   title: 'Error!',
                 //   text: 'La direccion no pudo ser validada, comuniquese con el cliente',
                 //   type: 'error',
-                //   confirmButtonText: 'Reintentar'
+                //   confirmButtonText: 'Aceptar'
                 // })
 
                 axios.post("https://roraso.herokuapp.com/Client/CreateClient",
@@ -819,7 +819,7 @@ class EnviarPedidosOff extends Component {
                                                     title: 'Error!',
                                                     text: 'Se ha producido un error al intentar crear el Pedido',
                                                     type: 'error',
-                                                    confirmButtonText: 'Reintentar'
+                                                    confirmButtonText: 'Aceptar'
                                                 })
                                                 return;
                                             }
@@ -832,7 +832,7 @@ class EnviarPedidosOff extends Component {
                                                 title: 'Error!',
                                                 text: 'El Servidor no ha respondido al alta de Pedido',
                                                 type: 'error',
-                                                confirmButtonText: 'Reintentar'
+                                                confirmButtonText: 'Aceptar'
                                             })
                                             return;
                                         })
@@ -843,7 +843,7 @@ class EnviarPedidosOff extends Component {
                                         title: 'Error!',
                                         text: 'Se ha producido un error al intentar crear la direccion',
                                         type: 'error',
-                                        confirmButtonText: 'Reintentar'
+                                        confirmButtonText: 'Aceptar'
                                     })
                                     return;
                                   }
@@ -856,7 +856,7 @@ class EnviarPedidosOff extends Component {
                                       title: 'Error!',
                                       text: 'El Servidor no ha respondido al alta de la direccion',
                                       type: 'error',
-                                      confirmButtonText: 'Reintentar'
+                                      confirmButtonText: 'Aceptar'
                                   })
                                   return;
                               })
@@ -866,7 +866,7 @@ class EnviarPedidosOff extends Component {
                                 title: 'Error!',
                                 text: 'Se ha producido un error al intentar crear el cliente',
                                 type: 'error',
-                                confirmButtonText: 'Reintentar'
+                                confirmButtonText: 'Aceptar'
                               })
                               return;
                             }
@@ -875,7 +875,7 @@ class EnviarPedidosOff extends Component {
                                     title: 'Error!',
                                     text: 'Se ha producido un error al intentar crear el cliente',
                                     type: 'error',
-                                    confirmButtonText: 'Reintentar'
+                                    confirmButtonText: 'Aceptar'
                                 })
                                 return;
                             }
@@ -946,7 +946,7 @@ class EnviarPedidosOff extends Component {
                                                     title: 'Error!',
                                                     text: 'Se ha producido un error al intentar crear el Pedido',
                                                     type: 'error',
-                                                    confirmButtonText: 'Reintentar'
+                                                    confirmButtonText: 'Aceptar'
                                                 })
                                                 return;
                                             }
@@ -959,7 +959,7 @@ class EnviarPedidosOff extends Component {
                                                 title: 'Error!',
                                                 text: 'El Servidor no ha respondido al alta de Pedido',
                                                 type: 'error',
-                                                confirmButtonText: 'Reintentar'
+                                                confirmButtonText: 'Aceptar'
                                             })
                                             return;
                                         })
@@ -970,7 +970,7 @@ class EnviarPedidosOff extends Component {
                                         title: 'Error!',
                                         text: 'Se ha producido un error al intentar crear la direccion',
                                         type: 'error',
-                                        confirmButtonText: 'Reintentar'
+                                        confirmButtonText: 'Aceptar'
                                     })
                                     return;
                                   }
@@ -983,7 +983,7 @@ class EnviarPedidosOff extends Component {
                                       title: 'Error!',
                                       text: 'El Servidor no ha respondido al alta de la direccion',
                                       type: 'error',
-                                      confirmButtonText: 'Reintentar'
+                                      confirmButtonText: 'Aceptar'
                                   })
                                   return;
                               })
@@ -995,7 +995,7 @@ class EnviarPedidosOff extends Component {
                                 title: 'Error!',
                                 text: 'El Servidor no ha respondido al alta del cliente',
                                 type: 'error',
-                                confirmButtonText: 'Reintentar'
+                                confirmButtonText: 'Aceptar'
                             })
                             return;
 
@@ -1009,7 +1009,7 @@ class EnviarPedidosOff extends Component {
               title: 'Error!',
               text: 'La direccion no pudo ser validada, comuniquese con el cliente',
               type: 'error',
-              confirmButtonText: 'Reintentar'
+              confirmButtonText: 'Aceptar'
             })
           });
 

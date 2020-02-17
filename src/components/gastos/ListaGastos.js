@@ -36,7 +36,7 @@ const buttonStyle = {
 
 let col = ["Details", "Amount", "Date", "Actions"];
 let tHead = [
-    "Tipo Gasto",
+    "Gasto",
     "Monto",
     "Fecha",
     "Acciones",

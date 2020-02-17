@@ -83,7 +83,7 @@ class MyVerticallyCenteredModal extends Component {
                             title: 'Error!',
                             text: 'Se ha producido un error al intentar borrar la asistencia',
                             type: 'error',
-                            confirmButtonText: 'Reintentar'
+                            confirmButtonText: 'Aceptar'
                         })
                         return;
                     }
@@ -94,7 +94,7 @@ class MyVerticallyCenteredModal extends Component {
                         title: 'Error!',
                         text: 'El Servidor no ha respondido la solicitud',
                         type: 'error',
-                        confirmButtonText: 'Reintentar'
+                        confirmButtonText: 'Aceptar'
                     })
                     return;
                 })

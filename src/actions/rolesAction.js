@@ -22,7 +22,7 @@ export const mostrarRoles = () => async dispatch => {
                 title: 'Error!',
                 text: 'Se ha producido un error al intentar mostrar categorias',
                 type: 'error',
-                confirmButtonText: 'Reintentar'
+                confirmButtonText: 'Aceptar'
             })
             return;
         }
@@ -36,7 +36,7 @@ export const mostrarRoles = () => async dispatch => {
                     title: 'Error!',
                     text: `${err.response.data}`,
                     type: 'error',
-                    confirmButtonText: 'Reintentar'
+                    confirmButtonText: 'Aceptar'
                 })
                 return;
             }
@@ -45,7 +45,7 @@ export const mostrarRoles = () => async dispatch => {
                     title: 'Error!',
                     text: `No posee los permisos necesarios`,
                     type: 'error',
-                    confirmButtonText: 'Reintentar'
+                    confirmButtonText: 'Aceptar'
                 })
                 // localStorage.removeItem("access-token");
                 setTimeout(function(){ 
@@ -103,7 +103,7 @@ export const editarRol = (rol) => async dispatch => {
                 title: 'Error!',
                 text: 'Se ha producido un error al intentar editar el rol',
                 type: 'error',
-                confirmButtonText: 'Reintentar'
+                confirmButtonText: 'Aceptar'
             })
             return;
         }
@@ -113,7 +113,7 @@ export const editarRol = (rol) => async dispatch => {
             title: 'Error!',
             text: 'El Servidor no ha respondido la solicitud',
             type: 'error',
-            confirmButtonText: 'Reintentar'
+            confirmButtonText: 'Aceptar'
         })
         return;
     })
@@ -145,7 +145,7 @@ export const eliminarRol = (id) => async dispatch => {
                     title: 'Error!',
                     text: 'Se ha producido un error al intentar borrar el rol',
                     type: 'error',
-                    confirmButtonText: 'Reintentar'
+                    confirmButtonText: 'Aceptar'
                 })
                 return;
             }
@@ -156,7 +156,7 @@ export const eliminarRol = (id) => async dispatch => {
                 title: 'Error!',
                 text: 'El Servidor no ha respondido la solicitud',
                 type: 'error',
-                confirmButtonText: 'Reintentar'
+                confirmButtonText: 'Aceptar'
             })
             return window.location.reload();
         })
@@ -196,7 +196,7 @@ export const agregarRol = (rol) => async dispatch => {
                     title: 'Error!',
                     text: 'Se ha producido un error al intentar crear el rol',
                     type: 'error',
-                    confirmButtonText: 'Reintentar'
+                    confirmButtonText: 'Aceptar'
                 })
                 return;
             }
@@ -206,7 +206,7 @@ export const agregarRol = (rol) => async dispatch => {
                 title: 'Error!',
                 text: 'El Servidor no ha respondido la solicitud',
                 type: 'error',
-                confirmButtonText: 'Reintentar'
+                confirmButtonText: 'Aceptar'
             })
             return;
         })

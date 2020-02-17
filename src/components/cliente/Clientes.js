@@ -62,7 +62,7 @@ class Cliente extends Component {
                         pathname : `/clientes/agregar-direccion-cliente/${id}`,
                         state : this.props.info
                         }} className="btn btn-info">
-                        Direccion
+                        Dirección
                     </Link>
                 </td> 
             </tr>

@@ -38,7 +38,7 @@ export const loginUser = (usuario) => async dispatch => {
                 title: 'Error!',
                 text: 'Se ha producido un error al intentar iniciar sesion',
                 type: 'error',
-                confirmButtonText: 'Reintentar'
+                confirmButtonText: 'Aceptar'
             })
             return;
         }
@@ -52,7 +52,7 @@ export const loginUser = (usuario) => async dispatch => {
                     title: 'Error!',
                     text: `${err.response.data}`,
                     type: 'error',
-                    confirmButtonText: 'Reintentar'
+                    confirmButtonText: 'Aceptar'
                 })
                 return;
             }
@@ -61,7 +61,7 @@ export const loginUser = (usuario) => async dispatch => {
                     title: 'Error!',
                     text: `Se han ingresado datos erroneos`,
                     type: 'error',
-                    confirmButtonText: 'Reintentar'
+                    confirmButtonText: 'Aceptar'
                 })
             }
         }

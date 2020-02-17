@@ -39,7 +39,7 @@ class NuevaCategoria extends Component {
                 title: 'Error!',
                 text: 'Faltan o hay errores en el formulario',
                 type: 'error',
-                confirmButtonText: 'Reintentar'
+                confirmButtonText: 'Aceptar'
             })
             return;
         }else{

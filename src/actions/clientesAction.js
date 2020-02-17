@@ -22,7 +22,7 @@ export const mostrarClientes = () => async dispatch => {
                 title: 'Error!',
                 text: 'Se ha producido un error al intentar mostrar clientes',
                 type: 'error',
-                confirmButtonText: 'Reintentar'
+                confirmButtonText: 'Aceptar'
             })
             return;
         }
@@ -36,7 +36,7 @@ export const mostrarClientes = () => async dispatch => {
                     title: 'Error!',
                     text: `${err.response.data}`,
                     type: 'error',
-                    confirmButtonText: 'Reintentar'
+                    confirmButtonText: 'Aceptar'
                 })
                 return;
             }
@@ -45,7 +45,7 @@ export const mostrarClientes = () => async dispatch => {
                     title: 'Error!',
                     text: `No posee los permisos necesarios`,
                     type: 'error',
-                    confirmButtonText: 'Reintentar'
+                    confirmButtonText: 'Aceptar'
                 })
                 // localStorage.removeItem("access-token");
                 setTimeout(function(){ 
@@ -100,7 +100,7 @@ export const agregarCliente = (cliente) => async dispatch => {
                 title: 'Error!',
                 text: 'Se ha producido un error al intentar crear el cliente',
                 type: 'error',
-                confirmButtonText: 'Reintentar'
+                confirmButtonText: 'Aceptar'
             })
             return;
         }
@@ -113,7 +113,7 @@ export const agregarCliente = (cliente) => async dispatch => {
             title: 'Error!',
             text: 'Cliente existente',
             type: 'error',
-            confirmButtonText: 'Reintentar'
+            confirmButtonText: 'Aceptar'
         })
             return;
         }else{
@@ -121,7 +121,7 @@ export const agregarCliente = (cliente) => async dispatch => {
             title: 'Error!',
             text: 'El Servidor no ha respondido la solicitud',
             type: 'error',
-            confirmButtonText: 'Reintentar'
+            confirmButtonText: 'Aceptar'
         })
         return;
         }
@@ -158,7 +158,7 @@ export const agregarDireccionCliente = (direccion) => async dispatch => {
         if(res.status === 200){
             Swal.fire({
                 title: 'Correcto!',
-                text: 'Se ha añadido una nueva direccion',
+                text: 'Se ha añadido una nueva dirección',
                 type: 'success',
                 confirmButtonText: 'Confirmar'
             })
@@ -169,9 +169,9 @@ export const agregarDireccionCliente = (direccion) => async dispatch => {
         else{
             Swal.fire({
                 title: 'Error!',
-                text: 'Se ha producido un error al intentar crear la direccion',
+                text: 'Se ha producido un error al intentar crear la dirección',
                 type: 'error',
-                confirmButtonText: 'Reintentar'
+                confirmButtonText: 'Aceptar'
             })
             return;
         }
@@ -182,7 +182,7 @@ export const agregarDireccionCliente = (direccion) => async dispatch => {
             title: 'Error!',
             text: 'El Servidor no ha respondido la solicitud',
             type: 'error',
-            confirmButtonText: 'Reintentar'
+            confirmButtonText: 'Aceptar'
         })
         return;
     })
@@ -213,7 +213,7 @@ export const eliminarCliente = (id) => async dispatch => {
                     title: 'Error!',
                     text: 'Se ha producido un error al intentar borrar el cliente',
                     type: 'error',
-                    confirmButtonText: 'Reintentar'
+                    confirmButtonText: 'Aceptar'
                 })
                 return;
             }
@@ -224,7 +224,7 @@ export const eliminarCliente = (id) => async dispatch => {
                 title: 'Error!',
                 text: 'El Servidor no ha respondido la solicitud',
                 type: 'error',
-                confirmButtonText: 'Reintentar'
+                confirmButtonText: 'Aceptar'
             })
             return window.location.reload();
         })
@@ -267,7 +267,7 @@ export const editarCliente = (cliente) => async dispatch => {
                 title: 'Error!',
                 text: 'Se ha producido un error al intentar actualizar un cliente',
                 type: 'error',
-                confirmButtonText: 'Reintentar'
+                confirmButtonText: 'Aceptar'
             })
             return;
         }
@@ -278,7 +278,7 @@ export const editarCliente = (cliente) => async dispatch => {
             title: 'Error!',
             text: 'El Servidor no ha respondido la solicitud',
             type: 'error',
-            confirmButtonText: 'Reintentar'
+            confirmButtonText: 'Aceptar'
         })
         return;
     })

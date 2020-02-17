@@ -22,7 +22,7 @@ export const mostrarEstados = () => async dispatch => {
                 title: 'Error!',
                 text: 'Se ha producido un error al intentar mostrar estados',
                 type: 'error',
-                confirmButtonText: 'Reintentar'
+                confirmButtonText: 'Aceptar'
             })
             return;
         }
@@ -36,7 +36,7 @@ export const mostrarEstados = () => async dispatch => {
                     title: 'Error!',
                     text: `${err.response.data}`,
                     type: 'error',
-                    confirmButtonText: 'Reintentar'
+                    confirmButtonText: 'Aceptar'
                 })
                 return;
             }
@@ -45,7 +45,7 @@ export const mostrarEstados = () => async dispatch => {
                     title: 'Error!',
                     text: `No posee los permisos necesarios`,
                     type: 'error',
-                    confirmButtonText: 'Reintentar'
+                    confirmButtonText: 'Aceptar'
                 })
                 // localStorage.removeItem("access-token");
                 setTimeout(function(){ 
@@ -91,7 +91,7 @@ export const agregarEstado = (estado) => async dispatch => {
                    title: 'Error!',
                    text: 'Se ha producido un error al intentar crear un estado',
                    type: 'error',
-                   confirmButtonText: 'Reintentar'
+                   confirmButtonText: 'Aceptar'
                })
                return;
            }
@@ -101,7 +101,7 @@ export const agregarEstado = (estado) => async dispatch => {
                title: 'Error!',
                text: 'El Servidor no ha respondido la solicitud',
                type: 'error',
-               confirmButtonText: 'Reintentar'
+               confirmButtonText: 'Aceptar'
            })
            return;
        })
@@ -142,7 +142,7 @@ export const editarEstado = (estado) => async dispatch => {
                    title: 'Error!',
                    text: 'Se ha producido un error al intentar actualizar un estado',
                    type: 'error',
-                   confirmButtonText: 'Reintentar'
+                   confirmButtonText: 'Aceptar'
                })
                return;
            }
@@ -152,7 +152,7 @@ export const editarEstado = (estado) => async dispatch => {
                title: 'Error!',
                text: 'El Servidor no ha respondido la solicitud',
                type: 'error',
-               confirmButtonText: 'Reintentar'
+               confirmButtonText: 'Aceptar'
            })
            return;
        })
@@ -195,7 +195,7 @@ export const editarEstadoPedido = (pedido) => async dispatch => {
                     title: 'Error!',
                     text: 'Se ha producido un error al intentar modificar un pedido',
                     type: 'error',
-                    confirmButtonText: 'Reintentar'
+                    confirmButtonText: 'Aceptar'
                 })
                 return;
             }
@@ -206,7 +206,7 @@ export const editarEstadoPedido = (pedido) => async dispatch => {
                 title: 'Error!',
                 text: 'El Servidor no ha respondido la solicitud',
                 type: 'error',
-                confirmButtonText: 'Reintentar'
+                confirmButtonText: 'Aceptar'
             })
             return;
         })
@@ -237,7 +237,7 @@ export const eliminarEstado = (id) => async dispatch => {
                    title: 'Error!',
                    text: 'Se ha producido un error al intentar borrar un estado',
                    type: 'error',
-                   confirmButtonText: 'Reintentar'
+                   confirmButtonText: 'Aceptar'
                })
                return window.location.reload();
            }
@@ -248,7 +248,7 @@ export const eliminarEstado = (id) => async dispatch => {
                title: 'Error!',
                text: 'El Servidor no ha respondido la solicitud',
                type: 'error',
-               confirmButtonText: 'Reintentar'
+               confirmButtonText: 'Aceptar'
            })
            return;
        })

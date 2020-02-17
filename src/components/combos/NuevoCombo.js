@@ -133,7 +133,7 @@ class NuevoCombo extends Component {
                 title: 'Error!',
                 text: 'Faltan datos en el formulario',
                 type: 'error',
-                confirmButtonText: 'Reintentar'
+                confirmButtonText: 'Aceptar'
             })
             return;
         }
@@ -208,7 +208,7 @@ class NuevoCombo extends Component {
                             <input ref={this.descripcionRef} type="text" className="form-control" required/>
                         </div>
                         <div className="form-group">
-                            <label>Monto</label>
+                            <label>Precio</label>
                             <input ref={this.montoRef} type="number" min="1" step="1" title="Numbers only" className="form-control" required/>
                         </div>
                         <div className="form-group">

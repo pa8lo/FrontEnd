@@ -66,7 +66,7 @@ class NuevoGasto extends Component {
                 title: 'Error!',
                 text: 'La fecha esta mal ingresada, favor de chequearla',
                 type: 'error',
-                confirmButtonText: 'Reintentar'
+                confirmButtonText: 'Aceptar'
             })
             return;
         }else{
@@ -93,7 +93,7 @@ class NuevoGasto extends Component {
                     <div>
                     <form onSubmit={this.agregarGasto} className="col-5">
                         <div className="form-group">
-                            <label>Detalle</label>
+                            <label>Nombre del Gasto</label>
                             <input ref={this.detalleRef} type="text" className="form-control" required/>
                         </div>
                         <div className="form-group">

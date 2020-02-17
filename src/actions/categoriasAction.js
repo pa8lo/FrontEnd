@@ -22,7 +22,7 @@ export const mostrarCategorias = () => async dispatch => {
                 title: 'Error!',
                 text: 'Se ha producido un error al intentar mostrar categorias',
                 type: 'error',
-                confirmButtonText: 'Reintentar'
+                confirmButtonText: 'Aceptar'
             })
             return;
         }
@@ -36,7 +36,7 @@ export const mostrarCategorias = () => async dispatch => {
                     title: 'Error!',
                     text: `${err.response.data}`,
                     type: 'error',
-                    confirmButtonText: 'Reintentar'
+                    confirmButtonText: 'Aceptar'
                 })
                 return;
             }
@@ -45,7 +45,7 @@ export const mostrarCategorias = () => async dispatch => {
                     title: 'Error!',
                     text: `No posee los permisos necesarios`,
                     type: 'error',
-                    confirmButtonText: 'Reintentar'
+                    confirmButtonText: 'Aceptar'
                 })
                 // localStorage.removeItem("access-token");
                 setTimeout(function(){ 
@@ -111,7 +111,7 @@ export const agregarCategoria = (categoria) => async dispatch => {
                 title: 'Error!',
                 text: 'Se ha producido un error al intentar crear la categoria',
                 type: 'error',
-                confirmButtonText: 'Reintentar'
+                confirmButtonText: 'Aceptar'
             })
             return;
         }
@@ -180,7 +180,7 @@ export const eliminarCategoria = (id) => async dispatch => {
                     title: 'Error!',
                     text: 'Se ha producido un error al intentar borrar la categoria',
                     type: 'error',
-                    confirmButtonText: 'Reintentar'
+                    confirmButtonText: 'Aceptar'
                 })
                 return;
             }
@@ -191,7 +191,7 @@ export const eliminarCategoria = (id) => async dispatch => {
                 title: 'Error!',
                 text: 'El Servidor no ha respondido la solicitud',
                 type: 'error',
-                confirmButtonText: 'Reintentar'
+                confirmButtonText: 'Aceptar'
             })
             return window.location.reload();
         })
@@ -239,7 +239,7 @@ export const editarCategoria = (categoria) => async dispatch => {
                 title: 'Error!',
                 text: 'Se ha producido un error al intentar actualizar la categoria',
                 type: 'error',
-                confirmButtonText: 'Reintentar'
+                confirmButtonText: 'Aceptar'
             })
             return;
         }
@@ -250,7 +250,7 @@ export const editarCategoria = (categoria) => async dispatch => {
             title: 'Error!',
             text: 'El Servidor no ha respondido la solicitud',
             type: 'error',
-            confirmButtonText: 'Reintentar'
+            confirmButtonText: 'Aceptar'
         })
         return;
     })

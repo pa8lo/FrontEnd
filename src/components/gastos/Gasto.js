@@ -50,7 +50,7 @@ class Gasto extends Component {
                     title: 'No se detecto conexion',
                     text: 'Entrando en modo Offline',
                     type: 'error',
-                    confirmButtonText: 'Reintentar'
+                    confirmButtonText: 'Aceptar'
                 })
                 return;
             })

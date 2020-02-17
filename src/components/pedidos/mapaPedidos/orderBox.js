@@ -35,7 +35,7 @@ let col = ["Order", "Delivery", "Direccion", "Actions"];
 let tHead = [
     "Pedido",
     "Delivery",
-    "Direccion",
+    "Dirección",
     "Acciones",
 ];
 
@@ -130,6 +130,9 @@ class OrderBox extends React.Component {
 
         var orders = [];
         for(var i = 0; i < pedidos.length; i++) {
+
+            console.log(pedidos)
+
             if (pedidos[i].State.Description != "Entregado" && pedidos[i].State.Description != "Rechazado") {
 
                 if (pedidos[i].Delivery !== null) {
@@ -156,6 +159,12 @@ class OrderBox extends React.Component {
                     });
                 } else {
 
+                    // console.log(typeof(pedidos[i].Adress))
+
+                    if(typeof(pedidos[i].Adress) === "object"){
+
+                    if(pedidos[i].Adress == null || pedidos[i].Adress == "" || pedidos[i].Adress == []) return null
+
                     if(pedidos[i].Adress.Department == null || pedidos[i].Adress.Department == "null" 
                     || pedidos[i].Adress.Department == " " || pedidos[i].Adress.Department == ""){
                         pedidos[i].Adress.Department = ""
@@ -178,6 +187,18 @@ class OrderBox extends React.Component {
                         Delivery: "Sin Asignar",
                         DeliveryId: null,
                     });
+
+                    }else{
+                        if(pedidos[i].Adress == null || pedidos[i].Adress == "" || pedidos[i].Adress == []) return null
+
+                        orders.push({
+                            id: pedidos[i].id,
+                            Order: "Pedido " + pedidos[i].id,
+                            Direccion : pedidos[i].Adress.Adress + pedidos[i].Adress.Cp,
+                            Delivery: "Sin Asignar",
+                            DeliveryId: null,
+                        });
+                    }
     
                 }
             }

@@ -44,7 +44,7 @@ let tHead = [
     // "Empleado",
     "Cliente",
     "Direccion",
-    "Monto",
+    "Precio",
     "Delivery",
     "Acciones",
 ];

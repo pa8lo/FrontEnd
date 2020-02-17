@@ -56,7 +56,7 @@ class CambioDeClave extends Component {
             title: 'Error!',
             text: 'Hay datos incorrectos en el formulario',
             type: 'error',
-            confirmButtonText: 'Reintentar'
+            confirmButtonText: 'Aceptar'
           })
           return;
         })
@@ -67,7 +67,7 @@ class CambioDeClave extends Component {
         title: 'Error!',
         text: 'Las contraseñas no coinciden',
         type: 'error',
-        confirmButtonText: 'Reintentar'
+        confirmButtonText: 'Aceptar'
       })
       return;
     }

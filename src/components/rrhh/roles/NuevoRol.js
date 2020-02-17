@@ -664,25 +664,25 @@ class NuevoRol extends Component {
                                             value="28" 
                                             checked={this.state.TACreate}
                                             onChange={this.toggleChangeTACreate}
-                                            label="Crear Turno" />
+                                            label="Crear Asistencia" />
                                         <CustomInput type="checkbox" 
                                             id='29'
                                             value="29" 
                                             checked={this.state.TAView}
                                             onChange={this.toggleChangeTAView}
-                                            label="Ver Turno" />
+                                            label="Ver Asistencia" />
                                         <CustomInput type="checkbox" 
                                             id='30'
                                             value="30" 
                                             checked={this.state.TAEdit}
                                             onChange={this.toggleChangeTAEdit}
-                                            label="Modificar Turno" />
+                                            label="Modificar Asistencia" />
                                         <CustomInput type="checkbox" 
                                             id='31'
                                             value="31" 
                                             checked={this.state.TADelete}
                                             onChange={this.toggleChangeTADelete}
-                                            label="Borrar Turno" />
+                                            label="Borrar Asistencia" />
                                     </Tab.Pane>
                                 </Tab.Content>
                                 </Col>

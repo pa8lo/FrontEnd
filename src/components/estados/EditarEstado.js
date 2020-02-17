@@ -44,7 +44,7 @@ class EditarEstado extends Component {
             title: 'Error!',
             text: 'Hay datos erroneos en el formulario',
             type: 'error',
-            confirmButtonText: 'Reintentar'
+            confirmButtonText: 'Aceptar'
         })
         return;
     }else{

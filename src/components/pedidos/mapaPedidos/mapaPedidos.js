@@ -36,10 +36,11 @@ class MapaPedidos extends Component {
   }
   
   componentDidUpdate(){
-    
+
         if (!this.state.map) {
 
             const pedidos = this.props.pedidos;
+
             for (var i = 0; i < pedidos.length; i++) {
               if (pedidos[i].State.Description != "Rechazado" && pedidos[i].State.Description != "Entregado") {
 
@@ -59,8 +60,8 @@ class MapaPedidos extends Component {
                   document.getElementById("map"),
                   defaultLayers.vector.normal.map, {
                     center: {
-                      lat: "-34.5",
-                      lng: "-58.6"
+                      lat: "-30.5",
+                      lng: "-50.6"
                     },
                     zoom: 10,
                     pixelRatio: window.devicePixelRatio || 1

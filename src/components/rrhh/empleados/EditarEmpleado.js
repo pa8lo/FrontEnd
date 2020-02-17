@@ -105,7 +105,7 @@ class EditarEmpleado extends Component {
                 title: 'Error!',
                 text: 'Faltan o hay errores en el formulario',
                 type: 'error',
-                confirmButtonText: 'Reintentar'
+                confirmButtonText: 'Aceptar'
             })
             return;
         }else{
@@ -154,7 +154,9 @@ class EditarEmpleado extends Component {
                             <form onSubmit={this.crearEmpleado} className="col-8">
                                 <div className="form-group">
                                     <label>DNI</label>
-                                    <input ref={this.dniRef} type="text" defaultValue={this.props.location.state.Dni} className="form-control"/>
+                                    <input
+                                    //  ref={this.dniRef}
+                                    disabled type="text" defaultValue={this.props.location.state.Dni} className="form-control"/>
                                 </div>
                                 <div className="form-group">
                                     <label>Nombre</label>

@@ -54,7 +54,7 @@ class ActionEmpleadoComponent extends React.Component {
                 title: 'Error!',
                 text: 'No puedes borrar el usuario',
                 type: 'error',
-                confirmButtonText: 'Reintentar'
+                confirmButtonText: 'Aceptar'
             })
         }
         else{
@@ -106,7 +106,7 @@ class ActionEmpleadoComponent extends React.Component {
                   title: 'Error!',
                   text: 'El servidor no ha respondido',
                   type: 'error',
-                  confirmButtonText: 'Reintentar'
+                  confirmButtonText: 'Aceptar'
                 })
                 return;
               })
@@ -115,7 +115,7 @@ class ActionEmpleadoComponent extends React.Component {
             title: 'Error!',
             text: 'Usuario sin permisos',
             type: 'error',
-            confirmButtonText: 'Reintentar'
+            confirmButtonText: 'Aceptar'
           })
           return;
 
@@ -123,7 +123,7 @@ class ActionEmpleadoComponent extends React.Component {
         //   title: 'Error!',
         //   text: 'Esperando creacion de Endpoint',
         //   type: 'error',
-        //   confirmButtonText: 'Reintentar'
+        //   confirmButtonText: 'Aceptar'
         // })
           
         }

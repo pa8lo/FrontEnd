@@ -13,7 +13,8 @@ const initialState = {
     logged: null,
     token: '',
     permisson: [],
-    user: undefined
+    user: undefined,
+    loaded: false
 };
 
 
@@ -21,9 +22,17 @@ export default function (state = initialState, action) {
     switch (action.type) {
         case FETCH_CURRENT_USER:
         if (action.payload.sucess === false) {
-            return {...state, logged: false};
+            return {
+                ...state, 
+                logged: false,
+                loaded: true
+            };
         }
-            return {...state, user: action.payload.User, logged: true};
+            return {...state, 
+                user: action.payload.User, 
+                logged: true,
+                loaded: true
+            };
         case SIGNIN:
             return {...state, token: action.payload.token, logged: true,user:action.payload.user};
         case SIGNOUT:

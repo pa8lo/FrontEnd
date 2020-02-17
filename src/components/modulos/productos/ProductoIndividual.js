@@ -35,7 +35,7 @@ class ProductoIndividual extends Component {
                                     <input type="text" disabled defaultValue={this.props.location.state.Description} className="form-control" required/>
                                 </div>
                                 <div className="form-group">
-                                    <label>Monto</label>
+                                    <label>Precio</label>
                                     <input type="number" disabled defaultValue={this.props.location.state.Amount} min="1" step="1" title="Numbers only" className="form-control" required/>
                                 </div>
                                 {/* <div className="form-group">

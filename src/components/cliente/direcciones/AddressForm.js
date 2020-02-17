@@ -102,9 +102,9 @@ class AddressForm extends Component {
     if(this.state.coords.lat === undefined && this.state.coords.lon === undefined){
       Swal.fire({
         title: 'Error!',
-        text: 'Debe Validar la Direccion',
+        text: 'Debe Validar la Dirección',
         type: 'error',
-        confirmButtonText: 'Reintentar'
+        confirmButtonText: 'Aceptar'
       })
       return;
     }
@@ -206,13 +206,13 @@ class AddressForm extends Component {
     if (this.state.coords === null) {
       return (
         <div className="alert alert-warning" role="alert">
-          <b>Direccion Invalida.</b> La direccion no fue reconocida
+          <b>Dirección Invalida.</b> La dirección no fue reconocida
         </div>
       );
     } else {
       return (
         <div className="alert alert-success" role="alert">
-          <b>Direccion Valida.</b>  Coodenadas en {this.state.coords.lat}, {this.state.coords.lon}.
+          <b>Dirección Valida.</b>  Coodenadas en {this.state.coords.lat}, {this.state.coords.lon}.
         </div>
       );
     }
@@ -258,7 +258,7 @@ class AddressForm extends Component {
           <button type="submit" style={{marginLeft: "10px", width: 80}} className="btn btn-primary" onClick={() => this.enviarDatos()}>Enviar</button>
           <button style={{marginLeft: 10, width: 80}} onClick={this.setRedirectToHome} type="button" className="btn btn-danger">Cancelar</button>
           {this.ToHome()}
-          <button type="submit" style={{marginLeft: "10px"}} className="btn btn-info" onClick={this.onCheck}>Validar Direccion</button>
+          <button type="submit" style={{marginLeft: "10px"}} className="btn btn-info" onClick={this.onCheck}>Validar Dirección</button>
           {/* <button type="submit" style={{marginLeft: "10px"}} className="btn btn-outline-secondary" onClick={this.onClear}>Limpiar Datos</button> */}
           
           </div>

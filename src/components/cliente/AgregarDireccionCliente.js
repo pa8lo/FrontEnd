@@ -20,7 +20,7 @@ class AgregarDatosCliente extends Component {
         return (
             
         <React.Fragment>
-            <Header titulo = 'Alta de Direccion'/>
+            <Header titulo = 'Alta de Dirección'/>
             <div className="table-empleados">
                 <Paper className="col-md-5">
                     <div>

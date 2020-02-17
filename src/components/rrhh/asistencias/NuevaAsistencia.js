@@ -68,7 +68,7 @@ class NuevaAsistencia extends Component {
                 title: 'Error!',
                 text: 'La asistencia tiene que estar asignada a un usuario',
                 type: 'error',
-                confirmButtonText: 'Reintentar'
+                confirmButtonText: 'Aceptar'
             })
             return;
         }
@@ -78,7 +78,7 @@ class NuevaAsistencia extends Component {
         //         title: 'Error!',
         //         text: 'La fecha / hora de salida no puede ser anterior a la de entrada',
         //         type: 'error',
-        //         confirmButtonText: 'Reintentar'
+        //         confirmButtonText: 'Aceptar'
         //     })
         //     return;
         // }

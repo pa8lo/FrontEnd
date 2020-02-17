@@ -417,7 +417,7 @@ class NuevoPedido extends Component {
         if(this.state.direElegida.length === 0){
           Swal.fire({
               title: 'Error!',
-              text: 'Debe elegir una direccion',
+              text: 'Debe elegir una dirección',
               type: 'error',
               confirmButtonText: 'Ok'
           })
@@ -609,7 +609,7 @@ class NuevoPedido extends Component {
                   title: 'Error!',
                   text: 'Hubo un error, intentelo nuevamente mas tarde',
                   type: 'error',
-                  confirmButtonText: 'Reintentar'
+                  confirmButtonText: 'Aceptar'
               })
               return;
           }
@@ -623,7 +623,7 @@ class NuevoPedido extends Component {
                       title: 'Error!',
                       text: `${err.response.data}`,
                       type: 'error',
-                      confirmButtonText: 'Reintentar'
+                      confirmButtonText: 'Aceptar'
                   })
                   return;
               }
@@ -632,7 +632,7 @@ class NuevoPedido extends Component {
                       title: 'Error!',
                       text: `No posee los permisos necesarios`,
                       type: 'error',
-                      confirmButtonText: 'Reintentar'
+                      confirmButtonText: 'Aceptar'
                   })
                   // localStorage.removeItem("access-token");
                   setTimeout(function(){ 

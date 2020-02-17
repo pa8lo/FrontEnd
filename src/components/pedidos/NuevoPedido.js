@@ -360,7 +360,7 @@ class NuevoPedido extends Component {
         </div>
         <div>
           <div className="form-group">
-              <label>Direccion</label>
+              <label>Dirección</label>
               <input ref={this.direccionRef} type="text" className="form-control" placeholder="Ingrese calle, altura y ciudad" required/>
           </div>
           <div className="form-group">
@@ -455,7 +455,7 @@ class NuevoPedido extends Component {
     if (this.state.direElegida.length === 0 && localStorage.getItem('status') !== "offline") {
       Swal.fire({
         title: 'Error!',
-        text: 'Debe elegir una direccion',
+        text: 'Debe elegir una dirección',
         type: 'error',
         confirmButtonText: 'Ok'
       })
@@ -646,9 +646,9 @@ class NuevoPedido extends Component {
       if(this.state.direElegida.cliente == undefined){
         Swal.fire({
           title: 'Error!',
-          text: 'Debe verificar la existencia de una direccion',
+          text: 'Debe verificar la existencia de una dirección',
           type: 'error',
-          confirmButtonText: 'Reintentar'
+          confirmButtonText: 'Aceptar'
         })
         return;
       }
@@ -706,7 +706,7 @@ class NuevoPedido extends Component {
               if(res.data.Cliente.Adress.length === 0){
                 Swal.fire({
                   title: 'No se encontraron direcciones',
-                  text: "¿Quieres cargar una direccion para el cliente?",
+                  text: "¿Quieres cargar una dirección para el cliente?",
                   type: 'warning',
                   showCancelButton: true,
                   confirmButtonColor: '#3085d6',
@@ -788,7 +788,7 @@ class NuevoPedido extends Component {
             title: 'Error!',
             text: 'Hubo un error, intentelo nuevamente mas tarde',
             type: 'error',
-            confirmButtonText: 'Reintentar'
+            confirmButtonText: 'Aceptar'
           })
           return;
         }
@@ -802,7 +802,7 @@ class NuevoPedido extends Component {
               title: 'Error!',
               text: `${err.response.data}`,
               type: 'error',
-              confirmButtonText: 'Reintentar'
+              confirmButtonText: 'Aceptar'
             })
             return;
           }
@@ -928,7 +928,7 @@ class NuevoPedido extends Component {
   mostrarDireccion = () => {
     if (this.state.direElegida.length === 0) {
       return (
-        <input disabled placeholder="Direccion elegida" type="text" className="form-control" required />
+        <input disabled placeholder="Dirección elegida" type="text" className="form-control" required />
       );
     } else {
       return (

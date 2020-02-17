@@ -58,7 +58,7 @@ class AgregarDatosCliente extends Component {
                 title: 'Error!',
                 text: 'Hay datos erroneos o faltan datos en el formulario',
                 type: 'error',
-                confirmButtonText: 'Reintentar'
+                confirmButtonText: 'Aceptar'
             })
             return;
         }else{

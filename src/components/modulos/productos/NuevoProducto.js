@@ -42,7 +42,7 @@ class NuevoProducto extends Component {
                 title: 'Error!',
                 text: 'Faltan o hay errores en el formulario',
                 type: 'error',
-                confirmButtonText: 'Reintentar'
+                confirmButtonText: 'Aceptar'
             })
             return;
         }else{
@@ -84,7 +84,7 @@ class NuevoProducto extends Component {
                                     <input ref={this.descripcionRef} type="text" placeholder="Humita - J&Q - Carne" className="form-control" required/>
                                 </div>
                                 <div className="form-group">
-                                    <label>Monto</label>
+                                    <label>Precio</label>
                                     <input ref={this.amountRef} type="number" placeholder="$" min="1" step="1" title="Numbers only" className="form-control" required/>
                                 </div>
                                 <div className="form-group">

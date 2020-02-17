@@ -82,7 +82,7 @@ class MyVerticallyCenteredModal extends Component {
             title: 'Error!',
             text: 'Se ha producido un error al intentar agregar una direccion',
             type: 'error',
-            confirmButtonText: 'Reintentar'
+            confirmButtonText: 'Aceptar'
         })
         return;
       }
@@ -92,7 +92,7 @@ class MyVerticallyCenteredModal extends Component {
           title: 'Error!',
           text: 'El Servidor no ha respondido la solicitud',
           type: 'error',
-          confirmButtonText: 'Reintentar'
+          confirmButtonText: 'Aceptar'
       })
       return;
     })
@@ -261,6 +261,7 @@ class EmpleadoIndividual extends Component {
                   <Panel.Body xs={4}><h2 xs={4}>Nombre: {this.props.empleado.user.Name}</h2>
                   <h2 xs={4}>Apellido: {this.props.empleado.user.LastName}</h2>
                   <h2>Email: {this.props.empleado.user.Email}</h2>
+                  <h2>1º Telefono: {this.props.empleado.user.PrimaryPhone}</h2>
                   <h2>DNI: {this.props.empleado.user.Dni}</h2>
                   <h2>Rol: {rol_encontrado[0].Name}</h2></Panel.Body>
               

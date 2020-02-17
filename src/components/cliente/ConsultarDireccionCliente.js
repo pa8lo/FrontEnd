@@ -39,7 +39,7 @@ class ConsultarDireccionCliente extends Component {
 
         Swal.fire({
             title: '¿Estas seguro que desea eliminar?',
-            text: "Estas a punto de eliminar una direccion",
+            text: "Estas a punto de eliminar una dirección",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -54,7 +54,7 @@ class ConsultarDireccionCliente extends Component {
                         if(res.status === 200){
                             Swal.fire({
                                 title: 'Correcto!',
-                                text: 'Se ha borrado una direccion',
+                                text: 'Se ha borrado una dirección',
                                 type: 'success',
                                 confirmButtonText: 'Confirmar'
                             })
@@ -65,9 +65,9 @@ class ConsultarDireccionCliente extends Component {
                         else{
                             Swal.fire({
                                 title: 'Error!',
-                                text: 'Se ha producido un error al intentar borrar la direccion',
+                                text: 'Se ha producido un error al intentar borrar la dirección',
                                 type: 'error',
-                                confirmButtonText: 'Reintentar'
+                                confirmButtonText: 'Aceptar'
                             })
                             return;
                         }
@@ -78,7 +78,7 @@ class ConsultarDireccionCliente extends Component {
                             title: 'Error!',
                             text: 'El Servidor no ha respondido la solicitud',
                             type: 'error',
-                            confirmButtonText: 'Reintentar'
+                            confirmButtonText: 'Aceptar'
                         })
                         return;
                     })
@@ -113,8 +113,8 @@ class ConsultarDireccionCliente extends Component {
                 <div key={address.id} style={{marginTop: "50px"}}>
                     <Col xs={12} md={6}>
                     <div align="center" className="form-group">
-                        <label>Direccion</label>
-                        <h3>{address.Adress == null || address.Adress == "" ? "Sin Direccion" : address.Adress}</h3>
+                        <label>Dirección</label>
+                        <h3>{address.Adress == null || address.Adress == "" ? "Sin Dirección" : address.Adress}</h3>
                     </div>
                     </Col>
                     <Col align="center" xs={12} md={6}>
@@ -143,7 +143,7 @@ class ConsultarDireccionCliente extends Component {
 
                     <button style={{marginLeft: 10, width: 140}} name="idEliminarAsistencia" 
                     onClick={() => this.eliminarDireccion(address.id)} 
-                    value={address.id} type="button" className="btn btn-danger">Borrar Direccion</button>
+                    value={address.id} type="button" className="btn btn-danger">Borrar Dirección</button>
                     </Col>
                 </div>
                 )

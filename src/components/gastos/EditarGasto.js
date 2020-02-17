@@ -65,7 +65,7 @@ class EditarGasto extends Component {
             title: 'Error!',
             text: 'La fecha esta mal ingresada, favor de chequearla',
             type: 'error',
-            confirmButtonText: 'Reintentar'
+            confirmButtonText: 'Aceptar'
         })
         return;
     }else{

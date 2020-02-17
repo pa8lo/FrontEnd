@@ -167,6 +167,13 @@ class RolIndividual extends Component {
                     this.state.PermisosEdit = true; break
                 case 23 :
                     this.state.PermisosDelete = true; break
+                    //Permisos
+                case 13 :
+                    this.state.PermisosCreate = true; break
+                case 14 :
+                    this.state.PermisosEdit = true; break
+                case 15 :
+                    this.state.PermisosDelete = true; break
                     //Gasto
                 case 24 :
                     this.state.GastoCreate = true; break
@@ -396,22 +403,22 @@ class RolIndividual extends Component {
                                         checked={this.state.TACreate}
                                         id='28'
                                         disabled
-                                        label="Crear Turno" />
+                                        label="Crear Asistencia" />
                                     <CustomInput type="checkbox" 
                                         checked={this.state.TAView}
                                         id='29'
                                         disabled
-                                        label="Ver Turno" />
+                                        label="Ver Asistencia" />
                                     <CustomInput type="checkbox" 
                                         checked={this.state.TAEdit}
                                         id='30'
                                         disabled
-                                        label="Modificar Turno" />
+                                        label="Modificar Asistencia" />
                                     <CustomInput type="checkbox" 
                                         checked={this.state.TADelete}
                                         id='31'
                                         disabled
-                                        label="Borrar Turno" />
+                                        label="Borrar Asistencia" />
                                 </Tab.Pane>
                             </Tab.Content>
                             </Col>

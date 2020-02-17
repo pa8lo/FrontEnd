@@ -60,9 +60,12 @@ class Header extends React.Component {
                     title: 'No se detecto conexion',
                     text: 'Entrando en modo Offline',
                     type: 'error',
-                    confirmButtonText: 'Reintentar'
-                })
-                return;
+                    confirmButtonText: 'Aceptar'
+                }).then((result) => {
+                  if (result.value) {
+                    return <Redirect to='/' />
+                  }
+                }) 
               }
           })
 
@@ -122,7 +125,7 @@ class Header extends React.Component {
                   title: 'No se detecto conexion',
                   text: 'Entrando en modo Offline',
                   type: 'error',
-                  confirmButtonText: 'Reintentar'
+                  confirmButtonText: 'Aceptar'
               })
               return;
             }
@@ -416,8 +419,8 @@ class Header extends React.Component {
                   <p color="inherit" style={{textAlign: "center", marginTop: '40px', marginBottom: '5px'}} className={classes.welcomeText}>Hola { this.props.auth.user === undefined ? " " : this.props.auth.user.Name }</p>
                   <p color="inherit" style={{textAlign: "center", marginTop: '20px', marginBottom: '20px'}} className={classes.welcomeText}>Panel de Configuracion</p>
                       <Button className={classes.buttonSizes} color="inherit"  onClick= {this.setRedirectToHome}>Inicio</Button>
-                  {this.props.auth.logged &&   <Button className={classes.buttonSizes} color="inherit"  onClick= {this.setRedirectChangePassword}>Cambiar Contraseña</Button>}
-                  {this.props.auth.logged &&  <BotonEnvioPedidoOff/>}
+                  {localStorage.getItem('status') === "online" &&   <Button className={classes.buttonSizes} color="inherit"  onClick= {this.setRedirectChangePassword}>Cambiar Contraseña</Button>}
+                  {localStorage.getItem('status') === "online" &&  <BotonEnvioPedidoOff/>}
                   {this.buttonLogged(classes)}
                   {this.statusConnection(classes)}
                   <Button  color="inherit" onClick= {this.ProfileClose} className={classes.bottomClose} >Cerrar</Button>

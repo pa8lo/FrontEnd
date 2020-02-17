@@ -29,7 +29,7 @@ export const mostrarEmpleados = () => async dispatch => {
                 title: 'Error!',
                 text: 'Se ha producido un error al intentar mostrar categorias',
                 type: 'error',
-                confirmButtonText: 'Reintentar'
+                confirmButtonText: 'Aceptar'
             })
             return;
         }
@@ -43,7 +43,7 @@ export const mostrarEmpleados = () => async dispatch => {
                     title: 'Error!',
                     text: `${err.response.data}`,
                     type: 'error',
-                    confirmButtonText: 'Reintentar'
+                    confirmButtonText: 'Aceptar'
                 })
                 return;
             }
@@ -52,7 +52,7 @@ export const mostrarEmpleados = () => async dispatch => {
                     title: 'Error!',
                     text: `No posee los permisos necesarios`,
                     type: 'error',
-                    confirmButtonText: 'Reintentar'
+                    confirmButtonText: 'Aceptar'
                 })
                 // localStorage.removeItem("access-token");
                 setTimeout(function(){ 
@@ -96,7 +96,7 @@ export const eliminarEmpleado = (id) => async dispatch => {
                     title: 'Error!',
                     text: 'Se ha producido un error al intentar borrar el empleado',
                     type: 'error',
-                    confirmButtonText: 'Reintentar'
+                    confirmButtonText: 'Aceptar'
                 })
                 return;
             }
@@ -107,7 +107,7 @@ export const eliminarEmpleado = (id) => async dispatch => {
                 title: 'Error!',
                 text: 'El Servidor no ha respondido la solicitud',
                 type: 'error',
-                confirmButtonText: 'Reintentar'
+                confirmButtonText: 'Aceptar'
             })
             return window.location.reload();
         })
@@ -158,7 +158,7 @@ export const agregarEmpleado = (empleado) => async dispatch => {
                 title: 'Error!',
                 text: 'Se ha producido un error al intentar crear el empleado',
                 type: 'error',
-                confirmButtonText: 'Reintentar'
+                confirmButtonText: 'Aceptar'
             })
             return;
         }
@@ -167,9 +167,9 @@ export const agregarEmpleado = (empleado) => async dispatch => {
     .catch(err => {
         Swal.fire({
             title: 'Error!',
-            text: 'El Servidor no ha respondido la solicitud',
+            text: 'El numero de DNI ya existe en otro empleado',
             type: 'error',
-            confirmButtonText: 'Reintentar'
+            confirmButtonText: 'Aceptar'
         })
         return;
     })
@@ -222,7 +222,7 @@ export const editarEmpleado = (empleado) => async dispatch => {
                 title: 'Error!',
                 text: 'Se ha producido un error al intentar editar el empleado',
                 type: 'error',
-                confirmButtonText: 'Reintentar'
+                confirmButtonText: 'Aceptar'
             })
             return;
         }
@@ -232,7 +232,7 @@ export const editarEmpleado = (empleado) => async dispatch => {
             title: 'Error!',
             text: 'El Servidor no ha respondido la solicitud',
             type: 'error',
-            confirmButtonText: 'Reintentar'
+            confirmButtonText: 'Aceptar'
         })
         return;
     })

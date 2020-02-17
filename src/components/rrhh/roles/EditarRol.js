@@ -519,29 +519,29 @@ class EditarRol extends Component {
               case 12 :
                   this.state.RolDelete = true; break
                   //Pedido
-              case 13 :
+              case 20 :
                   this.state.PedidoCreate = true; break
-              case 14 :
+              case 21 :
                   this.state.PedidoView = true; break
-              case 15 :
+              case 22 :
                   this.state.PedidoEdit = true; break
-              case 16 :
+              case 23 :
                   this.state.PedidoDelete = true; break
                   //Producto
-              case 17 :
+              case 16 :
                   this.state.ProductoCreate = true; break
-              case 18 :
+              case 17 :
                   this.state.ProductoView = true; break
-              case 19 :
+              case 18 :
                   this.state.ProductoEdit = true; break
-              case 20 :
+              case 19 :
                   this.state.ProductoDelete = true; break
                   //Permisos
-              case 21 :
+              case 13 :
                   this.state.PermisosCreate = true; break
-              case 22 :
+              case 14 :
                   this.state.PermisosEdit = true; break
-              case 23 :
+              case 15 :
                   this.state.PermisosDelete = true; break
                   //Gasto
               case 24 :
@@ -809,25 +809,25 @@ class EditarRol extends Component {
                                             value="28" 
                                             checked={this.state.TACreate}
                                             onChange={this.toggleChangeTACreate}
-                                            label="Crear Turno" />
+                                            label="Crear Asistencia" />
                                         <CustomInput type="checkbox" 
                                             id='29'
                                             value="29" 
                                             checked={this.state.TAView}
                                             onChange={this.toggleChangeTAView}
-                                            label="Ver Turno" />
+                                            label="Ver Asistencia" />
                                         <CustomInput type="checkbox" 
                                             id='30'
                                             value="30" 
                                             checked={this.state.TAEdit}
                                             onChange={this.toggleChangeTAEdit}
-                                            label="Modificar Turno" />
+                                            label="Modificar Asistencia" />
                                         <CustomInput type="checkbox" 
                                             id='31'
                                             value="31" 
                                             checked={this.state.TADelete}
                                             onChange={this.toggleChangeTADelete}
-                                            label="Borrar Turno" />
+                                            label="Borrar Asistencia" />
                                     </Tab.Pane>
                                 </Tab.Content>
                                 </Col>
