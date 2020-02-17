@@ -42,7 +42,7 @@ class EditarEmpleado extends Component {
         const rol = parseInt(this.props.location.state.Rols);
     }
 
-    dniRef = React.createRef();
+//     dniRef = React.createRef();
     nombreRef = React.createRef();
     apellidoRef = React.createRef();
     emailRef = React.createRef();
@@ -88,7 +88,7 @@ class EditarEmpleado extends Component {
 
         const empleado = {
             id : this.props.location.state.id,
-            dni : this.dniRef.current.value,
+            dni : this.props.location.state.Dni,
             nombre : this.nombreRef.current.value,
             apellido : this.apellidoRef.current.value,
             email : this.emailRef.current.value,
