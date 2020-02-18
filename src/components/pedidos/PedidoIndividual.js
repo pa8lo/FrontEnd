@@ -43,6 +43,8 @@ class PedidoIndividual extends Component {
         arrayProdEnCombos : [],
         finalAmmount : 0,
         redirectHome: false,
+        numero_cliente : "",
+        estado_pedido : ""
     }
     }
 
@@ -51,8 +53,26 @@ class PedidoIndividual extends Component {
 
     componentDidMount(){
   
+      
+      JSON.parse(localStorage.getItem('pedidos')).map(cliente => {
 
-      // console.log(this.props)
+          if(cliente.Date === this.props.location.state.Date){
+            this.state.numero_cliente = cliente.Clients.Phone
+          }
+
+      })
+
+      // permisosUsuario = this.props.usuario.Authorizations.filter(permiso => (permiso.id <= 4));
+
+      if(typeof(this.props.location.state.State) === "string"){
+
+        this.state.estado_pedido = this.props.location.state.State
+
+      }else if(typeof(this.props.location.state.State) === "object"){
+
+        this.state.estado_pedido = this.props.location.state.State.Description
+
+      }
           
           {this.props.location.state.ProductosPorPedido.map(producto => (
               console.log(producto),
@@ -114,7 +134,7 @@ class PedidoIndividual extends Component {
         // console.log(this.state.selectedProductsOption);
         return (
             <div className="form-group">
-                <label>Coloque una cantidad para cada producto</label>
+                <label>Cantidad de cada producto</label>
                 <div center="true" align="center">
 
                 {this.state.selectedProductsOption.map(product => (
@@ -149,7 +169,7 @@ class PedidoIndividual extends Component {
       // console.log(this.state.selectedProductsOption);
       return (
           <div className="form-group">
-              <label>Coloque una cantidad para cada Combo</label>
+              <label>Cantidad de cada Combo</label>
               <div center="true" align="center">
 
               {this.state.selectedComboOption.map(product => (
@@ -276,14 +296,23 @@ class PedidoIndividual extends Component {
                     <div>
                     <form onSubmit={this.generarPedido} className="col-5">
                     <div className="form-group">
-
+                        <label  style={{ marginTop: '20px' }}>Numero Cliente</label>
+                        <input disabled defaultValue={this.state.numero_cliente} type="text" className="form-control" required />
+                  
                         <div style={{ marginTop: '20px', marginBottom: '20px' }} className="form-group">
+                          <label>Direccion</label>
                           {this.mostrarDireccion()}
                         </div>
 
                         </div>
                         <div className="form-group">
-                            <label>Seleccione Combo</label>
+                            <label>Estado</label>
+                            <select disabled className="form-control">
+                                <option>{this.state.estado_pedido}</option>
+                            </select>
+                        </div>
+                        <div className="form-group">
+                            <label>Combo</label>
                             <Select required
                                 placeholder="Ingrese o Selecciones el Combo"
                                 value={selectedComboOption}
@@ -295,7 +324,7 @@ class PedidoIndividual extends Component {
                         </div>
                         {this.mostrarCombosListos()}
                         <div className="form-group">
-                            <label>Seleccione Productos</label>
+                            <label>Productos</label>
                             <Select required
                                 placeholder="Ingrese o Selecciones los Productos"
                                 value={selectedProductsOption}

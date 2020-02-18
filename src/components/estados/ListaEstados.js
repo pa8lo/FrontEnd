@@ -59,27 +59,74 @@ class ActionEstadoComponent extends React.Component {
   }
 
   render() {
+    if(this.props.Permisos.length === 0) return (
+
+        <div style={{ marginTop: '40px', marginBottom: '40px' }}>
+            <DotLoader
+                css={override}
+                size={50} // or 150px
+                color={"#4D4D4D"}
+                loading={this.state.loading}
+            />
+        </div>
+        
+    );
+
+    const permisos = this.props.Permisos.Authorizations;
+
     const { id } = this.props.rowData;
 
     // console.log(this.props.rowData)
 
     return (
         <td style={columnButtonStyle}>
-            <Link style={buttonStyle} to={{
-                pathname : `/estados/${id}`,
-                state : this.props.rowData
-                }} className="btn btn-primary">
-                Ver
-            </Link>
 
-            <Link style={buttonStyle} to={{
-                pathname : `/estados/editar-estado/${id}`,
-                state : this.props.rowData
-                }} className="btn btn-warning">
-                Editar
-            </Link>
+            { permisos.filter(permiso => (permiso.id == 21)).length > 0 ?  
 
-            <button style={buttonStyle} onClick={ this.eliminarEstado } type="button" className="btn btn-danger">Borrar</button>
+                <Link style={buttonStyle} to={{
+                    pathname : `/estados/${id}`,
+                    state : this.props.rowData
+                    }} className="btn btn-primary">
+                    Ver
+                </Link>
+
+                :
+
+                <Link style={buttonStyle} 
+                    disabled to="#" 
+                    className="btn btn-primary">
+                    Ver
+                </Link>
+
+            }
+
+            { permisos.filter(permiso => (permiso.id == 22)).length > 0 ?  
+
+                <Link style={buttonStyle} to={{
+                    pathname : `/estados/editar-estado/${id}`,
+                    state : this.props.rowData
+                    }} className="btn btn-warning">
+                    Editar
+                </Link>
+
+                :
+
+                <Link style={buttonStyle} disabled to="#" className="btn btn-warning">
+                    Editar
+                </Link>
+
+            }
+
+            { permisos.filter(permiso => (permiso.id == 23)).length > 0 ?  
+
+                <button style={buttonStyle} onClick={ this.eliminarEstado } type="button" className="btn btn-danger">Borrar</button>
+            
+                :  
+
+                <button style={buttonStyle} disabled type="button" className="btn btn-danger">Borrar</button>
+            
+            }
+        
         </td> 
     );
   }
@@ -127,6 +174,7 @@ class ListaEstados extends Component {
             return (
             <SortableTbl tblData={estados.sort(function(a, b) {return b.id - a.id})}
                 tHead={tHead}
+                Permisos={this.props.usuario}
                 customTd={[
                             {custd: (ActionEstadoComponent), keyItem: "Actions"},
                             ]}

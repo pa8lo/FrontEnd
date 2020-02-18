@@ -169,7 +169,7 @@ class ListadoPedidos extends Component {
 
     render() {
 
-        // console.log(this.props.pedidos)
+        // console.log(this)
 
         let direccion = "";
         let piso = "";
@@ -180,6 +180,8 @@ class ListadoPedidos extends Component {
 
         const pedidos = this.props.pedidos;
         const loaded = this.props.loaded || false;
+
+        // console.log(pedidos)
 
         if (pedidos.length === 0) {
 

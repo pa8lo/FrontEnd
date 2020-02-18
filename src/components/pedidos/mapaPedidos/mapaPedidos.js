@@ -41,11 +41,22 @@ class MapaPedidos extends Component {
 
             const pedidos = this.props.pedidos;
 
+          // console.log(pedidos)
+
             for (var i = 0; i < pedidos.length; i++) {
+
               if (pedidos[i].State.Description != "Rechazado" && pedidos[i].State.Description != "Entregado") {
 
-                location.push(pedidos[i].Adress.LatLong.split(";"));
-                order_id.push(pedidos[i].id);
+                if(pedidos[i].Adress.LatLong === "latlong"){
+
+                  
+  
+                }else{
+                
+                  location.push(pedidos[i].Adress.LatLong.split(";"));
+                  order_id.push(pedidos[i].id);
+
+                }
               }
             }
               var platform = new window.H.service.Platform({

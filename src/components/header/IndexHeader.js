@@ -12,6 +12,7 @@ import roraso from '../../assets/images/roraso.png';
 import Drawer from '@material-ui/core/Drawer';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
+import { currentUser } from '../../actions/usuarioAction';
 import BreadcumbMenu from './Breadcumb'
 import BotonEnvioPedidoOff from './BotonEnvioPedidoOff'
 
@@ -74,6 +75,9 @@ class Header extends React.Component {
     
   componentWillMount(){
     this.slide();
+
+    
+    // this.props.currentUser();
 
     if(localStorage.getItem('enviarPedido') === null){
       localStorage.setItem('enviarPedido', JSON.stringify([]))
@@ -411,6 +415,9 @@ class Header extends React.Component {
           };
           
           profileMenu(props){
+
+            if(this.props.usuario.Authorizations == undefined || this.props.usuario.Authorizations == "undefined") return;
+
             const { classes } = props;
             // console.log(this.props.auth.user.Name);
             return(
@@ -420,7 +427,7 @@ class Header extends React.Component {
                   <p color="inherit" style={{textAlign: "center", marginTop: '20px', marginBottom: '20px'}} className={classes.welcomeText}>Panel de Configuracion</p>
                       <Button className={classes.buttonSizes} color="inherit"  onClick= {this.setRedirectToHome}>Inicio</Button>
                   {localStorage.getItem('status') === "online" &&   <Button className={classes.buttonSizes} color="inherit"  onClick= {this.setRedirectChangePassword}>Cambiar Contraseña</Button>}
-                  {localStorage.getItem('status') === "online" &&  <BotonEnvioPedidoOff/>}
+                  {localStorage.getItem('status') === "online" && this.props.usuario.Authorizations.filter(permiso => (permiso.id == 20)).length > 0 && <BotonEnvioPedidoOff/>}
                   {this.buttonLogged(classes)}
                   {this.statusConnection(classes)}
                   <Button  color="inherit" onClick= {this.ProfileClose} className={classes.bottomClose} >Cerrar</Button>
@@ -441,7 +448,7 @@ class Header extends React.Component {
       }
       
       content(props){
-
+        
         const { classes } = props;
         return(
           <div className={classes.root}>
@@ -479,7 +486,8 @@ Header.propTypes = {
 
 function mapStateToProps(state) {
     return {
-        auth: state.auth
+        auth: state.auth,
+        usuario : state.usuario.usuario
     };
   }; 
 

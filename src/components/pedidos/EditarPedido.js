@@ -107,6 +107,7 @@ class NuevoPedido extends Component {
         arrayProdEnCombos : [],
         finalAmmount : 0,
         redirectHome: false,
+        numero_cliente : ""
     }
     }
 
@@ -115,7 +116,13 @@ class NuevoPedido extends Component {
 
     componentDidMount(){
 
-      // console.log(this)
+      JSON.parse(localStorage.getItem('pedidos')).map(cliente => {
+
+        if(cliente.Date === this.props.location.state.Date){
+          this.state.numero_cliente = cliente.Clients.Phone
+        }
+
+      })
 
       let pedidoEditar = JSON.parse(localStorage.getItem('pedidos')).filter(order => (order.id === this.props.location.state.id))
 
@@ -684,13 +691,14 @@ class NuevoPedido extends Component {
                     <div>
                     <form onSubmit={this.generarPedido} className="col-5">
                     <div className="form-group">
-                            <label style={{ marginTop: '20px' }}>Buscar Cliente</label>
-                            <input ref={this.searchClient} onChange={this.handleSearchClient} placeholder="Ingrese el Numero de Telefono del Cliente" type="text" className="form-control"/>
+                            <label style={{ marginTop: '20px' }}>Numero Cliente</label>
+                            <input disabled defaultValue={this.state.numero_cliente} type="text" className="form-control"/>
                             <div align="center">
                             <div align="center" style={{marginBottom:"20px"}} className="form-group">
                             <label align="center">Coloque un numero de telefono y verifique su existencia</label>
                             </div>
                              <Button
+                                disabled
                                 className="btn btn-success"
                                 variant="primary"
                                 onClick={() => this.buscarDireccion()}

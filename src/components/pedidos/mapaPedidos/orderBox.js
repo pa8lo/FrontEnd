@@ -31,11 +31,12 @@ const buttonStyle = {
     width: 80,
 };
 
-let col = ["Order", "Delivery", "Direccion", "Actions"];
+let col = ["Order", "Delivery", "Direccion", "Validada", "Actions"];
 let tHead = [
     "Pedido",
     "Delivery",
     "Dirección",
+    "Validacion",
     "Acciones",
 ];
 
@@ -61,7 +62,7 @@ class ActionOrderComponent extends React.Component {
 
     pedido[0].Adress = (pedido[0].Adress.Adress + " " + pedido[0].Adress.Floor + " " + pedido[0].Adress.Department)
 
-    // console.log(pedido[0])
+    // console.log(pedido[0].Clients.Phone)
 
     if(this.props.Permisos.length === 0) return null;
 
@@ -100,7 +101,7 @@ class ActionOrderComponent extends React.Component {
 
                 :
 
-                <Link style={buttonStyle}
+                <Link style={{marginLeft: 10, width: 120}}
                     disabled to="#" 
                     className="btn btn-warning">
                     Asignar Delivery
@@ -131,9 +132,10 @@ class OrderBox extends React.Component {
         var orders = [];
         for(var i = 0; i < pedidos.length; i++) {
 
-            console.log(pedidos)
+            // console.log(pedidos)
 
             if (pedidos[i].State.Description != "Entregado" && pedidos[i].State.Description != "Rechazado") {
+                
 
                 if (pedidos[i].Delivery !== null) {
     
@@ -149,14 +151,33 @@ class OrderBox extends React.Component {
                         pedidos[i].Adress.Floor = pedidos[i].Adress.Floor
                     }
 
-                    orders.push({
-                        id: pedidos[i].id,
-                        Order: "Pedido " + pedidos[i].id,
-                        Direccion : pedidos[i].Adress.Adress + " " + pedidos[i].Adress.Floor + 
-                        " " + pedidos[i].Adress.Department + " " + pedidos[i].Adress.Cp,
-                        Delivery: pedidos[i].Delivery.Name + " " + pedidos[i].Delivery.LastName,
-                        DeliveryId: pedidos[i].Delivery.id,
-                    });
+                    if(pedidos[i].Adress.LatLong == "latlong"){
+
+                        orders.push({
+                            id: pedidos[i].id,
+                            Order: "Pedido " + pedidos[i].id,
+                            Direccion : pedidos[i].Adress.Adress + " " + pedidos[i].Adress.Floor + 
+                            " " + pedidos[i].Adress.Department + " " + pedidos[i].Adress.Cp,
+                            Validada : 'Direccion No Validada',
+                            Delivery: pedidos[i].Delivery.Name + " " + pedidos[i].Delivery.LastName,
+                            DeliveryId: pedidos[i].Delivery.id,
+                        });
+        
+                    }else{
+
+                        orders.push({
+                            id: pedidos[i].id,
+                            Order: "Pedido " + pedidos[i].id,
+                            Direccion : pedidos[i].Adress.Adress + " " + pedidos[i].Adress.Floor + 
+                            " " + pedidos[i].Adress.Department + " " + pedidos[i].Adress.Cp,
+                            Validada : 'Direccion Validada',
+                            Delivery: pedidos[i].Delivery.Name + " " + pedidos[i].Delivery.LastName,
+                            DeliveryId: pedidos[i].Delivery.id,
+                        });
+
+                    }
+
+
                 } else {
 
                     // console.log(typeof(pedidos[i].Adress))
@@ -179,14 +200,31 @@ class OrderBox extends React.Component {
                         pedidos[i].Adress.Floor = pedidos[i].Adress.Floor
                     }
 
-                    orders.push({
-                        id: pedidos[i].id,
-                        Order: "Pedido " + pedidos[i].id,
-                        Direccion : pedidos[i].Adress.Adress + " " + pedidos[i].Adress.Floor + 
-                        " " + pedidos[i].Adress.Department + " " + pedidos[i].Adress.Cp,
-                        Delivery: "Sin Asignar",
-                        DeliveryId: null,
-                    });
+                        if(pedidos[i].Adress.LatLong == "latlong"){
+
+                            orders.push({
+                                id: pedidos[i].id,
+                                Order: "Pedido " + pedidos[i].id,
+                                Direccion : pedidos[i].Adress.Adress + " " + pedidos[i].Adress.Floor + 
+                                " " + pedidos[i].Adress.Department + " " + pedidos[i].Adress.Cp,
+                                Validada : 'Direccion No Validada',
+                                Delivery: "Sin Asignar",
+                                DeliveryId: null,
+                            });
+
+                        }else{
+                            
+                            orders.push({
+                                id: pedidos[i].id,
+                                Order: "Pedido " + pedidos[i].id,
+                                Direccion : pedidos[i].Adress.Adress + " " + pedidos[i].Adress.Floor + 
+                                " " + pedidos[i].Adress.Department + " " + pedidos[i].Adress.Cp,
+                                Validada : 'Direccion Validada',
+                                Delivery: "Sin Asignar",
+                                DeliveryId: null,
+                            });
+
+                        }
 
                     }else{
                         if(pedidos[i].Adress == null || pedidos[i].Adress == "" || pedidos[i].Adress == []) return null

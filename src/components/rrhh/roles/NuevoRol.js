@@ -9,6 +9,9 @@ import { Redirect } from 'react-router-dom';
 //Assets
 import Header from '../../header/IndexHeader';
 
+//CSS
+import Swal from 'sweetalert2'
+
 //Redux
 import { connect } from 'react-redux';
 import { agregarRol } from '../../../actions/rolesAction';
@@ -152,12 +155,60 @@ class NuevoRol extends Component {
     }
 
     toggleChangePedidoView = (e) => {
-        this.setState(prevState => ({
-            PedidoView: !prevState.PedidoView,
-        }));
+        /**********
+         * 
+         * 
+
+         * 
+         * 
+         * 
+         * */
+        Swal.fire({
+            title: 'Este permiso esta vinculado con los permisos',
+            text: "-Ver Producto, -Ver Cliente, -Ver Usuarios ¿Desea agregarlos?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+          }).then((result) => {
+            if (result.value) {
+                this.setState(prevState => ({
+                    PedidoView: !prevState.PedidoView,
+                    ProductoView: !prevState.ProductoView,
+                    ClientView: !prevState.ClientView,
+                    UserView: !prevState.UserView,
+                }));
+            }else{
+                return ;
+            }
+        })
+        
     }
 
     toggleChangePedidoEdit = () => {
+        // Swal.fire({
+        //     title: 'Este permiso esta vinculado con los permisos',
+        //     text: "-Ver Pedido, -Ver Producto, -Ver Cliente, ¿Desea agregarlos?",
+        //     icon: 'warning',
+        //     showCancelButton: true,
+        //     confirmButtonColor: '#3085d6',
+        //     cancelButtonColor: '#d33',
+        //     confirmButtonText: 'Confirmar',
+        //     cancelButtonText: 'Cancelar'
+        //   }).then((result) => {
+        //     if (result.value) {
+        //         this.setState(prevState => ({
+        //             PedidoEdit: !prevState.PedidoEdit,
+        //             PedidoView: !prevState.PedidoView,
+        //             ProductoView: !prevState.ProductoView,
+        //             ClientView: !prevState.ClientView,
+        //         }));
+        //     }else{
+        //         return ;
+        //     }
+        // })
         this.setState(prevState => ({
             PedidoEdit: !prevState.PedidoEdit,
         }));

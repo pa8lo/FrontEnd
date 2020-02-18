@@ -118,23 +118,23 @@ class NuevoEmpleado extends Component {
                         <div align="center">
                             <form onSubmit={this.crearEmpleado} className="col-8">
                                 <div className="form-group">
-                                    <label>DNI</label>
+                                    <label>DNI *</label>
                                     <input ref={this.dniRef} type="number" min="1" step="1" title="Numbers only" className="form-control" required/>
                                 </div>
                                 <div className="form-group">
-                                    <label>Nombre</label>
+                                    <label>Nombre *</label>
                                     <input ref={this.nombreRef} type="text" className="form-control" />
                                 </div>
                                 <div className="form-group">
-                                    <label>Apellido</label>
+                                    <label>Apellido *</label>
                                     <input ref={this.apellidoRef} type="text" className="form-control" />
                                 </div>
                                 <div className="form-group">
-                                    <label>Email</label>
+                                    <label>Email *</label>
                                     <input ref={this.emailRef} type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" className="form-control" />
                                 </div>
                                 <div className="form-group">
-                                    <label>1º Telefono / Celular</label>
+                                    <label>1º Telefono / Celular *</label>
                                     <input ref={this.primerTelefonoRef} type="number" min="1" step="1" title="Numbers only" className="form-control" required/>
                                 </div>
                                 <div className="form-group">
@@ -142,7 +142,7 @@ class NuevoEmpleado extends Component {
                                     <input ref={this.segundoTelefonoRef} type="number" min="1" step="1" title="Numbers only" className="form-control"/>
                                 </div>
                                 <div className="form-group">
-                                    <label>Rol</label>
+                                    <label>Rol *</label>
                                     <select ref={this.rolRef} className="form-control">
                                         <option defaultValue disabled>None</option>
                                         

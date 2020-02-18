@@ -88,7 +88,7 @@ class EditarEmpleado extends Component {
 
         const empleado = {
             id : this.props.location.state.id,
-            dni : this.dniRef.current.value,
+            dni : this.props.location.state.Dni,
             nombre : this.nombreRef.current.value,
             apellido : this.apellidoRef.current.value,
             email : this.emailRef.current.value,

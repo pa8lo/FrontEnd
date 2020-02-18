@@ -80,6 +80,7 @@ class AddressForm extends Component {
       'isChecked': false,
       'coords': {},
       'redirectHome': false,
+      'vali' : false,
     }
   }
 
@@ -204,12 +205,14 @@ class AddressForm extends Component {
     }
 
     if (this.state.coords === null) {
+      this.state.vali = false
       return (
         <div className="alert alert-warning" role="alert">
           <b>Dirección Invalida.</b> La dirección no fue reconocida
         </div>
       );
     } else {
+      this.state.vali = true
       return (
         <div className="alert alert-success" role="alert">
           <b>Dirección Valida.</b>  Coodenadas en {this.state.coords.lat}, {this.state.coords.lon}.
@@ -255,7 +258,17 @@ class AddressForm extends Component {
           <br/>
           { result }
           <div center="true" align="center" className="form-group">
+
+          { this.state.vali === false ? 
+          
+          <button style={{marginLeft: "10px", width: 80}} className="btn btn-primary" disabled>Enviar</button>
+
+          :
+
           <button type="submit" style={{marginLeft: "10px", width: 80}} className="btn btn-primary" onClick={() => this.enviarDatos()}>Enviar</button>
+
+          }
+          
           <button style={{marginLeft: 10, width: 80}} onClick={this.setRedirectToHome} type="button" className="btn btn-danger">Cancelar</button>
           {this.ToHome()}
           <button type="submit" style={{marginLeft: "10px"}} className="btn btn-info" onClick={this.onCheck}>Validar Dirección</button>
