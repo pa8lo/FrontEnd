@@ -42,7 +42,7 @@ class EditarEmpleado extends Component {
         const rol = parseInt(this.props.location.state.Rols);
     }
 
-    dniRef = React.createRef();
+//     dniRef = React.createRef();
     nombreRef = React.createRef();
     apellidoRef = React.createRef();
     emailRef = React.createRef();
