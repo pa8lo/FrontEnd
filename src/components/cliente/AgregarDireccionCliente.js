@@ -13,6 +13,7 @@ import { agregarCliente } from '../../actions/clientesAction';
 //CSS
 import '../../assets/css/empleados/form-alta-empleados.css';
 
+
 class AgregarDatosCliente extends Component {
 
     render() {

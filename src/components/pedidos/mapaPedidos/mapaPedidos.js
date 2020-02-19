@@ -67,17 +67,41 @@ class MapaPedidos extends Component {
 
               //Step 2: initialize a map - this map is centered over Europe
               if (location.length === 0) {
-                var map = new window.H.Map(
-                  document.getElementById("map"),
-                  defaultLayers.vector.normal.map, {
-                    center: {
-                      lat: "-30.5",
-                      lng: "-50.6"
-                    },
-                    zoom: 10,
-                    pixelRatio: window.devicePixelRatio || 1
-                  }
-                );
+
+                if(localStorage.getItem('DireccionRestaurant') === null || localStorage.getItem('DireccionRestaurant') === ""){
+
+                  var map = new window.H.Map(
+                    document.getElementById("map"),
+                    defaultLayers.vector.normal.map, {
+                      center: {
+                        lat: "-34.62108",
+                        lng: "-58.44183"
+                      },
+                      zoom: 11,
+                      pixelRatio: window.devicePixelRatio || 1
+                    }
+                  );
+
+                }else{
+
+                  const latitudee = localStorage.getItem('DireccionRestaurant').split(";")[0]
+                  const longitudee = localStorage.getItem('DireccionRestaurant').split(";")[1]
+
+                  var map = new window.H.Map(
+                    document.getElementById("map"),
+                    defaultLayers.vector.normal.map, {
+                      center: {
+                        lat: latitudee,
+                        lng: longitudee
+                      },
+                      zoom: 11,
+                      pixelRatio: window.devicePixelRatio || 1
+                    }
+                  );
+
+                }
+
+
               } else {
       
                 var map = new window.H.Map(
@@ -251,19 +275,43 @@ class MapaPedidos extends Component {
           map.addObject(bearsMarker);
         } else {
           
-          marker = new window.H.map.Marker({
-            lat: "-34.5",
-            lng: "-58.6" // you can add marker here. set specific lat and long
-          });
-          map.addObject(marker);
+          if(localStorage.getItem('DireccionRestaurant') === null || localStorage.getItem('DireccionRestaurant') === ""){
 
-          var bearsMarker = new window.H.map.DomMarker({
-            lat: "-34.5",
-            lng: "-58.6" //"My position" label
-          }, {
-            icon: domIcon
-          });
-          map.addObject(bearsMarker);
+            marker = new window.H.map.Marker({
+              lat: "0",
+              lng: "0" // you can add marker here. set specific lat and long
+            });
+            map.addObject(marker);
+  
+            var bearsMarker = new window.H.map.DomMarker({
+              lat: "0",
+              lng: "0" //"My position" label
+            }, {
+              icon: domIcon
+            });
+            map.addObject(bearsMarker);
+
+          }else{
+
+            const latitudee = localStorage.getItem('DireccionRestaurant').split(";")[0]
+            const longitudee = localStorage.getItem('DireccionRestaurant').split(";")[1]
+
+            marker = new window.H.map.Marker({
+              lat: latitudee,
+              lng: longitudee // you can add marker here. set specific lat and long
+            });
+            map.addObject(marker);
+  
+            var bearsMarker = new window.H.map.DomMarker({
+              lat: latitudee,
+              lng: longitudee //"My position" label
+            }, {
+              icon: domIcon
+            });
+            map.addObject(bearsMarker);
+
+          }
+          
         }
 
     }

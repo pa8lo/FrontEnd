@@ -113,7 +113,7 @@ class Principal extends Component{
 
     LoggedContent(props){
 
-    console.log(props)
+    // console.log(props)
 
     const { classes } = props;
 

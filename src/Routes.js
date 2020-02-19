@@ -93,6 +93,9 @@ import SolicitudesEncoladas from './components/pedidos/SolicitudesEncoladas'
 //Pedidos Encolados
 import PedidosEncolados from './components/pedidos/mostrarPedidosOffline'
 
+//Pedidos Encolados
+import AgregarDireccionRestaurant from './components/rrhh/restaurant/AgregarDireccionRestaurant'
+
 class Routes extends Component {
 
     render() {
@@ -239,6 +242,10 @@ class Routes extends Component {
                         {/* Mostrar Pedidos Encoladas */}
 
                         <Route path="/pedidos-encolados" exact component={PedidosEncolados} />
+
+                        {/* Direccion Restaurant */}
+
+                        <Route path="/direccion-restaurant" exact component={AgregarDireccionRestaurant} />
 
                     </Switch>
                 </Router>

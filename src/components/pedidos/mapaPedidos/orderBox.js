@@ -58,60 +58,65 @@ class ActionOrderComponent extends React.Component {
 
     const { id } = this.props.rowData;
 
-    let pedido = (JSON.parse(localStorage.getItem('pedidos')).filter(pedido => (pedido.id === id)))
+    if(JSON.parse(localStorage.getItem('pedidos')).length === 0 || JSON.parse(localStorage.getItem('pedidos')) === null){
+        return null;
+    }else{
 
-    pedido[0].Adress = (pedido[0].Adress.Adress + " " + pedido[0].Adress.Floor + " " + pedido[0].Adress.Department)
+        let pedido = (JSON.parse(localStorage.getItem('pedidos')).filter(pedido => (pedido.id === id)))
 
-    // console.log(pedido[0].Clients.Phone)
+        pedido[0].Adress = (pedido[0].Adress.Adress + " " + pedido[0].Adress.Floor + " " + pedido[0].Adress.Department)
 
-    if(this.props.Permisos.length === 0) return null;
+        // console.log(pedido[0].Clients.Phone)
 
-    const permisos = this.props.Permisos.Authorizations;
+        if(this.props.Permisos.length === 0) return null;
 
-    return (
-        <td style={columnButtonStyle}>
+        const permisos = this.props.Permisos.Authorizations;
 
-           { permisos.filter(permiso => (permiso.id == 21)).length > 0 ?  
-                
-                <Link style={buttonStyle} to={{
-                        pathname: `/pedidos/${id}`,
-                        state: pedido[0]
-                    }} className="btn btn-primary">
-                        Ver
-                </Link>
-                
-                :  
-                
-                <Link style={buttonStyle} 
-                    disabled to="#" 
-                    className="btn btn-primary">
-                        Ver
-                </Link>
-            }
+        return (
+            <td style={columnButtonStyle}>
+
+            { permisos.filter(permiso => (permiso.id == 21)).length > 0 ?  
+                    
+                    <Link style={buttonStyle} to={{
+                            pathname: `/pedidos/${id}`,
+                            state: pedido[0]
+                        }} className="btn btn-primary">
+                            Ver
+                    </Link>
+                    
+                    :  
+                    
+                    <Link style={buttonStyle} 
+                        disabled to="#" 
+                        className="btn btn-primary">
+                            Ver
+                    </Link>
+                }
 
 
-            { permisos.filter(permiso => (permiso.id == 22)).length > 0 ?  
+                { permisos.filter(permiso => (permiso.id == 22)).length > 0 ?  
 
-                <Link style={{marginLeft: 10, width: 120}} to={{
-                    pathname : `/mapa/editar-pedido/${id}`,
-                    state : this.props.rowData
-                    }} className="btn btn-warning">
-                    Asignar Delivery
-                </Link>
+                    <Link style={{marginLeft: 10, width: 120}} to={{
+                        pathname : `/mapa/editar-pedido/${id}`,
+                        state : this.props.rowData
+                        }} className="btn btn-warning">
+                        Asignar Delivery
+                    </Link>
 
-                :
+                    :
 
-                <Link style={{marginLeft: 10, width: 120}}
-                    disabled to="#" 
-                    className="btn btn-warning">
-                    Asignar Delivery
-                </Link>
+                    <Link style={{marginLeft: 10, width: 120}}
+                        disabled to="#" 
+                        className="btn btn-warning">
+                        Asignar Delivery
+                    </Link>
 
-            }
+                }
 
-        </td> 
-    );
-  }
+                </td> 
+            );
+        }
+    }
 }
 
 class OrderBox extends React.Component {

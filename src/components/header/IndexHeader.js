@@ -108,6 +108,18 @@ class Header extends React.Component {
     }else{
 
     }
+
+    if(localStorage.getItem('pedidos') === null){
+      this.savePedidos();
+      this.saveUsuario();
+      this.saveCategories();
+      this.saveProducts();
+      this.saveClients();
+      this.saveStates();
+      this.saveCombos();
+    }else{
+
+    }
     
     axios.get('https://roraso.herokuapp.com/User/CurrentUser',
     { headers: { 'access-token': localStorage.getItem('access-token')}})
@@ -361,8 +373,8 @@ class Header extends React.Component {
     setRedirectLogOut = () => {
       this.setState({ profile: false})
       Swal.fire({
-        title: '¿Estas seguro que desea eliminar?',
-        text: "Estas a punto de eliminar una direccion",
+        title: '¿Estas seguro que desea cerrar sesion?',
+        text: "Estas a punto de cerrar la sesion actual",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',

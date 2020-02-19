@@ -46,9 +46,7 @@ class AsignarPedido extends Component {
         cancelButtonText: 'Cancelar'
       }).then((result) => {
         if (result.value) {
-            // this.props.eliminarEstado(this.props.rowData.id);
-            alert("joya")
-            localStorage.setItem('DireccionRestaurant', '56')
+            window.location.href = `/direccion-restaurant`;
         }
       })
     }
