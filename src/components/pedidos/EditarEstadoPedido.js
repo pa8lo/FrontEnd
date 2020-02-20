@@ -9,6 +9,7 @@ import { Redirect } from 'react-router-dom';
 
 //CSS
 import '../../assets/css/empleados/form-alta-empleados.css';
+import Swal from 'sweetalert2'
 
 //Redux
 import { connect } from 'react-redux';
@@ -30,23 +31,29 @@ class EditarEstadoPedido extends Component {
             modalShow: false,
             arrayProdEnCombos : [],
             redirectHome: false,
+            estados_storage : []
         }
         }
       
         estadoRef = React.createRef();
+        estadoStorageRef = React.createRef();
 
         componentDidMount(){
-          this.obtenerProductosDeCombos();
-          this.setState({
-            selectedProductsOption : this.state.optionsProductsName,
-            selectedComboOption : this.state.optionsComboName
-          })
+
+            // console.log(this.props.match.params.estadoId)
+
+            this.obtenerProductosDeCombos();
+            this.setState({
+                selectedProductsOption : this.state.optionsProductsName,
+                selectedComboOption : this.state.optionsComboName
+            })
           
         }
       
         componentWillMount(){
 
-            console.log(this.props)
+            this.state.estados_storage = JSON.parse(localStorage.getItem('estados'));
+            // console.log(this.state.estados_storage)
 
             this.props.mostrarEstados();
             {this.props.location.state.ProductosPorPedido.map(producto => (
@@ -147,16 +154,42 @@ class EditarEstadoPedido extends Component {
         cambiarEstadoPedido = (e) => {
             e.preventDefault();
 
-            // console.log(this.props.location.state.id)
+            if(localStorage.getItem('status') === "online"){
 
-            const estado_pedido = {
-                id_pedido: this.props.location.state.id,
-                id_state: this.estadoRef.current.value,
+                const estado_pedido = {
+                    id_pedido: this.props.location.state.id,
+                    id_state: this.estadoRef.current.value,
+                }
+                
+                // console.log(estado_pedido);
+                
+                this.props.editarEstadoPedido(estado_pedido);
+
+            }else{
+
+                let arrayCambioEstado = JSON.parse(localStorage.getItem('pedidoCambioEstado'));
+
+                arrayCambioEstado.push({
+                    estado: this.estadoStorageRef.current.value,
+                    id_pedido: this.props.match.params.estadoId
+                });
+
+                localStorage.setItem('pedidoCambioEstado', JSON.stringify(arrayCambioEstado));
+
+                Swal.fire({
+                    title: 'Atencion!',
+                    text: 'La solicitud fue guardada en la solicitudes encoladas se enviara una vez se restablezca la conexion',
+                    type: 'warning',
+                    confirmButtonText: 'Aceptar'
+                })
+                return;
+
+                // let cambioEstado = JSON.parse(localStorage.getItem('estados'));
+                // pedidoCambioEstado
+                
+
             }
-            
-            // console.log(estado_pedido);
-            
-            this.props.editarEstadoPedido(estado_pedido);
+
         }
 
         ToHome(){
@@ -217,18 +250,32 @@ class EditarEstadoPedido extends Component {
                             {this.mostrarProductosListos()}
                             <div className="form-group">
                                 <label>Estado</label>
-                                <select ref={this.estadoRef} className="form-control">
-                                    <option disabled={true}>Actual: {this.props.location.state.State}</option>
-                                    {this.props.estados.map(estado => (
-                                        <option key={estado.id} value={estado.id}>{estado.Description}</option>
-                                    ))}
-                                </select>
+                                { localStorage.getItem('status') === "online" ? 
+                                    
+                                    <select ref={this.estadoRef} className="form-control">
+                                        <option disabled={true}>Actual: {this.props.location.state.State}</option>
+                                        {this.props.estados.map(estado => (
+                                            <option key={estado.id} value={estado.id}>{estado.Description}</option>
+                                        ))}
+                                    </select>
+
+                                    :
+
+                                    <select ref={this.estadoStorageRef} className="form-control">
+                                        <option disabled={true}>Actual: {this.props.location.state.State}</option>
+                                        {this.state.estados_storage.map(estado => (
+                                            <option key={estado.id} value={estado.id}>{estado.Description}</option>
+                                        ))}
+                                    </select>
+
+                                }
+                                
                             </div>
-                            <div style={{marginTop:"0px"}} align="center" className="form-group">
-                                <input type="submit" value="Aceptar" className="btn btn-primary" required />
-                                <button style={{marginLeft: 20, width: 80}} onClick={this.setRedirectToHome} type="button" className="btn btn-danger">Cancelar</button>
-                                {this.ToHome()}
-                            </div>
+                                <div style={{marginTop:"0px"}} align="center" className="form-group">
+                                    <input type="submit" value="Aceptar" className="btn btn-primary" required />
+                                    <button style={{marginLeft: 20, width: 80}} onClick={this.setRedirectToHome} type="button" className="btn btn-danger">Cancelar</button>
+                                    {this.ToHome()}
+                                </div>
                         </form>
                         </div>
                     </Paper>

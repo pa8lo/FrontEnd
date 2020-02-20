@@ -85,8 +85,13 @@ class HomeRecursosHumanos extends Component {
                         </Col> */}
                         <Col align="center" xs={12} md={12}>
                         <div style={{display: "inline"}}>
-                            <Link style={buttonStyle} disabled to="#" className="btn btn-danger">
+                            <Link style={buttonStyle} disabled to="#" className="btn btn-info">
                                 <h3>Asistencias</h3>
+                            </Link>
+                        </div>
+                        <div style={{display: "inline", marginLeft:"50px"}}>
+                            <Link style={buttonStyle} disabled to="#" className="btn btn-danger">
+                                <h3>Restaurant</h3>
                             </Link>
                         </div>
                         </Col> 
@@ -194,14 +199,30 @@ class HomeRecursosHumanos extends Component {
     permisoABMAsistencias(){
         if(this.state.permisosAsistencias.length === 0){
             return(
-            <Link style={buttonStyle} disabled to="#" className="btn btn-danger">
+            <Link style={buttonStyle} disabled to="#" className="btn btn-info">
                 <h3>Asistencias</h3>
             </Link>
             )
         }else{
             return(
-            <Link style={buttonStyle} to={`/rrhh/asistencias`} className="btn btn-danger">
+            <Link style={buttonStyle} to={`/rrhh/asistencias`} className="btn btn-info">
                 <h3>Asistencias</h3>
+            </Link>
+            )
+        }
+    }
+
+    permisoABMRestaurant(){
+        if(this.state.permisosUsuario.length === 0){
+            return(
+            <Link style={buttonStyle} disabled to="#" className="btn btn-danger">
+                <h3>Restaurant</h3>
+            </Link>
+            )
+        }else{
+            return(
+            <Link style={buttonStyle} to={`/direccion-restaurant`} className="btn btn-danger">
+                <h3>Restaurant</h3>
             </Link>
             )
         }
@@ -228,6 +249,9 @@ class HomeRecursosHumanos extends Component {
                     <Col align="center" xs={12} md={12}>
                     <div style={{display: "inline"}}>
                         {this.permisoABMAsistencias()}
+                    </div>
+                    <div style={{display: "inline", marginLeft:"50px"}}>
+                        {this.permisoABMRestaurant()}
                     </div>
                     </Col> 
                 </Row>

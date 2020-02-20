@@ -346,12 +346,26 @@ class PedidoIndividual extends Component {
                         <div style={{marginTop: "30px", marginBottom: "40px"}} align="center">
                         <button type="button" className="btn" style={{color:"white", backgroundColor: "#4D4D4D"}} onClick={ () => this.goBack()}>Volver</button>
                         <button type="button" className="btn btn-warning" style={{marginLeft: "10px"}} onClick={() => window.print()}>Imprimir</button>
-                        <Link style={buttonStyle} to={{
-                            pathname : `/mapa`,
-                            // state : this.props.rowData
-                            }} className="btn btn-primary">
+                        { localStorage.getItem('status') === "online" ?
+
+                          <Link style={buttonStyle} to={{
+                              pathname : `/mapa`,
+                              // state : this.props.rowData
+                              }} className="btn btn-primary">
+                              Mapa
+                          </Link>
+
+                          :
+
+                          <Link style={buttonStyle}
+                          to="/"
+                          disabled
+                          className="btn btn-primary">
                             Mapa
-                        </Link>
+                          </Link>
+
+                        }
+                        
                     </div>
                     </form>
                     </div>

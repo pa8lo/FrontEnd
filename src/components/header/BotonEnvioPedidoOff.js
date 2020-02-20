@@ -30,6 +30,62 @@ class EnviarPedidosOff extends Component {
     enviarSolicitudesEncoladasCompletas = async () => {
 
         this.setState({ profile: false})
+
+        let arrayEstadoPedido = JSON.parse(localStorage.getItem('pedidoCambioEstado'));
+
+        for (let i = 0; i < JSON.parse(localStorage.getItem('pedidoCambioEstado')).length; i++) {
+          
+          let data = {
+            State : {
+              id : JSON.parse(localStorage.getItem('pedidoCambioEstado'))[i].estado
+              },
+              Pedido : {
+                  id : JSON.parse(localStorage.getItem('pedidoCambioEstado'))[i].id_pedido
+              }
+          }
+
+          await axios.post("https://roraso.herokuapp.com/Pedido/ChangeState",data,
+          { headers: { 'access-token': localStorage.getItem('access-token')}})
+              .then(res => {
+                  if(res.status === 200){
+                      Swal.fire({
+                          title: 'Correcto!',
+                          text: 'Se ha modificado un estado del pedido',
+                          type: 'success',
+                          confirmButtonText: 'Confirmar'
+                      })
+
+                      arrayEstadoPedido.splice(i, 1);
+                      localStorage.setItem('pedidoCambioEstado', JSON.stringify(arrayEstadoPedido));
+                  }
+                  else{
+                      Swal.fire({
+                          title: 'Error!',
+                          text: 'Se ha producido un error al intentar modificar un pedido',
+                          type: 'error',
+                          confirmButtonText: 'Aceptar'
+                      })
+                      return;
+                  }
+                
+              })
+              .catch(err => {
+                  Swal.fire({
+                      title: 'Error!',
+                      text: 'El Servidor no ha respondido al cambio de estado',
+                      type: 'error',
+                      confirmButtonText: 'Aceptar'
+                  })
+                  return;
+              })
+
+        }
+
+        /**
+         * 
+         * Solo pedidos
+         * 
+         */
         
         let arrayPedido = JSON.parse(localStorage.getItem('enviarPedido'));
 
@@ -74,7 +130,15 @@ class EnviarPedidosOff extends Component {
                 })
                 return;
             }
-        })
+        }).catch(err => {
+          Swal.fire({
+              title: 'Error!',
+              text: 'El Servidor no ha respondido al alta de pedido',
+              type: 'error',
+              confirmButtonText: 'Aceptar'
+          })
+          return;
+      })
 
       }
 
@@ -1007,7 +1071,7 @@ class EnviarPedidosOff extends Component {
           .catch(function (error) {
             Swal.fire({
               title: 'Error!',
-              text: 'La direccion no pudo ser validada, comuniquese con el cliente',
+              text: 'Error de localizacion de domicilio, intentelo nuevamente',
               type: 'error',
               confirmButtonText: 'Aceptar'
             })
@@ -1020,11 +1084,12 @@ class EnviarPedidosOff extends Component {
           localStorage.setItem('direccionesErroneas', countDirErr)
         }
   
-        Swal.fire(
-          'Se esta procesando las solicitudes',
-          'Aguarde por favor',
-          'success'
-        )
+        Swal.fire({
+          title: 'Se esta procesando las solicitudes',
+          text: 'Aguarde por favor',
+          type: 'success',
+          showConfirmButton: false
+        })
 
       }
       

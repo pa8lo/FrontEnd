@@ -35,10 +35,11 @@ const buttonStyle = {
 };
 
 
-let col = ["pedDate", "State", 
+let col = ["id","pedDate", "State", 
             // "Users", 
             "Clients", "Adress", "Amount", "Deliverys", "Actions"];
 let tHead = [
+    "Pedido Nº",
     "Fecha",
     "Estado",
     // "Empleado",
@@ -73,7 +74,7 @@ class ActionEmpleadoComponent extends React.Component {
 
     render() {
 
-        // console.log(this.props)
+        console.log(this.props)
 
         if(this.props.Permisos.length === 0) return null;
 
@@ -101,7 +102,7 @@ class ActionEmpleadoComponent extends React.Component {
                     </Link>
                 }
 
-                { permisos.filter(permiso => (permiso.id == 22)).length > 0 ?  
+                { permisos.filter(permiso => (permiso.id == 22)).length > 0 && localStorage.getItem('status') === "online" ?  
                     
                         <Link style={buttonStyle} to={{
                             pathname: `/pedidos/editar-pedido/${id}`,
@@ -117,7 +118,7 @@ class ActionEmpleadoComponent extends React.Component {
                         </Link>
                 }
 
-                { permisos.filter(permiso => (permiso.id == 23)).length > 0 ?  
+                { permisos.filter(permiso => (permiso.id == 23)).length > 0 && localStorage.getItem('status') === "online" ?  
                     
                         <button style={buttonStyle} onClick={this.eliminarPedido} type="button" className="btn btn-danger">Borrar</button>
 

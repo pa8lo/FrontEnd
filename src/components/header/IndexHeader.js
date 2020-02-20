@@ -97,6 +97,12 @@ class Header extends React.Component {
 
     }
 
+    if(localStorage.getItem('pedidoCambioEstado') === null){
+      localStorage.setItem('pedidoCambioEstado', JSON.stringify([]))
+    }else{
+
+    }
+
     if(localStorage.getItem('DireccionRestaurant') === null){
       localStorage.setItem('DireccionRestaurant', '')
     }else{

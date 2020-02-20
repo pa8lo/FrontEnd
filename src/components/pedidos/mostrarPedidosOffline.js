@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { Col, Button, Modal } from 'react-bootstrap';
 import Header, {enviarSolicitudesEncoladasCompletas} from '../header/IndexHeader';
+import { Redirect } from 'react-router-dom';
 
 //CSS
 import Swal from 'sweetalert2'
@@ -17,7 +18,8 @@ class mostrarPedidosOffline extends Component {
         mostrarPedido : false,
         mostrarDireSemi : false,
         mostrarPedidoSemi : false,
-        mostrarSoloPedido : false
+        mostrarSoloPedido : false,
+        redirectHome: false,
     };
 
     direccionNuevaRef = React.createRef();
@@ -488,6 +490,55 @@ class mostrarPedidosOffline extends Component {
         window.location.reload();
     }
 
+    eliminarPedidoSemiStorage = (index) => {
+        // alert(index)
+
+        let arrayPedidoSemiCompleto = JSON.parse(localStorage.getItem('pedidoSemiCompleto'));
+
+        arrayPedidoSemiCompleto.splice(index, 1);
+
+        localStorage.setItem('pedidoSemiCompleto', JSON.stringify(arrayPedidoSemiCompleto));
+
+        window.location.reload();
+    }
+
+    eliminarSoloPedidoStorage = (index) => {
+        // alert(index)
+
+        let arraySoloPedido = JSON.parse(localStorage.getItem('enviarPedido'));
+
+        arraySoloPedido.splice(index, 1);
+
+        localStorage.setItem('enviarPedido', JSON.stringify(arraySoloPedido));
+
+        window.location.reload();
+    }
+
+    eliminarEstadoPedidoStorage = (index) => {
+        // alert(index)
+
+        let arrayEstadoPedido = JSON.parse(localStorage.getItem('pedidoCambioEstado'));
+
+        arrayEstadoPedido.splice(index, 1);
+
+        localStorage.setItem('pedidoCambioEstado', JSON.stringify(arrayEstadoPedido));
+
+        window.location.reload();
+    }
+
+
+    ToHome(){
+      if (this.state.redirectHome) {
+        return <Redirect to='/pedidos' />
+      }
+    }
+
+    setRedirectToHome = () => {
+      this.setState({
+        redirectHome: true
+      })
+    }
+
     render() {
 
         var direccion_pedido_completo
@@ -776,7 +827,7 @@ class mostrarPedidosOffline extends Component {
                     </div>
                     </Col>
                     <div align="center">
-                    {/* <button onClick={() => this.pedidoEnviar(pedido)} type="button" className="btn btn-primary">Enviar</button> */}
+                    <button onClick={() => this.eliminarPedidoSemiStorage(index)} type="button" className="btn btn-danger">Borrar</button>
                     </div>
                     <hr style={{width:"700px"}}></hr>
                     </div>
@@ -932,7 +983,64 @@ class mostrarPedidosOffline extends Component {
                     </div>
                     </Col>
                     <div align="center">
-                    {/* <button onClick={() => this.pedidoEnviar(pedido)} type="button" className="btn btn-primary">Enviar</button> */}
+                    <button onClick={() => this.eliminarSoloPedidoStorage(index)} type="button" className="btn btn-danger">Borrar</button>
+                    </div>
+                    <hr style={{width:"700px"}}></hr>
+                    </div>
+
+                )
+            )
+
+            :
+
+            <div align="center" className="form-group">
+                <h3 style={{marginTop:'20px'}}>No hay datos</h3>
+            </div>
+
+            }
+
+            <hr></hr>
+
+            <div align="center">
+            <h2 style={{marginTop:"50px"}}>Cambio de Estado de Pedidos</h2>
+            </div>
+
+           { JSON.parse(localStorage.getItem('pedidoCambioEstado')).length > 0 ?
+            
+            JSON.parse(localStorage.getItem('pedidoCambioEstado')).map((pedido, index) => (
+
+                // console.log(pedido),
+
+                   <div key={pedido.id_pedido} style={{marginTop: "30px", marginBottom: "50px"}}>
+                    <Col xs={12} md={12}>
+                    <div align="center" className="form-group">
+                        <label><h3>Identificador del Pedido</h3></label>
+                        <h5><b>Pedido Numero: </b>  {pedido.id_pedido}</h5>
+                    </div>
+                    </Col>
+                    <Col xs={12} md={12}>
+                    <div align="center" className="form-group">
+                        <label><h3>Estado</h3></label>
+                        <h5><b>Estado Actual: </b>
+                        {JSON.parse(localStorage.getItem('estados')).length > 0 ?
+                        
+
+                                JSON.parse(localStorage.getItem('estados')).filter( estado => (pedido.estado == estado.id))[0].Description
+
+                                :
+
+                                " -Estado no reconocido"
+
+                        }
+                        </h5>
+                          {/* {JSON.parse(localStorage.getItem('estados')).filter( estado => (pedido.state == estado.id))[0].Description}  */}
+                    </div>
+                    </Col>
+                    <div align="center">
+                    <button onClick={() => this.eliminarEstadoPedidoStorage(index)} type="button" className="btn btn-danger">Borrar</button>
+                    <button onClick={this.setRedirectToHome} type="button" style={{marginLeft: "20px"}} className="btn btn-primary">Ver Pedido</button>
+                    {/* <button style={{marginLeft: 20, width: 80}} onClick={this.setRedirectToHome} type="button" className="btn btn-danger">Cancelar</button> */}
+                    {this.ToHome()}
                     </div>
                     <hr style={{width:"700px"}}></hr>
                     </div>

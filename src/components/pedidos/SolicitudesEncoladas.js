@@ -25,20 +25,6 @@ class SolicitudesEncoladas extends Component {
         {this.state.pedidos.map(datos => ( 
 
 
-            /*
-            
-            var arr = [];
-            var len = oFullResponse.results.length;
-            for (var i = 0; i < len; i++) {
-                arr.push({
-                    key: oFullResponse.results[i].label,
-                    sortable: true,
-                    resizeable: true
-                });
-            }
-
-            */
-
                 /** Cliente */
 
                 this.state.datos_cliente = this.state.clientes.filter(client => (client.id === datos.client)),
