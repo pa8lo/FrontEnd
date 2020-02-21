@@ -122,7 +122,7 @@ class ActionEstadoComponent extends React.Component {
                 <button style={buttonStyle} onClick={ this.eliminarEstado } type="button" className="btn btn-danger">Borrar</button>
             
                 :  
-
+ 
                 <button style={buttonStyle} disabled type="button" className="btn btn-danger">Borrar</button>
             
             }

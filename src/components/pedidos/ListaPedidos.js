@@ -40,7 +40,7 @@ let col = ["id","pedDate", "State",
             "Clients", "Adress", "Amount", "Deliverys", "Actions"];
 let tHead = [
     "Pedido Nº",
-    "Fecha",
+    "Fecha", 
     "Estado",
     // "Empleado",
     "Cliente",

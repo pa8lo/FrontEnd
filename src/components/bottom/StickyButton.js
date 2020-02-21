@@ -17,7 +17,7 @@ class StickyButton extends Component {
                         href="/problems"
                         to="/problems"
                         onClick={() => this.props.history.push('/')}
-                    >
+                    > 
 
                     <HomeIcon style={{color:"white"}}/>
 

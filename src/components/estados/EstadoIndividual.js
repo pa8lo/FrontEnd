@@ -18,7 +18,7 @@ class EstadoIndividual extends Component {
 
         //console.log(this.props)
 
-        return (
+        return ( 
             <div>
                 <Header titulo = 'Datos de Estado'/>
                 <div className="table-empleados">

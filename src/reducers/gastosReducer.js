@@ -3,7 +3,7 @@ import { MOSTRAR_GASTOS, MOSTRAR_GASTO, AGREGAR_GASTO, EDITAR_GASTO, BORRAR_GAST
 const initialState = {
     gastos : [],
     loaded: false
-};
+}; 
 
 export default function (state = initialState, action){
     switch(action.type){

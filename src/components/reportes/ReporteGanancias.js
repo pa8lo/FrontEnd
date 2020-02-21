@@ -17,7 +17,7 @@ class ReporteGanancias extends Component {
     data_chart : {},
     hayValor : false
   }
-
+ 
   handleEvent = (event, picker) => {
     
     const gastos = axios.get(`https://roraso.herokuapp.com/Reports/Ganancias?min=2019-01-01&max=2020-02-04}`,

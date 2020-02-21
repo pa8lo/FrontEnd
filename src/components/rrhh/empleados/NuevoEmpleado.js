@@ -65,7 +65,7 @@ class NuevoEmpleado extends Component {
       this.setState({
         redirectHome: true
       })
-    }
+    } 
 
     crearEmpleado = (e) => {
 

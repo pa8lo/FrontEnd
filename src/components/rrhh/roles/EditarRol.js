@@ -810,7 +810,7 @@ class EditarRol extends Component {
                                             checked={this.state.TACreate}
                                             onChange={this.toggleChangeTACreate}
                                             label="Crear Asistencia" />
-                                        <CustomInput type="checkbox" 
+                                        <CustomInput type="checkbox"  
                                             id='29'
                                             value="29" 
                                             checked={this.state.TAView}

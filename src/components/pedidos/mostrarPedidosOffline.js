@@ -165,7 +165,7 @@ class mostrarPedidosOffline extends Component {
                     onClick={() => this.modificarPedido(this.state.pedido.pedido, 
                         this.estadoRef.current.value, this.state.index_actual)}
                     >
-                    Confirmar
+                    Confirmar 
                 </button>
                 </Modal.Footer>
             </Modal.Dialog>

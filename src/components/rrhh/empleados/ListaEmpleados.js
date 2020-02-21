@@ -83,49 +83,56 @@ class ActionEmpleadoComponent extends React.Component {
 
             console.log(usuario)
 
-            const data = {
-              id : usuario.props.rowData.id
-            }
-        
-            var accessToken =  localStorage.getItem('access-token');
-            axios.post("https://roraso.herokuapp.com/User/ResetPassword",data,{headers: {'access-token': accessToken}})
-              .then(res => {
-                if(res.status === 200){
-                  Swal.fire({
-                    title: 'Correcto!',
-                    text: 'Se ha reseteado la contraseña al DNI del usuario',
-                    type: 'success',
-                    confirmButtonText: 'Confirmar'
-                  }, setTimeout(function(){ 
-                    window.location.href = "/rrhh/empleados";
-                  }, 3500))
-                  return;
-                }
-              }).catch(err => {
-                Swal.fire({
-                  title: 'Error!',
-                  text: 'El servidor no ha respondido',
-                  type: 'error',
-                  confirmButtonText: 'Aceptar'
-                })
-                return;
-              })
-        }else{
-          Swal.fire({
-            title: 'Error!',
-            text: 'Usuario sin permisos',
-            type: 'error',
-            confirmButtonText: 'Aceptar'
-          })
-          return;
+            Swal.fire({
+                title: '¿Estas seguro que desea resetear la contraseña?',
+                text: "Estas a punto de resetear a defecto la contraseña del usuario",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar'
+              }).then((result) => {
+                if (result.value) {
 
-        // Swal.fire({
-        //   title: 'Error!',
-        //   text: 'Esperando creacion de Endpoint',
-        //   type: 'error',
-        //   confirmButtonText: 'Aceptar'
-        // })
-          
+                    const data = {
+                    id : usuario.props.rowData.id
+                    }
+                
+                    var accessToken =  localStorage.getItem('access-token');
+                    axios.post("https://roraso.herokuapp.com/User/ResetPassword",data,{headers: {'access-token': accessToken}})
+                    .then(res => {
+                        if(res.status === 200){
+                        Swal.fire({
+                            title: 'Correcto!',
+                            text: 'Se ha reseteado la contraseña al DNI del usuario',
+                            type: 'success',
+                            confirmButtonText: 'Confirmar'
+                        }, setTimeout(function(){ 
+                            window.location.href = "/rrhh/empleados";
+                        }, 3500))
+                        return;
+                        }
+                    }).catch(err => {
+                        Swal.fire({
+                        title: 'Error!',
+                        text: 'El servidor no ha respondido',
+                        type: 'error',
+                        confirmButtonText: 'Aceptar'
+                        })
+                        return;
+                    })
+                }else{
+                // Swal.fire({
+                //     title: 'Error!',
+                //     text: '',
+                //     type: 'error',
+                //     confirmButtonText: 'Aceptar'
+                // })
+                // return;
+                }
+            })
+
         }
 
     }

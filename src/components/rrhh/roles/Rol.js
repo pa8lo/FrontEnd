@@ -24,7 +24,7 @@ const tableStyle = {
 
 class Rol extends Component {
 
-    eliminarRol = () => {
+    eliminarRol = () => { 
 
         const {id} = this.props.info;
 

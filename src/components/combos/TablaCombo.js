@@ -21,7 +21,7 @@ class Combo extends Component {
         return (
             <div>
                 <Header 
-                    titulo = 'Lista de Combos'
+                    titulo = 'Lista de Combos' 
                 />
                 <div className="col-12 col-md-12">
                     <ListaCombos/>

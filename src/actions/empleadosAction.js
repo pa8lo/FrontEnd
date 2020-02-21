@@ -15,7 +15,7 @@ export const mostrarEmpleados = () => async dispatch => {
     const user = await axios.get('https://roraso.herokuapp.com/User/users',
     { headers: { 'access-token': localStorage.getItem('access-token')}})
     .then(res => {
-
+ 
         dispatch({
             type : MOSTRAR_EMPLEADOS,
             payload : res.data

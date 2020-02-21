@@ -21,7 +21,7 @@ class SolicitudesEncoladas extends Component {
         this.state.clientes = JSON.parse(localStorage.getItem('clientes'));
         this.state.combos = JSON.parse(localStorage.getItem('combos'));
         this.state.productos = JSON.parse(localStorage.getItem('productos'));
-
+ 
         {this.state.pedidos.map(datos => ( 
 
 

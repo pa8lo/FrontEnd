@@ -94,7 +94,7 @@ export const agregarCliente = (cliente) => async dispatch => {
             setTimeout(function(){ 
                 window.location.href = `/clientes/agregar-direccion-cliente/${res.data.UserId}`;
             }, 3500);
-        }
+        } 
         else{
             Swal.fire({
                 title: 'Error!',

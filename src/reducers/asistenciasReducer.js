@@ -17,7 +17,7 @@ export default function (state = initialState, action){
             return {
                 ...state,
                 asistencia : action.payload
-            }
+            } 
         case EDITAR_ASISTENCIA :
             return {
                 ...state,

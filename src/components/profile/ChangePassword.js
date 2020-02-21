@@ -17,7 +17,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import StylesLoginForm from '../../assets/css/Login/StylesLoginForm'
 var login = require('../../assets/globals/index')
-const styles = StylesLoginForm;
+const styles = StylesLoginForm; 
 
  class ChangePassword extends React.Component {
     constructor(props, context) {

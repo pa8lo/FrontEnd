@@ -26,7 +26,7 @@ class Categorias extends Component {
                 <div className="col-12 col-md-12">
                     <ListadoCategorias/>
                     <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
-                        
+                         
                         { permisos.filter(permiso => (permiso.id == 16)).length > 0 ?  
                 
                             <Link to={`/categoria/alta-categoria`} className="btn btn-success">Nueva Categoria</Link> 

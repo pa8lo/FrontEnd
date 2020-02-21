@@ -21,7 +21,7 @@ class AgregarDatosCliente extends Component {
     }
 
     nombreRef = React.createRef();
-    apellidoRef = React.createRef();
+    apellidoRef = React.createRef(); 
     telefonoRef = React.createRef();
     emailRef = React.createRef();
 

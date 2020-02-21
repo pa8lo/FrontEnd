@@ -17,7 +17,7 @@ export const mostrarGastos = () => async dispatch => {
         if(res.status === 200){
             return;
             
-        }else{
+        }else{ 
             Swal.fire({
                 title: 'Error!',
                 text: 'Se ha producido un error al intentar mostrar gastos',

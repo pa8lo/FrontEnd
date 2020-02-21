@@ -12,7 +12,7 @@ class CarruselLogin extends Component {
   render() { 
 
     const { classes } = this.props;
-
+ 
     return (
       <React.Fragment>
     <div style={{height : "200px", width: "100%"}} style={StylesCarruselLogin}>

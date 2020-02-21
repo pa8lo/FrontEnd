@@ -3,7 +3,7 @@ import { MOSTRAR_COMBOS, MOSTRAR_COMBO, AGREGAR_COMBO, EDITAR_COMBO, BORRAR_COMB
 const initialState = {
     combos : [],
     loaded: false
-};
+}; 
 
 export default function (state = initialState, action){
     switch(action.type){

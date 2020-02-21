@@ -4,7 +4,7 @@ const initialState = {
     roles : [],
     loaded: false
 };
-
+ 
 export default function (state = initialState, action){
     switch(action.type){
         case MOSTRAR_ROLES : 

@@ -15,7 +15,7 @@ export const loginUser = (usuario) => async dispatch => {
         "Password" : Password
     }
 
-    // console.log(user)
+    // console.log(user) 
 
     const loginRes = await axios.post("https://roraso.herokuapp.com/User/login",user)
 

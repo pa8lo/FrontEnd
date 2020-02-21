@@ -4,7 +4,7 @@ const initialState = {
     clientes : [],
     direccion : [],
     loaded: false
-};
+}; 
 
 export default function (state = initialState, action){
     switch(action.type){

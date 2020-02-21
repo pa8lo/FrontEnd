@@ -15,7 +15,7 @@ export const fetchCurrentUser = () => async dispatch => {
    }catch(error){
     //    alert(error)
    }
-};
+}; 
 
 export const signIn = (data) =>  dispatch => {
     try {

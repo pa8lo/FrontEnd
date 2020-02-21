@@ -46,7 +46,7 @@ class ConsultarDireccionCliente extends Component {
             cancelButtonColor: '#d33',
             confirmButtonText: 'Confirmar',
             cancelButtonText: 'Cancelar'
-          }).then((result) => {
+          }).then((result) => { 
             if (result.value) {
                 axios.post("https://roraso.herokuapp.com/Client/DeleteAddress",{'id': id},
                 { headers: { 'access-token': localStorage.getItem('access-token')}})

@@ -21,7 +21,7 @@ class Productos extends Component {
             <div>
                 <Header 
                     titulo = 'Lista de Productos'
-                />
+                /> 
                 <div className="col-12 col-md-12">
                     <ListadoProductos
                         nameCat = {this.props.history.location.nameCat}

@@ -47,7 +47,7 @@ class EditarCombo extends Component {
                 // this.state.optionsProductsName.push({value: prod.id,label: prod.Name + " " + prod.Description,count: producto.Count})
                 // this.state.productsToUpdate.push({Product: prod.id, Count: producto.Count}),
                 this.state.selectedOption.push({ value: producto.Product.id, label: producto.Product.Name + " " + producto.Product.Description, count: producto.Count })
-                // ))
+                // )) 
                 //   this.state.optionsProductsName.push({value: producto.Product,label: producto.Product,count: producto.Count})
             ))
         }

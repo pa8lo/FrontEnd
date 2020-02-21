@@ -101,7 +101,7 @@ export const agregarCategoria = (categoria) => async dispatch => {
                 text: 'Se ha añadido una nueva categoria',
                 type: 'success',
                 // confirmButtonText: 'Confirmar'
-            })
+            }) 
             setTimeout(function(){ 
                 window.location.href = "/categoria";
             }, 3500);

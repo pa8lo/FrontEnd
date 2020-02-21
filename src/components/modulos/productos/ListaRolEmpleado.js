@@ -7,4 +7,4 @@ const ListaRolEmpleado = (props) => {
     );
 };
 
-export default ListaRolEmpleado;
+export default ListaRolEmpleado; 

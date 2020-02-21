@@ -69,7 +69,7 @@ class AddressInput extends Component {
           
         </div>
       </div>
-    );
+    ); 
   }
 }
 

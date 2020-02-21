@@ -163,7 +163,7 @@ export const editarAsistencia = (asistencia) => async dispatch => {
         payload: data
     })
     
-}
+} 
 
 export const eliminarAsistencia = (id) => async dispatch => {
     await axios.post("https://roraso.herokuapp.com/Asisstance/Delete",{'id': id},

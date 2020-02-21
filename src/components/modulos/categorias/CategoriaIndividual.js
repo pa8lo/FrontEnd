@@ -23,7 +23,7 @@ class MyVerticallyCenteredModal extends Component {
     super(...args);
   }
 
-  direccionRef = React.createRef();
+  direccionRef = React.createRef(); 
   departamentoRef = React.createRef();
   pisoRef = React.createRef();
   cpRef = React.createRef();

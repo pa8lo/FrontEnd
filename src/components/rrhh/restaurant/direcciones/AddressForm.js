@@ -206,7 +206,7 @@ class AddressForm extends Component {
           'coords': null,
         });
       });
-  }
+  } 
 
   alert() {
     if (!this.state.isChecked) {

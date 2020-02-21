@@ -40,7 +40,7 @@ class Clientes extends Component {
                         
                         
                     </div>
-                </div>
+                </div> 
                 <StickyButton/>
             </div>
         );

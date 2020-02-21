@@ -20,7 +20,7 @@ import EmpleadoIndividual from './components/rrhh/empleados/EmpleadoIndividual';
 import NuevoEmpleado from './components/rrhh/empleados/NuevoEmpleado';
 import EditarEmpleado from './components/rrhh/empleados/EditarEmpleado';
 
-//Roles
+//Roles 
 import Roles from './components/rrhh/roles/TablaRoles';
 import NuevoRol from './components/rrhh/roles/NuevoRol';
 import RolIndividual from './components/rrhh/roles/RolIndividual';

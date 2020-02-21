@@ -117,7 +117,7 @@ class NuevoPedido extends Component {
       cargaDeCliente : false,
       direDeCliente : false,
       cliente_encontrado_offline : '',
-      arrayProdEnCombos : [],
+      arrayProdEnCombos : [], 
       finalTotal : '0',
       finalAmmount : 0,
       redirectHome: false,

@@ -19,7 +19,7 @@ class Gastos extends Component {
         const permisos = this.props.usuario.Authorizations;
         
         return (
-            <div>
+            <div> 
                 <Header 
                     titulo = 'Lista de Gastos'
                 />

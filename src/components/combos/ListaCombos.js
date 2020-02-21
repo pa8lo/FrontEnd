@@ -40,7 +40,7 @@ let col = ["Name", "Description", "Amount", "Actions"];
 let tHead = [
   "Nombre Combo",
   "Descripcion",
-  "Precio",
+  "Precio", 
   "Acciones",
 ];
 

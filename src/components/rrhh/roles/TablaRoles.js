@@ -43,7 +43,7 @@ class Roles extends Component {
                     </div>          
                 </div>
                 <StickyButton/>
-            </div>
+            </div> 
         );
     }
 }

@@ -7,7 +7,7 @@ const initialState = {
     permisson: [],
     user: undefined
 };
-
+ 
 export default function (state = initialState, action){
     switch(action.type){
         case MOSTRAR_CURRENT_USER : 

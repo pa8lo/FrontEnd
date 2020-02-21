@@ -1091,7 +1091,7 @@ class EnviarPedidosOff extends Component {
           showConfirmButton: false
         })
 
-      }
+      } 
       
 
     render() {

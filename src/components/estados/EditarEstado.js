@@ -19,7 +19,7 @@ class EditarEstado extends Component {
     // date : ''
     redirectHome: false,
   }
-
+ 
   descripcionRef = React.createRef();
   keyRef = React.createRef();
 

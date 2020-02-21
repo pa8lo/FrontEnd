@@ -49,12 +49,27 @@ class MyVerticallyCenteredModal extends Component {
     e.preventDefault();
 
     const userid = parseInt(this.props.userid);
+    let departamento_elegido;
+    let piso_elegido;
+
+    if(this.departamentoRef.current.value == ""){
+      departamento_elegido =  null
+    }else{
+      departamento_elegido = this.departamentoRef.current.value
+    }
+
+    if(this.pisoRef.current.value == ""){
+      piso_elegido =  null
+    }else{
+      piso_elegido = this.pisoRef.current.value
+    }
+
 
     const data = {
       Address : {
         Adress : this.direccionRef.current.value,
-        Department : this.departamentoRef.current.value,
-        Floor : this.pisoRef.current.value,
+        Department : departamento_elegido,
+        Floor : piso_elegido,
         Cp : this.cpRef.current.value,
         LatLong : '1111',
         User : userid
@@ -71,7 +86,7 @@ class MyVerticallyCenteredModal extends Component {
             title: 'Correcto!',
             text: 'Se ha agregado una direccion',
             type: 'success',
-            confirmButtonText: 'Se refrescara la pagina'
+            confirmButtonText: 'Aceptar'
         })
         setTimeout(function(){ 
           window.location.reload();
@@ -276,12 +291,16 @@ class EmpleadoIndividual extends Component {
                   <h2>Piso: {address.Floor}</h2>
                   <h2>Departamento: {address.Department}</h2>
                   <h2>Codigo Postal: {address.Cp}</h2>
-                  </Panel.Body><Panel.Body></Panel.Body>
+                  </Panel.Body>
+                  <Panel.Body>
+                  <hr></hr>
+                  </Panel.Body>
                   </React.Fragment>
                       // console.log(address)
                   ))}
                   {/* <Col xs={4}><h2>Rol: {this.props.empleado.user.Rols}</h2></Col> */}
                   </Panel>
+                  
             </Container>
           </React.Fragment>
       );

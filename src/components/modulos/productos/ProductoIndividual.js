@@ -20,7 +20,7 @@ class ProductoIndividual extends Component {
 
     render() {
         return (
-            <div>
+            <div> 
                 <Header titulo = 'Datos de Producto'/>
                 <div className="table-empleados">
                     <Paper className="col-md-4">

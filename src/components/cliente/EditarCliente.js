@@ -96,7 +96,7 @@ class EditarCliente extends Component {
                         </div>
                     </form>
                     </div>
-                </Paper>
+                </Paper> 
             </div>
         </React.Fragment>
         );

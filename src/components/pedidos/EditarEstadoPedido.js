@@ -165,7 +165,7 @@ class EditarEstadoPedido extends Component {
                 
                 this.props.editarEstadoPedido(estado_pedido);
 
-            }else{
+            }else{ 
 
                 let arrayCambioEstado = JSON.parse(localStorage.getItem('pedidoCambioEstado'));
 

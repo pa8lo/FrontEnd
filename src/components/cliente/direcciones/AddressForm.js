@@ -118,7 +118,7 @@ class AddressForm extends Component {
       "department" : this.state.dpto,
       "latlong" : (this.state.coords.lat + ";" + this.state.coords.lon),
       "client" : this.props.clientId
-    }
+    } 
 
 
 

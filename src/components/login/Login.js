@@ -14,7 +14,7 @@ class LoginForm extends React.Component {
       <Grid  container style={{marginTop:"300px"}}>
         <Row className="show-grid">
           <Col style={{display: "inline-block"}} xs={5} md={5}>
-            <div >
+            <div > 
             <SignInForm/>
             </div>
           </Col>

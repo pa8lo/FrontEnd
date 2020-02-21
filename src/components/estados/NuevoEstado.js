@@ -66,7 +66,7 @@ class NuevoEstado extends Component {
                             {this.ToHome()}
                         </div>
                     </form>
-                    </div>
+                    </div> 
                 </Paper>
             </div>
         </React.Fragment>

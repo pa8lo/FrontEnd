@@ -16,7 +16,7 @@ import thunk from 'redux-thunk';
 //         console.log(e)
 //     }
 // }
-
+ 
 const initialState = {};
 
 const middleware = [thunk];

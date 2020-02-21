@@ -53,7 +53,7 @@ class SignInForm extends Component {
             <main className={classes.layout} style={{height : "400px", width: "70%"}}>
               <Paper style={{height : "465px"}} className={classes.paper}>
 
-                <h3>
+                <h3> 
                   Iniciar Sesión
                 </h3>
                 <form style={{marginTop : "50px"}} onSubmit={this.signIn} className={classes.form}>

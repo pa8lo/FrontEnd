@@ -18,7 +18,7 @@ class CambioDeClave extends Component {
 
   state = {
     Password : '',
-    claveFinal : '',
+    claveFinal : '', 
     redirectHome: false,
   }
 

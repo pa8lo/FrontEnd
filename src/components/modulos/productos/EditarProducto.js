@@ -22,7 +22,7 @@ class EditarProducto extends Component {
 
     nombreRef = React.createRef();
     descripcionRef = React.createRef();
-    amountRef = React.createRef();
+    amountRef = React.createRef(); 
 
     componentDidMount(){
         console.log(this.props);

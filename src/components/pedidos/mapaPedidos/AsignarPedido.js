@@ -78,4 +78,4 @@ export default connect(mapStateToProps, {
   mostrarPedidos,
   mostrarEmpleados,
   asignarDelivery,
-})(AsignarPedido);
+})(AsignarPedido); 

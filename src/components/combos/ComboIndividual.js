@@ -114,7 +114,7 @@ class ComboIndividual extends Component {
                                 isMulti
                                 isSearchable
                             />
-                            </div>
+                            </div> 
                         </div>
                         {this.mostrarProductosListos()}
                     </form>

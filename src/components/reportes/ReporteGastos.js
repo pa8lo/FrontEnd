@@ -20,7 +20,7 @@ import axios from 'axios';
 //     }
 //   ]
 // };
-
+ 
 class ReporteGastos extends Component {
 
   state = {

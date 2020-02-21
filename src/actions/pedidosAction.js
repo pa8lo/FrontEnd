@@ -68,7 +68,7 @@ export const mostrarPedidos = () => async dispatch => {
             })
         }
     })
-}
+} 
 
 export const eliminarPedido = (id) => async dispatch => {
     await axios.post("https://roraso.herokuapp.com/Pedido/Delete",{'id': id},

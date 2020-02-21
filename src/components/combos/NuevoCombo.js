@@ -214,7 +214,7 @@ class NuevoCombo extends Component {
                         <div className="form-group">
                             <label>Seleccione los Productos</label>
                             <div center="true" align="center">
-                            <Select required
+                            <Select required 
                                 value={selectedOption}
                                 onChange={this.handleChange}
                                 options={this.state.optionsProductsName}

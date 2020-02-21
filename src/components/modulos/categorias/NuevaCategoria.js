@@ -24,7 +24,7 @@ class NuevaCategoria extends Component {
     descripcionRef = React.createRef();
 
     crearCategoria = (e) => {
-
+ 
         e.preventDefault();
 
         const categoria = {

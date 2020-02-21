@@ -169,11 +169,11 @@ class AsistenciaIndividual extends Component {
                             <FormGroup style={{display: 'flex', justifyContent: 'space-between'}}>
                                 <InputGroup>
                                 <InputGroup.Addon>Fecha y Hora Entrada</InputGroup.Addon>
-                                <FormControl onChange={this.handleChangetimeIn} name="timeIn" style={{width: 200}} type="datetime-local" defaultValue={this.state.timeInForm} required/>
+                                <FormControl onChange={this.handleChangetimeIn} name="timeIn" style={{width: 200}} type="datetime-local"  max="9999-12-12T00:00:00.00" defaultValue={this.state.timeInForm} required/>
                                 </InputGroup>
                                 <InputGroup>
                                 <InputGroup.Addon>Fecha y Hora Salida</InputGroup.Addon>
-                                <FormControl onChange={this.handleChangetimeOut} name="timeOut" style={{width: 200}} type="datetime-local" required/>
+                                <FormControl onChange={this.handleChangetimeOut} name="timeOut" style={{width: 200}} type="datetime-local"  max="9999-12-12T00:00:00.00" required/>
                                 </InputGroup>
                             </FormGroup>
                         </div>

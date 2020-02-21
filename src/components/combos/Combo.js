@@ -17,7 +17,7 @@ const buttonStyle = {
 };
 
 const tableStyle = {
-    marginTop: 20,
+    marginTop: 20, 
     maxWidth: '100%',
     minWidth: '100%'
 }

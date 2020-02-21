@@ -18,7 +18,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-
+ 
     // console.log(this.props.auth.logged);
 
     axios.get('https://roraso.herokuapp.com/User/CurrentUser',

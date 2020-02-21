@@ -211,7 +211,7 @@ export const editarEstadoPedido = (pedido) => async dispatch => {
             return;
         })
   
- }
+ } 
 
 export const eliminarEstado = (id) => async dispatch => {
    await axios.post("https://roraso.herokuapp.com/Estado/Delete",{'id': id},

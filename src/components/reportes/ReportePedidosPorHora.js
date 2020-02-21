@@ -19,7 +19,7 @@ import axios from 'axios';
 //       data: [65,80,90]
 //     }
 //   ]
-// };
+// }; 
 
 class ReportePedidosPorHora extends Component {
 

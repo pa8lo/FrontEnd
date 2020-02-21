@@ -9,9 +9,9 @@ import AddressForm from './direcciones/AddressForm';
 import '../../../assets/css/empleados/form-alta-empleados.css';
 
 class AgregarDireccionRestaurant extends Component {
-
+  
     render() {
-        //console.log(this.props);
+        //console.log(this.props); 
         return (
             
         <React.Fragment>
@@ -21,7 +21,7 @@ class AgregarDireccionRestaurant extends Component {
                     <div>
                         <AddressForm />
                     </div>
-                </Paper>
+                </Paper> 
             </div>
         </React.Fragment>
         );

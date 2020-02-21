@@ -50,7 +50,7 @@ class MapaPedidos extends Component {
                 if(pedidos[i].Adress.LatLong === "latlong"){
 
                   
-  
+   
                 }else{
                 
                   location.push(pedidos[i].Adress.LatLong.split(";"));

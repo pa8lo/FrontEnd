@@ -19,7 +19,7 @@ class EditarOrder extends Component {
         this.state = {
             delivery: null,
         };
-    }
+    } 
 
     componentWillMount() {
         this.props.mostrarEmpleados();

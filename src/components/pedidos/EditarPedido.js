@@ -734,7 +734,7 @@ class NuevoPedido extends Component {
                             />
                         </div>
                         {this.mostrarCombosListos()}
-                        <div className="form-group">
+                        <div className="form-group"> 
                             <label>Seleccione Productos</label>
                             <Select required
                                 placeholder="Ingrese o Selecciones los Productos"

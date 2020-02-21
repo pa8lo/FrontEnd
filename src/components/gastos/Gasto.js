@@ -53,7 +53,7 @@ class Gasto extends Component {
                     confirmButtonText: 'Aceptar'
                 })
                 return;
-            })
+            }) 
         // console.log(this.props);
     }
 

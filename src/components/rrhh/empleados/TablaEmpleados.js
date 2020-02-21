@@ -16,7 +16,7 @@ class Empleados extends Component {
     }
 
     render() {
-
+ 
         if(this.props.usuario.length === 0) return null;
 
         const permisos = this.props.usuario.Authorizations;

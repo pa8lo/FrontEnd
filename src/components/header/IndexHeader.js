@@ -53,7 +53,7 @@ class Header extends React.Component {
                 })
                 return window.location.href = "/";
               }
-          })
+          }) 
           .catch(err => {
               if(localStorage.getItem('status') === 'online'){
                 localStorage.setItem('status', 'offline');

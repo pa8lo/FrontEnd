@@ -41,7 +41,7 @@ class Pedidos extends Component {
                             <Link to="#" disabled className="btn btn-success">Nuevo Pedido</Link> 
                         
                         }
-
+ 
                         { JSON.parse(localStorage.getItem('pedidoCompleto')).length > 0 || JSON.parse(localStorage.getItem('pedidoSemiCompleto')).length > 0 || JSON.parse(localStorage.getItem('enviarPedido')).length > 0 ?  
                 
                             <Link to={`/pedidos-encolados`} style={buttonStyle} className="btn btn-warning">Solicitudes Encoladas</Link>

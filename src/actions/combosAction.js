@@ -15,7 +15,7 @@ export const mostrarCombos = () => async dispatch => {
         })
 
         if(res.status === 200){
-            return;
+            return; 
             
         }else{
             Swal.fire({

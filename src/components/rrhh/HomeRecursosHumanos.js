@@ -88,7 +88,7 @@ class HomeRecursosHumanos extends Component {
                             <Link style={buttonStyle} disabled to="#" className="btn btn-info">
                                 <h3>Asistencias</h3>
                             </Link>
-                        </div>
+                        </div> 
                         <div style={{display: "inline", marginLeft:"50px"}}>
                             <Link style={buttonStyle} disabled to="#" className="btn btn-danger">
                                 <h3>Restaurant</h3>

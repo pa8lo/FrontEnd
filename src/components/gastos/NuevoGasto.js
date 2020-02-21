@@ -102,7 +102,7 @@ class NuevoGasto extends Component {
                         </div>
                         <div className="form-group">
                             <label>Fecha</label>
-                            <input ref={this.fechaRef} type="date" className="form-control" required/>
+                            <input ref={this.fechaRef} type="date"  max="9999-12-12" className="form-control" required/>
                         </div>
                         <div center="true" align="center" className="form-group">
                             <input type="submit" value="Aceptar" className="btn btn-primary" required/>

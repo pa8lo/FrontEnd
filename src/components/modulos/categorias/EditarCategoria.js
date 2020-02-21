@@ -25,7 +25,7 @@ class EditarCategoria extends Component {
     descripcionRef = React.createRef();
 
     editarCategoria = (e) => {
-
+ 
         e.preventDefault();
 
         const categoria = {

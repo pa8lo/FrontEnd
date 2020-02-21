@@ -19,7 +19,7 @@ class NuevoProducto extends Component {
         error : false,
         redirectHome: false,
     }
-
+ 
     nombreRef = React.createRef();
     descripcionRef = React.createRef();
     amountRef = React.createRef();

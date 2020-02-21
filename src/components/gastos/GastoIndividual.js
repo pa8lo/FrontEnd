@@ -23,7 +23,7 @@ class ProductoIndividual extends Component {
     })
   }
 
-  goBack(){
+  goBack(){ 
     window.history.back();
   }
 

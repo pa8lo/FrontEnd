@@ -22,7 +22,7 @@ const tableStyle = {
     minWidth: '100%'
 }
 
-class Cliente extends Component {
+class Cliente extends Component { 
 
     eliminarCliente = () => {
         // console.log(this.props.info.id);

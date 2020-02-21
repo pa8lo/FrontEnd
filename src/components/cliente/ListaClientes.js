@@ -208,7 +208,7 @@ class ListaClientes extends Component {
                             color={"#4D4D4D"}
                             loading={this.state.loading}
                         />
-                    </div>
+                    </div> 
                 )
             }
             else {

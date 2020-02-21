@@ -22,7 +22,7 @@ const override = css`
   display: block;
   margin: 0 auto;
   border-color: red;
-`;
+`; 
 
 const columnButtonStyle = {
     maxWidth: "100%",

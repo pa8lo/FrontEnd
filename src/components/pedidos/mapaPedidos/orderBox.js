@@ -64,7 +64,7 @@ class ActionOrderComponent extends React.Component {
 
         let pedido = (JSON.parse(localStorage.getItem('pedidos')).filter(pedido => (pedido.id === id)))
 
-        pedido[0].Adress = (pedido[0].Adress.Adress + " " + pedido[0].Adress.Floor + " " + pedido[0].Adress.Department)
+        pedido[0].Adress = (pedido[0].Adress.Adress + " " + pedido[0].Adress.Floor || "" + " " + pedido[0].Adress.Department || "")
 
         // console.log(pedido[0].Clients.Phone)
 

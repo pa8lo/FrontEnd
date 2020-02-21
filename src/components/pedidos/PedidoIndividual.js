@@ -356,7 +356,7 @@ class PedidoIndividual extends Component {
                           </Link>
 
                           :
-
+ 
                           <Link style={buttonStyle}
                           to="/"
                           disabled

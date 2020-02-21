@@ -35,7 +35,7 @@ class Estados extends Component {
 
                             <Link to="#" disabled className="btn btn-success">Nuevo Estado</Link> 
                         
-                        }
+                        } 
                         
                     </div>
                 </div>

@@ -212,7 +212,7 @@ class NuevoRol extends Component {
         this.setState(prevState => ({
             PedidoEdit: !prevState.PedidoEdit,
         }));
-    }
+    } 
 
     toggleChangePedidoDelete = () => {
         this.setState(prevState => ({

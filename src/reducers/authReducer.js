@@ -16,7 +16,7 @@ const initialState = {
     user: undefined,
     loaded: false
 };
-
+ 
 
 export default function (state = initialState, action) {
     switch (action.type) {

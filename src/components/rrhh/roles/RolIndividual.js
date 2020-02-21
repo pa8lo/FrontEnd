@@ -414,7 +414,7 @@ class RolIndividual extends Component {
                                         id='30'
                                         disabled
                                         label="Modificar Asistencia" />
-                                    <CustomInput type="checkbox" 
+                                    <CustomInput type="checkbox"  
                                         checked={this.state.TADelete}
                                         id='31'
                                         disabled

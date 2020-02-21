@@ -24,7 +24,7 @@ const tableStyle = {
 
 class Producto extends Component {
 
-    eliminarProducto = (id) =>{
+    eliminarProducto = (id) =>{ 
         // const {id} = this.props.info;
 
         // console.log(id);

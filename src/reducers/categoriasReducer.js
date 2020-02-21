@@ -3,7 +3,7 @@ import { MOSTRAR_CATEGORIAS, MOSTRAR_CATEGORIA, AGREGAR_CATEGORIA, BORRAR_CATEGO
 const initialState = {
     categorias : [],
     loaded: false
-};
+}; 
 
 export default function (state = initialState, action){
     switch(action.type){

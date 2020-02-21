@@ -26,7 +26,7 @@ const override = css`
 const columnButtonStyle = {
     maxWidth: "100%",
     minWidth: "100%",
-    paddingTop: 3
+    paddingTop: 3 
 };
 
 const buttonStyle = {

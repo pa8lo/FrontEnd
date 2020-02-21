@@ -20,7 +20,7 @@ class AddressInput extends Component {
     this.props.onChange(evt);
   }
 
-  handleChangeDomicilio = () => {
+  handleChangeDomicilio = () => { 
     this.setState(prevState => ({
       depto: !prevState.depto,
     }));

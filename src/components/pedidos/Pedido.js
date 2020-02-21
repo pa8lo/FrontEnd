@@ -23,7 +23,7 @@ const tableStyle = {
 }
 
 class Pedido extends Component {
-
+ 
     // eliminarEmpleado = () =>{
     //     const {id} = this.props.info;
 

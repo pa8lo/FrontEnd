@@ -49,7 +49,7 @@ class ActionGastoComponent extends React.Component {
             title: '¿Estas seguro que desea eliminar?',
             text: "Estas a punto de eliminar un gasto",
             icon: 'warning',
-            showCancelButton: true,
+            showCancelButton: true, 
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Confirmar',

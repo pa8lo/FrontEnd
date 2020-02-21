@@ -19,7 +19,7 @@ import mapa from '../../assets/images/mapa.jpg';
 
 //CSS
 import styles from '../../assets/css/Home/Home'
-
+ 
 // import * as actions from '../../actions';
 import Header from '../header/IndexHeader';
 
