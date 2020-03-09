@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 //Componentes
 import Paper from '@material-ui/core/Paper';
 import Header from '../../header/IndexHeader';
+import { Redirect } from 'react-router-dom';
 
 //CSS
 import '../../../assets/css/empleados/form-alta-empleados.css';
@@ -18,6 +19,7 @@ class EditarOrder extends Component {
         super(props);
         this.state = {
             delivery: null,
+            redirectHome: false,
         };
     } 
 
@@ -38,6 +40,18 @@ class EditarOrder extends Component {
         this.props.asignarDelivery([this.props.location.state.id, this.state.delivery]);
     }
     
+    ToHome(){
+        if (this.state.redirectHome) {
+          return <Redirect to='/' />
+        }
+      }
+  
+      setRedirectToHome = () => {
+        this.setState({
+          redirectHome: true
+        })
+      }
+
     render() {
         
         const empleados = this.props.empleados;
@@ -63,8 +77,10 @@ class EditarOrder extends Component {
                                     {empleadosTag}
                                 </select>
                             </div>
-                            <div className="form-group">
+                            <div center="true" align="center" className="form-group">
                                 <input type="button" value="Aceptar" className="btn btn-primary" onClick={(event) => this.editOrder(event)}/>
+                                <button style={{marginLeft: 20, width: 80}} onClick={this.setRedirectToHome} type="button" className="btn btn-danger">Cancelar</button>
+                                {this.ToHome()}
                             </div>
                         </div>
                     </Paper>

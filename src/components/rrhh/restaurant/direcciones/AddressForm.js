@@ -76,6 +76,7 @@ class AddressForm extends Component {
       'isChecked': false,
       'coords': {},
       'redirectHome': false,
+      'redirectRRHH' : false,
       'vali' : false,
     }
   }
@@ -117,7 +118,15 @@ class AddressForm extends Component {
       text: 'Se ha añadido una dirección para el restaurant',
       type: 'success',
       confirmButtonText: 'Aceptar'
+    }).then((result) => {
+      if (result.value) {
+        this.setState({
+          redirectRRHH: true
+        })
+      }
     })
+
+    
     return;
 
     // const Address = {
@@ -139,6 +148,18 @@ class AddressForm extends Component {
     if (this.state.redirectHome) {
       return <Redirect to='/' />
     }
+  }
+
+  ToRRHH(){
+    if (this.state.redirectRRHH) {
+      return <Redirect to='/rrhh' />
+    }
+  }
+
+  setRedirectToHome = () => {
+    this.setState({
+      redirectRRHH: true
+    })
   }
 
   setRedirectToHome = () => {
@@ -280,6 +301,7 @@ class AddressForm extends Component {
           
           <button style={{marginLeft: 10, width: 80}} onClick={this.setRedirectToHome} type="button" className="btn btn-danger">Cancelar</button>
           {this.ToHome()}
+          {this.ToRRHH()}
           <button type="submit" style={{marginLeft: "10px"}} className="btn btn-info" onClick={this.onCheck}>Validar Dirección</button>
           
           </div>

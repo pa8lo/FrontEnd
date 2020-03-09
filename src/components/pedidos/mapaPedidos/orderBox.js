@@ -143,17 +143,23 @@ class OrderBox extends React.Component {
                 
 
                 if (pedidos[i].Delivery !== null) {
+                    
+                    // console.log(pedidos[i])
+                    
+                    if (typeof pedidos[i].Adress === 'string' || pedidos[i].Adress instanceof String){
+                        
+                        if(pedidos[i].Adress.Department == null || pedidos[i].Adress.Department == "null"){
+                            pedidos[i].Adress.Department = ""
+                        }else{
+                            pedidos[i].Adress.Department = pedidos[i].Adress.Department
+                        }
     
-                    if(pedidos[i].Adress.Department == null || pedidos[i].Adress.Department == "null"){
-                        pedidos[i].Adress.Department = ""
-                    }else{
-                        pedidos[i].Adress.Department = pedidos[i].Adress.Department
-                    }
+                        if(pedidos[i].Adress.Floor == null || pedidos[i].Adress.Floor == "null"){
+                            pedidos[i].Adress.Floor = ""
+                        }else{
+                            pedidos[i].Adress.Floor = pedidos[i].Adress.Floor
+                        }
 
-                    if(pedidos[i].Adress.Floor == null || pedidos[i].Adress.Floor == "null"){
-                        pedidos[i].Adress.Floor = ""
-                    }else{
-                        pedidos[i].Adress.Floor = pedidos[i].Adress.Floor
                     }
 
                     if(pedidos[i].Adress.LatLong == "latlong"){

@@ -4,16 +4,12 @@ import { Link } from 'react-router-dom';
 import {Modal, Button, Row, Col, Panel } from 'react-bootstrap';
 import { Container } from 'reactstrap';
 
-//Animacion CSS
-import Swal from 'sweetalert2'
-
-
 //Componentes
 import Header from '../../header/IndexHeader';
 
 //Redux
 import { connect } from 'react-redux';
-import { eliminarEmpleado, mostrarEmpleado, agregarDireccion } from '../../../actions/empleadosAction'
+import { eliminarEmpleado, mostrarEmpleado } from '../../../actions/empleadosAction'
 
 
 
@@ -184,7 +180,7 @@ class EmpleadoIndividual extends Component {
 
     mostrarEmpleado = () => {
 
-      if(this.props.empleado == undefined) return null;
+      if(this.props.empleado === undefined) return null;
 
       console.log(this.props.empleado);
 
@@ -228,7 +224,7 @@ class EmpleadoIndividual extends Component {
 
         let modalClose = () => this.setState({ modalShow: false });
 
-        if(this.props.empleado == undefined) return null;
+        if(this.props.empleado === undefined) return null;
 
         return (
           

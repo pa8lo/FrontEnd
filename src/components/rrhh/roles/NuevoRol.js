@@ -155,6 +155,7 @@ class NuevoRol extends Component {
     }
 
     toggleChangePedidoView = (e) => {
+
         /**********
          * 
          * 
@@ -163,9 +164,53 @@ class NuevoRol extends Component {
          * 
          * 
          * */
+
+        if(this.state.PedidoView === true){
+
+            this.setState(prevState => ({
+                PedidoView: !prevState.PedidoView,
+            })); 
+
+        }else{
+
+            Swal.fire({
+                title: 'Este permiso esta vinculado con los permisos',
+                text: "-Ver Producto, -Ver Cliente, -Ver Usuarios ¿Desea agregarlos?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar'
+              }).then((result) => {
+                if (result.value) {
+                    this.setState(prevState => ({
+                        PedidoView: true,
+                        ProductoView: true,
+                        ClientView: true,
+                        UserView: true,
+                    }));
+                }else{
+                    return ;
+                }
+            })
+
+        }
+    }
+
+    toggleChangePedidoEdit = () => {
+
+        if(this.state.PedidoEdit === true){
+
+            this.setState(prevState => ({
+                PedidoEdit: !prevState.PedidoEdit,
+            })); 
+
+        }else{
+
         Swal.fire({
             title: 'Este permiso esta vinculado con los permisos',
-            text: "-Ver Producto, -Ver Cliente, -Ver Usuarios ¿Desea agregarlos?",
+            text: "-Ver Pedido, -Ver Producto, -Ver Cliente, -Ver Usuarios ¿Desea agregarlos?",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -175,43 +220,18 @@ class NuevoRol extends Component {
           }).then((result) => {
             if (result.value) {
                 this.setState(prevState => ({
-                    PedidoView: !prevState.PedidoView,
-                    ProductoView: !prevState.ProductoView,
-                    ClientView: !prevState.ClientView,
-                    UserView: !prevState.UserView,
+                    PedidoEdit: true,
+                    PedidoView: true,
+                    ProductoView: true,
+                    ClientView: true,
+                    UserView: true,
                 }));
             }else{
                 return ;
             }
         })
-        
-    }
 
-    toggleChangePedidoEdit = () => {
-        // Swal.fire({
-        //     title: 'Este permiso esta vinculado con los permisos',
-        //     text: "-Ver Pedido, -Ver Producto, -Ver Cliente, ¿Desea agregarlos?",
-        //     icon: 'warning',
-        //     showCancelButton: true,
-        //     confirmButtonColor: '#3085d6',
-        //     cancelButtonColor: '#d33',
-        //     confirmButtonText: 'Confirmar',
-        //     cancelButtonText: 'Cancelar'
-        //   }).then((result) => {
-        //     if (result.value) {
-        //         this.setState(prevState => ({
-        //             PedidoEdit: !prevState.PedidoEdit,
-        //             PedidoView: !prevState.PedidoView,
-        //             ProductoView: !prevState.ProductoView,
-        //             ClientView: !prevState.ClientView,
-        //         }));
-        //     }else{
-        //         return ;
-        //     }
-        // })
-        this.setState(prevState => ({
-            PedidoEdit: !prevState.PedidoEdit,
-        }));
+        }
     } 
 
     toggleChangePedidoDelete = () => {

@@ -24,6 +24,7 @@ class NuevaAsistencia extends Component {
         error : false,
         empleados : [],
         redirectHome: false,
+        actualDate : '',
     }
 
     empleadosRef = React.createRef();
@@ -46,6 +47,35 @@ class NuevaAsistencia extends Component {
             .catch(err => {
                 console.log(err);
             })
+
+        var today = new Date();
+
+        if(today.getMonth()<10){
+            var month = parseInt(today.getMonth()) + 1
+            var month2 = "0" + month
+        }
+
+        if(today.getDate()<10){
+            var day = "0" + today.getDate()
+        }
+
+        if(today.getHours()<10){
+            var hour = "0" + today.getHours()
+        }
+
+        if(today.getMinutes()<10){
+            var minutesss = "0" + today.getMinutes()
+        }else{
+            var minutesss = today.getMinutes()
+        }
+
+        var date = today.getFullYear()+'-'+ month2 +'-'+day
+        var time = hour + ":" + minutesss;
+        var dateTime = date+'T'+time;
+
+        this.setState({
+            actualDate : dateTime
+        })
     }
 
     handleChangetimeIn = e => {
@@ -113,7 +143,6 @@ class NuevaAsistencia extends Component {
         
         this.props.agregarAsistencia(asistencias);
 
-
         e.currentTarget.reset();
 
     }
@@ -158,7 +187,7 @@ class NuevaAsistencia extends Component {
                             <FormGroup style={{display: 'flex', justifyContent: 'space-between'}}>
                                 <InputGroup>
                                 <InputGroup.Addon>Fecha y Hora Entrada</InputGroup.Addon>
-                                <FormControl onChange={this.handleChangetimeIn} name="timeIn" style={{width: 200}} type="datetime-local" max="9999-12-12T00:00:00.00" required/>
+                                <FormControl defaultValue={this.state.actualDate} onChange={this.handleChangetimeIn} name="timeIn" style={{width: 200}} type="datetime-local" max="9999-12-12T00:00:00.00" required/>
                                 </InputGroup>
                                 <InputGroup>
                                 <InputGroup.Addon>Fecha y Hora Salida</InputGroup.Addon>

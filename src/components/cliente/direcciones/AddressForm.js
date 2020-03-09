@@ -261,11 +261,11 @@ class AddressForm extends Component {
 
           { this.state.vali === false ? 
           
-          <button style={{marginLeft: "10px", width: 80}} className="btn btn-primary" disabled>Enviar</button>
+          <button style={{marginLeft: "10px", width: 80}} className="btn btn-primary" disabled>Aceptar</button>
 
           :
 
-          <button type="submit" style={{marginLeft: "10px", width: 80}} className="btn btn-primary" onClick={() => this.enviarDatos()}>Enviar</button>
+          <button type="submit" style={{marginLeft: "10px", width: 80}} className="btn btn-primary" onClick={() => this.enviarDatos()}>Aceptar</button>
 
           }
           

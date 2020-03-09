@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios'
 
 //Componentes
 import Paper from '@material-ui/core/Paper';

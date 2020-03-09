@@ -6,6 +6,9 @@ import { Tab, Row, Col, Nav, NavItem, Checkbox } from 'react-bootstrap';
 import Paper from '@material-ui/core/Paper';
 import { Redirect } from 'react-router-dom';
 
+//CSS
+import Swal from 'sweetalert2'
+
 //Assets
 import Header from '../../header/IndexHeader';
 
@@ -160,16 +163,84 @@ class EditarRol extends Component {
     }
 
     toggleChangePedidoView = (e) => {
-        this.setState(prevState => ({
-            PedidoView: !prevState.PedidoView,
-        }));
+
+        /**********
+         * 
+         * 
+
+         * 
+         * 
+         * 
+         * */
+
+        if(this.state.PedidoView === true){
+
+            this.setState(prevState => ({
+                PedidoView: !prevState.PedidoView,
+            })); 
+
+        }else{
+
+            Swal.fire({
+                title: 'Este permiso esta vinculado con los permisos',
+                text: "-Ver Producto, -Ver Cliente, -Ver Usuarios ¿Desea agregarlos?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar'
+              }).then((result) => {
+                if (result.value) {
+                    this.setState(prevState => ({
+                        PedidoView: true,
+                        ProductoView: true,
+                        ClientView: true,
+                        UserView: true,
+                    }));
+                }else{
+                    return ;
+                }
+            })
+
+        }
     }
 
     toggleChangePedidoEdit = () => {
-        this.setState(prevState => ({
-            PedidoEdit: !prevState.PedidoEdit,
-        }));
-    }
+
+        if(this.state.PedidoEdit === true){
+
+            this.setState(prevState => ({
+                PedidoEdit: !prevState.PedidoEdit,
+            })); 
+
+        }else{
+
+        Swal.fire({
+            title: 'Este permiso esta vinculado con los permisos',
+            text: "-Ver Pedido, -Ver Producto, -Ver Cliente, -Ver Usuarios ¿Desea agregarlos?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+          }).then((result) => {
+            if (result.value) {
+                this.setState(prevState => ({
+                    PedidoEdit: true,
+                    PedidoView: true,
+                    ProductoView: true,
+                    ClientView: true,
+                    UserView: true,
+                }));
+            }else{
+                return ;
+            }
+        })
+
+        }
+    } 
 
     toggleChangePedidoDelete = () => {
         this.setState(prevState => ({
