@@ -121,6 +121,7 @@ class NuevoPedido extends Component {
       finalTotal : '0',
       finalAmmount : 0,
       redirectHome: false,
+      redirectPedido: false,
     }
   }
 
@@ -240,6 +241,19 @@ class NuevoPedido extends Component {
     })
   }
 
+  ToPedidos(){
+    if (this.state.redirectPedido) {
+      return <Redirect to='/pedidos' />
+    }
+  }
+
+  setRedirectToPedido = () => {
+    this.setState({
+      redirectPedido: true
+    })
+  }
+
+
   mostrarProductosListos = () => {
     if (this.state.selectedProductsOption == null || this.state.selectedProductsOption === null) return null;
     // console.log(this.state.selectedProductsOption);
@@ -340,7 +354,7 @@ class NuevoPedido extends Component {
           </div>
           <div className="form-group">
               <label>Telefono</label>
-              <input ref={this.telefonoRef} defaultValue={this.state.telefono} type="number" min="1" step="1" title="Numbers only" className="form-control" required/>
+              <input ref={this.telefonoRef} defaultValue={this.state.telefonoClient} type="number" min="1" step="1" title="Numbers only" className="form-control" required/>
           </div>
         </div>
       </div>
@@ -373,7 +387,7 @@ class NuevoPedido extends Component {
           </div>
           <div className="form-group">
               <label>Codigo Postal</label>
-              <input ref={this.cpRef} type="text" className="form-control"/>
+              <input ref={this.cpRef} type="text" className="form-control" required/>
           </div>
         </div>
       </div>
@@ -592,7 +606,13 @@ class NuevoPedido extends Component {
         title: 'Atencion!',
         text: 'La solicitud fue guardada en la bandeja se enviara una vez se restablezca la conexion',
         type: 'warning',
-        confirmButtonText: 'Ok'
+        confirmButtonText: 'Volver'
+      }).then((result) => {
+        if (result.value) {
+            this.setState({
+              redirectPedido : true
+            })
+        }
       })
 
     }else if(localStorage.getItem('status') == "offline" && this.state.direDeCliente === true){
@@ -638,7 +658,13 @@ class NuevoPedido extends Component {
         title: 'Atencion!',
         text: 'La solicitud fue guardada en la bandeja se enviara una vez se restablezca la conexion',
         type: 'warning',
-        confirmButtonText: 'Ok'
+        confirmButtonText: 'Volver'
+      }).then((result) => {
+        if (result.value) {
+            this.setState({
+              redirectPedido : true
+            })
+        }
       })
 
     }else{
@@ -1043,6 +1069,7 @@ class NuevoPedido extends Component {
                   <input type="submit" value="Aceptar" className="btn btn-primary" required />
                   <button style={{marginLeft: 20, width: 80}} onClick={this.setRedirectToHome} type="button" className="btn btn-danger">Cancelar</button>
                   {this.ToHome()}
+                  {this.ToPedidos()}
                 </div>
               </form>
             </div>

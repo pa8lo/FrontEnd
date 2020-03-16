@@ -551,7 +551,7 @@ class mostrarPedidosOffline extends Component {
 
 
             <div align="center">
-            <h2 style={{marginTop:"50px"}}>Pedidos Completos</h2>
+            <h2 style={{marginTop:"50px"}}>Pedidos Encolados</h2>
             </div>
             
             { JSON.parse(localStorage.getItem('pedidoCompleto')).length > 0 ?
@@ -679,16 +679,16 @@ class mostrarPedidosOffline extends Component {
             :
 
             <div align="center" className="form-group">
-                <h3 style={{marginTop:'20px'}}>No hay datos</h3>
+                {/* <h3 style={{marginTop:'20px'}}>No hay datos</h3> */}
             </div>
 
             }
 
-            <hr></hr>
+            {/* <hr></hr> */}
 
-            <div align="center">
+            {/* <div align="center">
             <h2 style={{marginTop:"50px"}}>Pedidos Con Cliente Existente</h2>
-            </div>
+            </div> */}
 
             { JSON.parse(localStorage.getItem('pedidoSemiCompleto')).length > 0 ?
             
@@ -838,16 +838,16 @@ class mostrarPedidosOffline extends Component {
             :
 
             <div align="center" className="form-group">
-                <h3 style={{marginTop:'20px'}}>No hay datos</h3>
+                {/* <h3 style={{marginTop:'20px'}}>No hay datos</h3> */}
             </div>
 
             }
             
-            <hr></hr>
+            {/* <hr></hr> */}
 
-            <div align="center">
+            {/* <div align="center">
             <h2 style={{marginTop:"50px"}}>Solo Pedidos</h2>
-            </div>
+            </div> */}
 
            { JSON.parse(localStorage.getItem('enviarPedido')).length > 0 ?
             
@@ -994,16 +994,16 @@ class mostrarPedidosOffline extends Component {
             :
 
             <div align="center" className="form-group">
-                <h3 style={{marginTop:'20px'}}>No hay datos</h3>
+                {/* <h3 style={{marginTop:'20px'}}>No hay datos</h3> */}
             </div>
 
             }
 
-            <hr></hr>
+            {/* <hr></hr> */}
 
-            <div align="center">
+            {/* <div align="center">
             <h2 style={{marginTop:"50px"}}>Cambio de Estado de Pedidos</h2>
-            </div>
+            </div> */}
 
            { JSON.parse(localStorage.getItem('pedidoCambioEstado')).length > 0 ?
             
@@ -1051,7 +1051,7 @@ class mostrarPedidosOffline extends Component {
             :
 
             <div align="center" className="form-group">
-                <h3 style={{marginTop:'20px'}}>No hay datos</h3>
+                {/* <h3 style={{marginTop:'20px'}}>No hay datos</h3> */}
             </div>
 
             }
