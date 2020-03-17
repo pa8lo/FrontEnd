@@ -64,7 +64,7 @@ class ActionRolComponent extends React.Component {
     }
 
   render() {
-    
+
     if(this.props.Permisos.length === 0) return null;
 
     const permisos = this.props.Permisos.Authorizations;
@@ -73,7 +73,7 @@ class ActionRolComponent extends React.Component {
 
     return (
         <td style={columnButtonStyle}>
-            { permisos.filter(permiso => (permiso.id == 10)) ?  
+            { permisos.filter(permiso => (permiso.id == 10)).length > 0 ?  
 
                 <Link style={buttonStyle} to={{
                     pathname : `/rrhh/roles/${id}`,
@@ -91,7 +91,7 @@ class ActionRolComponent extends React.Component {
                 </Link>
             }
 
-            { permisos.filter(permiso => (permiso.id == 11)) ?
+            { permisos.filter(permiso => (permiso.id == 11)).length > 0 ?
 
                 <Link style={buttonStyle} to={{
                     pathname : `/rrhh/editar-roles/${id}`,
@@ -110,7 +110,7 @@ class ActionRolComponent extends React.Component {
 
             }
 
-            { permisos.filter(permiso => (permiso.id == 12)) ?
+            { permisos.filter(permiso => (permiso.id == 12)).length > 0 ?
 
                 <button style={buttonStyle} onClick={ this.eliminarRol } type="button" className="btn btn-danger">Borrar</button>
                 

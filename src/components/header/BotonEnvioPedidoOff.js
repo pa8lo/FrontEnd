@@ -100,7 +100,8 @@ class EnviarPedidosOff extends Component {
           Clients : JSON.parse(localStorage.getItem('enviarPedido'))[i].client,
           CombosPorPedido : JSON.parse(localStorage.getItem('enviarPedido'))[i].combo,
           ProductosPorPedido : JSON.parse(localStorage.getItem('enviarPedido'))[i].product,
-          Adress : JSON.parse(localStorage.getItem('enviarPedido'))[i].address
+          Adress : JSON.parse(localStorage.getItem('enviarPedido'))[i].address,
+          Observaciones : JSON.parse(localStorage.getItem('enviarPedido'))[i].observacion
         }
 
         // console.log(data);
@@ -137,12 +138,19 @@ class EnviarPedidosOff extends Component {
               type: 'error',
               confirmButtonText: 'Aceptar'
           })
+          setTimeout(function(){ 
+            window.location.reload();
+          }, 3500);
           return;
       })
 
       }
 
-      // localStorage.setItem('enviarPedido', JSON.stringify([]))
+      /**
+       * 
+       * Pedido SemiCompleto
+       * 
+       */
 
         this.state = {
           'address': {
@@ -259,7 +267,8 @@ class EnviarPedidosOff extends Component {
                                       Clients : res_dire.data.Client,
                                       CombosPorPedido : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[i].pedido.CombosPorPedido,
                                       ProductosPorPedido : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[i].pedido.ProductosPorPedido,
-                                      Adress : res_dire.data.id
+                                      Adress : res_dire.data.id,
+                                      Observaciones : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[i].pedido.observacion
                                     }
                                     ,
                                     {headers: { 'access-token': localStorage.getItem('access-token')}})
@@ -372,7 +381,8 @@ class EnviarPedidosOff extends Component {
                                       Clients : res_dire.data.Client,
                                       CombosPorPedido : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[i].pedido.CombosPorPedido,
                                       ProductosPorPedido : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[i].pedido.ProductosPorPedido,
-                                      Adress : res_dire.data.id
+                                      Adress : res_dire.data.id,
+                                      Observaciones : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[i].pedido.observacion
                                     }
                                     ,
                                     {headers: { 'access-token': localStorage.getItem('access-token')}})
@@ -579,7 +589,8 @@ class EnviarPedidosOff extends Component {
                                       Clients : res_dire.data.Client,
                                       CombosPorPedido : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.CombosPorPedido,
                                       ProductosPorPedido : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.ProductosPorPedido,
-                                      Adress : res_dire.data.id
+                                      Adress : res_dire.data.id,
+                                      Observaciones : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.observacion
                                     }
                                     ,
                                     {headers: { 'access-token': localStorage.getItem('access-token')}})
@@ -707,7 +718,8 @@ class EnviarPedidosOff extends Component {
                                       Clients : res_dire.data.Client,
                                       CombosPorPedido : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.CombosPorPedido,
                                       ProductosPorPedido : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.ProductosPorPedido,
-                                      Adress : res_dire.data.id
+                                      Adress : res_dire.data.id,
+                                      Observaciones : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.observacion
                                     }
                                     ,
                                     {headers: { 'access-token': localStorage.getItem('access-token')}})
@@ -854,7 +866,8 @@ class EnviarPedidosOff extends Component {
                                       Clients : res_dire.data.Client,
                                       CombosPorPedido : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.CombosPorPedido,
                                       ProductosPorPedido : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.ProductosPorPedido,
-                                      Adress : res_dire.data.id
+                                      Adress : res_dire.data.id,
+                                      Observaciones : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.observacion
                                     }
                                     ,
                                     {headers: { 'access-token': localStorage.getItem('access-token')}})
@@ -981,7 +994,8 @@ class EnviarPedidosOff extends Component {
                                       Clients : res_dire.data.Client,
                                       CombosPorPedido : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.CombosPorPedido,
                                       ProductosPorPedido : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.ProductosPorPedido,
-                                      Adress : res_dire.data.id
+                                      Adress : res_dire.data.id,
+                                      Observaciones : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.observacion
                                     }
                                     ,
                                     {headers: { 'access-token': localStorage.getItem('access-token')}})

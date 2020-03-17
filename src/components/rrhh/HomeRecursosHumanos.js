@@ -116,6 +116,12 @@ class HomeRecursosHumanos extends Component {
 
             this.state.permisosRoles = permisosRoles;
 
+            let permisoRestaurant = [];
+
+            permisoRestaurant = this.props.usuario.Authorizations.filter(permiso => (permiso.id == 9))
+
+            this.state.permisoRestaurant = permisoRestaurant;
+
             // let permisosTurnos = [];
             
             // permisosTurnos = this.props.usuario.Authorizations.filter(permiso => (permiso.id >= 28 && permiso.id <= 31));
@@ -213,7 +219,8 @@ class HomeRecursosHumanos extends Component {
     }
 
     permisoABMRestaurant(){
-        if(this.state.permisosUsuario.length === 0){
+        console.log(this.state.permisoRestaurant);
+        if(this.state.permisoRestaurant.length === 0){
             return(
             <Link style={buttonStyle} disabled to="#" className="btn btn-danger">
                 <h3>Restaurant</h3>

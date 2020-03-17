@@ -97,6 +97,7 @@ class NuevoPedido extends Component {
   pisoRef = React.createRef();
   deptoRef = React.createRef();
   cpRef = React.createRef();
+  obvservacionesRef = React.createRef();
 
   constructor(...args) {
     super(...args);
@@ -590,6 +591,7 @@ class NuevoPedido extends Component {
         ProductosPorPedido: productFiltered,
         CombosPorPedido: comboFiltered,
         State: 1,
+        observacion : this.obvservacionesRef.current.value
       }
 
       let arrayPedido = JSON.parse(localStorage.getItem('pedidoCompleto'));
@@ -643,6 +645,7 @@ class NuevoPedido extends Component {
         CombosPorPedido: comboFiltered,
         Client: this.state.cliente_encontrado_offline,
         State: 1,
+        observacion : this.obvservacionesRef.current.value
       }
 
       let arrayPedidoSemiCompleto = JSON.parse(localStorage.getItem('pedidoSemiCompleto'));
@@ -679,18 +682,69 @@ class NuevoPedido extends Component {
         return;
       }
 
-      const pedido = {
-        date: fecha,
-        user: localStorage.getItem('usuario'),
-        amount: this.state.finalAmmount,
-        product: productFiltered,
-        combo: comboFiltered,
-        state: 1,
-        client: this.state.direElegida.cliente.cliente,
-        address: this.state.direElegida.id.id
-      }
+      if(localStorage.getItem('status') == 'offline'){
+      
+        /**
+         * 
+         * 
+         * 
+         * 
+         * 
+         * 
+         */
 
-      this.props.agregarPedido(pedido);
+         const pedido = {
+          date: fecha,
+          user: localStorage.getItem('usuario'),
+          amount: this.state.finalAmmount,
+          product: productFiltered,
+          combo: comboFiltered,
+          state: 1,
+          client: this.state.direElegida.cliente.cliente,
+          address: this.state.direElegida.id.id,
+          observacion : this.obvservacionesRef.current.value
+        }
+
+        let obtenerPedidoAEnviar = localStorage.getItem('enviarPedido');
+                    
+        let deserializarPedidoAEnviar 
+              
+        deserializarPedidoAEnviar = JSON.parse(obtenerPedidoAEnviar);
+              
+        deserializarPedidoAEnviar.push(pedido);
+              
+        localStorage.setItem('enviarPedido', JSON.stringify(deserializarPedidoAEnviar))
+
+        Swal.fire({
+          title: 'Atencion!',
+          text: 'La solicitud fue guardada en la bandeja se enviara una vez se restablezca la conexion',
+          type: 'warning',
+          confirmButtonText: 'Volver'
+        }).then((result) => {
+          if (result.value) {
+              this.setState({
+                redirectPedido : true
+              })
+          }
+        })
+         
+      }else{
+
+        const pedido = {
+          date: fecha,
+          user: localStorage.getItem('usuario'),
+          amount: this.state.finalAmmount,
+          product: productFiltered,
+          combo: comboFiltered,
+          state: 1,
+          client: this.state.direElegida.cliente.cliente,
+          address: this.state.direElegida.id.id,
+          observacion : this.obvservacionesRef.current.value
+        }
+
+        this.props.agregarPedido(pedido);
+
+      }
 
     }
     
@@ -761,12 +815,12 @@ class NuevoPedido extends Component {
                   
 
                   direccion.Floor == "null" || direccion.Floor == null ?
-                
-                  direccion.Floor = ""
+                  
+                    direccion.Floor = ""
 
-                  :
+                    :
 
-                  direccion.Floor = direccion.Floor,
+                    direccion.Floor = direccion.Floor,
 
                   // console.log(direccion)
                   this.state.direcciones.push({ id: direccion.id, LatLong: direccion.LatLong, Client: direccion.Client, Address: direccion.Adress + " " + direccion.Floor + " " + direccion.Department + " " + direccion.Cp })
@@ -1059,7 +1113,7 @@ class NuevoPedido extends Component {
                 {this.mostrarProductosListos()}
                 <hr></hr>
                 <div style={{marginTop: "20px"}} className="form-group">
-                  <textarea placeholder="Observaciones" className="form-control"></textarea>
+                  <textarea placeholder="Observaciones" ref={this.obvservacionesRef} className="form-control"></textarea>
                 </div>
                 <div style={{marginTop: "20px", marginBottom:"-10px"}} align="center" className="form-group">
                 <label>Valor Total: {this.mostrarValorTotal()} {this.state.finalAmmount}</label>

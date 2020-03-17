@@ -29,7 +29,7 @@ class Roles extends Component {
                     <ListaRoles/>
                     <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
                         
-                        { permisos.filter(permiso => (permiso.id == 9)) ?  
+                        { permisos.filter(permiso => (permiso.id == 9)).length > 0 ?  
                 
                              <Link to={`/rrhh/alta-rol`} className="btn btn-success">Nuevo Rol</Link> 
 

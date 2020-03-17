@@ -122,7 +122,7 @@ export const eliminarPedido = (id) => async dispatch => {
 
 export const agregarPedido = (pedido) => async dispatch => {
 
-    const {date, user, amount, state, combo, client, product, address} = pedido;
+    const {date, user, amount, state, combo, client, product, address, observacion} = pedido;
 
     const data = {
         Date : date,
@@ -132,7 +132,8 @@ export const agregarPedido = (pedido) => async dispatch => {
         Clients : client,
         CombosPorPedido : combo,
         ProductosPorPedido : product,
-        Adress : address
+        Adress : address,
+        Observaciones : observacion
     }
 
     // console.log(data)
@@ -263,7 +264,7 @@ export const asignarDelivery = (line) => async dispatch => {
 
 export const editarPedido = (pedido) => async dispatch => {
 
-    const {id, date, user, amount, state, combo, client, product, address} = pedido;
+    const {id, date, user, amount, state, combo, client, product, address, observacion} = pedido;
 
     const data = {
         id : id,
@@ -274,7 +275,8 @@ export const editarPedido = (pedido) => async dispatch => {
         Clients : client,
         CombosPorPedido : combo,
         ProductosPorPedido : product,
-        Adress : address
+        Adress : address,
+        Observaciones : observacion
     }
 
     //console.log(data)

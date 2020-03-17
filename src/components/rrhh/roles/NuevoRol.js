@@ -77,15 +77,79 @@ class NuevoRol extends Component {
     }
 
     toggleChangeUserView = (e) => {
-        this.setState(prevState => ({
-            UserView: !prevState.UserView,
-        }));
+        
+
+        /**********
+         * 
+         * 
+
+         * 
+         * 
+         * 
+         * */
+
+        if(this.state.UserView === true){
+
+            this.setState(prevState => ({
+                UserView: !prevState.UserView,
+            }));
+
+        }else{
+
+            Swal.fire({
+                title: 'Este permiso esta vinculado con los permisos',
+                text: "-Ver Roles ¿Desea agregarlos?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar'
+              }).then((result) => {
+                if (result.value) {
+                    this.setState(prevState => ({
+                        UserView : true,
+                        RolView: true,
+                    }));
+                }else{
+                    return ;
+                }
+            })
+
+        }
     }
 
     toggleChangeUserEdit = () => {
-        this.setState(prevState => ({
-            UserEdit: !prevState.UserEdit,
-        }));
+        
+
+        if(this.state.UserEdit === true){
+
+            this.setState(prevState => ({
+                UserEdit: !prevState.UserEdit,
+            }));
+
+        }else{
+
+            Swal.fire({
+                title: 'Este permiso esta vinculado con los permisos',
+                text: "-Ver Roles ¿Desea agregarlos?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar'
+              }).then((result) => {
+                if (result.value) {
+                    this.setState(prevState => ({
+                        UserEdit: true,
+                        RolView: true,
+                    }));
+                }else{
+                    return ;
+                }
+            })
+        }
     }
 
     toggleChangeUserDelete = () => {

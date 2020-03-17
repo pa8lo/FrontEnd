@@ -52,8 +52,7 @@ class PedidoIndividual extends Component {
     
 
     componentDidMount(){
-  
-      
+
       JSON.parse(localStorage.getItem('pedidos')).map(cliente => {
 
           if(cliente.Date === this.props.location.state.Date){
@@ -337,7 +336,7 @@ class PedidoIndividual extends Component {
                         {this.mostrarProductosListos()}
                         <hr></hr>
                         <div style={{marginTop: "20px"}} className="form-group">
-                          <textarea disabled placeholder="Observaciones" className="form-control"></textarea>
+                          <textarea disabled placeholder="Observaciones" value={this.props.location.state.Observaciones} className="form-control"></textarea>
                         </div>
                         <div style={{marginTop: "20px", marginBottom:"-10px"}} align="center" className="form-group">
                         <label>Valor Total: {this.mostrarValorTotal()} {this.state.finalAmmount}</label>
