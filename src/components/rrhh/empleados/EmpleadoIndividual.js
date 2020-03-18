@@ -181,7 +181,8 @@ class EmpleadoIndividual extends Component {
         this.state = {
             empleado : [],
             modalShow: false,
-            roles : []
+            roles : [],
+            rol_encontrado_1 : []
         }
 
     }
@@ -240,30 +241,112 @@ class EmpleadoIndividual extends Component {
       let rol_encontrado = [];
 
       this.state.roles.map(rol => (
-          rol_encontrado = this.state.roles.filter(id_rol => (id_rol.id === this.props.empleado.user.Rols))
+          rol_encontrado = this.state.roles.filter(id_rol => (id_rol.id === this.props.empleado.user.Rols)),
+          this.state.rol_encontrado_1 = this.state.roles.filter(id_rol => (id_rol.id === this.props.empleado.user.Rols))
       ))
 
-      if(this.props.rol == "undefinded" && rol_encontrado.length === 0) return(
-        <div style={{marginTop: '40px', marginBottom: '40px'}}>
-            <DotLoader
-            css={override}
-            size={50} // or 150px
-            color={"#4D4D4D"}
-            loading={this.state.loading}
-            />
-        </div>
+      if(this.props.rol == "undefinded" && rol_encontrado.length === 0)
+      return (
+        <React.Fragment>
+          <Container style={{marginTop:10}}>
+            <Panel style={{color:"black"}}>
+            <Panel.Heading>
+                  <Panel.Title componentClass="h3" style={{textAlign:'center'}}>Datos Personales</Panel.Title>
+                </Panel.Heading>
+              
+                <Panel.Body xs={4}><h2 xs={4}>Nombre: {this.props.empleado.user.Name}</h2>
+                <h2 xs={4}>Apellido: {this.props.empleado.user.LastName}</h2>
+                <h2>Email: {this.props.empleado.user.Email}</h2>
+                <h2>1º Telefono: {this.props.empleado.user.PrimaryPhone}</h2>
+                <h2>DNI: {this.props.empleado.user.Dni}</h2>
+                <h2>Rol: Sin Rol</h2></Panel.Body>
+            
+            <Panel.Heading>
+                  <Panel.Title componentClass="h3" style={{textAlign:'center'}}>Domicilios</Panel.Title>
+                </Panel.Heading>
+           
+                {this.props.empleado.user.Adress.map(address => (
+                  <React.Fragment key = {address.id}>
+                  
+                <Panel.Body key = {address.id}><h2>Domicilio: {address.Adress}</h2>
+                <h2>Piso: {address.Floor}</h2>
+                <h2>Departamento: {address.Department}</h2>
+                <h2>Codigo Postal: {address.Cp}</h2>
+                </Panel.Body>
+                <Panel.Body>
+                <hr></hr>
+                </Panel.Body>
+                </React.Fragment>
+                    // console.log(address)
+                ))}
+                {/* <Col xs={4}><h2>Rol: {this.props.empleado.user.Rols}</h2></Col> */}
+                </Panel>
+                
+          </Container>
+        </React.Fragment>
       );
+      // return
+      // (
+        // <div style={{marginTop: '40px', marginBottom: '40px'}}>
+        //     <DotLoader
+        //     css={override}
+        //     size={50} // or 150px
+        //     color={"#4D4D4D"}
+        //     loading={this.state.loading}
+        //     />
+        // </div>
+      // );
 
-      if(rol_encontrado[0] == undefined) return (
-          <div style={{marginTop: '40px', marginBottom: '40px'}}>
-              <DotLoader
-              css={override}
-              size={50} // or 150px
-              color={"#4D4D4D"}
-              loading={this.state.loading}
-              />
-          </div>
-      )
+      if(rol_encontrado[0] == undefined)
+      return (
+        <React.Fragment>
+          <Container style={{marginTop:10}}>
+            <Panel style={{color:"black"}}>
+            <Panel.Heading>
+                  <Panel.Title componentClass="h3" style={{textAlign:'center'}}>Datos Personales</Panel.Title>
+                </Panel.Heading>
+              
+                <Panel.Body xs={4}><h2 xs={4}>Nombre: {this.props.empleado.user.Name}</h2>
+                <h2 xs={4}>Apellido: {this.props.empleado.user.LastName}</h2>
+                <h2>Email: {this.props.empleado.user.Email}</h2>
+                <h2>1º Telefono: {this.props.empleado.user.PrimaryPhone}</h2>
+                <h2>DNI: {this.props.empleado.user.Dni}</h2>
+                <h2>Rol: Sin Rol</h2></Panel.Body>
+            
+            <Panel.Heading>
+                  <Panel.Title componentClass="h3" style={{textAlign:'center'}}>Domicilios</Panel.Title>
+                </Panel.Heading>
+           
+                {this.props.empleado.user.Adress.map(address => (
+                  <React.Fragment key = {address.id}>
+                  
+                <Panel.Body key = {address.id}><h2>Domicilio: {address.Adress}</h2>
+                <h2>Piso: {address.Floor}</h2>
+                <h2>Departamento: {address.Department}</h2>
+                <h2>Codigo Postal: {address.Cp}</h2>
+                </Panel.Body>
+                <Panel.Body>
+                <hr></hr>
+                </Panel.Body>
+                </React.Fragment>
+                    // console.log(address)
+                ))}
+                {/* <Col xs={4}><h2>Rol: {this.props.empleado.user.Rols}</h2></Col> */}
+                </Panel>
+                
+          </Container>
+        </React.Fragment>
+    );
+      // (
+      //     <div style={{marginTop: '40px', marginBottom: '40px'}}>
+      //         <DotLoader
+      //         css={override}
+      //         size={50} // or 150px
+      //         color={"#4D4D4D"}
+      //         loading={this.state.loading}
+      //         />
+      //     </div>
+      // )
 
       return (
           <React.Fragment>
@@ -342,6 +425,7 @@ class EmpleadoIndividual extends Component {
 
         else{
 
+          console.log(this.state.rol_encontrado_1)
           return (
           
             <div>
@@ -397,7 +481,7 @@ class EmpleadoIndividual extends Component {
               
                   }
 
-                  { permisos.filter(permiso => (permiso.id == 5)) ?  
+                  { permisos.filter(permiso => (permiso.id == 5)) && this.state.rol_encontrado_1.length !== 0 ?  
                   
                     <Link style={buttonStyle} to={{
                         pathname : `/rrhh/roles/${this.props.empleado.user.Rols}`

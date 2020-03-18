@@ -56,7 +56,20 @@ class ActionRolComponent extends React.Component {
             cancelButtonText: 'Cancelar'
           }).then((result) => {
             if (result.value) {
-                this.props.eliminarRol(id);
+                Swal.fire({
+                    title: 'El rol de estar vinculado a un usuario se eliminara y se colocaran permisos particulares a este. Esto va a poder ser modificado asignando otro rol',
+                    text: "Esta a punto de borrar el rol y utilizar permisos individuales",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Confirmar',
+                    cancelButtonText: 'Cancelar'
+                  }).then((result) => {
+                    if (result.value) {
+                        this.props.eliminarRol(id);
+                    }
+                  })
             }
           })
 
