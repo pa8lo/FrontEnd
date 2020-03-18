@@ -227,8 +227,23 @@ class ListadoPedidos extends Component {
                 )
             }else{
 
+                
+
                 if (pedidos[0].State == "" || pedidos[0].Amount == "" || pedidos[0].Clients == " ") {
                     this.reload();
+                }
+
+                if(pedidos[i] === undefined || pedidos[i] === "undefined"){
+                    
+                    let pedido_undefined = {
+                        Adress : {
+                            Adress : "Sin Dato",
+                            Floor : "Sin datos",
+                            Department : "Sin datos"
+                        }
+                    }
+                    
+                    pedidos[i] = pedido_undefined
                 }
 
                 for (var i = 0; i < pedidos.length; i++) {
@@ -259,32 +274,38 @@ class ListadoPedidos extends Component {
 
                     pedidos[i].Clients = (client_name + " " + client_surname) || '';
                     
+                    if(pedidos[i].Adress == null){
 
-                    if(pedidos[i].Adress.Adress == null){
-                        direccion = '';
+                        pedidos[i].Adress = 'Sin Direccion';
+
                     }else{
-                        direccion = pedidos[i].Adress.Adress;
-                    }
 
-                    if(pedidos[i].Adress.Floor == null){
-                        piso = '';
-                    }else{
-                        piso = pedidos[i].Adress.Floor;
-                    }
+                        if(pedidos[i].Adress.Adress == null){
+                            direccion = '';
+                        }else{
+                            direccion = pedidos[i].Adress.Adress;
+                        }
 
-                    if(pedidos[i].Adress.Department == null){
-                        dpto = '';
-                    }else{
-                        dpto = pedidos[i].Adress.Department;
-                    }
+                        if(pedidos[i].Adress.Floor == null){
+                            piso = '';
+                        }else{
+                            piso = pedidos[i].Adress.Floor;
+                        }
 
-                    pedidos[i].Adress = direccion + " " + piso + " " + dpto;
+                        if(pedidos[i].Adress.Department == null){
+                            dpto = '';
+                        }else{
+                            dpto = pedidos[i].Adress.Department;
+                        }
+
+                        pedidos[i].Adress = direccion + " " + piso + " " + dpto;
 
 
-                    if (pedidos[i].Delivery == null) {
-                        pedidos[i].Deliverys = "Sin Asignar"
-                    } else {
-                        pedidos[i].Deliverys = pedidos[i].Delivery.Name + " " + pedidos[i].Delivery.LastName;
+                        if (pedidos[i].Delivery == null) {
+                            pedidos[i].Deliverys = "Sin Asignar"
+                        } else {
+                            pedidos[i].Deliverys = pedidos[i].Delivery.Name + " " + pedidos[i].Delivery.LastName;
+                        }
                     }
                 }
 
