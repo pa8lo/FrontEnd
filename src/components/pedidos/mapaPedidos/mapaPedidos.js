@@ -47,12 +47,18 @@ class MapaPedidos extends Component {
 
               if (pedidos[i].State.Description != "Rechazado" && pedidos[i].State.Description != "Entregado") {
 
+                if(pedidos[i].Adress == null){
+                  pedidos[i].Adress = "1;1"
+                }
+
                 if(pedidos[i].Adress.LatLong === "latlong"){
 
                   
    
                 }else{
-                
+                  
+                  console.log(pedidos[i].Adress)
+
                   location.push(pedidos[i].Adress.LatLong.split(";"));
                   order_id.push(pedidos[i].id);
 

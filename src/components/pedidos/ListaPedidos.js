@@ -277,6 +277,7 @@ class ListadoPedidos extends Component {
                     if(pedidos[i].Adress == null){
 
                         pedidos[i].Adress = 'Sin Direccion';
+                        pedidos[i].Deliverys = 'Sin Asignar'
 
                     }else{
 

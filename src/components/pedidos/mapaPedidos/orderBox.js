@@ -64,6 +64,14 @@ class ActionOrderComponent extends React.Component {
 
         let pedido = (JSON.parse(localStorage.getItem('pedidos')).filter(pedido => (pedido.id === id)))
 
+        if(pedido[0].Adress == null){
+            pedido[0].Adress = {
+                Adress : "Sin Direccion",
+                Department : "Sin Direccion",
+                Floor : "Sin Direccion"
+            }
+        }
+
         pedido[0].Adress = (pedido[0].Adress.Adress + " " + pedido[0].Adress.Floor || "" + " " + pedido[0].Adress.Department || "")
 
         // console.log(pedido[0].Clients.Phone)
@@ -162,6 +170,21 @@ class OrderBox extends React.Component {
 
                     }
 
+                    console.log(pedidos[i].Adress)
+
+                    if(pedidos[i].Adress == null){
+                        
+                        pedidos[i].Adress = {
+                            Adress : "Sin Direccion",
+                            Department : "",
+                            Floor : "",
+                            Cp : "",
+                            LatLong : "1;1"
+                        }
+
+                        console.log(pedidos[i].Adress)
+                    }
+
                     if(pedidos[i].Adress.LatLong == "latlong"){
 
                         orders.push({
@@ -195,7 +218,13 @@ class OrderBox extends React.Component {
 
                     if(typeof(pedidos[i].Adress) === "object"){
 
-                    if(pedidos[i].Adress == null || pedidos[i].Adress == "" || pedidos[i].Adress == []) return null
+                    if(pedidos[i].Adress == null || pedidos[i].Adress == "" || pedidos[i].Adress == []) {
+                        pedidos[i].Adress = {
+                            Adress : "Sin Direccion",
+                            Cp : " ",
+                            LatLong : "1;1"
+                        }
+                    }
 
                     if(pedidos[i].Adress.Department == null || pedidos[i].Adress.Department == "null" 
                     || pedidos[i].Adress.Department == " " || pedidos[i].Adress.Department == ""){
