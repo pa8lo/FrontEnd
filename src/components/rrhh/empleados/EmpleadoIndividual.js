@@ -477,7 +477,10 @@ class EmpleadoIndividual extends Component {
 
                   :  
 
-                    <Button style={{marginLeft: 10, width: 150}} to="#" disabled className="btn btn-success">Agregar Direccion</Button> 
+                    <Button style={{marginLeft: 10, width: 150}} to="#" 
+                      disabled className="btn btn-success">
+                      Agregar Direccion
+                    </Button> 
               
                   }
 

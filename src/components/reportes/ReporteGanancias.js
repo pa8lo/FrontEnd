@@ -145,7 +145,6 @@ class ReporteGanancias extends Component {
               <th style={{textAlign:"center"}}>#</th>
               <th style={{textAlign:"center"}}>Fecha del Ganancia</th>
               <th style={{textAlign:"center"}}>Monto del Ganancia</th>
-              <th style={{textAlign:"center"}}>Usuario Genero Ganancia</th>
             </tr>
           </thead>
           <tbody>
@@ -157,7 +156,6 @@ class ReporteGanancias extends Component {
                   <td>{count++}</td>
                   <td>{ganan.Date}</td>
                   <td>{ganan.Amount}</td>
-                  <td>{ganan.Users}</td>
                 </tr>
 
             ))
@@ -191,7 +189,7 @@ class ReporteGanancias extends Component {
           </div>
         </DateRangePicker>
 
-        <h3 style={{textAlign: 'center'}}>Ganancias</h3>
+        <h3 style={{textAlign: 'center'}}>Ganancias Brutas</h3>
         {this.mostrarInfo()}
       </div>
     );

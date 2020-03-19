@@ -1,11 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 
-import DoughnutExample from './doughnut';
-import DynamicDoughnutExample from './dynamic-doughnut';
-import PieExample from './pie';
-import HorizontalBarExample from './horizontalBar';
-
 import ReporteGanancias from './ReporteGanancias';
 import ReporteGastos from './ReporteGastos';
 import ReportePedidosPorHora from './ReportePedidosPorHora'
@@ -58,19 +53,17 @@ class ListaReportes extends Component {
                     {/* <hr /> */}
                     {/* <DynamicDoughnutExample /> */}
                     {/* <DoughnutExample /> */}
-                    <hr />
-                    {/* <PieExample /> */}
-                    <hr />
-                    <div >
-                    <ReporteGanancias />
-                    </div>
-                    <hr />
-                    <div>
+                    
+                    <div style={{marginTop:'30px'}}>
                     <ReporteGastos />
                     </div>
                     <hr />
                     <div>
                     <ReportePedidosPorHora/>
+                    </div>
+                    <hr />
+                    <div>
+                    <ReporteGanancias />
                     </div>
                     {/* <HorizontalBarExample /> */}
                     <hr /> 
