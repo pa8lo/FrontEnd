@@ -239,7 +239,7 @@ class NuevoRol extends Component {
 
             Swal.fire({
                 title: 'Este permiso esta vinculado con los permisos',
-                text: "-Ver Producto, -Ver Cliente, -Ver Usuarios ¿Desea agregarlos?",
+                text: "-Ver Producto, -Ver Cliente, -Ver Usuarios, -Ver Rol ¿Desea agregarlos?",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -253,6 +253,7 @@ class NuevoRol extends Component {
                         ProductoView: true,
                         ClientView: true,
                         UserView: true,
+                        RolView: true,
                     }));
                 }else{
                     return ;
@@ -274,7 +275,7 @@ class NuevoRol extends Component {
 
         Swal.fire({
             title: 'Este permiso esta vinculado con los permisos',
-            text: "-Ver Pedido, -Ver Producto, -Ver Cliente, -Ver Usuarios ¿Desea agregarlos?",
+            text: "-Ver Pedido, -Ver Producto, -Ver Cliente, -Ver Usuarios, -Ver Rol ¿Desea agregarlos?",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -289,6 +290,7 @@ class NuevoRol extends Component {
                     ProductoView: true,
                     ClientView: true,
                     UserView: true,
+                    RolView: true,
                 }));
             }else{
                 return ;
