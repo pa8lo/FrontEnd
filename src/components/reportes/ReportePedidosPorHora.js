@@ -37,6 +37,9 @@ class ReportePedidosPorHora extends Component {
     const gastos = axios.get(`https://roraso.herokuapp.com/Reports/Pedidos`,
     { headers: { 'access-token': localStorage.getItem('access-token')}})
         .then(res => {
+
+          console.log(res.data)
+
             if(res.status === 200){
                 this.setState({
                     reporte_pedidos_hr : res.data,
