@@ -160,6 +160,9 @@ class NuevaAsistencia extends Component {
     }
 
     render() {
+
+        console.log(this.state.actualDate)
+
         return (
             
         <div>

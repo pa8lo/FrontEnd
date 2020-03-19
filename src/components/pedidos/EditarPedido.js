@@ -126,7 +126,9 @@ class NuevoPedido extends Component {
 
       let pedidoEditar = JSON.parse(localStorage.getItem('pedidos')).filter(order => (order.id === this.props.location.state.id))
 
-      // console.log(pedidoEditar)
+      if(pedidoEditar[0].Adress == null){
+        pedidoEditar[0].Adress = "-1"
+      }
 
       this.state.direElegida = { cliente : { cliente : pedidoEditar[0].Clients.id}, id : {id : pedidoEditar[0].Adress.id}}
           
