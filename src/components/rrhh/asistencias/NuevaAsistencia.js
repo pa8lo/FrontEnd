@@ -25,6 +25,7 @@ class NuevaAsistencia extends Component {
         empleados : [],
         redirectHome: false,
         actualDate : '',
+        timeIn5 : ''
     }
 
     empleadosRef = React.createRef();
@@ -32,6 +33,9 @@ class NuevaAsistencia extends Component {
     timeOut = React.createRef();
 
     componentWillMount(){
+
+        // 20/03/2020 00:38:00:00
+        // yyyy-MM-ddThh:mm
 
         axios.get('https://roraso.herokuapp.com/User/Users',
         { headers: { 'access-token': localStorage.getItem('access-token')}})
@@ -53,14 +57,20 @@ class NuevaAsistencia extends Component {
         if(today.getMonth()<10){
             var month = parseInt(today.getMonth()) + 1
             var month2 = "0" + month
+        }else{
+            var month2 = parseInt(today.getMonth()) + 1
         }
 
         if(today.getDate()<10){
             var day = "0" + today.getDate()
+        }else{
+            var day = today.getDate()
         }
 
         if(today.getHours()<10){
             var hour = "0" + today.getHours()
+        }else{
+            var hour = today.getHours()
         }
 
         if(today.getMinutes()<10){
@@ -72,6 +82,8 @@ class NuevaAsistencia extends Component {
         var date = today.getFullYear()+'-'+ month2 +'-'+day
         var time = hour + ":" + minutesss;
         var dateTime = date+'T'+time;
+        // var to_send_in_date = day + "/" + month2 + "/" + today.getFullYear() + " " + hour + ":" + minutesss + ":00:00"
+        // this.state.timeIn5 = to_send_in_date
 
         this.setState({
             actualDate : dateTime
@@ -113,6 +125,7 @@ class NuevaAsistencia extends Component {
         //     return;
         // }
 
+
         this.setState.timeIn = this.state.timeIn.split("-");
         this.setState.timeOut = this.state.timeOut.split("-");
 
@@ -128,20 +141,20 @@ class NuevaAsistencia extends Component {
 
         var timeOut4 = timeOut3[2] + '/' + timeOut3[1] + '/' + timeOut3[0]
 
-        const timeIn5 = timeIn4 + " " + timeIn2[1] + ":00:00";
+        // const timeIn5 = timeIn4 + " " + timeIn2[1] + ":00:00";
        
-        const timeOut5 = timeOut4 + " " + timeOut2[1] + ":00:00";
+        this.state.timeOut5 = timeOut4 + " " + timeOut2[1] + ":00:00";
 
         const asistencias = {
             user : this.empleadosRef.current.value,
-            timeIn : timeIn5,
+            timeIn : this.state.timeIn5,
             // timeOut : timeOut5
         }
 
-        // console.log(asistencias);
+        console.log(asistencias);
 
         
-        this.props.agregarAsistencia(asistencias);
+        // this.props.agregarAsistencia(asistencias);
 
         e.currentTarget.reset();
 
@@ -190,7 +203,7 @@ class NuevaAsistencia extends Component {
                             <FormGroup style={{display: 'flex', justifyContent: 'space-between'}}>
                                 <InputGroup>
                                 <InputGroup.Addon>Fecha y Hora Entrada</InputGroup.Addon>
-                                <FormControl defaultValue={this.state.actualDate} onChange={this.handleChangetimeIn} name="timeIn" style={{width: 200}} type="datetime-local" max="9999-12-12T00:00:00.00" required/>
+                                <FormControl onChange={this.handleChangetimeIn} name="timeIn" style={{width: 200}} type="datetime-local" max="9999-12-12T00:00:00.00" required/>
                                 </InputGroup>
                                 <InputGroup>
                                 <InputGroup.Addon>Fecha y Hora Salida</InputGroup.Addon>

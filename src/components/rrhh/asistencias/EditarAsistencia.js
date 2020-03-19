@@ -70,15 +70,9 @@ class AsistenciaIndividual extends Component {
 
       //The format is "yyyy-MM-ddThh:mm" followed by optional ":ss" or ":ss.SSS".
 
-      // console.log(this.state)
+      // 20/03/2020 00:38:00:00
 
       var timeIn1 = this.state.timeIn[0] + "T" + this.state.timeIn[1].split('.')[0]
-
-      // console.log(timeIn1)
-
-      // var timeIn2 = timeIn1[1].split(':');
-
-      // var timeIn3 = timeIn1[0] + "-" + this.state.timeIn[1] + "-" + this.state.timeIn[0] + "T" + timeIn2[0] + ':' + timeIn2[1];
 
       this.setState({
         timeInForm : timeIn1,

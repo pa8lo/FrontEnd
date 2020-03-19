@@ -70,6 +70,8 @@ export const agregarAsistencia = (asistencia) => async dispatch => {
         }
     }
 
+    // console.log(data)
+
     await axios.post("https://roraso.herokuapp.com/Asisstance/Create",data,
     {headers: { 'access-token': localStorage.getItem('access-token')}})
         .then(res => {
@@ -123,6 +125,8 @@ export const editarAsistencia = (asistencia) => async dispatch => {
             
         }
     }
+
+    // console.log(data)
 
     await axios.post("https://roraso.herokuapp.com/Asisstance/Update",data,
     {headers: { 'access-token': localStorage.getItem('access-token')}})

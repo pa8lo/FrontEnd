@@ -86,63 +86,72 @@ class EnviarPedidosOff extends Component {
          * Solo pedidos
          * 
          */
+
+        
         
         let arrayPedido = JSON.parse(localStorage.getItem('enviarPedido'));
 
-        for (let i = 0; i < JSON.parse(localStorage.getItem('enviarPedido')).length; i++) {
+        if(JSON.parse(localStorage.getItem('enviarPedido').length !== 0)){
+
+          for (let i = 0; i < JSON.parse(localStorage.getItem('enviarPedido')).length; i++) {
 
 
-        let data = {
-          Date : JSON.parse(localStorage.getItem('enviarPedido'))[i].date,
-          Users : JSON.parse(localStorage.getItem('enviarPedido'))[i].user,
-          Amount : JSON.parse(localStorage.getItem('enviarPedido'))[i].amount,
-          State : JSON.parse(localStorage.getItem('enviarPedido'))[i].state,
-          Clients : JSON.parse(localStorage.getItem('enviarPedido'))[i].client,
-          CombosPorPedido : JSON.parse(localStorage.getItem('enviarPedido'))[i].combo,
-          ProductosPorPedido : JSON.parse(localStorage.getItem('enviarPedido'))[i].product,
-          Adress : JSON.parse(localStorage.getItem('enviarPedido'))[i].address,
-          Observaciones : JSON.parse(localStorage.getItem('enviarPedido'))[i].observacion
+          let data = {
+            Date : JSON.parse(localStorage.getItem('enviarPedido'))[i].date,
+            Users : JSON.parse(localStorage.getItem('enviarPedido'))[i].user,
+            Amount : JSON.parse(localStorage.getItem('enviarPedido'))[i].amount,
+            State : JSON.parse(localStorage.getItem('enviarPedido'))[i].state,
+            Clients : JSON.parse(localStorage.getItem('enviarPedido'))[i].client,
+            CombosPorPedido : JSON.parse(localStorage.getItem('enviarPedido'))[i].combo,
+            ProductosPorPedido : JSON.parse(localStorage.getItem('enviarPedido'))[i].product,
+            Adress : JSON.parse(localStorage.getItem('enviarPedido'))[i].address,
+            Observaciones : JSON.parse(localStorage.getItem('enviarPedido'))[i].observacion
+          }
+
+          // console.log(data);
+
+          axios.post("https://roraso.herokuapp.com/Pedido/Create",data,
+          {headers: { 'access-token': localStorage.getItem('access-token')}})
+          .then(res => {
+              if(res.status === 200){
+
+                  Swal.fire({
+                      title: 'Correcto!',
+                      text: 'Se ha creado una nuevo pedido',
+                      type: 'success',
+                      // confirmButtonText: 'Confirmar'
+                  })
+
+                  arrayPedido.splice(i, 1);
+                  localStorage.setItem('enviarPedido', JSON.stringify(arrayPedido));
+
+              }
+              else{
+                  Swal.fire({
+                      title: 'Error!',
+                      text: 'Se ha producido un error al intentar crear el pedido',
+                      type: 'error',
+                      confirmButtonText: 'Aceptar'
+                  })
+                  return;
+              }
+          }).catch(err => {
+            Swal.fire({
+                title: 'Error!',
+                text: 'El Servidor no ha respondido al alta de pedido',
+                type: 'error',
+                confirmButtonText: 'Aceptar'
+            })
+            setTimeout(function(){ 
+              window.location.reload();
+            }, 3500);
+            return;
+        })
+
+          arrayPedido.splice(i, 1);
+          localStorage.setItem('enviarPedido', JSON.stringify(arrayPedido));
+
         }
-
-        // console.log(data);
-
-        axios.post("https://roraso.herokuapp.com/Pedido/Create",data,
-        {headers: { 'access-token': localStorage.getItem('access-token')}})
-        .then(res => {
-            if(res.status === 200){
-
-                Swal.fire({
-                    title: 'Correcto!',
-                    text: 'Se ha creado una nuevo pedido',
-                    type: 'success',
-                    // confirmButtonText: 'Confirmar'
-                })
-
-                arrayPedido.splice(i, 1);
-                localStorage.setItem('enviarPedido', JSON.stringify(arrayPedido));
-
-            }
-            else{
-                Swal.fire({
-                    title: 'Error!',
-                    text: 'Se ha producido un error al intentar crear el pedido',
-                    type: 'error',
-                    confirmButtonText: 'Aceptar'
-                })
-                return;
-            }
-        }).catch(err => {
-          Swal.fire({
-              title: 'Error!',
-              text: 'El Servidor no ha respondido al alta de pedido',
-              type: 'error',
-              confirmButtonText: 'Aceptar'
-          })
-          setTimeout(function(){ 
-            window.location.reload();
-          }, 3500);
-          return;
-      })
 
       }
 
