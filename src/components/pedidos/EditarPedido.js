@@ -112,6 +112,7 @@ class NuevoPedido extends Component {
     }
 
     searchClient = React.createRef();
+    obvservacionesRef = React.createRef();
     
 
     componentDidMount(){
@@ -520,7 +521,8 @@ class NuevoPedido extends Component {
           combo : comboFiltered,
           state : 1,
           client : this.state.direElegida.cliente.cliente,
-          address : this.state.direElegida.id.id
+          address : this.state.direElegida.id.id,
+          observacion : this.obvservacionesRef.current.value
         }
 
         // console.log(pedido);
@@ -750,7 +752,7 @@ class NuevoPedido extends Component {
                         {this.mostrarProductosListos()}
                         <hr></hr>
                         <div style={{marginTop: "20px"}} className="form-group">
-                          <textarea placeholder="Observaciones" className="form-control"></textarea>
+                          <textarea placeholder="Observaciones" ref={this.obvservacionesRef} defaultValue={this.props.location.state.Observaciones} className="form-control"></textarea>
                         </div>
                         <div style={{marginTop: "20px", marginBottom:"-10px"}} align="center" className="form-group">
                         <label>Valor Total: {this.mostrarValorTotal()} {this.state.finalAmmount}</label>
