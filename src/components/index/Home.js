@@ -161,9 +161,9 @@ class Principal extends Component{
         
         this.state.permisosReportes = permisosReportes;
 
-    console.log(this.state.permisosReportes)
+    // console.log(this.state.permisosReportes)
 
-    console.log(this.props)
+    // console.log(this.props)
 
         return(
 

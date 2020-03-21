@@ -141,20 +141,20 @@ class NuevaAsistencia extends Component {
 
         var timeOut4 = timeOut3[2] + '/' + timeOut3[1] + '/' + timeOut3[0]
 
-        // const timeIn5 = timeIn4 + " " + timeIn2[1] + ":00:00";
+        const timeIn5 = timeIn4 + " " + timeIn2[1] + ":00:00";
        
         this.state.timeOut5 = timeOut4 + " " + timeOut2[1] + ":00:00";
 
         const asistencias = {
             user : this.empleadosRef.current.value,
-            timeIn : this.state.timeIn5,
+            timeIn : timeIn5,
             // timeOut : timeOut5
         }
 
-        console.log(asistencias);
+        // console.log(asistencias);
 
         
-        // this.props.agregarAsistencia(asistencias);
+        this.props.agregarAsistencia(asistencias);
 
         e.currentTarget.reset();
 

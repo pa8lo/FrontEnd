@@ -69,7 +69,15 @@ class MyVerticallyCenteredModal extends Component {
             </Modal.Body>
             <Modal.Footer>
               <Col xs={12} md={1}>
-                  <Button onClick={ () => window.location.href = `/clientes/agregar-direccion-cliente/${this.props.client}`}>Nueva Direccion</Button>
+                  { (localStorage.getItem('status') == 'online') ?
+
+                    <Button onClick={ () => window.location.href = `/clientes/agregar-direccion-cliente/${this.props.client}`}>Nueva Direccion</Button>
+
+                    :
+
+                    <Button disabled>Nueva Direccion</Button>
+
+                  }
                 </Col>
               <Col xs={12} md={11}>
                 <Button onClick={this.props.onHide}>Cerrar</Button>

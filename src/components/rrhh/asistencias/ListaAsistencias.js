@@ -113,11 +113,21 @@ class MyVerticallyCenteredModal extends Component {
                 return (<h2 align='center'>No hay datos</h2>)
             }else{
 
+                let asistenciasss = []
+                let a = []
+
+                // console.log(a)
+
                 return(
                     <React.Fragment>
                         {this.props.asistencias.map(asistencia => (
 
-                        console.log(asistencia),
+                        // asistenciasss.push(asistencia.InTime.split("T")[0] + " " + asistencia.InTime.split("T")[1].split(".")[0]),
+                        
+                        // a = (asistenciasss.sort((a, b) => new Date(a.InTime) > new Date(b.InTime))),
+                        
+                        // console.log(a),
+
                         <React.Fragment key={asistencia.id}>
                             <Col xs={12} md={6}>
                             <div align="center" className="form-group">

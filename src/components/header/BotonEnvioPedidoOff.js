@@ -32,15 +32,16 @@ class EnviarPedidosOff extends Component {
         this.setState({ profile: false})
 
         let arrayEstadoPedido = JSON.parse(localStorage.getItem('pedidoCambioEstado'));
+        let count_estado_pedido = JSON.parse(localStorage.getItem('pedidoCambioEstado'));
 
-        for (let i = 0; i < JSON.parse(localStorage.getItem('pedidoCambioEstado')).length; i++) {
+        for (let i = 0; i < count_estado_pedido.length; i++) {
           
           let data = {
             State : {
-              id : JSON.parse(localStorage.getItem('pedidoCambioEstado'))[i].estado
+              id : JSON.parse(localStorage.getItem('pedidoCambioEstado'))[0].estado
               },
               Pedido : {
-                  id : JSON.parse(localStorage.getItem('pedidoCambioEstado'))[i].id_pedido
+                  id : JSON.parse(localStorage.getItem('pedidoCambioEstado'))[0].id_pedido
               }
           }
 
@@ -55,7 +56,7 @@ class EnviarPedidosOff extends Component {
                           confirmButtonText: 'Confirmar'
                       })
 
-                      arrayEstadoPedido.splice(i, 1);
+                      arrayEstadoPedido.shift();
                       localStorage.setItem('pedidoCambioEstado', JSON.stringify(arrayEstadoPedido));
                   }
                   else{
@@ -90,27 +91,25 @@ class EnviarPedidosOff extends Component {
         
         
         let arrayPedido = JSON.parse(localStorage.getItem('enviarPedido'));
+        let count_pedido_individual = JSON.parse(localStorage.getItem('enviarPedido'));
 
-        if(JSON.parse(localStorage.getItem('enviarPedido').length !== 0)){
-
-          for (let i = 0; i < JSON.parse(localStorage.getItem('enviarPedido')).length; i++) {
-
+        for (let i = 0; i < count_pedido_individual.length; i++) {
 
           let data = {
-            Date : JSON.parse(localStorage.getItem('enviarPedido'))[i].date,
-            Users : JSON.parse(localStorage.getItem('enviarPedido'))[i].user,
-            Amount : JSON.parse(localStorage.getItem('enviarPedido'))[i].amount,
-            State : JSON.parse(localStorage.getItem('enviarPedido'))[i].state,
-            Clients : JSON.parse(localStorage.getItem('enviarPedido'))[i].client,
-            CombosPorPedido : JSON.parse(localStorage.getItem('enviarPedido'))[i].combo,
-            ProductosPorPedido : JSON.parse(localStorage.getItem('enviarPedido'))[i].product,
-            Adress : JSON.parse(localStorage.getItem('enviarPedido'))[i].address,
-            Observaciones : JSON.parse(localStorage.getItem('enviarPedido'))[i].observacion
+            Date : arrayPedido[0].date,
+            Users : arrayPedido[0].user,
+            Amount : arrayPedido[0].amount,
+            State : arrayPedido[0].state,
+            Clients : arrayPedido[0].client,
+            CombosPorPedido : arrayPedido[0].combo,
+            ProductosPorPedido : arrayPedido[0].product,
+            Adress : arrayPedido[0].address,
+            Observaciones : arrayPedido[0].observacion
           }
 
           // console.log(data);
 
-          axios.post("https://roraso.herokuapp.com/Pedido/Create",data,
+          await axios.post("https://roraso.herokuapp.com/Pedido/Create",data,
           {headers: { 'access-token': localStorage.getItem('access-token')}})
           .then(res => {
               if(res.status === 200){
@@ -122,7 +121,7 @@ class EnviarPedidosOff extends Component {
                       // confirmButtonText: 'Confirmar'
                   })
 
-                  arrayPedido.splice(i, 1);
+                  arrayPedido.shift();
                   localStorage.setItem('enviarPedido', JSON.stringify(arrayPedido));
 
               }
@@ -148,12 +147,8 @@ class EnviarPedidosOff extends Component {
             return;
         })
 
-          arrayPedido.splice(i, 1);
-          localStorage.setItem('enviarPedido', JSON.stringify(arrayPedido));
-
         }
 
-      }
 
       /**
        * 
@@ -188,10 +183,11 @@ class EnviarPedidosOff extends Component {
         const self = this;
 
         let arrayPedidoSemiCompleto = JSON.parse(localStorage.getItem('pedidoSemiCompleto'));
+        let count_pedido_semi_completo = JSON.parse(localStorage.getItem('pedidoSemiCompleto'));
 
         for (let i = 0; i < JSON.parse(localStorage.getItem('pedidoSemiCompleto')).length; i++) {
 
-          axios.get('https://autocomplete.geocoder.api.here.com/6.2/suggest.json',
+          await axios.get('https://autocomplete.geocoder.api.here.com/6.2/suggest.json',
           {'params': {
             'app_id': 'N0fRlxF32W9uEEuH5ZSv',
             'app_code': '0eDtrgamyvY1fxPeA8m0OQ',
@@ -247,7 +243,7 @@ class EnviarPedidosOff extends Component {
 
                     return (
 
-                      axios.post("https://roraso.herokuapp.com/Client/AddAddress",
+                        axios.post("https://roraso.herokuapp.com/Client/AddAddress",
                             data_dire_semi = {
                               Address : {
                                   Adress : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[i].datos_direccion.Adress,
@@ -489,6 +485,14 @@ class EnviarPedidosOff extends Component {
   
         }
 
+
+        /**
+         * 
+         * Pedido Completo
+         * 
+         * 
+         */
+
         let arrayPedidoCompleto = JSON.parse(localStorage.getItem('pedidoCompleto'));
 
         let data_dire;
@@ -496,25 +500,26 @@ class EnviarPedidosOff extends Component {
 
         for (let i = 0; i < JSON.parse(localStorage.getItem('pedidoCompleto')).length; i++) {
 
-        axios.get('https://autocomplete.geocoder.api.here.com/6.2/suggest.json',
-          {'params': {
-            'app_id': 'N0fRlxF32W9uEEuH5ZSv',
-            'app_code': '0eDtrgamyvY1fxPeA8m0OQ',
-            'query': JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Adress,
-            'maxresults': 1,
-          }}).then(function (response) {
-              if (response.data.suggestions.length > 0) {
-                const id = response.data.suggestions[0].locationId;
-                const address = response.data.suggestions[0].address;
+            axios.get('https://autocomplete.geocoder.api.here.com/6.2/suggest.json',
+            {'params': {
+                'app_id': 'N0fRlxF32W9uEEuH5ZSv',
+                'app_code': '0eDtrgamyvY1fxPeA8m0OQ',
+                'query': JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Adress,
+                'maxresults': 1,
+            }}).then(function (response) {
+                if (response.data.suggestions.length > 0) {
 
-                self.setState({
-                  'address' : address,
-                  'query' : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Adress,
-                  'locationId': id
-                })
+                    const id = response.data.suggestions[0].locationId;
+                    const address = response.data.suggestions[0].address;
+
+                    self.setState({
+                    'address' : address,
+                    'query' : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Adress,
+                    'locationId': id
+                    })
 
                 if (self.state.locationId.length > 0) {
-                  params['locationId'] = self.state.locationId;
+                    params['locationId'] = self.state.locationId;
                 } else {
                   params['searchtext'] = self.state.address.street
                     + self.state.address.city
@@ -558,7 +563,7 @@ class EnviarPedidosOff extends Component {
                     let coords = self.state.lat + ";" + self.state.lon
 
                     return (
-                      axios.post("https://roraso.herokuapp.com/Client/CreateClient",
+                        axios.post("https://roraso.herokuapp.com/Client/CreateClient",
                         JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_cliente,
                         {headers: { 'access-token': localStorage.getItem('access-token')}})
                         .then(res_cliente => {
@@ -605,12 +610,9 @@ class EnviarPedidosOff extends Component {
                                     {headers: { 'access-token': localStorage.getItem('access-token')}})
                                         .then(res => {
               
-              
-                                          console.log(res)
-              
                                             if(res.status === 200){
 
-                                              arrayPedidoCompleto.splice(i, 1);
+                                              arrayPedidoCompleto.shift();
 
                                               localStorage.setItem('pedidoCompleto', JSON.stringify(arrayPedidoCompleto));
 
@@ -739,7 +741,7 @@ class EnviarPedidosOff extends Component {
               
                                             if(res.status === 200){
 
-                                              arrayPedidoCompleto.splice(i, 1);
+                                              arrayPedidoCompleto.shift();
 
                                               localStorage.setItem('pedidoCompleto', JSON.stringify(arrayPedidoCompleto));
 
@@ -804,7 +806,7 @@ class EnviarPedidosOff extends Component {
 
                               Swal.fire({
                                 title: 'Error!',
-                                text: 'El Servidor no ha respondido al alta del cliente',
+                                text: 'El Servidor ha dado un error al buscar un telefono, intentelo nuevamente 1',
                                 type: 'error',
                                 confirmButtonText: 'Aceptar'
                             })
@@ -955,8 +957,7 @@ class EnviarPedidosOff extends Component {
                                 confirmButtonText: 'Aceptar'
                               })
                               return;
-                            }
-                            else{
+                            }else{
                                 Swal.fire({
                                     title: 'Error!',
                                     text: 'Se ha producido un error al intentar crear el cliente',
@@ -1015,7 +1016,7 @@ class EnviarPedidosOff extends Component {
               
                                             if(res.status === 200){
 
-                                              arrayPedidoCompleto.splice(i, 1);
+                                              arrayPedidoCompleto.shift();
 
                                               localStorage.setItem('pedidoCompleto', JSON.stringify(arrayPedidoCompleto));
 
@@ -1080,7 +1081,7 @@ class EnviarPedidosOff extends Component {
 
                               Swal.fire({
                                 title: 'Error!',
-                                text: 'El Servidor no ha respondido al alta del cliente',
+                                text: 'El Servidor ha dado un error al buscar un telefono, intentelo nuevamente 2',
                                 type: 'error',
                                 confirmButtonText: 'Aceptar'
                             })
