@@ -31,6 +31,13 @@ class EnviarPedidosOff extends Component {
 
         this.setState({ profile: false})
 
+        Swal.fire({
+          title: 'Se esta procesando las solicitudes',
+          text: 'Aguarde por favor',
+          type: 'success',
+          showConfirmButton: false
+        })
+
         let arrayEstadoPedido = JSON.parse(localStorage.getItem('pedidoCambioEstado'));
         let count_estado_pedido = JSON.parse(localStorage.getItem('pedidoCambioEstado'));
 
@@ -185,22 +192,22 @@ class EnviarPedidosOff extends Component {
         let arrayPedidoSemiCompleto = JSON.parse(localStorage.getItem('pedidoSemiCompleto'));
         let count_pedido_semi_completo = JSON.parse(localStorage.getItem('pedidoSemiCompleto'));
 
-        for (let i = 0; i < JSON.parse(localStorage.getItem('pedidoSemiCompleto')).length; i++) {
+        for (let i = 0; i < count_pedido_semi_completo.length; i++) {
 
           await axios.get('https://autocomplete.geocoder.api.here.com/6.2/suggest.json',
           {'params': {
             'app_id': 'N0fRlxF32W9uEEuH5ZSv',
             'app_code': '0eDtrgamyvY1fxPeA8m0OQ',
-            'query': JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[i].datos_direccion.Adress,
+            'query': JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].datos_direccion.Adress,
             'maxresults': 1,
-          }}).then(function (response) {
+          }}).then(async function (response) {
               if (response.data.suggestions.length > 0) {
                 const id = response.data.suggestions[0].locationId;
                 const address = response.data.suggestions[0].address;
 
                 self.setState({
                   'address' : address,
-                  'query' : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[i].datos_direccion.Adress,
+                  'query' : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].datos_direccion.Adress,
                   'locationId': id
                 })
 
@@ -214,17 +221,15 @@ class EnviarPedidosOff extends Component {
                     + self.state.address.country;
                 }
 
-                axios.get('https://geocoder.api.here.com/6.2/geocode.json',
+                await axios.get('https://geocoder.api.here.com/6.2/geocode.json',
                 {'params': params }
-                ).then(function (response) {
+                ).then(async function (response) {
                   const view = response.data.Response.View
                   if (view.length > 0 && view[0].Result.length > 0) {
                     const location = view[0].Result[0].Location;
 
                     self.state.lat = location.DisplayPosition.Latitude;
-                    self.state.lon = location.DisplayPosition.Longitude;
-
-                    
+                    self.state.lon = location.DisplayPosition.Longitude;   
 
                   } else {
                     self.setState({
@@ -234,28 +239,21 @@ class EnviarPedidosOff extends Component {
               
                   if (self.state.lat === null || self.state.lon === null) {
 
-                    // Swal.fire({
-                    //   title: 'Error! La direccion no pudo ser validada',
-                    //   text: 'Comuniquese con el cliente',
-                    //   type: 'error',
-                    //   confirmButtonText: 'Aceptar'
-                    // })
-
                     return (
 
-                        axios.post("https://roraso.herokuapp.com/Client/AddAddress",
+                        await axios.post("https://roraso.herokuapp.com/Client/AddAddress",
                             data_dire_semi = {
                               Address : {
-                                  Adress : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[i].datos_direccion.Adress,
-                                  Department : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[i].datos_direccion.Department,
-                                  Floor : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[i].datos_direccion.Floor,
-                                  Cp : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[i].datos_direccion.Cp,
+                                  Adress : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].datos_direccion.Adress,
+                                  Department : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].datos_direccion.Department,
+                                  Floor : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].datos_direccion.Floor,
+                                  Cp : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].datos_direccion.Cp,
                                   LatLong : "latlong",
-                                  Client : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[i].datos_direccion.Client,
+                                  Client : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].datos_direccion.Client,
                               }
                             },
                             {headers: { 'access-token': localStorage.getItem('access-token')}})
-                              .then(res_dire => {
+                              .then(async res_dire => {
 
                                   if(res_dire.status === 200){
                       
@@ -263,17 +261,17 @@ class EnviarPedidosOff extends Component {
                                      * Pedido
                                      */
               
-                                    axios.post("https://roraso.herokuapp.com/Pedido/Create",
+                                    await axios.post("https://roraso.herokuapp.com/Pedido/Create",
                                     data_pedido_semi = {
-                                      Date : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[i].pedido.Date,
-                                      Users : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[i].pedido.Users,
-                                      Amount : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[i].pedido.Amount,
-                                      State : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[i].pedido.State,
+                                      Date : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].pedido.Date,
+                                      Users : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].pedido.Users,
+                                      Amount : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].pedido.Amount,
+                                      State : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].pedido.State,
                                       Clients : res_dire.data.Client,
-                                      CombosPorPedido : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[i].pedido.CombosPorPedido,
-                                      ProductosPorPedido : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[i].pedido.ProductosPorPedido,
+                                      CombosPorPedido : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].pedido.CombosPorPedido,
+                                      ProductosPorPedido : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].pedido.ProductosPorPedido,
                                       Adress : res_dire.data.id,
-                                      Observaciones : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[i].pedido.observacion
+                                      Observaciones : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].pedido.observacion
                                     }
                                     ,
                                     {headers: { 'access-token': localStorage.getItem('access-token')}})
@@ -281,18 +279,18 @@ class EnviarPedidosOff extends Component {
               
                                             if(res.status === 200){
 
-                                              arrayPedidoSemiCompleto.splice(i, 1);
+                                              arrayPedidoSemiCompleto.shift();
 
                                               localStorage.setItem('pedidoSemiCompleto', JSON.stringify(arrayPedidoSemiCompleto));
 
                                                 Swal.fire(
-                                                  'Correcto!',
+                                                  'Advertencia!',
                                                   'Se ha creado una nueva Direccion y Pedido sin Validar',
                                                   'warning'
                                                 )
-                                                setTimeout(function(){ 
-                                                    window.location.reload();
-                                                }, 3500);
+                                                // setTimeout(function(){ 
+                                                //     window.location.reload();
+                                                // }, 3500);
                                             }
                                             else{
                                                 Swal.fire({
@@ -305,8 +303,6 @@ class EnviarPedidosOff extends Component {
                                             }
                                         })
                                         .catch(err => {
-              
-                                          console.log(err)
               
                                             Swal.fire({
                                                 title: 'Error!',
@@ -329,8 +325,6 @@ class EnviarPedidosOff extends Component {
                                   }
                               })
                               .catch(err => {
-              
-                                console.log(err)
               
                                   Swal.fire({
                                       title: 'Error!',
@@ -342,13 +336,6 @@ class EnviarPedidosOff extends Component {
                               })
 
                       
-                      
-                      // Swal.fire({
-                      //   title: 'Error! La direccion no pudo ser validada',
-                      //   text: 'Comuniquese con el cliente',
-                      //   type: 'error',
-                      //   confirmButtonText: 'Aceptar'
-                      // })
                     );
                   } else {
 
@@ -356,20 +343,20 @@ class EnviarPedidosOff extends Component {
 
                     return (
                       
-                        axios.post("https://roraso.herokuapp.com/Client/AddAddress",
+                        await axios.post("https://roraso.herokuapp.com/Client/AddAddress",
                             data_dire_semi = {
                               Address : {
-                                  Adress : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[i].datos_direccion.Adress,
-                                  Department : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[i].datos_direccion.Department,
-                                  Floor : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[i].datos_direccion.Floor,
-                                  Cp : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[i].datos_direccion.Cp,
+                                  Adress : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].datos_direccion.Adress,
+                                  Department : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].datos_direccion.Department,
+                                  Floor : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].datos_direccion.Floor,
+                                  Cp : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].datos_direccion.Cp,
                                   LatLong : coords,
-                                  Client : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[i].datos_direccion.Client,
+                                  Client : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].datos_direccion.Client,
                                   Validado : true
                               }
                             },
                             {headers: { 'access-token': localStorage.getItem('access-token')}})
-                              .then(res_dire => {
+                              .then(async res_dire => {
 
                                   if(res_dire.status === 200){
                       
@@ -377,17 +364,17 @@ class EnviarPedidosOff extends Component {
                                      * Pedido
                                      */
               
-                                    axios.post("https://roraso.herokuapp.com/Pedido/Create",
+                                    await axios.post("https://roraso.herokuapp.com/Pedido/Create",
                                     data_pedido_semi = {
-                                      Date : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[i].pedido.Date,
-                                      Users : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[i].pedido.Users,
-                                      Amount : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[i].pedido.Amount,
-                                      State : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[i].pedido.State,
+                                      Date : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].pedido.Date,
+                                      Users : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].pedido.Users,
+                                      Amount : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].pedido.Amount,
+                                      State : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].pedido.State,
                                       Clients : res_dire.data.Client,
-                                      CombosPorPedido : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[i].pedido.CombosPorPedido,
-                                      ProductosPorPedido : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[i].pedido.ProductosPorPedido,
+                                      CombosPorPedido : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].pedido.CombosPorPedido,
+                                      ProductosPorPedido : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].pedido.ProductosPorPedido,
                                       Adress : res_dire.data.id,
-                                      Observaciones : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[i].pedido.observacion
+                                      Observaciones : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].pedido.observacion
                                     }
                                     ,
                                     {headers: { 'access-token': localStorage.getItem('access-token')}})
@@ -395,7 +382,7 @@ class EnviarPedidosOff extends Component {
               
                                             if(res.status === 200){
 
-                                              arrayPedidoSemiCompleto.splice(i, 1);
+                                              arrayPedidoSemiCompleto.shift();
 
                                               localStorage.setItem('pedidoSemiCompleto', JSON.stringify(arrayPedidoSemiCompleto));
 
@@ -404,9 +391,7 @@ class EnviarPedidosOff extends Component {
                                                   'Se ha creado una nueva Direccion y Pedido',
                                                   'success'
                                                 )
-                                                setTimeout(function(){ 
-                                                    window.location.reload();
-                                                }, 3500);
+
                                             }
                                             else{
                                                 Swal.fire({
@@ -419,8 +404,6 @@ class EnviarPedidosOff extends Component {
                                             }
                                         })
                                         .catch(err => {
-              
-                                          console.log(err)
               
                                             Swal.fire({
                                                 title: 'Error!',
@@ -441,8 +424,7 @@ class EnviarPedidosOff extends Component {
                                     })
                                     return;
                                   }
-                              })
-                              .catch(err => {
+                              }).catch(err => {
               
                                 console.log(err)
               
@@ -458,29 +440,218 @@ class EnviarPedidosOff extends Component {
                     );
                   }
 
-                })
-                .catch(function (error) {
-                  Swal.fire({
-                    title: 'Error!',
-                    text: 'La direccion no pudo ser validada, comuniquese con el cliente',
-                    type: 'error',
-                    confirmButtonText: 'Aceptar'
-                  })
-                  self.setState({
-                    'coords': null,
-                  });
+                }).catch(async function (error) {
+
+                  await axios.post("https://roraso.herokuapp.com/Client/AddAddress",
+                  data_dire_semi = {
+                    Address : {
+                        Adress : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].datos_direccion.Adress,
+                        Department : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].datos_direccion.Department,
+                        Floor : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].datos_direccion.Floor,
+                        Cp : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].datos_direccion.Cp,
+                        LatLong : "latlong",
+                        Client : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].datos_direccion.Client,
+                    }
+                  },
+                  {headers: { 'access-token': localStorage.getItem('access-token')}})
+                    .then(async res_dire => {
+
+                        if(res_dire.status === 200){
+            
+                          /**
+                           * Pedido
+                           */
+    
+                          await axios.post("https://roraso.herokuapp.com/Pedido/Create",
+                          data_pedido_semi = {
+                            Date : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].pedido.Date,
+                            Users : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].pedido.Users,
+                            Amount : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].pedido.Amount,
+                            State : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].pedido.State,
+                            Clients : res_dire.data.Client,
+                            CombosPorPedido : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].pedido.CombosPorPedido,
+                            ProductosPorPedido : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].pedido.ProductosPorPedido,
+                            Adress : res_dire.data.id,
+                            Observaciones : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].pedido.observacion
+                          }
+                          ,
+                          {headers: { 'access-token': localStorage.getItem('access-token')}})
+                              .then(res => {
+    
+                                  if(res.status === 200){
+
+                                    arrayPedidoSemiCompleto.shift();
+
+                                    localStorage.setItem('pedidoSemiCompleto', JSON.stringify(arrayPedidoSemiCompleto));
+
+                                      Swal.fire(
+                                        'Advertencia!',
+                                        'Se ha creado una nueva Direccion y Pedido sin Validar',
+                                        'warning'
+                                      )
+                                      setTimeout(function(){ 
+                                          window.location.reload();
+                                      }, 3500);
+                                  }
+                                  else{
+                                      Swal.fire({
+                                          title: 'Error!',
+                                          text: 'Se ha producido un error al intentar crear el Pedido',
+                                          type: 'error',
+                                          confirmButtonText: 'Aceptar'
+                                      })
+                                      return;
+                                  }
+                              })
+                              .catch(err => {
+    
+                                console.log(err)
+    
+                                  Swal.fire({
+                                      title: 'Error!',
+                                      text: 'El Servidor no ha respondido al alta de Pedido',
+                                      type: 'error',
+                                      confirmButtonText: 'Aceptar'
+                                  })
+                                  return;
+                              })
+    
+                        }else{
+    
+                          Swal.fire({
+                              title: 'Error!',
+                              text: 'Se ha producido un error al intentar crear la direccion',
+                              type: 'error',
+                              confirmButtonText: 'Aceptar'
+                          })
+                          return;
+                        }
+                    })
+                    .catch(err => {
+    
+                      console.log(err)
+    
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'El Servidor no ha respondido al alta de la direccion',
+                            type: 'error',
+                            confirmButtonText: 'Aceptar'
+                        })
+                        return;
+                    })
+                  
                 });
+
               } else {
-                return null;
+                
+                Swal.fire(
+                  'Error!',
+                  'Error de validador, cambie la direccion del pedido',
+                  'error'
+                )
+
               }
-          })
-          .catch(function (error) {
-            Swal.fire({
-              title: 'Error!',
-              text: 'La direccion no pudo ser validada, comuniquese con el cliente',
-              type: 'error',
-              confirmButtonText: 'Aceptar'
-            })
+
+          }).catch(async function (error) {
+            
+            await axios.post("https://roraso.herokuapp.com/Client/AddAddress",
+            data_dire_semi = {
+              Address : {
+                  Adress : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].datos_direccion.Adress,
+                  Department : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].datos_direccion.Department,
+                  Floor : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].datos_direccion.Floor,
+                  Cp : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].datos_direccion.Cp,
+                  LatLong : "latlong",
+                  Client : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].datos_direccion.Client,
+              }
+            },
+            {headers: { 'access-token': localStorage.getItem('access-token')}})
+              .then(async res_dire => {
+
+                  if(res_dire.status === 200){
+      
+                    /**
+                     * Pedido
+                     */
+
+                    await axios.post("https://roraso.herokuapp.com/Pedido/Create",
+                    data_pedido_semi = {
+                      Date : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].pedido.Date,
+                      Users : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].pedido.Users,
+                      Amount : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].pedido.Amount,
+                      State : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].pedido.State,
+                      Clients : res_dire.data.Client,
+                      CombosPorPedido : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].pedido.CombosPorPedido,
+                      ProductosPorPedido : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].pedido.ProductosPorPedido,
+                      Adress : res_dire.data.id,
+                      Observaciones : JSON.parse(localStorage.getItem('pedidoSemiCompleto'))[0].pedido.observacion
+                    }
+                    ,
+                    {headers: { 'access-token': localStorage.getItem('access-token')}})
+                        .then(res => {
+
+                            if(res.status === 200){
+
+                              arrayPedidoSemiCompleto.shift();
+
+                              localStorage.setItem('pedidoSemiCompleto', JSON.stringify(arrayPedidoSemiCompleto));
+
+                                Swal.fire(
+                                  'Advertencia!',
+                                  'Se ha creado una nueva Direccion y Pedido sin Validar',
+                                  'warning'
+                                )
+                                setTimeout(function(){ 
+                                    window.location.reload();
+                                }, 3500);
+                            }
+                            else{
+                                Swal.fire({
+                                    title: 'Error!',
+                                    text: 'Se ha producido un error al intentar crear el Pedido',
+                                    type: 'error',
+                                    confirmButtonText: 'Aceptar'
+                                })
+                                return;
+                            }
+                        })
+                        .catch(err => {
+
+                          console.log(err)
+
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'El Servidor no ha respondido al alta de Pedido',
+                                type: 'error',
+                                confirmButtonText: 'Aceptar'
+                            })
+                            return;
+                        })
+
+                  }else{
+
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Se ha producido un error al intentar crear la direccion',
+                        type: 'error',
+                        confirmButtonText: 'Aceptar'
+                    })
+                    return;
+                  }
+              })
+              .catch(err => {
+
+                console.log(err)
+
+                  Swal.fire({
+                      title: 'Error!',
+                      text: 'El Servidor no ha respondido al alta de la direccion',
+                      type: 'error',
+                      confirmButtonText: 'Aceptar'
+                  })
+                  return;
+              })
+
           });
   
         }
@@ -494,19 +665,21 @@ class EnviarPedidosOff extends Component {
          */
 
         let arrayPedidoCompleto = JSON.parse(localStorage.getItem('pedidoCompleto'));
+        let count_pedido_completo = JSON.parse(localStorage.getItem('pedidoCompleto'));
 
         let data_dire;
         let data_pedido;
 
-        for (let i = 0; i < JSON.parse(localStorage.getItem('pedidoCompleto')).length; i++) {
+        for (let i = 0; i < count_pedido_completo.length; i++) {
 
-            axios.get('https://autocomplete.geocoder.api.here.com/6.2/suggest.json',
+            await axios.get('https://autocomplete.geocoder.api.here.com/6.2/suggest.json',
             {'params': {
                 'app_id': 'N0fRlxF32W9uEEuH5ZSv',
                 'app_code': '0eDtrgamyvY1fxPeA8m0OQ',
-                'query': JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Adress,
+                'query': JSON.parse(localStorage.getItem('pedidoCompleto'))[0].datos_direccion.Adress,
                 'maxresults': 1,
-            }}).then(function (response) {
+            }}).then(async function (response) {
+              
                 if (response.data.suggestions.length > 0) {
 
                     const id = response.data.suggestions[0].locationId;
@@ -514,7 +687,7 @@ class EnviarPedidosOff extends Component {
 
                     self.setState({
                     'address' : address,
-                    'query' : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Adress,
+                    'query' : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].datos_direccion.Adress,
                     'locationId': id
                     })
 
@@ -528,9 +701,9 @@ class EnviarPedidosOff extends Component {
                     + self.state.address.country;
                 }
 
-                axios.get('https://geocoder.api.here.com/6.2/geocode.json',
+                await axios.get('https://geocoder.api.here.com/6.2/geocode.json',
                 {'params': params }
-                ).then(function (response) {
+                ).then( async function (response) {
                   const view = response.data.Response.View
                   if (view.length > 0 && view[0].Result.length > 0) {
                     const location = view[0].Result[0].Location;
@@ -538,567 +711,712 @@ class EnviarPedidosOff extends Component {
                     self.state.lat = location.DisplayPosition.Latitude;
                     self.state.lon = location.DisplayPosition.Longitude;
 
-                    
-
                   } else {
                     self.setState({
                       'coords' : null,
                     })
                   }
               
+                  let coords
+
                   if (self.state.lat === null || self.state.lon === null) {
-                    return (
+                    
+                    coords = "latlong"
+                  
+                  } else {
+
+                    coords = self.state.lat + ";" + self.state.lon
+
+                  }
+
+                  await axios.post("https://roraso.herokuapp.com/Client/CreateClient",
+                  JSON.parse(localStorage.getItem('pedidoCompleto'))[0].datos_cliente,
+                  {headers: { 'access-token': localStorage.getItem('access-token')}})
+                  .then(async res_cliente => {
+                      if(res_cliente.status === 200){
+
+                        /**
+                         * Direccion
+                         */
+        
+                        await axios.post("https://roraso.herokuapp.com/Client/AddAddress",
+                        data_dire = {
+                          Address : {
+                              Adress : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].datos_direccion.Adress,
+                              Department : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].datos_direccion.Department,
+                              Floor : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].datos_direccion.Floor,
+                              Cp : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].datos_direccion.Cp,
+                              LatLong : coords,
+                              Client : res_cliente.data.UserId,
+                              Validado : true
+                          }
+                        },
+                        {headers: { 'access-token': localStorage.getItem('access-token')}})
+                        .then(async res_dire => {
+
+                            if(res_dire.status === 200){
+                
+                              /**
+                               * Pedido
+                               */
+        
+                              await axios.post("https://roraso.herokuapp.com/Pedido/Create",
+                              data_pedido = {
+                                Date : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.Date,
+                                Users : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.Users,
+                                Amount : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.Amount,
+                                State : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.State,
+                                Clients : res_dire.data.Client,
+                                CombosPorPedido : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.CombosPorPedido,
+                                ProductosPorPedido : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.ProductosPorPedido,
+                                Adress : res_dire.data.id,
+                                Observaciones : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.observacion
+                              }
+                              ,
+                              {headers: { 'access-token': localStorage.getItem('access-token')}})
+                                  .then(res => {
+        
+                                      if(res.status === 200){
+
+                                        arrayPedidoCompleto.shift();
+
+                                        localStorage.setItem('pedidoCompleto', JSON.stringify(arrayPedidoCompleto));
+
+                                          Swal.fire(
+                                            'Correcto!',
+                                            'Se ha creado un nuevo Cliente, Direccion y Pedido',
+                                            'success'
+                                          )
+                                          // setTimeout(function(){ 
+                                          //     window.location.reload();
+                                          // }, 3500);
+                                      }
+                                      else{
+                                          Swal.fire({
+                                              title: 'Error!',
+                                              text: 'Se ha producido un error al intentar crear el Pedido',
+                                              type: 'error',
+                                              confirmButtonText: 'Aceptar'
+                                          })
+                                          return;
+                                      }
+                                  })
+                                  .catch(err => {
+        
+                                      //Error al intentar crear un pedido
+
+                                      Swal.fire({
+                                          title: 'Error!',
+                                          text: 'El Servidor no ha respondido al alta de Pedido',
+                                          type: 'error',
+                                          confirmButtonText: 'Aceptar'
+                                      })
+                                      return;
+                                  })
+        
+                            }else{
+
+                              //Si el status de la respuesta de la creacion de la direccion es diferente de 200
+
+                              Swal.fire({
+                                  title: 'Error!',
+                                  text: 'Se ha producido un error al intentar crear la direccion',
+                                  type: 'error',
+                                  confirmButtonText: 'Aceptar'
+                              })
+                              return;
+                            }
+
+                        }).catch(err => {
+                          
+                          //Error al intentar crear una direccion
+
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'El Servidor no ha respondido correctamente al alta de la direccion sin validar',
+                                type: 'error',
+                                confirmButtonText: 'Aceptar'
+                            })
+                            return;
+                        })
+                      }
+
+                  }).catch(async err => {
+        
+                    const response = err.response
+                    
+                    // Si el cliente existe, vamos a buscarlo y agarrar el ID, ya que no podemos pasarlo entre las promesas
+
+                    await axios.get(`https://roraso.herokuapp.com/Client/Client?Phone=${response.data.split("\"")[3]}`,
+                    { headers: { 'access-token': localStorage.getItem('access-token') } })
+                    .then(async res => {
+    
+                      await axios.post("https://roraso.herokuapp.com/Client/AddAddress",
+                      data_dire = {
+                        Address : {
+                            Adress : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].datos_direccion.Adress,
+                            Department : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].datos_direccion.Department,
+                            Floor : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].datos_direccion.Floor,
+                            Cp : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].datos_direccion.Cp,
+                            LatLong : coords,
+                            Client : res.data.Cliente.id,
+                            Validado : true
+                        }
+                      },
+                      {headers: { 'access-token': localStorage.getItem('access-token')}})
+                      .then(async res_dire => {
+    
+                        if(res_dire.status === 200){
+                          
+                            /**
+                             * Pedido
+                             */
+    
+                            await axios.post("https://roraso.herokuapp.com/Pedido/Create",
+                            data_pedido = {
+                                Date : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.Date,
+                                Users : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.Users,
+                                Amount : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.Amount,
+                                State : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.State,
+                                Clients : res_dire.data.Client,
+                                CombosPorPedido : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.CombosPorPedido,
+                                ProductosPorPedido : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.ProductosPorPedido,
+                                Adress : res_dire.data.id,
+                                Observaciones : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.observacion
+                            }
+                            ,
+                            {headers: { 'access-token': localStorage.getItem('access-token')}})
+                                .then(res => {
+    
+                                    if(res.status === 200){
+    
+                                      arrayPedidoCompleto.shift();
+    
+                                      localStorage.setItem('pedidoCompleto', JSON.stringify(arrayPedidoCompleto));
+    
+                                        Swal.fire(
+                                          'Correcto!',
+                                          'Se ha creado un nuevo Cliente, Direccion y Pedido',
+                                          'success'
+                                        )
+                                        // setTimeout(function(){ 
+                                        //     window.location.reload();
+                                        // }, 3500);
+    
+                                    }else{
+                                        Swal.fire({
+                                            title: 'Error!',
+                                            text: 'Se ha producido un error al intentar crear el Pedido',
+                                            type: 'error',
+                                            confirmButtonText: 'Aceptar'
+                                        })
+                                        return;
+                                    }
+    
+                                }).catch(err => {
+                      
+                                    Swal.fire({
+                                        title: 'Error!',
+                                        text: 'El Servidor no ha respondido al alta de Pedido',
+                                        type: 'error',
+                                        confirmButtonText: 'Aceptar'
+                                    })
+                                    return;
+                                })
+                        }else{
+                  
+                          Swal.fire({
+                              title: 'Error!',
+                              text: 'Se ha producido un error al intentar crear la direccion',
+                              type: 'error',
+                              confirmButtonText: 'Aceptar'
+                          })
+                          return;
+                        }
+    
+                      }).catch(err => {
+                          Swal.fire({
+                            title: 'Error!',
+                            text: 'Error al momento de crear una direccion',
+                            type: 'error',
+                            confirmButtonText: 'Aceptar'
+                          })
+                          return;
+                      })
+    
+                    }).catch(err =>{
+    
+                      console.log("Este error da cuando busco el numero de telefono")
+                      console.log(err)
+    
+                    })
+                    
+                  })
+
+                }).catch(async function (error) {
+
+                  Swal.fire(
+                    'Error!',
+                    'Error de validador, cambie la direccion del pedido',
+                    'error'
+                  )
+
+                });
+              } else {
+
+                //La API no pudo validar la direccion, la vamos a crear sin validar
+
+                  await axios.post("https://roraso.herokuapp.com/Client/CreateClient",
+                  JSON.parse(localStorage.getItem('pedidoCompleto'))[0].datos_cliente,
+                  {headers: { 'access-token': localStorage.getItem('access-token')}})
+                  .then(async res_cliente => {
+                      if(res_cliente.status === 200){
+
+                        /**
+                         * Direccion
+                         */
+        
+                        await axios.post("https://roraso.herokuapp.com/Client/AddAddress",
+                        data_dire = {
+                          Address : {
+                              Adress : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].datos_direccion.Adress,
+                              Department : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].datos_direccion.Department,
+                              Floor : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].datos_direccion.Floor,
+                              Cp : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].datos_direccion.Cp,
+                              LatLong : "latlong",
+                              Client : res_cliente.data.UserId,
+                              Validado : true
+                          }
+                        },
+                        {headers: { 'access-token': localStorage.getItem('access-token')}})
+                        .then(async res_dire => {
+
+                            if(res_dire.status === 200){
+                
+                              /**
+                               * Pedido
+                               */
+        
+                              await axios.post("https://roraso.herokuapp.com/Pedido/Create",
+                              data_pedido = {
+                                Date : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.Date,
+                                Users : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.Users,
+                                Amount : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.Amount,
+                                State : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.State,
+                                Clients : res_dire.data.Client,
+                                CombosPorPedido : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.CombosPorPedido,
+                                ProductosPorPedido : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.ProductosPorPedido,
+                                Adress : res_dire.data.id,
+                                Observaciones : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.observacion
+                              }
+                              ,
+                              {headers: { 'access-token': localStorage.getItem('access-token')}})
+                                  .then(res => {
+        
+                                      if(res.status === 200){
+
+                                        arrayPedidoCompleto.shift();
+
+                                        localStorage.setItem('pedidoCompleto', JSON.stringify(arrayPedidoCompleto));
+
+                                          Swal.fire(
+                                            'Correcto!',
+                                            'Se ha creado un nuevo Cliente, Direccion y Pedido',
+                                            'success'
+                                          )
+                                          // setTimeout(function(){ 
+                                          //     window.location.reload();
+                                          // }, 3500);
+                                      }
+                                      else{
+                                          Swal.fire({
+                                              title: 'Error!',
+                                              text: 'Se ha producido un error al intentar crear el Pedido',
+                                              type: 'error',
+                                              confirmButtonText: 'Aceptar'
+                                          })
+                                          return;
+                                      }
+                                  })
+                                  .catch(err => {
+        
+                                      //Error al intentar crear un pedido
+
+                                      Swal.fire({
+                                          title: 'Error!',
+                                          text: 'El Servidor no ha respondido al alta de Pedido',
+                                          type: 'error',
+                                          confirmButtonText: 'Aceptar'
+                                      })
+                                      return;
+                                  })
+        
+                            }else{
+
+                              //Si el status de la respuesta de la creacion de la direccion es diferente de 200
+
+                              Swal.fire({
+                                  title: 'Error!',
+                                  text: 'Se ha producido un error al intentar crear la direccion',
+                                  type: 'error',
+                                  confirmButtonText: 'Aceptar'
+                              })
+                              return;
+                            }
+
+                        }).catch(err => {
+                          
+                          //Error al intentar crear una direccion
+
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'El Servidor no ha respondido correctamente al alta de la direccion sin validar',
+                                type: 'error',
+                                confirmButtonText: 'Aceptar'
+                            })
+                            return;
+                        })
+                      }
+
+                  }).catch(async err => {
+        
+                    const response = err.response
+                    
+                    // Si el cliente existe, vamos a buscarlo y agarrar el ID, ya que no podemos pasarlo entre las promesas
+
+                    await axios.get(`https://roraso.herokuapp.com/Client/Client?Phone=${response.data.split("\"")[3]}`,
+                    { headers: { 'access-token': localStorage.getItem('access-token') } })
+                    .then(async res => {
+    
+                      await axios.post("https://roraso.herokuapp.com/Client/AddAddress",
+                      data_dire = {
+                        Address : {
+                            Adress : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].datos_direccion.Adress,
+                            Department : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].datos_direccion.Department,
+                            Floor : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].datos_direccion.Floor,
+                            Cp : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].datos_direccion.Cp,
+                            LatLong : "latlong",
+                            Client : res.data.Cliente.id
+                        }
+                      },
+                      {headers: { 'access-token': localStorage.getItem('access-token')}})
+                      .then(async res_dire => {
+    
+                        if(res_dire.status === 200){
+                          
+                            /**
+                             * Pedido
+                             */
+    
+                            await axios.post("https://roraso.herokuapp.com/Pedido/Create",
+                            data_pedido = {
+                              Date : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.Date,
+                              Users : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.Users,
+                              Amount : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.Amount,
+                              State : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.State,
+                              Clients : res_dire.data.Client,
+                              CombosPorPedido : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.CombosPorPedido,
+                              ProductosPorPedido : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.ProductosPorPedido,
+                              Adress : res_dire.data.id,
+                              Observaciones : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.observacion
+                            }
+                            ,
+                            {headers: { 'access-token': localStorage.getItem('access-token')}})
+                                .then(res => {
+    
+                                    if(res.status === 200){
+    
+                                      arrayPedidoCompleto.shift();
+    
+                                      localStorage.setItem('pedidoCompleto', JSON.stringify(arrayPedidoCompleto));
+    
+                                        Swal.fire(
+                                          'Atencion!',
+                                          'Se ha creado un nuevo Cliente, Direccion y Pedido Sin Validar',
+                                          'warning'
+                                        )
+                                        // setTimeout(function(){ 
+                                        //     window.location.reload();
+                                        // }, 3500);
+    
+                                    }else{
+                                        Swal.fire({
+                                            title: 'Error!',
+                                            text: 'Se ha producido un error al intentar crear el Pedido',
+                                            type: 'error',
+                                            confirmButtonText: 'Aceptar'
+                                        })
+                                        return;
+                                    }
+    
+                                }).catch(err => {
+                      
+                                    Swal.fire({
+                                        title: 'Error!',
+                                        text: 'El Servidor no ha respondido al alta de Pedido',
+                                        type: 'error',
+                                        confirmButtonText: 'Aceptar'
+                                    })
+                                    return;
+                                })
+                        }else{
+                  
+                          Swal.fire({
+                              title: 'Error!',
+                              text: 'Se ha producido un error al intentar crear la direccion',
+                              type: 'error',
+                              confirmButtonText: 'Aceptar'
+                          })
+                          return;
+                        }
+    
+                      }).catch(err => {
+                          Swal.fire({
+                            title: 'Error!',
+                            text: 'Error al momento de crear una direccion',
+                            type: 'error',
+                            confirmButtonText: 'Aceptar'
+                          })
+                          return;
+                      })
+    
+                    }).catch(err =>{
+    
+                      console.log("Este error da cuando busco el numero de telefono")
+                      console.log(err)
+    
+                    })
+                    
+                  })
+                  
+              }
+          }).catch(async function (error) {
+
+            // Cuando no localiza la direccion entra en este lugar
+
+            await axios.post("https://roraso.herokuapp.com/Client/CreateClient",
+            JSON.parse(localStorage.getItem('pedidoCompleto'))[0].datos_cliente,
+            {headers: { 'access-token': localStorage.getItem('access-token')}})
+            .then(async res_cliente => {
+                if(res_cliente.status === 200){
+
+                  /**
+                   * Direccion
+                   */
+  
+                  await axios.post("https://roraso.herokuapp.com/Client/AddAddress",
+                  data_dire = {
+                    Address : {
+                        Adress : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].datos_direccion.Adress,
+                        Department : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].datos_direccion.Department,
+                        Floor : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].datos_direccion.Floor,
+                        Cp : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].datos_direccion.Cp,
+                        LatLong : "latlong",
+                        Client : res_cliente.data.UserId,
+                        Validado : true
+                    }
+                  },
+                  {headers: { 'access-token': localStorage.getItem('access-token')}})
+                  .then(async res_dire => {
+
+                      if(res_dire.status === 200){
+          
+                        /**
+                         * Pedido
+                         */
+  
+                        await axios.post("https://roraso.herokuapp.com/Pedido/Create",
+                        data_pedido = {
+                          Date : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.Date,
+                          Users : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.Users,
+                          Amount : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.Amount,
+                          State : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.State,
+                          Clients : res_dire.data.Client,
+                          CombosPorPedido : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.CombosPorPedido,
+                          ProductosPorPedido : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.ProductosPorPedido,
+                          Adress : res_dire.data.id,
+                          Observaciones : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.observacion
+                        }
+                        ,
+                        {headers: { 'access-token': localStorage.getItem('access-token')}})
+                            .then(res => {
+  
+                                if(res.status === 200){
+
+                                  arrayPedidoCompleto.shift();
+
+                                  localStorage.setItem('pedidoCompleto', JSON.stringify(arrayPedidoCompleto));
+
+                                    Swal.fire(
+                                      'Correcto!',
+                                      'Se ha creado un nuevo Cliente, Direccion y Pedido',
+                                      'success'
+                                    )
+                                    // setTimeout(function(){ 
+                                    //     window.location.reload();
+                                    // }, 3500);
+                                }
+                                else{
+                                    Swal.fire({
+                                        title: 'Error!',
+                                        text: 'Se ha producido un error al intentar crear el Pedido',
+                                        type: 'error',
+                                        confirmButtonText: 'Aceptar'
+                                    })
+                                    return;
+                                }
+                            })
+                            .catch(err => {
+  
+                                //Error al intentar crear un pedido
+
+                                Swal.fire({
+                                    title: 'Error!',
+                                    text: 'El Servidor no ha respondido al alta de Pedido',
+                                    type: 'error',
+                                    confirmButtonText: 'Aceptar'
+                                })
+                                return;
+                            })
+  
+                      }else{
+
+                        //Si el status de la respuesta de la creacion de la direccion es diferente de 200
+
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Se ha producido un error al intentar crear la direccion',
+                            type: 'error',
+                            confirmButtonText: 'Aceptar'
+                        })
+                        return;
+                      }
+
+                  }).catch(err => {
+                    
+                    //Error al intentar crear una direccion
 
                       Swal.fire({
-                        title: 'Error! La direccion no pudo ser validada',
-                        text: 'Comuniquese con el cliente',
+                          title: 'Error!',
+                          text: 'El Servidor no ha respondido correctamente al alta de la direccion sin validar',
+                          type: 'error',
+                          confirmButtonText: 'Aceptar'
+                      })
+                      return;
+                  })
+                }
+
+            }).catch(async err => {
+  
+              const response = err.response
+              
+              // Si el cliente existe, vamos a buscarlo y agarrar el ID, ya que no podemos pasarlo entre las promesas
+
+              await axios.get(`https://roraso.herokuapp.com/Client/Client?Phone=${response.data.split("\"")[3]}`,
+                { headers: { 'access-token': localStorage.getItem('access-token') } })
+                .then(async res => {
+
+                  await axios.post("https://roraso.herokuapp.com/Client/AddAddress",
+                  data_dire = {
+                    Address : {
+                        Adress : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].datos_direccion.Adress,
+                        Department : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].datos_direccion.Department,
+                        Floor : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].datos_direccion.Floor,
+                        Cp : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].datos_direccion.Cp,
+                        LatLong : "latlong",
+                        Client : res.data.Cliente.id
+                    }
+                  },
+                  {headers: { 'access-token': localStorage.getItem('access-token')}})
+                  .then(async res_dire => {
+
+                    if(res_dire.status === 200){
+                      
+                        /**
+                         * Pedido
+                         */
+
+                        await axios.post("https://roraso.herokuapp.com/Pedido/Create",
+                        data_pedido = {
+                          Date : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.Date,
+                          Users : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.Users,
+                          Amount : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.Amount,
+                          State : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.State,
+                          Clients : res_dire.data.Client,
+                          CombosPorPedido : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.CombosPorPedido,
+                          ProductosPorPedido : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.ProductosPorPedido,
+                          Adress : res_dire.data.id,
+                          Observaciones : JSON.parse(localStorage.getItem('pedidoCompleto'))[0].pedido.observacion
+                        }
+                        ,
+                        {headers: { 'access-token': localStorage.getItem('access-token')}})
+                            .then(res => {
+
+                                if(res.status === 200){
+
+                                  arrayPedidoCompleto.shift();
+
+                                  localStorage.setItem('pedidoCompleto', JSON.stringify(arrayPedidoCompleto));
+
+                                    Swal.fire(
+                                      'Atencion!',
+                                      'Se ha creado un nuevo Cliente, Direccion y Pedido Sin Validar',
+                                      'warning'
+                                    )
+                                    // setTimeout(function(){ 
+                                    //     window.location.reload();
+                                    // }, 3500);
+
+                                }else{
+                                    Swal.fire({
+                                        title: 'Error!',
+                                        text: 'Se ha producido un error al intentar crear el Pedido',
+                                        type: 'error',
+                                        confirmButtonText: 'Aceptar'
+                                    })
+                                    return;
+                                }
+
+                            }).catch(err => {
+                  
+                                Swal.fire({
+                                    title: 'Error!',
+                                    text: 'El Servidor no ha respondido al alta de Pedido',
+                                    type: 'error',
+                                    confirmButtonText: 'Aceptar'
+                                })
+                                return;
+                            })
+                    }else{
+              
+                      Swal.fire({
+                          title: 'Error!',
+                          text: 'Se ha producido un error al intentar crear la direccion',
+                          type: 'error',
+                          confirmButtonText: 'Aceptar'
+                      })
+                      return;
+                    }
+
+                  }).catch(err => {
+                      Swal.fire({
+                        title: 'Error!',
+                        text: 'Error al momento de crear una direccion',
                         type: 'error',
                         confirmButtonText: 'Aceptar'
                       })
+                      return;
+                  })
 
-                      /*-----------------------------------------------------------------------*/
-                    );
-                  } else {
+                }).catch(err =>{
 
-                    let coords = self.state.lat + ";" + self.state.lon
-
-                    return (
-                        axios.post("https://roraso.herokuapp.com/Client/CreateClient",
-                        JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_cliente,
-                        {headers: { 'access-token': localStorage.getItem('access-token')}})
-                        .then(res_cliente => {
-                            if(res_cliente.status === 200){
-
-                              /**
-                               * Direccion
-                               */
-              
-                              axios.post("https://roraso.herokuapp.com/Client/AddAddress",
-                              data_dire = {
-                                Address : {
-                                    Adress : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Adress,
-                                    Department : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Department,
-                                    Floor : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Floor,
-                                    Cp : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Cp,
-                                    LatLong : coords,
-                                    Client : res_cliente.data.UserId,
-                                    Validado : true
-                                }
-                              },
-                              {headers: { 'access-token': localStorage.getItem('access-token')}})
-                              .then(res_dire => {
-
-                                  if(res_dire.status === 200){
-                      
-                                    /**
-                                     * Pedido
-                                     */
-              
-                                    axios.post("https://roraso.herokuapp.com/Pedido/Create",
-                                    data_pedido = {
-                                      Date : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.Date,
-                                      Users : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.Users,
-                                      Amount : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.Amount,
-                                      State : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.State,
-                                      Clients : res_dire.data.Client,
-                                      CombosPorPedido : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.CombosPorPedido,
-                                      ProductosPorPedido : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.ProductosPorPedido,
-                                      Adress : res_dire.data.id,
-                                      Observaciones : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.observacion
-                                    }
-                                    ,
-                                    {headers: { 'access-token': localStorage.getItem('access-token')}})
-                                        .then(res => {
-              
-                                            if(res.status === 200){
-
-                                              arrayPedidoCompleto.shift();
-
-                                              localStorage.setItem('pedidoCompleto', JSON.stringify(arrayPedidoCompleto));
-
-                                                Swal.fire(
-                                                  'Correcto!',
-                                                  'Se ha creado un nuevo Cliente, Direccion y Pedido',
-                                                  'success'
-                                                )
-                                                setTimeout(function(){ 
-                                                    window.location.reload();
-                                                }, 3500);
-                                            }
-                                            else{
-                                                Swal.fire({
-                                                    title: 'Error!',
-                                                    text: 'Se ha producido un error al intentar crear el Pedido',
-                                                    type: 'error',
-                                                    confirmButtonText: 'Aceptar'
-                                                })
-                                                return;
-                                            }
-                                        })
-                                        .catch(err => {
-              
-                                          console.log(err)
-              
-                                            Swal.fire({
-                                                title: 'Error!',
-                                                text: 'El Servidor no ha respondido al alta de Pedido',
-                                                type: 'error',
-                                                confirmButtonText: 'Aceptar'
-                                            })
-                                            return;
-                                        })
-              
-                                  }else{
-              
-                                    Swal.fire({
-                                        title: 'Error!',
-                                        text: 'Se ha producido un error al intentar crear la direccion',
-                                        type: 'error',
-                                        confirmButtonText: 'Aceptar'
-                                    })
-                                    return;
-                                  }
-                              })
-                              .catch(err => {
-              
-                                console.log(err)
-              
-                                  Swal.fire({
-                                      title: 'Error!',
-                                      text: 'El Servidor no ha respondido al alta de la direccion',
-                                      type: 'error',
-                                      confirmButtonText: 'Aceptar'
-                                  })
-                                  return;
-                              })
-              
-                            }else if(res_cliente.status === 400){
-                              Swal.fire({
-                                title: 'Error!',
-                                text: 'Se ha producido un error al intentar crear el cliente',
-                                type: 'error',
-                                confirmButtonText: 'Aceptar'
-                              })
-                              return;
-                            }
-                            else{
-                                Swal.fire({
-                                    title: 'Error!',
-                                    text: 'Se ha producido un error al intentar crear el cliente',
-                                    type: 'error',
-                                    confirmButtonText: 'Aceptar'
-                                })
-                                return;
-                            }
-                        }).catch(err => {
-              
-                          const response = err.response
-                          // console.log(response.data.split("\"")[3])
-
-                          axios.get(`https://roraso.herokuapp.com/Client/Client?Phone=${response.data.split("\"")[3]}`,
-                            { headers: { 'access-token': localStorage.getItem('access-token') } })
-                            .then(res => {
-                              
-                              axios.post("https://roraso.herokuapp.com/Client/AddAddress",
-                              data_dire = {
-                                Address : {
-                                    Adress : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Adress,
-                                    Department : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Department,
-                                    Floor : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Floor,
-                                    Cp : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Cp,
-                                    LatLong : coords,
-                                    Client : res.data.Cliente.id,
-                                    Validado : true
-                                }
-                              },
-                              {headers: { 'access-token': localStorage.getItem('access-token')}})
-                              .then(res_dire => {
-
-                                  if(res_dire.status === 200){
-                      
-                                    /**
-                                     * Pedido
-                                     */
-              
-                                    axios.post("https://roraso.herokuapp.com/Pedido/Create",
-                                    data_pedido = {
-                                      Date : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.Date,
-                                      Users : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.Users,
-                                      Amount : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.Amount,
-                                      State : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.State,
-                                      Clients : res_dire.data.Client,
-                                      CombosPorPedido : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.CombosPorPedido,
-                                      ProductosPorPedido : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.ProductosPorPedido,
-                                      Adress : res_dire.data.id,
-                                      Observaciones : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.observacion
-                                    }
-                                    ,
-                                    {headers: { 'access-token': localStorage.getItem('access-token')}})
-                                        .then(res => {
-              
-              
-                                          console.log(res)
-              
-                                            if(res.status === 200){
-
-                                              arrayPedidoCompleto.shift();
-
-                                              localStorage.setItem('pedidoCompleto', JSON.stringify(arrayPedidoCompleto));
-
-                                                Swal.fire(
-                                                  'Correcto!',
-                                                  'Se ha creado un nuevo Cliente, Direccion y Pedido',
-                                                  'success'
-                                                )
-                                                setTimeout(function(){ 
-                                                    window.location.reload();
-                                                }, 3500);
-                                            }
-                                            else{
-                                                Swal.fire({
-                                                    title: 'Error!',
-                                                    text: 'Se ha producido un error al intentar crear el Pedido',
-                                                    type: 'error',
-                                                    confirmButtonText: 'Aceptar'
-                                                })
-                                                return;
-                                            }
-                                        })
-                                        .catch(err => {
-              
-                                          console.log(err)
-              
-                                            Swal.fire({
-                                                title: 'Error!',
-                                                text: 'El Servidor no ha respondido al alta de Pedido',
-                                                type: 'error',
-                                                confirmButtonText: 'Aceptar'
-                                            })
-                                            return;
-                                        })
-              
-                                  }else{
-              
-                                    Swal.fire({
-                                        title: 'Error!',
-                                        text: 'Se ha producido un error al intentar crear la direccion',
-                                        type: 'error',
-                                        confirmButtonText: 'Aceptar'
-                                    })
-                                    return;
-                                  }
-                              })
-                              .catch(err => {
-              
-                                console.log(err)
-              
-                                  Swal.fire({
-                                      title: 'Error!',
-                                      text: 'El Servidor no ha respondido al alta de la direccion',
-                                      type: 'error',
-                                      confirmButtonText: 'Aceptar'
-                                  })
-                                  return;
-                              })
-
-                            })
-                            .catch(err => {
-
-                              Swal.fire({
-                                title: 'Error!',
-                                text: 'El Servidor ha dado un error al buscar un telefono, intentelo nuevamente 1',
-                                type: 'error',
-                                confirmButtonText: 'Aceptar'
-                            })
-                            return;
-
-                            })
-                          
-                      })
-                    );
-                  }
+                  console.log("Este error da cuando busco el numero de telefono")
+                  console.log(err)
 
                 })
-                .catch(function (error) {
-                  Swal.fire({
-                    title: 'Error!',
-                    text: 'La direccion no pudo ser validada, comuniquese con el cliente',
-                    type: 'error',
-                    confirmButtonText: 'Aceptar'
-                  })
-                  self.setState({
-                    'coords': null,
-                  });
-                });
-              } else {
-                // Swal.fire({
-                //   title: 'Error!',
-                //   text: 'La direccion no pudo ser validada, comuniquese con el cliente',
-                //   type: 'error',
-                //   confirmButtonText: 'Aceptar'
-                // })
-
-                axios.post("https://roraso.herokuapp.com/Client/CreateClient",
-                        JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_cliente,
-                        {headers: { 'access-token': localStorage.getItem('access-token')}})
-                        .then(res_cliente => {
-                            if(res_cliente.status === 200){
-
-                              /**
-                               * Direccion
-                               */
               
-                              axios.post("https://roraso.herokuapp.com/Client/AddAddress",
-                              data_dire = {
-                                Address : {
-                                    Adress : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Adress,
-                                    Department : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Department,
-                                    Floor : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Floor,
-                                    Cp : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Cp,
-                                    LatLong : "latlong",
-                                    Client : res_cliente.data.UserId,
-                                }
-                              },
-                              {headers: { 'access-token': localStorage.getItem('access-token')}})
-                              .then(res_dire => {
-
-                                  if(res_dire.status === 200){
-                      
-                                    /**
-                                     * Pedido
-                                     */
-              
-                                    axios.post("https://roraso.herokuapp.com/Pedido/Create",
-                                    data_pedido = {
-                                      Date : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.Date,
-                                      Users : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.Users,
-                                      Amount : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.Amount,
-                                      State : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.State,
-                                      Clients : res_dire.data.Client,
-                                      CombosPorPedido : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.CombosPorPedido,
-                                      ProductosPorPedido : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.ProductosPorPedido,
-                                      Adress : res_dire.data.id,
-                                      Observaciones : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.observacion
-                                    }
-                                    ,
-                                    {headers: { 'access-token': localStorage.getItem('access-token')}})
-                                        .then(res => {
-              
-              
-                                          console.log(res)
-              
-                                            if(res.status === 200){
-
-                                              arrayPedidoCompleto.splice(i, 1);
-
-                                              localStorage.setItem('pedidoCompleto', JSON.stringify(arrayPedidoCompleto));
-
-                                                Swal.fire(
-                                                  'Correcto!',
-                                                  'Se ha creado un nuevo Cliente, Direccion y Pedido sin Validar',
-                                                  'warning'
-                                                )
-                                                setTimeout(function(){ 
-                                                    window.location.reload();
-                                                }, 3500);
-                                            }
-                                            else{
-                                                Swal.fire({
-                                                    title: 'Error!',
-                                                    text: 'Se ha producido un error al intentar crear el Pedido',
-                                                    type: 'error',
-                                                    confirmButtonText: 'Aceptar'
-                                                })
-                                                return;
-                                            }
-                                        })
-                                        .catch(err => {
-              
-                                          console.log(err)
-              
-                                            Swal.fire({
-                                                title: 'Error!',
-                                                text: 'El Servidor no ha respondido al alta de Pedido',
-                                                type: 'error',
-                                                confirmButtonText: 'Aceptar'
-                                            })
-                                            return;
-                                        })
-              
-                                  }else{
-              
-                                    Swal.fire({
-                                        title: 'Error!',
-                                        text: 'Se ha producido un error al intentar crear la direccion',
-                                        type: 'error',
-                                        confirmButtonText: 'Aceptar'
-                                    })
-                                    return;
-                                  }
-                              })
-                              .catch(err => {
-              
-                                console.log(err)
-              
-                                  Swal.fire({
-                                      title: 'Error!',
-                                      text: 'El Servidor no ha respondido al alta de la direccion',
-                                      type: 'error',
-                                      confirmButtonText: 'Aceptar'
-                                  })
-                                  return;
-                              })
-              
-                            }else if(res_cliente.status === 400){
-                              Swal.fire({
-                                title: 'Error!',
-                                text: 'Se ha producido un error al intentar crear el cliente',
-                                type: 'error',
-                                confirmButtonText: 'Aceptar'
-                              })
-                              return;
-                            }else{
-                                Swal.fire({
-                                    title: 'Error!',
-                                    text: 'Se ha producido un error al intentar crear el cliente',
-                                    type: 'error',
-                                    confirmButtonText: 'Aceptar'
-                                })
-                                return;
-                            }
-                        }).catch(err => {
-              
-                          const response = err.response
-                          // console.log(response.data.split("\"")[3])
-
-                          axios.get(`https://roraso.herokuapp.com/Client/Client?Phone=${response.data.split("\"")[3]}`,
-                            { headers: { 'access-token': localStorage.getItem('access-token') } })
-                            .then(res => {
-                              
-                              axios.post("https://roraso.herokuapp.com/Client/AddAddress",
-                              data_dire = {
-                                Address : {
-                                    Adress : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Adress,
-                                    Department : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Department,
-                                    Floor : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Floor,
-                                    Cp : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].datos_direccion.Cp,
-                                    LatLong : "latlong",
-                                    Client : res.data.Cliente.id
-                                }
-                              },
-                              {headers: { 'access-token': localStorage.getItem('access-token')}})
-                              .then(res_dire => {
-
-                                  if(res_dire.status === 200){
-                      
-                                    /**
-                                     * Pedido
-                                     */
-              
-                                    axios.post("https://roraso.herokuapp.com/Pedido/Create",
-                                    data_pedido = {
-                                      Date : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.Date,
-                                      Users : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.Users,
-                                      Amount : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.Amount,
-                                      State : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.State,
-                                      Clients : res_dire.data.Client,
-                                      CombosPorPedido : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.CombosPorPedido,
-                                      ProductosPorPedido : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.ProductosPorPedido,
-                                      Adress : res_dire.data.id,
-                                      Observaciones : JSON.parse(localStorage.getItem('pedidoCompleto'))[i].pedido.observacion
-                                    }
-                                    ,
-                                    {headers: { 'access-token': localStorage.getItem('access-token')}})
-                                        .then(res => {
-              
-              
-                                          console.log(res)
-              
-                                            if(res.status === 200){
-
-                                              arrayPedidoCompleto.shift();
-
-                                              localStorage.setItem('pedidoCompleto', JSON.stringify(arrayPedidoCompleto));
-
-                                                Swal.fire(
-                                                  'Correcto!',
-                                                  'Se ha creado un nuevo Cliente, Direccion y Pedido',
-                                                  'success'
-                                                )
-                                                setTimeout(function(){ 
-                                                    window.location.reload();
-                                                }, 3500);
-                                            }
-                                            else{
-                                                Swal.fire({
-                                                    title: 'Error!',
-                                                    text: 'Se ha producido un error al intentar crear el Pedido',
-                                                    type: 'error',
-                                                    confirmButtonText: 'Aceptar'
-                                                })
-                                                return;
-                                            }
-                                        })
-                                        .catch(err => {
-              
-                                          console.log(err)
-              
-                                            Swal.fire({
-                                                title: 'Error!',
-                                                text: 'El Servidor no ha respondido al alta de Pedido',
-                                                type: 'error',
-                                                confirmButtonText: 'Aceptar'
-                                            })
-                                            return;
-                                        })
-              
-                                  }else{
-              
-                                    Swal.fire({
-                                        title: 'Error!',
-                                        text: 'Se ha producido un error al intentar crear la direccion',
-                                        type: 'error',
-                                        confirmButtonText: 'Aceptar'
-                                    })
-                                    return;
-                                  }
-                              })
-                              .catch(err => {
-              
-                                console.log(err)
-              
-                                  Swal.fire({
-                                      title: 'Error!',
-                                      text: 'El Servidor no ha respondido al alta de la direccion',
-                                      type: 'error',
-                                      confirmButtonText: 'Aceptar'
-                                  })
-                                  return;
-                              })
-
-                            })
-                            .catch(err => {
-
-                              Swal.fire({
-                                title: 'Error!',
-                                text: 'El Servidor ha dado un error al buscar un telefono, intentelo nuevamente 2',
-                                type: 'error',
-                                confirmButtonText: 'Aceptar'
-                            })
-                            return;
-
-                            })
-                          
-                      })
-              }
-          })
-          .catch(function (error) {
-            Swal.fire({
-              title: 'Error!',
-              text: 'Error de localizacion de domicilio, intentelo nuevamente',
-              type: 'error',
-              confirmButtonText: 'Aceptar'
             })
+            
           });
 
           let countDirErr = localStorage.getItem('direccionesErroneas')
@@ -1107,13 +1425,6 @@ class EnviarPedidosOff extends Component {
 
           localStorage.setItem('direccionesErroneas', countDirErr)
         }
-  
-        Swal.fire({
-          title: 'Se esta procesando las solicitudes',
-          text: 'Aguarde por favor',
-          type: 'success',
-          showConfirmButton: false
-        })
 
       } 
       

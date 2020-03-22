@@ -616,7 +616,7 @@ class NuevoPedido extends Component {
         title: 'Atencion!',
         text: 'La solicitud fue guardada en la bandeja se enviara una vez se restablezca la conexion',
         type: 'warning',
-        confirmButtonText: 'Volver'
+        confirmButtonText: 'Aceptar'
       }).then((result) => {
         if (result.value) {
             this.setState({
@@ -669,7 +669,7 @@ class NuevoPedido extends Component {
         title: 'Atencion!',
         text: 'La solicitud fue guardada en la bandeja se enviara una vez se restablezca la conexion',
         type: 'warning',
-        confirmButtonText: 'Volver'
+        confirmButtonText: 'Aceptar'
       }).then((result) => {
         if (result.value) {
             this.setState({
@@ -727,7 +727,7 @@ class NuevoPedido extends Component {
           title: 'Atencion!',
           text: 'La solicitud fue guardada en la bandeja se enviara una vez se restablezca la conexion',
           type: 'warning',
-          confirmButtonText: 'Volver'
+          confirmButtonText: 'Aceptar'
         }).then((result) => {
           if (result.value) {
               this.setState({

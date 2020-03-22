@@ -173,38 +173,76 @@ class Principal extends Component{
 
                         {this.state.permisosPedidos.length > 0 ? 
 
-                        <Link key={1} to={'/pedidos'} className={classes.root}>
-                        <Button
-                        focusRipple
-                        key="Pedido"
-                        className={classes.image}
-                        focusVisibleClassName={classes.focusVisible}
-                        style={{
-                            width: "33.3%",
-                        }}
-                        >
-                        
-                        <span
-                            className={classes.imageSrc}
-                            style={{
-                            backgroundImage: `url(${pedidos})`,
-                            }}
-                        />
+                            localStorage.getItem('status') === 'offline' ? 
 
-                        <span className={classes.imageBackdrop} />
-                        <span className={classes.imageButton}>
-                            <Typography
-                            component="span"
-                            variant="subtitle1"
-                            color="inherit"
-                            className={classes.imageTitle}
-                            >
-                            Pedido
-                            <span className={classes.imageMarked} />
-                            </Typography>
-                        </span>
-                        </Button>
-                        </Link>
+                                <Link key={1} to={'/pedidos'} className={classes.root}>
+                                    <Button
+                                    focusRipple
+                                    key="Pedido"
+                                    focusVisibleClassName={classes.focusVisible}
+                                    style={{
+                                        width: "33.3%",
+                                        backgroundColor: "#493EFA",
+                                        color: "#493EFA"
+                                    }}
+                                    >
+                                    
+                                    <span
+                                        className={classes.imageSrc}
+                                        style={{
+                                        backgroundImage: `url(${pedidos})`,
+                                        }}
+                                    />
+
+                                    <span className={classes.imageBackdrop} />
+                                    <span className={classes.imageButton}>
+                                        <Typography
+                                        component="span"
+                                        variant="subtitle1"
+                                        color="inherit"
+                                        className={classes.imageTitle}
+                                        >
+                                        Pedido
+                                        <span className={classes.imageMarked} />
+                                        </Typography>
+                                    </span>
+                                    </Button>
+                                </Link>
+
+                                :
+
+                                <Link key={1} to={'/pedidos'} className={classes.root}>
+                                    <Button
+                                    focusRipple
+                                    key="Pedido"
+                                    className={classes.image}
+                                    focusVisibleClassName={classes.focusVisible}
+                                    style={{
+                                        width: "33.3%",
+                                    }}
+                                    >
+                                    
+                                    <span
+                                        className={classes.imageSrc}
+                                        style={{
+                                        backgroundImage: `url(${pedidos})`,
+                                        }}
+                                    />
+        
+                                    <span className={classes.imageBackdrop} />
+                                    <span className={classes.imageButton}>
+                                        <Typography
+                                        component="span"
+                                        variant="subtitle1"
+                                        color="inherit"
+                                        className={classes.imageTitle}
+                                        >
+                                        Pedido
+                                        <span className={classes.imageMarked} />
+                                        </Typography>
+                                    </span>
+                                    </Button>
+                                </Link>
 
                             :
 

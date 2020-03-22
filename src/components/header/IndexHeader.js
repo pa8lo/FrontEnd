@@ -45,6 +45,7 @@ class Header extends React.Component {
       { headers: { 'access-token': localStorage.getItem('access-token')}})
           .then(res => {
               if(localStorage.getItem('status') === 'offline'){
+                
                 localStorage.setItem('status', 'online');
                 Swal.fire({
                     title: 'Se volvio a tener conexion',
@@ -148,8 +149,11 @@ class Header extends React.Component {
                   text: 'Entrando en modo Offline',
                   type: 'error',
                   confirmButtonText: 'Aceptar'
+              }).then((result) => {
+                if (result.value) {
+                  return <Redirect to='/' />
+                }
               })
-              return;
             }
         })
     // console.log(this.props);

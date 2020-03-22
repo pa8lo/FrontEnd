@@ -20,6 +20,7 @@ class mostrarPedidosOffline extends Component {
         mostrarPedidoSemi : false,
         mostrarSoloPedido : false,
         redirectHome: false,
+        redirectPedidos: false,
     };
 
     direccionNuevaRef = React.createRef();
@@ -201,24 +202,39 @@ class mostrarPedidosOffline extends Component {
   
         }
 
-        let array_pedido_completo = (JSON.parse(localStorage.getItem('pedidoCompleto')));
+        // console.log(cp_nuevo)
+        // console.log(direccion_vieja.Cp)
 
-        //Dice direccion vieja, pero en realidad es la nueva
-        array_pedido_completo[index].datos_direccion = direccion_vieja
+        if(cp_nuevo == ""){
 
-        localStorage.setItem('pedidoCompleto', JSON.stringify(array_pedido_completo))
-
-        Swal.fire({
-            title: 'Correcto!',
-            text: 'Se ha modificado una direccion',
-            type: 'success',
-            confirmButtonText: 'Confirmar'
-        }).then((result) => {
-            this.setState({
-                mostrarDire : false
+            Swal.fire({
+                title: 'Error!',
+                text: 'La direccion debe contener Codigo Postal',
+                type: 'error',
+                confirmButtonText: 'Aceptar'
             })
-        })
+  
+        }else{
 
+            let array_pedido_completo = (JSON.parse(localStorage.getItem('pedidoCompleto')));
+
+            //Dice direccion vieja, pero en realidad es la nueva
+            array_pedido_completo[index].datos_direccion = direccion_vieja
+
+            localStorage.setItem('pedidoCompleto', JSON.stringify(array_pedido_completo))
+
+            Swal.fire({
+                title: 'Correcto!',
+                text: 'Se ha modificado una direccion',
+                type: 'success',
+                confirmButtonText: 'Confirmar'
+            }).then((result) => {
+                this.setState({
+                    mostrarDire : false
+                })
+            })
+
+        }
     }
 
     modificarPedido = (pedido_viejo, estado_actual, index) => {
@@ -350,26 +366,37 @@ class mostrarPedidosOffline extends Component {
   
         }
 
-        let array_pedido_completo = (JSON.parse(localStorage.getItem('pedidoSemiCompleto')));
+        if(cp_nuevo == ""){
 
-        // console.log(direccion_vieja)
-
-        //Dice direccion vieja, pero en realidad es la nueva
-        array_pedido_completo[index].datos_direccion = direccion_vieja
-
-        localStorage.setItem('pedidoSemiCompleto', JSON.stringify(array_pedido_completo))
-
-        Swal.fire({
-            title: 'Correcto!',
-            text: 'Se ha modificado una direccion',
-            type: 'success',
-            confirmButtonText: 'Confirmar'
-        }).then((result) => {
-            this.setState({
-                mostrarDireSemi : false
+            Swal.fire({
+                title: 'Error!',
+                text: 'La direccion debe contener Codigo Postal',
+                type: 'error',
+                confirmButtonText: 'Aceptar'
             })
-        })
+  
+        }else{
 
+            let array_pedido_completo = (JSON.parse(localStorage.getItem('pedidoSemiCompleto')));
+
+            // console.log(direccion_vieja)
+
+            //Dice direccion vieja, pero en realidad es la nueva
+            array_pedido_completo[index].datos_direccion = direccion_vieja
+
+            localStorage.setItem('pedidoSemiCompleto', JSON.stringify(array_pedido_completo))
+
+            Swal.fire({
+                title: 'Correcto!',
+                text: 'Se ha modificado una direccion',
+                type: 'success',
+                confirmButtonText: 'Confirmar'
+            }).then((result) => {
+                this.setState({
+                    mostrarDireSemi : false
+                })
+            })
+        }
     }
 
     modificarPedidoSemi = (pedido_viejo, estado_actual, index) => {
@@ -400,7 +427,7 @@ class mostrarPedidosOffline extends Component {
 
     mostrarSoloPedidos = () => {
 
-        console.log(this.state)
+        // console.log(this.state)
         return(
             <div className="static-modal">
             <Modal.Dialog style={{marginTop: "150px"}}>
@@ -477,6 +504,12 @@ class mostrarPedidosOffline extends Component {
 
     // }
 
+    ToPedidos(){
+      if (this.state.redirectPedidos) {
+        return <Redirect to='/pedidos-encolados' />
+      }
+    }
+
 
     eliminarPedidoStorage = (index) => {
         // alert(index)
@@ -487,7 +520,9 @@ class mostrarPedidosOffline extends Component {
 
         localStorage.setItem('pedidoCompleto', JSON.stringify(arrayPedidoCompleto));
 
-        window.location.reload();
+        this.setState({
+            redirectPedidos: true
+        })
     }
 
     eliminarPedidoSemiStorage = (index) => {
@@ -499,7 +534,9 @@ class mostrarPedidosOffline extends Component {
 
         localStorage.setItem('pedidoSemiCompleto', JSON.stringify(arrayPedidoSemiCompleto));
 
-        window.location.reload();
+        this.setState({
+            redirectPedidos: true
+        })
     }
 
     eliminarSoloPedidoStorage = (index) => {
@@ -511,7 +548,9 @@ class mostrarPedidosOffline extends Component {
 
         localStorage.setItem('enviarPedido', JSON.stringify(arraySoloPedido));
 
-        window.location.reload();
+        this.setState({
+            redirectPedidos: true
+        })
     }
 
     eliminarEstadoPedidoStorage = (index) => {
@@ -523,7 +562,9 @@ class mostrarPedidosOffline extends Component {
 
         localStorage.setItem('pedidoCambioEstado', JSON.stringify(arrayEstadoPedido));
 
-        window.location.reload();
+        this.setState({
+            redirectPedidos: true
+        })
     }
 
 
@@ -1038,7 +1079,7 @@ class mostrarPedidosOffline extends Component {
                     </Col>
                     <div align="center">
                     <button onClick={() => this.eliminarEstadoPedidoStorage(index)} type="button" className="btn btn-danger">Borrar</button>
-                    <button onClick={this.setRedirectToHome} type="button" style={{marginLeft: "20px"}} className="btn btn-primary">Ver Pedido</button>
+                    {/* <button onClick={this.setRedirectToHome} type="button" style={{marginLeft: "20px"}} className="btn btn-primary">Ver Pedido</button> */}
                     {/* <button style={{marginLeft: 20, width: 80}} onClick={this.setRedirectToHome} type="button" className="btn btn-danger">Cancelar</button> */}
                     {this.ToHome()}
                     </div>

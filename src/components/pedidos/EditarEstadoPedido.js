@@ -31,6 +31,7 @@ class EditarEstadoPedido extends Component {
             modalShow: false,
             arrayProdEnCombos : [],
             redirectHome: false,
+            redirectPedidos: false,
             estados_storage : []
         }
         }
@@ -180,9 +181,16 @@ class EditarEstadoPedido extends Component {
                     title: 'Atencion!',
                     text: 'La solicitud fue guardada en la solicitudes encoladas se enviara una vez se restablezca la conexion',
                     type: 'warning',
-                    confirmButtonText: 'Aceptar'
-                })
-                return;
+                    confirmButtonText: 'Aceptar',
+                    cancelButtonText: 'Cancelar'
+                    }).then((result) => {
+                        if (result.value) {
+                            this.setState({
+                                redirectPedidos: true
+                            })
+                        }
+                    })
+
 
                 // let cambioEstado = JSON.parse(localStorage.getItem('estados'));
                 // pedidoCambioEstado
@@ -202,6 +210,12 @@ class EditarEstadoPedido extends Component {
           this.setState({
             redirectHome: true
           })
+        }
+
+        ToPedidos(){
+          if (this.state.redirectPedidos) {
+            return <Redirect to='/pedidos' />
+          }
         }
       
         render() {
@@ -275,6 +289,7 @@ class EditarEstadoPedido extends Component {
                                     <input type="submit" value="Aceptar" className="btn btn-primary" required />
                                     <button style={{marginLeft: 20, width: 80}} onClick={this.setRedirectToHome} type="button" className="btn btn-danger">Cancelar</button>
                                     {this.ToHome()}
+                                    {this.ToPedidos()}
                                 </div>
                         </form>
                         </div>

@@ -309,9 +309,9 @@ class ListaAsistencias extends Component {
         // if(this.props.asistencia == null || this.props.asistencia == undefined || this.props.asistencia == []) return null;
 
         const asistencias = this.props.asistencias;
-        // for (var i = 0; i < asistencias.length; i++) {
-        //     asistencias[i].countAss = asistencias[i].Assistance.length;
-        // }
+        for (var i = 0; i < asistencias.length; i++) {
+            asistencias[i].countAss = asistencias[i].Assistance.length;
+        }
 
         if(asistencias.length === 0) {
             return (
