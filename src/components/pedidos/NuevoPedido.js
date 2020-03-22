@@ -363,7 +363,7 @@ class NuevoPedido extends Component {
           </div>
           <div className="form-group">
               <label>Telefono</label>
-              <input ref={this.telefonoRef} defaultValue={this.state.telefonoClient} type="number" min="1" step="1" title="Numbers only" className="form-control" required/>
+              <input ref={this.telefonoRef} defaultValue={this.state.telefonoClient} disabled type="number" min="1" step="1" title="Numbers only" className="form-control" required/>
           </div>
         </div>
       </div>

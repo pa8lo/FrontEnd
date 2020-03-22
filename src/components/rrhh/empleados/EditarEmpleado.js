@@ -86,6 +86,15 @@ class EditarEmpleado extends Component {
 
         e.preventDefault();
 
+        if(this.rolRef.current.value === ""){
+            Swal.fire({
+                title: 'Error!',
+                text: 'El usuario tiene que tener asignado un rol',
+                type: 'error',
+                confirmButtonText: 'Aceptar'
+            })
+        }
+
         const empleado = {
             id : this.props.location.state.id,
             dni : this.props.location.state.Dni,
@@ -135,13 +144,62 @@ class EditarEmpleado extends Component {
         );
 
         if(rol_encontrado[0] == undefined) return (
-            <div style={{marginTop: '40px', marginBottom: '40px'}}>
-                <DotLoader
-                css={override}
-                size={50} // or 150px
-                color={"#4D4D4D"}
-                loading={this.state.loading}
-                />
+            <div>
+                <Header titulo = 'Editar Empleado'/>
+                <div className="table-empleados">
+                    <Paper className="col-md-4">
+                        <div align="center">
+                            <form onSubmit={this.crearEmpleado} className="col-8">
+                                <div className="form-group">
+                                    <label>DNI</label>
+                                    <input
+                                    //  ref={this.dniRef}
+                                    disabled type="text" defaultValue={this.props.location.state.Dni} className="form-control"/>
+                                </div>
+                                <div className="form-group">
+                                    <label>Nombre</label>
+                                    <input ref={this.nombreRef} type="text" defaultValue={this.props.location.state.Name} className="form-control" />
+                                </div>
+                                <div className="form-group">
+                                    <label>Apellido</label>
+                                    <input ref={this.apellidoRef} type="text" defaultValue={this.props.location.state.LastName} className="form-control" />
+                                </div>
+                                <div className="form-group">
+                                    <label>Email</label>
+                                    <input ref={this.emailRef} type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" defaultValue={this.props.location.state.Email} className="form-control" />
+                                </div>
+                                <div className="form-group">
+                                    <label>1º Telefono / Celular</label>
+                                    <input ref={this.primerTelefonoRef} type="text" defaultValue={this.props.location.state.PrimaryPhone} className="form-control" />
+                                </div>
+                                <div className="form-group">
+                                    <label>2º Telefono / Celular</label>
+                                    <input ref={this.segundoTelefonoRef} type="text" defaultValue={this.props.location.state.SecondaryPhone} className="form-control" />
+                                </div>
+                                <div className="form-group">
+                                    <label>Rol</label>
+                                    <select ref={this.rolRef} className="form-control">
+                                        <option disabled defaultValue="">Actual: Sin Rol</option>
+                                        
+                                        {this.state.roles.map(rol => (
+                                            <ListadoRolesEmpleados
+                                                key = {rol.id}
+                                                roles = {rol}
+                                            />
+                                        ))}
+
+                                        
+                                    </select>
+                                </div>
+                                <div className="form-group">
+                                    <input type="submit" value="Aceptar" className="btn btn-primary"/>
+                                    <button style={{marginLeft: 20, width: 80}} onClick={this.setRedirectToHome} type="button" className="btn btn-danger">Cancelar</button>
+                                    {this.ToHome()}
+                                </div>
+                            </form>
+                        </div>
+                    </Paper>
+                </div>
             </div>
         )
 

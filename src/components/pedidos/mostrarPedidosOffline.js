@@ -209,7 +209,16 @@ class mostrarPedidosOffline extends Component {
 
             Swal.fire({
                 title: 'Error!',
-                text: 'La direccion debe contener Codigo Postal',
+                text: 'El domicilio debe contener un Codigo Postal',
+                type: 'error',
+                confirmButtonText: 'Aceptar'
+            })
+  
+        }else if(direccion_nueva == ""){
+
+            Swal.fire({
+                title: 'Error!',
+                text: 'El domicilio debe contener una Direccion',
                 type: 'error',
                 confirmButtonText: 'Aceptar'
             })
@@ -370,7 +379,16 @@ class mostrarPedidosOffline extends Component {
 
             Swal.fire({
                 title: 'Error!',
-                text: 'La direccion debe contener Codigo Postal',
+                text: 'El domicilio debe contener un Codigo Postal',
+                type: 'error',
+                confirmButtonText: 'Aceptar'
+            })
+  
+        }else if(direccion_nueva == ""){
+
+            Swal.fire({
+                title: 'Error!',
+                text: 'El domicilio debe contener una Direccion',
                 type: 'error',
                 confirmButtonText: 'Aceptar'
             })

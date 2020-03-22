@@ -42,7 +42,8 @@ class Pedidos extends Component {
                         
                         }
  
-                        { JSON.parse(localStorage.getItem('pedidoCompleto')).length > 0 || JSON.parse(localStorage.getItem('pedidoSemiCompleto')).length > 0 || JSON.parse(localStorage.getItem('enviarPedido')).length > 0 ?  
+                        { JSON.parse(localStorage.getItem('pedidoCompleto')).length > 0 || JSON.parse(localStorage.getItem('pedidoSemiCompleto')).length > 0 
+                        || JSON.parse(localStorage.getItem('enviarPedido')).length > 0 || JSON.parse(localStorage.getItem('pedidoCambioEstado')).length > 0 ?  
                 
                             <Link to={`/pedidos-encolados`} style={buttonStyle} className="btn btn-warning">Solicitudes Encoladas</Link>
 

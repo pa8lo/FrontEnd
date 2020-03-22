@@ -127,6 +127,24 @@ class BreadcumbMenu extends Component {
                       </Breadcrumb.Item>
                     </React.Fragment>
                     )                
+                  }else if(b === "direccion-restaurant" || dir === "direccion-restaurant" ){
+
+                    
+                    if(this.state.redirectSection === true){
+                      this.state.redirectUrlSection = "rrhh"
+                    }
+
+                    return(
+                    <React.Fragment>
+                      <Breadcrumb.Item key={dir+"546848161"} style={{ color:"white"}} onClick={() => window.location.replace("/rrhh")}>
+                          RRHH
+                      </Breadcrumb.Item>
+                      <Breadcrumb.Item key={dir} style={{ color:"white"}} onClick={() => this.setRedirectToSection()}>
+                          Direccion Restaurant
+                          {this.ToSection()}
+                      </Breadcrumb.Item>
+                    </React.Fragment>
+                    )                
                   }else if(dir === "rrhh"){
 
                     if(this.state.redirectSection === true){

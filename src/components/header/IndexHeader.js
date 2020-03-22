@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from "react-router";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -36,43 +37,53 @@ class Header extends React.Component {
       }
     }
     
+    setRedirectToHome = () => {
+      this.setState({
+        redirectHome: true
+      })
+    }
     
+    ToHome(){
+      if (this.state.redirectHome) {
+        return <Redirect to='/' />
+      }
+    }
 
-  slide() {
-    window.setInterval(function () {
-      // console.log("Intervalo de 3 Seg")
-      axios.get('https://roraso.herokuapp.com/User/CurrentUser',
-      { headers: { 'access-token': localStorage.getItem('access-token')}})
-          .then(res => {
-              if(localStorage.getItem('status') === 'offline'){
-                
-                localStorage.setItem('status', 'online');
-                Swal.fire({
-                    title: 'Se volvio a tener conexion',
-                    text: 'Entrando en modo Online',
-                    type: 'success',
-                })
-                return window.location.href = "/";
-              }
-          }) 
-          .catch(err => {
-              if(localStorage.getItem('status') === 'online'){
-                localStorage.setItem('status', 'offline');
-                Swal.fire({
-                    title: 'No se detecto conexion',
-                    text: 'Entrando en modo Offline',
-                    type: 'error',
-                    confirmButtonText: 'Aceptar'
-                }).then((result) => {
-                  if (result.value) {
-                    return <Redirect to='/' />
-                  }
-                }) 
-              }
-          })
+    slide() {
+      window.setInterval(function () {
+        // console.log("Intervalo de 3 Seg")
+        axios.get('https://roraso.herokuapp.com/User/CurrentUser',
+        { headers: { 'access-token': localStorage.getItem('access-token')}})
+            .then(res => {
+                if(localStorage.getItem('status') === 'offline'){
+                  
+                  localStorage.setItem('status', 'online');
+                  Swal.fire({
+                      title: 'Se volvio a tener conexion',
+                      text: 'Entrando en modo Online',
+                      type: 'success',
+                  })
+                  return window.location.href = "/";
+                }
+            }) 
+            .catch(err => {
+                if(localStorage.getItem('status') === 'online'){
+                  localStorage.setItem('status', 'offline');
+                  Swal.fire({
+                      title: 'No se detecto conexion',
+                      text: 'Entrando en modo Offline',
+                      type: 'error',
+                      confirmButtonText: 'Aceptar'
+                  }).then((result) => {
+                    if (result.value) {
+                      
+                    }
+                  }) 
+                }
+            })
 
-    }, 7000);
-  }
+      }, 7000);
+    }
     
   componentWillMount(){
     this.slide();
@@ -138,7 +149,7 @@ class Header extends React.Component {
                   text: 'Entrando en modo Online',
                   type: 'success',
               })
-              return;
+              return window.location.href = "/";
             }
         })
         .catch(err => {
@@ -150,10 +161,11 @@ class Header extends React.Component {
                   type: 'error',
                   confirmButtonText: 'Aceptar'
               }).then((result) => {
-                if (result.value) {
-                  return <Redirect to='/' />
-                }
-              })
+                  this.ToHome();
+                  this.setState({
+                    redirectHome: true
+                  })
+              }) 
             }
         })
     // console.log(this.props);
@@ -264,25 +276,27 @@ class Header extends React.Component {
 
           localStorage.setItem('pedidos', JSON.stringify(pedidos))
 
-          if(JSON.parse(localStorage.getItem('pedidoSemiCompleto')).length > 0 || JSON.parse(localStorage.getItem('pedidoCompleto')).length > 0 || JSON.parse(localStorage.getItem('enviarPedido')).length > 0){
+          if(JSON.parse(localStorage.getItem('pedidoSemiCompleto')).length > 0 || JSON.parse(localStorage.getItem('pedidoCompleto')).length > 0 
+          || JSON.parse(localStorage.getItem('enviarPedido')).length > 0 || JSON.parse(localStorage.getItem('pedidoCambioEstado')).length > 0){
 
-            if(localStorage.getItem('status') === 'offline'){
+            if(localStorage.getItem('status') === 'online'){
               
-              Swal.fire({
-                title: 'Solicitudes Encoladas',
-                text: "Quedan pendientes solicitudes a confirmar, ¿Desea enviarlas ahora?",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Enviarlas ahora!'
-              }).then((result) => {
-                if (result.value) {
-                  this.enviarSolicitudesEncoladasCompletas();
-                }else{
-                  return;
-                }
-              })
+              console.log("Enviar Solis")
+              // Swal.fire({
+              //   title: 'Solicitudes Encoladas',
+              //   text: "Quedan pendientes solicitudes a confirmar, ¿Desea enviarlas ahora?",
+              //   icon: 'warning',
+              //   showCancelButton: true,
+              //   confirmButtonColor: '#3085d6',
+              //   cancelButtonColor: '#d33',
+              //   confirmButtonText: 'Enviarlas ahora!'
+              // }).then((result) => {
+              //   if (result.value) {
+              //     this.enviarSolicitudesEncoladasCompletas();
+              //   }else{
+              //     return;
+              //   }
+              // })
 
             }else{
               return;
@@ -348,17 +362,7 @@ class Header extends React.Component {
         this.setState({ profile : true})
       }
       
-      setRedirectToHome = () => {
-        this.setState({
-          redirectHome: true
-        })
-      }
-      
-      ToHome(){
-        if (this.state.redirectHome) {
-          return <Redirect to='/' />
-        }
-      }
+
 
       /**
        * 
@@ -513,4 +517,4 @@ function mapStateToProps(state) {
     };
   }; 
 
-export default withStyles(styles)(connect(mapStateToProps,actions)(Header));
+export default withStyles(styles)(withRouter(connect(mapStateToProps,actions)(Header)));
