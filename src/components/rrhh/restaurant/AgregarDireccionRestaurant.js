@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Header from '../../header/IndexHeader';
 import AddressForm from './direcciones/AddressForm';
+import StickyButton from '../../bottom/StickyButton';
 
 //CSS
 import '../../../assets/css/empleados/form-alta-empleados.css';
@@ -23,6 +24,7 @@ class AgregarDireccionRestaurant extends Component {
                     </div>
                 </Paper> 
             </div>
+            <StickyButton/>
         </React.Fragment>
         );
     }

@@ -69,6 +69,9 @@ const styles = theme => ({
       left: 'calc(50% - 9px)',
       transition: theme.transitions.create('opacity'),
     },
+    withoutInternet: {
+      backgroundColor: "#493EFA",
+    }
   });
 
   export default styles

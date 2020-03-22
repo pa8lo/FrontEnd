@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import ListaEstados from './ListaEstados';
 import Header from '../header/IndexHeader';
+import StickyButton from '../bottom/StickyButton';
 
 import { connect } from 'react-redux';
 import { currentUser } from '../../actions/usuarioAction';
@@ -39,6 +40,7 @@ class Estados extends Component {
                         
                     </div>
                 </div>
+                <StickyButton/>
             </div>
         );
     }

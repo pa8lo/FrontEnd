@@ -173,7 +173,7 @@ class Principal extends Component{
 
                         {this.state.permisosPedidos.length > 0 ? 
 
-                            localStorage.getItem('status') === 'offline' ? 
+                            localStorage.getItem('status') == 'offline' ? 
 
                                 <Link key={1} to={'/pedidos'} className={classes.root}>
                                     <Button
