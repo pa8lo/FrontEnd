@@ -532,57 +532,119 @@ class mostrarPedidosOffline extends Component {
     eliminarPedidoStorage = (index) => {
         // alert(index)
 
-        let arrayPedidoCompleto = JSON.parse(localStorage.getItem('pedidoCompleto'));
+        Swal.fire({
+            title: '¿Estas seguro que desea eliminar?',
+            text: "Estas a punto de eliminar un pedido",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+                
+                let arrayPedidoCompleto = JSON.parse(localStorage.getItem('pedidoCompleto'));
 
-        arrayPedidoCompleto.splice(index, 1);
+                arrayPedidoCompleto.splice(index, 1);
 
-        localStorage.setItem('pedidoCompleto', JSON.stringify(arrayPedidoCompleto));
+                localStorage.setItem('pedidoCompleto', JSON.stringify(arrayPedidoCompleto));
 
-        this.setState({
-            redirectPedidos: true
+                this.setState({
+                    redirectPedidos: true
+                })
+                
+            }
         })
+        
     }
 
     eliminarPedidoSemiStorage = (index) => {
         // alert(index)
+        Swal.fire({
+            title: '¿Estas seguro que desea eliminar?',
+            text: "Estas a punto de eliminar un pedido",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+                
+                let arrayPedidoSemiCompleto = JSON.parse(localStorage.getItem('pedidoSemiCompleto'));
 
-        let arrayPedidoSemiCompleto = JSON.parse(localStorage.getItem('pedidoSemiCompleto'));
+                arrayPedidoSemiCompleto.splice(index, 1);
 
-        arrayPedidoSemiCompleto.splice(index, 1);
+                localStorage.setItem('pedidoSemiCompleto', JSON.stringify(arrayPedidoSemiCompleto));
 
-        localStorage.setItem('pedidoSemiCompleto', JSON.stringify(arrayPedidoSemiCompleto));
-
-        this.setState({
-            redirectPedidos: true
+                this.setState({
+                    redirectPedidos: true
+                })
+            }
         })
+        
     }
 
     eliminarSoloPedidoStorage = (index) => {
         // alert(index)
 
-        let arraySoloPedido = JSON.parse(localStorage.getItem('enviarPedido'));
+        Swal.fire({
+            title: '¿Estas seguro que desea eliminar?',
+            text: "Estas a punto de eliminar un pedido",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+                
+                let arraySoloPedido = JSON.parse(localStorage.getItem('enviarPedido'));
 
-        arraySoloPedido.splice(index, 1);
+                arraySoloPedido.splice(index, 1);
 
-        localStorage.setItem('enviarPedido', JSON.stringify(arraySoloPedido));
+                localStorage.setItem('enviarPedido', JSON.stringify(arraySoloPedido));
 
-        this.setState({
-            redirectPedidos: true
+                this.setState({
+                    redirectPedidos: true
+                })
+            }
         })
+
+        
     }
 
     eliminarEstadoPedidoStorage = (index) => {
         // alert(index)
 
-        let arrayEstadoPedido = JSON.parse(localStorage.getItem('pedidoCambioEstado'));
+        Swal.fire({
+            title: '¿Estas seguro que desea eliminar?',
+            text: "Estas a punto de eliminar un estado",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+                
+                let arrayEstadoPedido = JSON.parse(localStorage.getItem('pedidoCambioEstado'));
 
-        arrayEstadoPedido.splice(index, 1);
+                arrayEstadoPedido.splice(index, 1);
 
-        localStorage.setItem('pedidoCambioEstado', JSON.stringify(arrayEstadoPedido));
+                localStorage.setItem('pedidoCambioEstado', JSON.stringify(arrayEstadoPedido));
 
-        this.setState({
-            redirectPedidos: true
+                this.setState({
+                    redirectPedidos: true
+                })
+            }
         })
+
+        
     }
 
 

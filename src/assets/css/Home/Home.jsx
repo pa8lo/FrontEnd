@@ -69,8 +69,48 @@ const styles = theme => ({
       left: 'calc(50% - 9px)',
       transition: theme.transitions.create('opacity'),
     },
-    withoutInternet: {
-      backgroundColor: "#493EFA",
+    imageSrcPedido: {
+      backgroundColor:'#FF8416',
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      top: 0,
+      bottom: 0,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center 40%',
+    },
+    imageSrc: {
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      top: 0,
+      bottom: 0,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center 40%',
+    },imageSrc: {
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      top: 0,
+      bottom: 0,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center 40%',
+    },imageSrc: {
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      top: 0,
+      bottom: 0,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center 40%',
+    },imageSrc: {
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      top: 0,
+      bottom: 0,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center 40%',
     }
   });
 

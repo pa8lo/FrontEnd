@@ -173,27 +173,34 @@ class Principal extends Component{
 
                         {this.state.permisosPedidos.length > 0 ? 
 
-                            localStorage.getItem('status') == 'offline' ? 
-
+                            localStorage.getItem('status') === 'offline' ? 
+                                
                                 <Link key={1} to={'/pedidos'} className={classes.root}>
                                     <Button
                                     focusRipple
                                     key="Pedido"
+                                    className={classes.image}
                                     focusVisibleClassName={classes.focusVisible}
                                     style={{
                                         width: "33.3%",
-                                        backgroundColor: "#493EFA",
-                                        color: "#493EFA"
                                     }}
                                     >
                                     
                                     <span
-                                        className={classes.imageSrc}
+                                        // className={classes.imageSrc}
                                         style={{
-                                        backgroundImage: `url(${pedidos})`,
+                                            backgroundColor:'#9A9A9A',
+                                            border: '1px solid black',
+                                            position: 'absolute',
+                                            left: 0,
+                                            right: 0,
+                                            top: 0,
+                                            bottom: 0,
+                                            backgroundSize: 'cover',
+                                            backgroundPosition: 'center 40%',
                                         }}
                                     />
-
+            
                                     <span className={classes.imageBackdrop} />
                                     <span className={classes.imageButton}>
                                         <Typography
@@ -244,7 +251,7 @@ class Principal extends Component{
                                     </Button>
                                 </Link>
 
-                            :
+                        :
 
                         <Button
                         disabled
@@ -284,40 +291,87 @@ class Principal extends Component{
 
                         {/* Categorias */}
 
-                        {this.state.permisosCategoria.length > 0  && localStorage.getItem('status') === "online" ? 
+                        {this.state.permisosCategoria.length > 0  ? 
+                            
+                            localStorage.getItem('status') === 'offline' ? 
+                                
+                                
+                                    <Button
+                                    disabled
+                                    focusRipple
+                                    key="Categoria"
+                                    className={classes.image}
+                                    focusVisibleClassName={classes.focusVisible}
+                                    style={{
+                                        width: "33.3%",
+                                    }}
+                                    >
+                                    
+                                    <span
+                                        disabled
+                                        // className={classes.imageSrc}
+                                        style={{
+                                            backgroundColor:'#404040',
+                                            border: '1px solid black',
+                                            position: 'absolute',
+                                            left: 0,
+                                            right: 0,
+                                            top: 0,
+                                            bottom: 0,
+                                            backgroundSize: 'cover',
+                                            backgroundPosition: 'center 40%',
+                                        }}
+                                    />
+            
+                                    <span className={classes.imageBackdrop} />
+                                    <span className={classes.imageButton}>
+                                        <Typography
+                                        component="span"
+                                        variant="subtitle1"
+                                        color="inherit"
+                                        className={classes.imageTitle}
+                                        >
+                                        Categoria - 
+                                        <span className={classes.imageMarked} />
+                                        &nbsp;Sin Conexion
+                                        </Typography>
+                                    </span>
+                                    </Button>
 
-                        <Link key={2} to={'/categoria'} className={classes.root}>
-                        <Button
-                        focusRipple
-                        key="Categoria"
-                        className={classes.image}
-                        focusVisibleClassName={classes.focusVisible}
-                        style={{
-                            width: "33.3%",
-                        }}
-                        >
-                        
-                        <span
-                            className={classes.imageSrc}
-                            style={{
-                            backgroundImage: `url(${modulo})`,
-                            }}
-                        />
+                                :
 
-                        <span className={classes.imageBackdrop} />
-                        <span className={classes.imageButton}>
-                            <Typography
-                            component="span"
-                            variant="subtitle1"
-                            color="inherit"
-                            className={classes.imageTitle}
-                            >
-                            Categoria
-                            <span className={classes.imageMarked} />
-                            </Typography>
-                        </span>
-                        </Button>
-                        </Link>
+                                <Link key={2} to={'/categoria'} className={classes.root}>
+                                    <Button
+                                    focusRipple
+                                    key="Categoria"
+                                    className={classes.image}
+                                    focusVisibleClassName={classes.focusVisible}
+                                    style={{
+                                        width: "33.3%",
+                                    }}
+                                    >
+                                    
+                                    <span
+                                        className={classes.imageSrc}
+                                        style={{
+                                        backgroundImage: `url(${modulo})`,
+                                        }}
+                                    />
+
+                                    <span className={classes.imageBackdrop} />
+                                    <span className={classes.imageButton}>
+                                        <Typography
+                                        component="span"
+                                        variant="subtitle1"
+                                        color="inherit"
+                                        className={classes.imageTitle}
+                                        >
+                                        Categoria
+                                        <span className={classes.imageMarked} />
+                                        </Typography>
+                                    </span>
+                                    </Button>
+                                </Link>
 
                         :
 
@@ -356,41 +410,89 @@ class Principal extends Component{
                         
                         }
 
-                            {/* Combos */}
-                        {this.state.permisosCombos.length > 0 && localStorage.getItem('status') === "online" ? 
+                        {/* Combos */}
+                        {this.state.permisosCombos.length > 0  ? 
 
-                        <Link key={3} to={'/combos'} className={classes.root}>
-                        <Button
-                        focusRipple
-                        key="Combos"
-                        className={classes.image}
-                        focusVisibleClassName={classes.focusVisible}
-                        style={{
-                            width: "33.3%",
-                        }}
-                        >
-                        
-                        <span
-                            className={classes.imageSrc}
-                            style={{
-                            backgroundImage: `url(${combos})`,
-                            }}
-                        />
+                            localStorage.getItem('status') === 'offline' ? 
+                                
+                                
+                                    <Button
+                                    disabled
+                                    focusRipple
+                                    key="Combos"
+                                    className={classes.image}
+                                    focusVisibleClassName={classes.focusVisible}
+                                    style={{
+                                        width: "33.3%",
+                                    }}
+                                    >
+                                    
+                                    <span
+                                        disabled
+                                        // className={classes.imageSrc}
+                                        style={{
+                                            backgroundColor:'#404040',
+                                            border: '1px solid black',
+                                            position: 'absolute',
+                                            left: 0,
+                                            right: 0,
+                                            top: 0,
+                                            bottom: 0,
+                                            backgroundSize: 'cover',
+                                            backgroundPosition: 'center 40%',
+                                        }}
+                                    />
+            
+                                    <span className={classes.imageBackdrop} />
+                                    <span className={classes.imageButton}>
+                                        <Typography
+                                        component="span"
+                                        variant="subtitle1"
+                                        color="inherit"
+                                        className={classes.imageTitle}
+                                        >
+                                        Combos - 
+                                        <span className={classes.imageMarked} />
+                                          &nbsp;Sin Conexion
+                                        </Typography>
+                                    </span>
+                                    </Button>
+                                
 
-                        <span className={classes.imageBackdrop} />
-                        <span className={classes.imageButton}>
-                            <Typography
-                            component="span"
-                            variant="subtitle1"
-                            color="inherit"
-                            className={classes.imageTitle}
-                            >
-                            Combos
-                            <span className={classes.imageMarked} />
-                            </Typography>
-                        </span>
-                        </Button>
-                        </Link>
+                                :
+
+                                <Link key={3} to={'/combos'} className={classes.root}>
+                                    <Button
+                                    focusRipple
+                                    key="Combos"
+                                    className={classes.image}
+                                    focusVisibleClassName={classes.focusVisible}
+                                    style={{
+                                        width: "33.3%",
+                                    }}
+                                    >
+                                    
+                                    <span
+                                        className={classes.imageSrc}
+                                        style={{
+                                        backgroundImage: `url(${combos})`,
+                                        }}
+                                    />
+
+                                    <span className={classes.imageBackdrop} />
+                                    <span className={classes.imageButton}>
+                                        <Typography
+                                        component="span"
+                                        variant="subtitle1"
+                                        color="inherit"
+                                        className={classes.imageTitle}
+                                        >
+                                        Combos
+                                        <span className={classes.imageMarked} />
+                                        </Typography>
+                                    </span>
+                                    </Button>
+                                </Link>
 
                         :
 
@@ -429,41 +531,90 @@ class Principal extends Component{
 
                         }
 
-                            {/* RRHH */}
+                        {/* RRHH */}
 
-                        {this.state.permisosRRHH.length > 0 && localStorage.getItem('status') === "online" ? 
-                        <Link key={4} to={'/rrhh'} className={classes.root}>
-                        <Button
-                        focusRipple
-                        key="RRHH"
-                        className={classes.image}
-                        focusVisibleClassName={classes.focusVisible}
-                        style={{
-                            width: "33.3%",
-                        }}
-                        >
+                        {this.state.permisosRRHH.length > 0  ? 
                         
-                        <span
-                            className={classes.imageSrc}
-                            style={{
-                            backgroundImage: `url(${rrhh})`,
-                            }}
-                        />
+                            localStorage.getItem('status') === 'offline' ? 
+                                
+                                
+                                    <Button
+                                    disabled
+                                    focusRipple
+                                    key="RRHH"
+                                    className={classes.image}
+                                    focusVisibleClassName={classes.focusVisible}
+                                    style={{
+                                        width: "33.3%",
+                                    }}
+                                    >
+                                    
+                                    <span
+                                        disabled
+                                        // className={classes.imageSrc}
+                                        style={{
+                                            backgroundColor:'#404040',
+                                            border: '1px solid black',
+                                            position: 'absolute',
+                                            left: 0,
+                                            right: 0,
+                                            top: 0,
+                                            bottom: 0,
+                                            backgroundSize: 'cover',
+                                            backgroundPosition: 'center 40%',
+                                        }}
+                                    />
+            
+                                    <span className={classes.imageBackdrop} />
+                                    <span className={classes.imageButton}>
+                                        <Typography
+                                        component="span"
+                                        variant="subtitle1"
+                                        color="inherit"
+                                        className={classes.imageTitle}
+                                        >
+                                        RRHH - 
+                                        <span className={classes.imageMarked} />
+                                          &nbsp;Sin Conexion
+                                        </Typography>
+                                    </span>
+                                    </Button>
+                                
+                                :
 
-                        <span className={classes.imageBackdrop} />
-                        <span className={classes.imageButton}>
-                            <Typography
-                            component="span"
-                            variant="subtitle1"
-                            color="inherit"
-                            className={classes.imageTitle}
-                            >
-                            RRHH
-                            <span className={classes.imageMarked} />
-                            </Typography>
-                        </span>
-                        </Button>
-                        </Link>
+                                <Link key={4} to={'/rrhh'} className={classes.root}>
+                                    <Button
+                                    focusRipple
+                                    key="RRHH"
+                                    className={classes.image}
+                                    focusVisibleClassName={classes.focusVisible}
+                                    style={{
+                                        width: "33.3%",
+                                    }}
+                                    >
+                                    
+                                    <span
+                                        className={classes.imageSrc}
+                                        style={{
+                                        backgroundImage: `url(${rrhh})`,
+                                        }}
+                                    />
+
+                                    <span className={classes.imageBackdrop} />
+                                    <span className={classes.imageButton}>
+                                        <Typography
+                                        component="span"
+                                        variant="subtitle1"
+                                        color="inherit"
+                                        className={classes.imageTitle}
+                                        >
+                                        RRHH
+                                        <span className={classes.imageMarked} />
+                                        </Typography>
+                                    </span>
+                                    </Button>
+                                </Link>
+
 
                         :
 
@@ -502,41 +653,89 @@ class Principal extends Component{
 
                         }
 
-                            {/* Reportes */}
+                        {/* Reportes */}
 
-                        {this.state.permisosReportes.length > 0 && localStorage.getItem('status') === "online" ? 
-                        <Link key={5} to={'/reportes'} className={classes.root}>
-                        <Button
-                        focusRipple
-                        key="Reportes"
-                        className={classes.image}
-                        focusVisibleClassName={classes.focusVisible}
-                        style={{
-                            width: "33.3%",
-                        }}
-                        >
+                        {this.state.permisosReportes.length > 0  ? 
                         
-                        <span
-                            className={classes.imageSrc}
-                            style={{
-                            backgroundImage: `url(${reports})`,
-                            }}
-                        />
+                            localStorage.getItem('status') === 'offline' ? 
+                                
+                                    <Button
+                                    disabled
+                                    focusRipple
+                                    key="Reportes"
+                                    className={classes.image}
+                                    focusVisibleClassName={classes.focusVisible}
+                                    style={{
+                                        width: "33.3%",
+                                    }}
+                                    >
+                                    
+                                    <span
+                                        disabled
+                                        // className={classes.imageSrc}
+                                        style={{
+                                            backgroundColor:'#404040',
+                                            border: '1px solid black',
+                                            position: 'absolute',
+                                            left: 0,
+                                            right: 0,
+                                            top: 0,
+                                            bottom: 0,
+                                            backgroundSize: 'cover',
+                                            backgroundPosition: 'center 40%',
+                                        }}
+                                    />
+            
+                                    <span className={classes.imageBackdrop} />
+                                    <span className={classes.imageButton}>
+                                        <Typography
+                                        component="span"
+                                        variant="subtitle1"
+                                        color="inherit"
+                                        className={classes.imageTitle}
+                                        >
+                                        Reportes - 
+                                        <span className={classes.imageMarked} />
+                                          &nbsp;Sin Conexion
+                                        </Typography>
+                                    </span>
+                                    </Button>
+                                
 
-                        <span className={classes.imageBackdrop} />
-                        <span className={classes.imageButton}>
-                            <Typography
-                            component="span"
-                            variant="subtitle1"
-                            color="inherit"
-                            className={classes.imageTitle}
-                            >
-                            Reportes
-                            <span className={classes.imageMarked} />
-                            </Typography>
-                        </span>
-                        </Button>
-                        </Link>
+                                :
+
+                                <Link key={5} to={'/reportes'} className={classes.root}>
+                                    <Button
+                                    focusRipple
+                                    key="Reportes"
+                                    className={classes.image}
+                                    focusVisibleClassName={classes.focusVisible}
+                                    style={{
+                                        width: "33.3%",
+                                    }}
+                                    >
+                                    
+                                    <span
+                                        className={classes.imageSrc}
+                                        style={{
+                                        backgroundImage: `url(${reports})`,
+                                        }}
+                                    />
+
+                                    <span className={classes.imageBackdrop} />
+                                    <span className={classes.imageButton}>
+                                        <Typography
+                                        component="span"
+                                        variant="subtitle1"
+                                        color="inherit"
+                                        className={classes.imageTitle}
+                                        >
+                                        Reportes
+                                        <span className={classes.imageMarked} />
+                                        </Typography>
+                                    </span>
+                                    </Button>
+                                </Link>
                         
                     
                         :
@@ -576,41 +775,91 @@ class Principal extends Component{
 
                         }
 
-                            {/* Gastos */}
+                        {/* Gastos */}
 
-                        {this.state.permisosGastos.length > 0 && localStorage.getItem('status') === "online" ? 
-                        <Link key={6} to={'/gastos'} className={classes.root}>
-                        <Button
-                        focusRipple
-                        key="Gastos"
-                        className={classes.image}
-                        focusVisibleClassName={classes.focusVisible}
-                        style={{
-                            width: "33.3%",
-                        }}
-                        >
+                        {this.state.permisosGastos.length > 0 ? 
                         
-                        <span
-                            className={classes.imageSrc}
-                            style={{
-                            backgroundImage: `url(${gastos})`,
-                            }}
-                        />
+                            localStorage.getItem('status') === 'offline' ? 
+                                
+                                
+                                    <Button
+                                    disabled
+                                    focusRipple
+                                    key="Gastos"
+                                    className={classes.image}
+                                    focusVisibleClassName={classes.focusVisible}
+                                    style={{
+                                        width: "33.3%",
+                                    }}
+                                    >
+                                    
+                                    <span
+                                        disabled
+                                        // className={classes.imageSrc}
+                                        style={{
+                                            backgroundColor:'#404040',
+                                            border: '1px solid black',
+                                            position: 'absolute',
+                                            left: 0,
+                                            right: 0,
+                                            top: 0,
+                                            bottom: 0,
+                                            backgroundSize: 'cover',
+                                            backgroundPosition: 'center 40%',
+                                        }}
+                                    />
+            
+                                    <span className={classes.imageBackdrop} />
+                                    <span className={classes.imageButton}>
+                                        <Typography
+                                        component="span"
+                                        variant="subtitle1"
+                                        color="inherit"
+                                        className={classes.imageTitle}
+                                        >
+                                        Gastos - 
+                                        <span className={classes.imageMarked} />
+                                          &nbsp;Sin Conexion
+                                        </Typography>
+                                    </span>
+                                    </Button>
+                                
 
-                        <span className={classes.imageBackdrop} />
-                        <span className={classes.imageButton}>
-                            <Typography
-                            component="span"
-                            variant="subtitle1"
-                            color="inherit"
-                            className={classes.imageTitle}
-                            >
-                            Gastos
-                            <span className={classes.imageMarked} />
-                            </Typography>
-                        </span>
-                        </Button>
-                        </Link>
+                                :
+
+                                <Link key={6} to={'/gastos'} className={classes.root}>
+                                    <Button
+                                    focusRipple
+                                    key="Gastos"
+                                    className={classes.image}
+                                    focusVisibleClassName={classes.focusVisible}
+                                    style={{
+                                        width: "33.3%",
+                                    }}
+                                    >
+                                    
+                                    <span
+                                        className={classes.imageSrc}
+                                        style={{
+                                        backgroundImage: `url(${gastos})`,
+                                        }}
+                                    />
+
+                                    <span className={classes.imageBackdrop} />
+                                    <span className={classes.imageButton}>
+                                        <Typography
+                                        component="span"
+                                        variant="subtitle1"
+                                        color="inherit"
+                                        className={classes.imageTitle}
+                                        >
+                                        Gastos
+                                        <span className={classes.imageMarked} />
+                                        </Typography>
+                                    </span>
+                                    </Button>
+                                </Link>
+                        
 
                         :
 
@@ -651,41 +900,92 @@ class Principal extends Component{
 
                         {/* Cliente */}
 
-                        {this.state.permisosClientes.length > 0 && localStorage.getItem('status') === "online" ? 
-                        <Link key={7} to={'/clientes'} className={classes.root}>
-                        <Button
-                        focusRipple
-                        key="Clientes"
-                        className={classes.image}
-                        focusVisibleClassName={classes.focusVisible}
-                        style={{
-                            width: "33.3%",
-                        }}
-                        >
+                        {this.state.permisosClientes.length > 0 ? 
                         
-                        <span
-                            className={classes.imageSrc}
-                            style={{
-                            backgroundImage: `url(${clients})`,
-                            }}
-                        />
+                            localStorage.getItem('status') === 'offline' ? 
+                                
+                                
+                                    <Button
+                                    disabled
+                                    focusRipple
+                                    key="Clientes"
+                                    className={classes.image}
+                                    focusVisibleClassName={classes.focusVisible}
+                                    style={{
+                                        width: "33.3%",
+                                    }}
+                                    >
+                                    
+                                    <span
+                                        disabled
+                                        // className={classes.imageSrc}
+                                        style={{
+                                            backgroundColor:'#404040',
+                                            border: '1px solid black',
+                                            position: 'absolute',
+                                            left: 0,
+                                            right: 0,
+                                            top: 0,
+                                            bottom: 0,
+                                            backgroundSize: 'cover',
+                                            backgroundPosition: 'center 40%',
+                                        }}
+                                    />
+            
+                                    <span className={classes.imageBackdrop} />
+                                    <span className={classes.imageButton}>
+                                        <Typography
+                                        component="span"
+                                        variant="subtitle1"
+                                        color="inherit"
+                                        className={classes.imageTitle}
+                                        >
+                                        Clientes - 
+                                        <span className={classes.imageMarked} />
+                                          &nbsp;Sin Conexion
+                                        </Typography>
+                                    </span>
+                                    </Button>
+                                
 
-                        <span className={classes.imageBackdrop} />
-                        <span className={classes.imageButton}>
-                            <Typography
-                            component="span"
-                            variant="subtitle1"
-                            color="inherit"
-                            className={classes.imageTitle}
-                            >
-                            Clientes
-                            <span className={classes.imageMarked} />
-                            </Typography>
-                        </span>
-                        </Button>
-                        </Link>
-                    
-                            :
+                                :
+
+                                <Link key={7} to={'/clientes'} className={classes.root}>
+                                    <Button
+                                    focusRipple
+                                    key="Clientes"
+                                    className={classes.image}
+                                    focusVisibleClassName={classes.focusVisible}
+                                    style={{
+                                        width: "33.3%",
+                                    }}
+                                    >
+                                    
+                                    <span
+                                        className={classes.imageSrc}
+                                        style={{
+                                        backgroundImage: `url(${clients})`,
+                                        }}
+                                    />
+
+                                    <span className={classes.imageBackdrop} />
+                                    <span className={classes.imageButton}>
+                                        <Typography
+                                        component="span"
+                                        variant="subtitle1"
+                                        color="inherit"
+                                        className={classes.imageTitle}
+                                        >
+                                        Clientes
+                                        <span className={classes.imageMarked} />
+                                        </Typography>
+                                    </span>
+                                    </Button>
+                                </Link>
+                        
+
+                        :
+
 
                             <Button
                             disabled
@@ -724,39 +1024,90 @@ class Principal extends Component{
                         
                         {/* Estado */}
 
-                        {this.state.permisosPedidos.length > 0 && localStorage.getItem('status') === "online" ? 
-                        <Link key={8} to={'/estados'} className={classes.root}>
-                        <Button
-                        focusRipple
-                        key="Estados"
-                        className={classes.image}
-                        focusVisibleClassName={classes.focusVisible}
-                        style={{
-                            width: "33.3%",
-                        }}
-                        >
+                        {this.state.permisosPedidos.length > 0 ? 
                         
-                        <span
-                            className={classes.imageSrc}
-                            style={{
-                            backgroundImage: `url(${status})`,
-                            }}
-                        />
+                            localStorage.getItem('status') === 'offline' ? 
+                                
+                                
+                                    <Button
+                                    disabled
+                                    focusRipple
+                                    key="Estados"
+                                    className={classes.image}
+                                    focusVisibleClassName={classes.focusVisible}
+                                    style={{
+                                        width: "33.3%",
+                                    }}
+                                    >
+                                    
+                                    <span
+                                        disabled
+                                        // className={classes.imageSrc}
+                                        style={{
+                                            backgroundColor:'#404040',
+                                            border: '1px solid black',
+                                            position: 'absolute',
+                                            left: 0,
+                                            right: 0,
+                                            top: 0,
+                                            bottom: 0,
+                                            backgroundSize: 'cover',
+                                            backgroundPosition: 'center 40%',
+                                        }}
+                                    />
+            
+                                    <span className={classes.imageBackdrop} />
+                                    <span className={classes.imageButton}>
+                                        <Typography
+                                        component="span"
+                                        variant="subtitle1"
+                                        color="inherit"
+                                        className={classes.imageTitle}
+                                        >
+                                        Estados - 
+                                        <span className={classes.imageMarked} />
+                                          &nbsp;Sin Conexion
+                                        </Typography>
+                                    </span>
+                                    </Button>
+                                
 
-                        <span className={classes.imageBackdrop} />
-                        <span className={classes.imageButton}>
-                            <Typography
-                            component="span"
-                            variant="subtitle1"
-                            color="inherit"
-                            className={classes.imageTitle}
-                            >
-                            Estados
-                            <span className={classes.imageMarked} />
-                            </Typography>
-                        </span>
-                        </Button>
-                        </Link>
+                                :
+
+                                <Link key={8} to={'/estados'} className={classes.root}>
+                                    <Button
+                                    focusRipple
+                                    key="Estados"
+                                    className={classes.image}
+                                    focusVisibleClassName={classes.focusVisible}
+                                    style={{
+                                        width: "33.3%",
+                                    }}
+                                    >
+                                    
+                                    <span
+                                        className={classes.imageSrc}
+                                        style={{
+                                        backgroundImage: `url(${status})`,
+                                        }}
+                                    />
+
+                                    <span className={classes.imageBackdrop} />
+                                    <span className={classes.imageButton}>
+                                        <Typography
+                                        component="span"
+                                        variant="subtitle1"
+                                        color="inherit"
+                                        className={classes.imageTitle}
+                                        >
+                                        Estados
+                                        <span className={classes.imageMarked} />
+                                        </Typography>
+                                    </span>
+                                    </Button>
+                                </Link>
+                        
+                        
                     
                             :
 
@@ -797,39 +1148,90 @@ class Principal extends Component{
 
                         {/* Mapa */}
 
-                        {this.state.permisosPedidos.length > 0 && localStorage.getItem('status') === "online" ? 
-                        <Link key={9} to={'/mapa'} className={classes.root}>
-                        <Button
-                        focusRipple
-                        key="Mapa"
-                        className={classes.image}
-                        focusVisibleClassName={classes.focusVisible}
-                        style={{
-                            width: "33.3%",
-                        }}
-                        >
+                        {this.state.permisosPedidos.length > 0 ? 
                         
-                        <span
-                            className={classes.imageSrc}
-                            style={{
-                            backgroundImage: `url(${mapa})`,
-                            }}
-                        />
+                            localStorage.getItem('status') === 'offline' ? 
+                                
+                                
+                                    <Button
+                                    disabled
+                                    focusRipple
+                                    key="Mapa"
+                                    className={classes.image}
+                                    focusVisibleClassName={classes.focusVisible}
+                                    style={{
+                                        width: "33.3%",
+                                    }}
+                                    >
+                                    
+                                    <span
+                                        disabled
+                                        // className={classes.imageSrc}
+                                        style={{
+                                            backgroundColor:'#404040',
+                                            border: '1px solid black',
+                                            position: 'absolute',
+                                            left: 0,
+                                            right: 0,
+                                            top: 0,
+                                            bottom: 0,
+                                            backgroundSize: 'cover',
+                                            backgroundPosition: 'center 40%',
+                                        }}
+                                    />
+            
+                                    <span className={classes.imageBackdrop} />
+                                    <span className={classes.imageButton}>
+                                        <Typography
+                                        component="span"
+                                        variant="subtitle1"
+                                        color="inherit"
+                                        className={classes.imageTitle}
+                                        >
+                                        Mapa - 
+                                        <span className={classes.imageMarked} />
+                                          &nbsp;Sin Conexion
+                                        </Typography>
+                                    </span>
+                                    </Button>
+                                
 
-                        <span className={classes.imageBackdrop} />
-                        <span className={classes.imageButton}>
-                            <Typography
-                            component="span"
-                            variant="subtitle1"
-                            color="inherit"
-                            className={classes.imageTitle}
-                            >
-                            Mapa
-                            <span className={classes.imageMarked} />
-                            </Typography>
-                        </span>
-                        </Button>
-                        </Link>
+                                :
+
+                                <Link key={9} to={'/mapa'} className={classes.root}>
+                                    <Button
+                                    focusRipple
+                                    key="Mapa"
+                                    className={classes.image}
+                                    focusVisibleClassName={classes.focusVisible}
+                                    style={{
+                                        width: "33.3%",
+                                    }}
+                                    >
+                                    
+                                    <span
+                                        className={classes.imageSrc}
+                                        style={{
+                                        backgroundImage: `url(${mapa})`,
+                                        }}
+                                    />
+
+                                    <span className={classes.imageBackdrop} />
+                                    <span className={classes.imageButton}>
+                                        <Typography
+                                        component="span"
+                                        variant="subtitle1"
+                                        color="inherit"
+                                        className={classes.imageTitle}
+                                        >
+                                        Mapa
+                                        <span className={classes.imageMarked} />
+                                        </Typography>
+                                    </span>
+                                    </Button>
+                                </Link>
+
+                        
                     
                             :
 

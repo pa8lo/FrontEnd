@@ -363,7 +363,7 @@ class NuevoPedido extends Component {
           </div>
           <div className="form-group">
               <label>Telefono</label>
-              <input ref={this.telefonoRef} defaultValue={this.state.telefonoClient} disabled type="number" min="1" step="1" title="Numbers only" className="form-control" required/>
+              <input ref={this.telefonoRef} value={this.state.telefonoClient} disabled type="number" min="1" step="1" title="Numbers only" className="form-control" required/>
           </div>
         </div>
       </div>
@@ -478,7 +478,7 @@ class NuevoPedido extends Component {
     if (this.state.direElegida.length === 0 && localStorage.getItem('status') !== "offline") {
       Swal.fire({
         title: 'Error!',
-        text: 'Debe elegir una dirección',
+        text: 'Debe escoger una direccion para el cliente',
         type: 'error',
         confirmButtonText: 'Ok'
       })
@@ -1057,7 +1057,7 @@ class NuevoPedido extends Component {
                   <input ref={this.searchClient} onChange={this.handleSearchClient} placeholder="Ingrese el Numero de Telefono del Cliente" type="text" className="form-control" required />
                   <div align="center">
                   <div align="center" style={{ marginTop: "20px" }} className="form-group">
-                  <label align="center">Coloque un numero de telefono y verifique su existencia</label>
+                  <label align="center">Coloque un numero de telefono y verifique si existe domicilio</label>
                   </div>
                     <Button
                       className="btn btn-success"
