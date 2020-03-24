@@ -478,7 +478,7 @@ class NuevoPedido extends Component {
     if (this.state.direElegida.length === 0 && localStorage.getItem('status') !== "offline") {
       Swal.fire({
         title: 'Error!',
-        text: 'Debe escoger una direccion para el cliente',
+        text: 'Debe verificar el Cliente',
         type: 'error',
         confirmButtonText: 'Ok'
       })

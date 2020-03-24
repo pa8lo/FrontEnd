@@ -268,6 +268,9 @@ class HomeRecursosHumanos extends Component {
 
     render() {
 
+        if(localStorage.getItem('status') === 'offline'){
+            this.props.history.push('/')
+        }
         // console.log(this.props);
 
         return (

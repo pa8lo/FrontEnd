@@ -12,7 +12,7 @@ import roraso from '../../assets/images/roraso.png';
 import Drawer from '@material-ui/core/Drawer';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
-import { currentUser } from '../../actions/usuarioAction';
+import { withRouter } from "react-router-dom";
 import BreadcumbMenu from './Breadcumb'
 import BotonEnvioPedidoOff from './BotonEnvioPedidoOff'
 
@@ -38,9 +38,10 @@ class Header extends React.Component {
     
     
 
-  slide() {
+  slide(props) {
+    // let properties = props
     window.setInterval(function () {
-      // console.log("Intervalo de 3 Seg")
+      // console.log("Intervalo de 7 Seg")
       axios.get('https://roraso.herokuapp.com/User/CurrentUser',
       { headers: { 'access-token': localStorage.getItem('access-token')}})
           .then(res => {
@@ -52,7 +53,7 @@ class Header extends React.Component {
                     text: 'Entrando en modo Online',
                     type: 'success',
                 })
-                return window.location.href = "/";
+                props.history.push('/')
               }
           }) 
           .catch(err => {
@@ -63,11 +64,8 @@ class Header extends React.Component {
                     text: 'Entrando en modo Offline',
                     type: 'error',
                     confirmButtonText: 'Aceptar'
-                }).then((result) => {
-                  if (result.value) {
-                    return <Redirect to='/' />
-                  }
-                }) 
+                })
+                props.history.push('/')
               }
           })
 
@@ -75,7 +73,7 @@ class Header extends React.Component {
   }
     
   componentWillMount(){
-    this.slide();
+    this.slide(this.props);
 
     
     // this.props.currentUser();
@@ -128,7 +126,7 @@ class Header extends React.Component {
 
     }
     
-    axios.get('https://roraso.herokuapp.com/User/CurrentUser',
+  axios.get('https://roraso.herokuapp.com/User/CurrentUser',
     { headers: { 'access-token': localStorage.getItem('access-token')}})
         .then(res => {
             if(localStorage.getItem('status') === 'offline'){
@@ -138,7 +136,7 @@ class Header extends React.Component {
                   text: 'Entrando en modo Online',
                   type: 'success',
               })
-              return;
+              this.props.history.push('/')
             }
         })
         .catch(err => {
@@ -149,11 +147,8 @@ class Header extends React.Component {
                   text: 'Entrando en modo Offline',
                   type: 'error',
                   confirmButtonText: 'Aceptar'
-              }).then((result) => {
-                if (result.value) {
-                  return <Redirect to='/' />
-                }
               })
+              this.props.history.push('/')
             }
         })
     // console.log(this.props);
@@ -494,7 +489,10 @@ class Header extends React.Component {
       
       
       render() {
-        
+        // const { match, location, history } = this.props;
+
+        // console.log(this.props.history)
+
         return (
           <div>
         {this.content(this.props)}
@@ -514,4 +512,4 @@ function mapStateToProps(state) {
     };
   }; 
 
-export default withStyles(styles)(connect(mapStateToProps,actions)(Header));
+export default withStyles(styles)(withRouter(connect(mapStateToProps,actions)(Header)));

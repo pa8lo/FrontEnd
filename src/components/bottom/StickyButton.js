@@ -13,6 +13,7 @@ class StickyButton extends Component {
 
                     <Button
                         styles={{ backgroundColor: "#4D4D4D", marginLeft: "50px" }}
+                        id="StickyButtonRedirect"
                         rotate={false}
                         href="/problems"
                         to="/problems"
