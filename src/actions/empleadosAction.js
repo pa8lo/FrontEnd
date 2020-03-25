@@ -126,7 +126,7 @@ export const agregarEmpleado = (empleado) => async dispatch => {
         
     const user = {
         Dni : dni,
-        Password : dni,
+        // Password : dni,
         Name : nombre,
         LastName : apellido,
         Email : email,
@@ -191,7 +191,7 @@ export const editarEmpleado = (empleado) => async dispatch => {
         User : {
             id : id,
             Dni : dni,
-            Password : dni,
+            // Password : dni,
             Name : nombre,
             LastName : apellido,
             Email : email,
