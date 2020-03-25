@@ -139,7 +139,7 @@ class Principal extends Component{
         
         let permisosRRHH = [];
         
-        permisosRRHH = this.props.usuario.Authorizations.filter(permiso => (permiso.id >= 1 && permiso.id <= 4 || permiso.id >= 28 && permiso.id <= 31));
+        permisosRRHH = this.props.usuario.Authorizations.filter(permiso => (permiso.id >= 1 && permiso.id <= 4 || permiso.id >= 9 && permiso.id <= 12 || permiso.id >= 28 && permiso.id <= 31));
         
         this.state.permisosRRHH = permisosRRHH;
 

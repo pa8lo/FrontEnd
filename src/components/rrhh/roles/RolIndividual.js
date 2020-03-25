@@ -293,7 +293,7 @@ class RolIndividual extends Component {
                                         checked={this.state.RolCreate}
                                         id='9'
                                         disabled
-                                        label="Crear Roles" />
+                                        label="Crear Roles / Asignar Dirección a Restaurant" />
                                     <CustomInput type="checkbox"
                                         checked={this.state.RolView}
                                         id='10'
@@ -316,17 +316,17 @@ class RolIndividual extends Component {
                                         checked={this.state.PedidoCreate}
                                         id='20'
                                         disabled
-                                        label="Crear Pedidos" />
+                                        label="Crear Pedidos / Estado" />
                                     <CustomInput type="checkbox"
                                         checked={this.state.PedidoView}
                                         id='21'
                                         disabled
-                                        label="Ver Pedidos" />
+                                        label="Ver Pedidos / Estado / Mapa" />
                                     <CustomInput type="checkbox"
                                         checked={this.state.PedidoEdit}
                                         id='22'
                                         disabled
-                                        label="Modificar Pedidos" />
+                                        label="Modificar Pedidos / Estado / Mapa" />
                                     <CustomInput type="checkbox"
                                         checked={this.state.PedidoDelete}
                                         id='23'

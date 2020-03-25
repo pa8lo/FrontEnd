@@ -43,7 +43,7 @@ class HomeRecursosHumanos extends Component {
         //   logged : state.auth.logged,
           permisosUsuario : [],
           permisosRoles : [],
-        //   permisosTurnos : [],
+          permisoRestaurant : [],
           permisosAsistencias : [],
       }
     }
@@ -130,7 +130,7 @@ class HomeRecursosHumanos extends Component {
 
             let permisosAsistencias = [];
             
-            permisosAsistencias = this.props.usuario.Authorizations.filter(permiso => (permiso.id >= 13 && permiso.id <= 15));
+            permisosAsistencias = this.props.usuario.Authorizations.filter(permiso => (permiso.id >= 28 && permiso.id <= 31));
 
             this.state.permisosAsistencias = permisosAsistencias;
 

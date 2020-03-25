@@ -213,9 +213,37 @@ class NuevoRol extends Component {
     /****************************** Pedidos **********************/
 
     toggleChangePedidoCreate = (e) => {
-        this.setState(prevState => ({
-            PedidoCreate: !prevState.PedidoCreate,
-        }));
+        
+        if(this.state.PedidoCreate === true){
+
+            this.setState(prevState => ({
+                PedidoCreate: !prevState.PedidoCreate,
+            }));
+
+        }else{
+
+            Swal.fire({
+                title: 'Este permiso esta vinculado con los permisos',
+                text: "-Crear Cliente ¿Desea agregarlos?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar'
+              }).then((result) => {
+                if (result.value) {
+                    this.setState(prevState => ({
+                        PedidoCreate: true,
+                        ClientCreate: true,
+                    }));
+                }else{
+                    return ;
+                }
+            })
+
+        }
+
     }
 
     toggleChangePedidoView = (e) => {
@@ -672,7 +700,7 @@ class NuevoRol extends Component {
                                             value="9" 
                                             checked={this.state.RolCreate}
                                             onChange={this.toggleChangeRolCreate}
-                                            label="Crear Roles" />
+                                            label="Crear Roles / Asignar Dirección a Restaurant" />
                                         <CustomInput type="checkbox" 
                                             id='10'
                                             value="10" 
@@ -699,19 +727,19 @@ class NuevoRol extends Component {
                                             value="20" 
                                             checked={this.state.PedidoCreate}
                                             onChange={this.toggleChangePedidoCreate}
-                                            label="Crear Pedidos" />
+                                            label="Crear Pedidos / Estado" />
                                         <CustomInput type="checkbox" 
                                             id='21'
                                             value="21" 
                                             checked={this.state.PedidoView}
                                             onChange={this.toggleChangePedidoView}
-                                            label="Ver Pedidos" />
+                                            label="Ver Pedidos / Estado / Mapa" />
                                         <CustomInput type="checkbox" 
                                             id='22'
                                             value="22"
                                             checked={this.state.PedidoEdit}
                                             onChange={this.toggleChangePedidoEdit}
-                                            label="Modificar Pedidos" />
+                                            label="Modificar Pedidos / Estado / Mapa" />
                                         <CustomInput type="checkbox" 
                                             id='23'
                                             value="23" 

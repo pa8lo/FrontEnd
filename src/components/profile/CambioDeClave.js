@@ -26,50 +26,62 @@ class CambioDeClave extends Component {
 
     e.preventDefault();
 
-    if(this.claveNuevaRef.current.value == this.repetirClaveNuevaRef.current.value){
+    
 
+    if (this.claveNuevaRef.current.value.match(/^(?=[^a-z]*[a-z])(?=[^!"#$%&'()*+,-.:;<=>?@[\]^_`{|}~]*[!"#$%&'()*+,-.:;<=>?@[\]^_`{|}~])(?=\D*\d).{8,}$/)) {
+      
+      if(this.claveNuevaRef.current.value == this.repetirClaveNuevaRef.current.value){
 
-      const data = {
-        Password : this.claveActualRef.current.value,
-        NewPassword : this.claveNuevaRef.current.value
-      }
-  
-      // console.log(this.state)
-  
-      var accessToken =  localStorage.getItem('access-token');
-      axios.post("https://roraso.herokuapp.com/User/ChangePassword",data,{headers: {'access-token': accessToken}})
-        .then(res => {
-          if(res.status === 200){
+        const data = {
+          Password : this.claveActualRef.current.value,
+          NewPassword : this.claveNuevaRef.current.value
+        }
+    
+        // console.log(this.state)
+    
+        var accessToken =  localStorage.getItem('access-token');
+        axios.post("https://roraso.herokuapp.com/User/ChangePassword",data,{headers: {'access-token': accessToken}})
+          .then(res => {
+            if(res.status === 200){
+              Swal.fire({
+                title: 'Correcto!',
+                text: 'Se han modificado las credenciales del usuario',
+                type: 'success'
+                
+              }, setTimeout(function(){ 
+                window.location.href = "/";
+              }, 3500))
+              return;
+            }
+          }).catch(err => {
+            console.log(err)
             Swal.fire({
-              title: 'Correcto!',
-              text: 'Se han modificado las credenciales del usuario',
-              type: 'success'
-              
-            }, setTimeout(function(){ 
-              window.location.href = "/";
-            }, 3500))
+              title: 'Error!',
+              text: 'Hay datos incorrectos en el formulario',
+              type: 'error',
+              confirmButtonText: 'Aceptar'
+            })
             return;
-          }
-        }).catch(err => {
-          console.log(err)
-          Swal.fire({
-            title: 'Error!',
-            text: 'Hay datos incorrectos en el formulario',
-            type: 'error',
-            confirmButtonText: 'Aceptar'
           })
-          return;
+  
+  
+      }else{
+        Swal.fire({
+          title: 'Error!',
+          text: 'Las contraseñas no coinciden',
+          type: 'error',
+          confirmButtonText: 'Aceptar'
         })
+        return;
+      }
 
-
-    }else{
+    } else {
       Swal.fire({
         title: 'Error!',
-        text: 'Las contraseñas no coinciden',
+        text: 'La contraseña no respeta los parametros',
         type: 'error',
         confirmButtonText: 'Aceptar'
       })
-      return;
     }
 
   }
@@ -102,11 +114,11 @@ class CambioDeClave extends Component {
                         </div>
                         <div className="form-group">
                             <label>Nueva Contraseña</label>
-                            <input ref={this.claveNuevaRef} type="password" className="form-control" />
+                            <input ref={this.claveNuevaRef} type="password" pattern=".{8,}" className="form-control" placeholder="Minimo 8 caracteres (1 Numero y 1 Caracter Especial)"/>
                         </div>
                         <div className="form-group">
                             <label>Repita Contraseña</label>
-                            <input ref={this.repetirClaveNuevaRef} type="password" className="form-control" />
+                            <input ref={this.repetirClaveNuevaRef} type="password" pattern=".{8,}" className="form-control" />
                         </div>
                         <div center="true" align="center" className="form-group">
                             <input type="submit" value="Aceptar" className="btn btn-primary"/>

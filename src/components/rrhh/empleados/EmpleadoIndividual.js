@@ -426,6 +426,7 @@ class EmpleadoIndividual extends Component {
         else{
 
           console.log(this.state.rol_encontrado_1)
+
           return (
           
             <div>
@@ -465,7 +466,7 @@ class EmpleadoIndividual extends Component {
                   } */}
 
 
-                  { permisos.filter(permiso => (permiso.id == 3)).length ?  
+                  { permisos.filter(permiso => (permiso.id == 3)).length > 0 ?  
                   
                     <Button style={{marginLeft: 10, width: 150}}
                       className="btn btn-success"
@@ -484,7 +485,7 @@ class EmpleadoIndividual extends Component {
               
                   }
 
-                  { permisos.filter(permiso => (permiso.id == 5)) && this.state.rol_encontrado_1.length !== 0 ?  
+                  { permisos.filter(permiso => (permiso.id == 10)).length > 0 && this.state.rol_encontrado_1.length !== 0 ?  
                   
                     <Link style={buttonStyle} to={{
                         pathname : `/rrhh/roles/${this.props.empleado.user.Rols}`
@@ -493,7 +494,7 @@ class EmpleadoIndividual extends Component {
                             Ver Rol
                     </Link>
 
-                  :  
+                    :  
 
                     <Link style={buttonStyle} to="#" disabled className="btn btn-info">Ver Rol</Link> 
               

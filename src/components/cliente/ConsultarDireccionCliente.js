@@ -3,25 +3,13 @@ import React, { Component } from 'react';
 import {Col} from 'react-bootstrap';
 import Header from '../header/IndexHeader';
 
-//CSS
-import { css } from "@emotion/core";
-
 import axios from 'axios';
 
 //CSS
 import Swal from 'sweetalert2'
 
-const override = css`
-  display: block;
-  margin: 0 auto;
-  border-color: red;
-`;
-
-const columnButtonStyle = {
-    maxWidth: "100%",
-    minWidth: "100%",
-    paddingTop: 3
-};
+import { connect } from 'react-redux';
+import { currentUser } from '../../actions/usuarioAction';
 
 const buttonStyle = {
     marginLeft: 10,
@@ -33,6 +21,10 @@ class ConsultarDireccionCliente extends Component {
     state = {
         loading: true
     };
+
+    componentWillMount(){
+        this.props.currentUser();
+    }
 
     eliminarDireccion = async (id) => {
         
@@ -96,9 +88,9 @@ class ConsultarDireccionCliente extends Component {
 
     render() {
 
+        if(this.props.usuario.length === 0) return null;
 
-
-        //console.log(this.props.location.state.Adress)
+        const permisos = this.props.usuario.Authorizations;
 
         return(
 
@@ -141,9 +133,19 @@ class ConsultarDireccionCliente extends Component {
                         Volver
                     </button>
 
-                    <button style={{marginLeft: 10, width: 140}} name="idEliminarAsistencia" 
-                    onClick={() => this.eliminarDireccion(address.id)} 
-                    value={address.id} type="button" className="btn btn-danger">Borrar Dirección</button>
+                    { permisos.filter(permiso => (permiso.id == 8)).length > 0 ? 
+                
+                        <button style={{marginLeft: 10, width: 140}} name="idEliminarAsistencia" 
+                        onClick={() => this.eliminarDireccion(address.id)} 
+                        value={address.id} type="button" className="btn btn-danger">Borrar Dirección</button>
+
+                        :  
+
+                        <button style={{marginLeft: 10, width: 140}} disabled
+                        type="button" className="btn btn-danger">Borrar Dirección</button>
+                    
+                    }
+
                     </Col>
                 </div>
                 )
@@ -164,5 +166,10 @@ class ConsultarDireccionCliente extends Component {
     }
 }
 
+const mapStateToProps = state => ({
+    usuario : state.usuario.usuario
+});
 
-export default ConsultarDireccionCliente;
+export default connect(mapStateToProps, {
+    currentUser
+})(ConsultarDireccionCliente);
