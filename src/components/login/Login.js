@@ -11,7 +11,7 @@ class LoginForm extends React.Component {
   render() {
     return (
       <div className='background-image' style={{backgroundImage: "url("+LoginImage+")", marginTop: "-300px", height: "890px", width: "100%"}}>
-      <Grid  container style={{marginTop:"300px"}}>
+      <Grid  container="true" style={{marginTop:"300px"}}>
         <Row className="show-grid">
           <Col style={{display: "inline-block"}} xs={5} md={5}>
             <div > 

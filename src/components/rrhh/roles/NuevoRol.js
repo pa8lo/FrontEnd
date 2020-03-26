@@ -409,15 +409,70 @@ class NuevoRol extends Component {
     /****************************** Turnos & Asistencias **********************/
 
     toggleChangeTACreate = (e) => {
-        this.setState(prevState => ({
-            TACreate: !prevState.TACreate,
-        }));
+
+        if(this.state.TACreate === true){
+
+            this.setState(prevState => ({
+                TACreate: !prevState.TACreate,
+            }));
+
+        }else{
+
+            Swal.fire({
+                title: 'Este permiso esta vinculado con los permisos',
+                text: "-Ver Usuarios ¿Desea agregarlos?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar'
+              }).then((result) => {
+                if (result.value) {
+                    this.setState(prevState => ({
+                        TACreate: true,
+                        UserView: true,
+                    }));
+                }else{
+                    return ;
+                }
+            })
+
+        }
     }
 
     toggleChangeTAView = (e) => {
-        this.setState(prevState => ({
-            TAView: !prevState.TAView,
-        }));
+        
+
+        if(this.state.TAView === true){
+
+            this.setState(prevState => ({
+                TAView: !prevState.TAView,
+            }));
+
+        }else{
+
+            Swal.fire({
+                title: 'Este permiso esta vinculado con los permisos',
+                text: "-Ver Usuarios ¿Desea agregarlos?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.value) {
+                    this.setState(prevState => ({
+                        TAView: true,
+                        UserView: true,
+                    }));
+                }else{
+                    return ;
+                }
+            })
+
+        }
     }
 
     toggleChangeTAEdit = () => {

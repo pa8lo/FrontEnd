@@ -105,18 +105,20 @@ class MyVerticallyCenteredModal extends Component {
     }
   
     render() {
-        
-    // console.log(this.props)
   
         let verificarDatos = () =>{
             if(this.props.asistencias.length === 0){
+
                 return (<h2 align='center'>No hay datos</h2>)
+
             }else{
 
-                let asistenciasss = []
-                let a = []
+                // let asistenciasss = []
+                // let a = []
 
                 // console.log(a)
+
+                const permisos = this.props.permisosevaluar
 
                 return(
                     <React.Fragment>
@@ -151,15 +153,39 @@ class MyVerticallyCenteredModal extends Component {
                             </div>
                             </Col>
                             <Col align="center" xs={12} md={12} style={{marginTop:'20px',marginBottom:'40px'}}>
-                            <Link className={buttonStyle} style={{color:"white", backgroundColor: "#4D4D4D"}} to={{
-                                pathname : `/rrhh/asistencias/${asistencia.id}`,
-                                state : asistencia,
-                                idUser : this.props.asistenciaid,
-                                userName : this.props.asistencianame
-                                }} className="btn">
-                                Editar Asistencia
-                            </Link>
-                            <button style={buttonStyle} name="idEliminarAsistencia" onClick={() => this.eliminarAsistencia(asistencia.id)} value={asistencia.id} type="button" className="btn btn-danger">Borrar Asistencia</button>
+
+                            { permisos.filter(permiso => (permiso.id == 30)).length > 0 ? 
+
+                                <Link className={buttonStyle}
+                                    style={{color:"white", backgroundColor: "#4D4D4D"}} to={{
+                                    pathname : `/rrhh/asistencias/${asistencia.id}`,
+                                    state : asistencia,
+                                    idUser : this.props.asistenciaid,
+                                    userName : this.props.asistencianame
+                                    }} className="btn">
+                                    Editar Asistencia
+                                </Link>
+
+                                :
+
+                                <Link className={buttonStyle}
+                                    style={{color:"white", backgroundColor: "#4D4D4D"}}
+                                    className="btn" to="#" disabled>
+                                    Editar Asistencia
+                                </Link>
+
+                            }
+
+                            { permisos.filter(permiso => (permiso.id == 31)).length > 0 ? 
+                            
+                                <button style={buttonStyle} name="idEliminarAsistencia" onClick={() => this.eliminarAsistencia(asistencia.id)} value={asistencia.id} type="button" className="btn btn-danger">Borrar Asistencia</button>
+                                
+                                :
+
+                                <button style={buttonStyle} disabled type="button" className="btn btn-danger">Borrar Asistencia</button>
+
+                            }
+
                             </Col>
                         </React.Fragment>
 
@@ -222,9 +248,9 @@ class MyVerticallyCenteredModal extends Component {
         </Modal>
       );
     }
-  }
+}
 
-class ActionAsistenciaComponent extends React.Component {
+class ActionAsistenciaComponent extends Component {
 
     constructor(...args) {
         super(...args);
@@ -251,6 +277,8 @@ class ActionAsistenciaComponent extends React.Component {
 
     const { id } = this.props.rowData;
 
+    // console.log(permisos)
+
     return (
         <td style={columnButtonStyle}>
             
@@ -261,6 +289,7 @@ class ActionAsistenciaComponent extends React.Component {
                 asistenciaid={this.props.rowData.id}
                 asistencias={this.props.rowData.Assistance}
                 asistencianame={this.props.rowData.Name}
+                permisosevaluar={permisos}
             //   borrarasistencia={this.props.eliminarAsistencia()}
             />
 

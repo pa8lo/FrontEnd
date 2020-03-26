@@ -207,7 +207,7 @@ const styles = StylesLoginForm;
     render() {
       const { classes } = this.props;
         return (
-      <Grid container spacing={24}>
+      <Grid container="true" spacing={24}>
         
          
           <Grid item xs={1} md={3} lg={4}>
