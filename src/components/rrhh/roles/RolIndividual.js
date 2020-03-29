@@ -229,7 +229,7 @@ class RolIndividual extends Component {
                         <Row className="clearfix">
                             <Col sm={3}>
                             <Nav bsStyle="pills" stacked>
-                                <NavItem eventKey="first">Usuarios</NavItem>
+                                <NavItem eventKey="first">Empleados</NavItem>
                                 <NavItem eventKey="second">Clientes</NavItem>
                                 <NavItem eventKey="third">Roles</NavItem>
                                 <NavItem eventKey="fourth">Pedidos</NavItem>
@@ -247,22 +247,22 @@ class RolIndividual extends Component {
                                         checked={this.state.UserCreate}
                                         id='1'
                                         disabled
-                                        label="Crear Usuario" />
+                                        label="Crear Empleado" />
                                     <CustomInput type="checkbox" 
                                         checked={this.state.UserView}
                                         id='2'
                                         disabled
-                                        label="Ver Usuario" />
+                                        label="Ver Empleado" />
                                     <CustomInput type="checkbox" 
                                         checked={this.state.UserEdit}
                                         id='3'
                                         disabled
-                                        label="Modificar Usuario" />
+                                        label="Modificar Empleado" />
                                     <CustomInput type="checkbox" 
                                         checked={this.state.UserDelete}
                                         id='4'
                                         disabled
-                                        label="Borrar Usuario" />
+                                        label="Borrar Empleado" />
                                 </Tab.Pane>
                                 {/* Clientes */}
                                 <Tab.Pane eventKey="second">

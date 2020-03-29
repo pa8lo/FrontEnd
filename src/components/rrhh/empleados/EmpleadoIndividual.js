@@ -53,13 +53,13 @@ class MyVerticallyCenteredModal extends Component {
     let piso_elegido;
 
     if(this.departamentoRef.current.value == ""){
-      departamento_elegido =  null
+      departamento_elegido =  ""
     }else{
       departamento_elegido = this.departamentoRef.current.value
     }
 
     if(this.pisoRef.current.value == ""){
-      piso_elegido =  null
+      piso_elegido =  ""
     }else{
       piso_elegido = this.pisoRef.current.value
     }
@@ -115,7 +115,7 @@ class MyVerticallyCenteredModal extends Component {
 
   render() {
 
-    // console.log(this.props);
+    console.log(this.props);
 
     return (
       <Modal
@@ -269,8 +269,8 @@ class EmpleadoIndividual extends Component {
                   <React.Fragment key = {address.id}>
                   
                 <Panel.Body key = {address.id}><h2>Domicilio: {address.Adress}</h2>
-                <h2>Piso: {address.Floor}</h2>
-                <h2>Departamento: {address.Department}</h2>
+                <h2>Piso: {address.Floor === "" ? "Sin Piso" : address.Floor}</h2>
+                <h2>Departamento: {address.Department === "" ? "Sin Departamento" : address.Department}</h2>
                 <h2>Codigo Postal: {address.Cp}</h2>
                 </Panel.Body>
                 <Panel.Body>
@@ -321,8 +321,8 @@ class EmpleadoIndividual extends Component {
                   <React.Fragment key = {address.id}>
                   
                 <Panel.Body key = {address.id}><h2>Domicilio: {address.Adress}</h2>
-                <h2>Piso: {address.Floor}</h2>
-                <h2>Departamento: {address.Department}</h2>
+                <h2>Piso: {address.Floor === "" ? "Sin Piso" : address.Floor}</h2>
+                <h2>Departamento: {address.Department === "" ? "Sin Departamento" : address.Department}</h2>
                 <h2>Codigo Postal: {address.Cp}</h2>
                 </Panel.Body>
                 <Panel.Body>
@@ -371,8 +371,8 @@ class EmpleadoIndividual extends Component {
                     <React.Fragment key = {address.id}>
                     
                   <Panel.Body key = {address.id}><h2>Domicilio: {address.Adress}</h2>
-                  <h2>Piso: {address.Floor}</h2>
-                  <h2>Departamento: {address.Department}</h2>
+                  <h2>Piso: {address.Floor === "" ? "Sin Piso" : address.Floor}</h2>
+                  <h2>Departamento: {address.Department === "" ? "Sin Departamento" : address.Department}</h2>
                   <h2>Codigo Postal: {address.Cp}</h2>
                   </Panel.Body>
                   <Panel.Body>

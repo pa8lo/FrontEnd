@@ -46,7 +46,7 @@ class ClienteIndividual extends Component {
                         </div>
                         <div className="form-group">
                             <label>Email</label>
-                            <input disabled defaultValue={this.props.location.state.Email} type="email" className="form-control" required/>
+                            <input disabled defaultValue={this.props.location.state.Email} pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,4}$" type="email" className="form-control" required/>
                         </div>
                         <div className="form-group">
                             <label>Telefono</label>

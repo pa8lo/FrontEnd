@@ -670,11 +670,11 @@ class NuevoRol extends Component {
                     <form onSubmit={this.crearRol} className="col-8">
                         <div className="form-group">
                             <label>Nombre</label>
-                            <input ref={this.nombreRef} type="text" className="form-control"/>
+                            <input ref={this.nombreRef} type="text" className="form-control" required/>
                         </div>
                         <div className="form-group">
                             <label>Descripcion</label>
-                            <input ref={this.descripcionRef} type="text" className="form-control" />
+                            <input ref={this.descripcionRef} type="text" className="form-control" required/>
                         </div>
                         <div className="form-group">
                             <label>Permisos</label>
@@ -682,7 +682,7 @@ class NuevoRol extends Component {
                             <Row className="clearfix">
                                 <Col sm={3}>
                                 <Nav bsStyle="pills" stacked>
-                                    <NavItem eventKey="first">Usuarios</NavItem>
+                                    <NavItem eventKey="first">Empleados</NavItem>
                                     <NavItem eventKey="second">Clientes</NavItem>
                                     <NavItem eventKey="third">Roles</NavItem>
                                     <NavItem eventKey="fourth">Pedidos</NavItem>
@@ -701,25 +701,25 @@ class NuevoRol extends Component {
                                             value='1'
                                             checked={this.state.UserCreate}
                                             onChange={this.toggleChangeUserCreate}
-                                            label="Crear Usuario" />
+                                            label="Crear Empleado" />
                                         <CustomInput type="checkbox"
                                             id='2'
                                             value='2'
                                             checked={this.state.UserView}
                                             onChange={this.toggleChangeUserView}
-                                            label="Ver Usuario" />
+                                            label="Ver Empleado" />
                                         <CustomInput type="checkbox" 
                                             id='3'
                                             value='3'
                                             checked={this.state.UserEdit}
                                             onChange={this.toggleChangeUserEdit}
-                                            label="Modificar Usuario" />
+                                            label="Modificar Empleado" />
                                         <CustomInput type="checkbox" 
                                             value='4'
                                             id='4'
                                             checked={this.state.UserDelete}
                                             onChange={this.toggleChangeUserDelete}
-                                            label="Borrar Usuario" />
+                                            label="Borrar Empleado" />
                                     </Tab.Pane>
                                     {/* Clientes */}
                                     <Tab.Pane eventKey="second">

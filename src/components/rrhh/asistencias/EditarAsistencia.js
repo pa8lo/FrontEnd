@@ -35,10 +35,6 @@ class AsistenciaIndividual extends Component {
 
   componentWillMount(){
 
-    console.log(this.props)
-
-    
-
     axios.get('https://roraso.herokuapp.com/User/Users',
     { headers: { 'access-token': localStorage.getItem('access-token')}})
         .then(res => {
@@ -67,15 +63,18 @@ class AsistenciaIndividual extends Component {
       
 
       this.state.timeIn = this.props.location.state.InTime.split("T");
+      this.state.timeOut = this.props.location.state.OutTime.split("T");
 
       //The format is "yyyy-MM-ddThh:mm" followed by optional ":ss" or ":ss.SSS".
 
       // 20/03/2020 00:38:00:00
 
       var timeIn1 = this.state.timeIn[0] + "T" + this.state.timeIn[1].split('.')[0]
+      var timeOut1 = this.state.timeOut[0] + "T" + this.state.timeOut[1].split('.')[0]
 
       this.setState({
         timeInForm : timeIn1,
+        timeOutForm : timeOut1,
       })
     }
 
@@ -167,7 +166,7 @@ class AsistenciaIndividual extends Component {
                                 </InputGroup>
                                 <InputGroup>
                                 <InputGroup.Addon>Fecha y Hora Salida</InputGroup.Addon>
-                                <FormControl onChange={this.handleChangetimeOut} name="timeOut" style={{width: 200}} type="datetime-local"  max="9999-12-12T00:00:00.00" required/>
+                                <FormControl onChange={this.handleChangetimeOut} name="timeOut" style={{width: 200}} type="datetime-local"  max="9999-12-12T00:00:00.00" defaultValue={this.state.timeOutForm} required/>
                                 </InputGroup>
                             </FormGroup>
                         </div>

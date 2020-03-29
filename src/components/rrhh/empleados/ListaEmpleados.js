@@ -195,7 +195,7 @@ class ActionEmpleadoComponent extends React.Component {
             }
 
             { 
-                this.props.currentIdUser === 1 ?
+                permisos.filter(permiso => (permiso.id == 3)).length > 0 ?
 
                 <button style={{marginLeft: 10, width: 120}} onClick={ () => this.resetClave(this) } type="button" className="btn btn-info">Resetear Clave</button>
 

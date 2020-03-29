@@ -106,6 +106,9 @@ class MyVerticallyCenteredModal extends Component {
   
     render() {
   
+
+        console.log(this.props.asistencias)
+
         let verificarDatos = () =>{
             if(this.props.asistencias.length === 0){
 
@@ -197,15 +200,9 @@ class MyVerticallyCenteredModal extends Component {
 
         let verificarOutTime = (asistencia) =>{
 
-            // console.log(asistencia)
-
-            // console.log(this.props)
-
             if(asistencia === ''){
                 return "No hay datos"
             }else{
-
-                // console.log(asistencia)
 
                 if(asistencia.InTime == "0000-00-00 00:00:00" || asistencia.OutTime == "0000-00-00 00:00:00"){
                     return null
@@ -213,11 +210,10 @@ class MyVerticallyCenteredModal extends Component {
                     if(asistencia.InTime == "0000-00-00 00:00:00"){
                         return "0000-00-00 00:00:00"
                     }else{
-                        // return asistencia.split("T")[0] + " " + asistencia.split("T")[1].split(".")[0]
+                        return asistencia.split("T")[0] + " " + asistencia.split("T")[1].split(".")[0]
                     }
                 }
             }
-            // console.log(asistencia)
         }
   
       return (
@@ -276,8 +272,6 @@ class ActionAsistenciaComponent extends Component {
     const permisos = this.props.Permisos.Authorizations;
 
     const { id } = this.props.rowData;
-
-    // console.log(permisos)
 
     return (
         <td style={columnButtonStyle}>

@@ -58,11 +58,11 @@ class SignInForm extends Component {
                 <form style={{marginTop : "50px"}} onSubmit={this.signIn} className={classes.form}>
                   <div align="center" className="form-group">
                       <label>DNI</label>
-                      <input ref={this.dniRef} placeholder="Nº de DNI" type="text" className="form-control"/>
+                      <input ref={this.dniRef} placeholder="Nº de DNI" type="text" className="form-control" required/>
                   </div>
                   <div style={{marginTop : "20px"}} align="center" className="form-group">
                       <label>Contraseña</label>
-                      <input ref={this.claveRef} placeholder="*******" type="password" className="form-control" />
+                      <input ref={this.claveRef} placeholder="*******" type="password" className="form-control" required/>
                   </div>
                   <div align="center" className="form-group">
                       <input style={{marginTop:"50px"}}  type="submit" value="Ingresar" className="btn btn-primary"/>

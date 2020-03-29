@@ -110,15 +110,15 @@ class CambioDeClave extends Component {
                     <form onSubmit={this.cambiarClave} className="col-5">
                         <div className="form-group">
                             <label>Contraseña Actual</label>
-                            <input ref={this.claveActualRef} type="password" className="form-control"/>
+                            <input ref={this.claveActualRef} type="password" className="form-control" required/>
                         </div>
                         <div className="form-group">
                             <label>Nueva Contraseña</label>
-                            <input ref={this.claveNuevaRef} type="password" pattern=".{8,}" className="form-control" placeholder="Minimo 8 caracteres (1 Numero y 1 Caracter Especial)"/>
+                            <input ref={this.claveNuevaRef} type="password" pattern=".{8,}" className="form-control" placeholder="Minimo 8 caracteres (1 Numero y 1 Caracter Especial)" required/>
                         </div>
                         <div className="form-group">
                             <label>Repita Contraseña</label>
-                            <input ref={this.repetirClaveNuevaRef} type="password" pattern=".{8,}" className="form-control" />
+                            <input ref={this.repetirClaveNuevaRef} type="password" pattern=".{8,}" className="form-control" required/>
                         </div>
                         <div center="true" align="center" className="form-group">
                             <input type="submit" value="Aceptar" className="btn btn-primary"/>
