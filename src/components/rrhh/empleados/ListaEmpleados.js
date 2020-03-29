@@ -79,9 +79,6 @@ class ActionEmpleadoComponent extends React.Component {
 
     resetClave = (usuario) => {
 
-        if(parseInt(localStorage.getItem('usuario')) === 1){
-
-            console.log(usuario)
 
             Swal.fire({
                 title: '¿Estas seguro que desea resetear la contraseña?',
@@ -132,8 +129,6 @@ class ActionEmpleadoComponent extends React.Component {
                 // return;
                 }
             })
-
-        }
 
     }
 
