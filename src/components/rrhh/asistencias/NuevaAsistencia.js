@@ -150,9 +150,6 @@ class NuevaAsistencia extends Component {
             timeIn : timeIn5,
             // timeOut : timeOut5
         }
-
-        // console.log(asistencias);
-
         
         this.props.agregarAsistencia(asistencias);
 

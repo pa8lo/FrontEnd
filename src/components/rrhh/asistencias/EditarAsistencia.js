@@ -134,10 +134,9 @@ class AsistenciaIndividual extends Component {
         timeOut : this.setState.TimeOutToSend
       }
 
-      console.log(asistencias);
+      // console.log(asistencias);
 
-      // this.props.editarAsistencia(asistencias)
-
+      this.props.editarAsistencia(asistencias)
     }
 
     ToHome(){
@@ -156,14 +155,14 @@ class AsistenciaIndividual extends Component {
         return (
             
         <div>
-            <Header titulo = 'Alta de Asistencia'/>
+            <Header titulo = 'Editar Asistencia'/>
             <div className="table-empleados">
                 <Paper className="col-md-8">
                     <div>
                     <form onSubmit={this.actualizarAsistencia} className="col-8">
                         <div className="form-group">
                             <label>Empleado</label>
-                            <select ref={this.empleadosRef} defaultValue={this.state.idEmpleado} className="form-control" required>
+                            <select ref={this.empleadosRef} disabled defaultValue={this.state.idEmpleado} className="form-control" required>
                                 <option defaultValue={this.state.idEmpleado}>{this.state.nombreEmpleado}</option>
                                                                 
                                 {this.state.empleados.map(empleado => (

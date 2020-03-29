@@ -187,7 +187,7 @@ class EmpleadoIndividual extends Component {
 
     }
 
-    eliminarEmpleado = () =>{
+    eliminarEmpleado = () => {
       Swal.fire({
         title: '¿Estas seguro que desea eliminar?',
         text: "Estas a punto de eliminar un empleado",
@@ -202,6 +202,58 @@ class EmpleadoIndividual extends Component {
           this.props.eliminarEmpleado(this.props.match.params.empleadoId);
         }
       })
+    }
+
+    eliminarDireccion = async (id) => {
+
+      Swal.fire({
+        title: '¿Estas seguro que desea eliminar?',
+        text: "Estas a punto de eliminar una dirección",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Confirmar',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.value) {
+          axios.post("https://roraso.herokuapp.com/Client/DeleteAddress",{'id': id},
+          { headers: { 'access-token': localStorage.getItem('access-token')}})
+              .then(res => {
+                  if(res.status === 200){
+                      Swal.fire({
+                          title: 'Correcto!',
+                          text: 'Se ha borrado una dirección',
+                          type: 'success',
+                          confirmButtonText: 'Confirmar'
+                      })
+                      setTimeout(function(){ 
+                          window.location.reload();
+                      }, 3500);
+                  }
+                  else{
+                      Swal.fire({
+                          title: 'Error!',
+                          text: 'Se ha producido un error al intentar borrar la dirección',
+                          type: 'error',
+                          confirmButtonText: 'Aceptar'
+                      })
+                      return;
+                  }
+                  
+              })
+              .catch(err => {
+                  Swal.fire({
+                      title: 'Error!',
+                      text: 'El Servidor no ha respondido la solicitud',
+                      type: 'error',
+                      confirmButtonText: 'Aceptar'
+                  })
+                  return;
+              })
+        }
+      })
+
     }
 
     componentWillMount(){
@@ -273,6 +325,11 @@ class EmpleadoIndividual extends Component {
                 <h2>Departamento: {address.Department === "" ? "Sin Departamento" : address.Department}</h2>
                 <h2>Codigo Postal: {address.Cp}</h2>
                 </Panel.Body>
+                <div className="d-flex justify-content-end">
+                  <div className="text-center">
+                    <button style={buttonStyle} onClick={ () => this.eliminarDireccion(address.id) } type="button" className="btn btn-danger">Borrar</button>
+                  </div>
+                </div>
                 <Panel.Body>
                 <hr></hr>
                 </Panel.Body>
@@ -285,17 +342,6 @@ class EmpleadoIndividual extends Component {
           </Container>
         </React.Fragment>
       );
-      // return
-      // (
-        // <div style={{marginTop: '40px', marginBottom: '40px'}}>
-        //     <DotLoader
-        //     css={override}
-        //     size={50} // or 150px
-        //     color={"#4D4D4D"}
-        //     loading={this.state.loading}
-        //     />
-        // </div>
-      // );
 
       if(rol_encontrado[0] == undefined)
       return (
@@ -325,6 +371,11 @@ class EmpleadoIndividual extends Component {
                 <h2>Departamento: {address.Department === "" ? "Sin Departamento" : address.Department}</h2>
                 <h2>Codigo Postal: {address.Cp}</h2>
                 </Panel.Body>
+                <div className="d-flex justify-content-end">
+                  <div className="p-2 text-center">
+                    <button style={buttonStyle} onClick={ () => this.eliminarDireccion(address.id) } type="button" className="btn btn-danger">Borrar</button>
+                  </div>
+                </div>
                 <Panel.Body>
                 <hr></hr>
                 </Panel.Body>
@@ -375,6 +426,11 @@ class EmpleadoIndividual extends Component {
                   <h2>Departamento: {address.Department === "" ? "Sin Departamento" : address.Department}</h2>
                   <h2>Codigo Postal: {address.Cp}</h2>
                   </Panel.Body>
+                  <div className="d-flex justify-content-end">
+                    <div className="p-2 text-center">
+                      <button style={buttonStyle} onClick={ () => this.eliminarDireccion(address.id) } type="button" className="btn btn-danger">Borrar</button>
+                    </div>
+                  </div>
                   <Panel.Body>
                   <hr></hr>
                   </Panel.Body>
