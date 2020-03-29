@@ -136,7 +136,7 @@ class MyVerticallyCenteredModal extends Component {
               <Col xs={12} md={6}>
                 <div className="form-group">
                     <label>Direccion</label>
-                    <input ref={this.direccionRef} type="text" className="form-control" />
+                    <input ref={this.direccionRef} type="text" className="form-control" required/>
                 </div>
               </Col>
               <Col xs={12} md={6}>
@@ -154,7 +154,7 @@ class MyVerticallyCenteredModal extends Component {
               <Col xs={12} md={6}>
                 <div className="form-group">
                     <label>Codigo Postal</label>
-                    <input ref={this.cpRef} type="text" className="form-control" />
+                    <input ref={this.cpRef} type="text" className="form-control" required/>
                 </div>
               </Col>
             </Row>
