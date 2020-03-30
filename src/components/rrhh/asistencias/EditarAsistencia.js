@@ -5,6 +5,7 @@ import { FormGroup, InputGroup, FormControl } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
 
 //Componentes
+import Swal from 'sweetalert2'
 import Paper from '@material-ui/core/Paper';
 import Header from '../../header/IndexHeader';
 import ListadoEmpleadosEdicion from './ListadoEmpleadosEdicion';
@@ -29,11 +30,18 @@ class AsistenciaIndividual extends Component {
   }
 
   handleChangetimeIn = e => {
-      this.setState({ [e.target.name]: e.target.value });
+
+      console.log(e.target.value)
+
+      this.setState({ 
+        timeInForm : e.target.value 
+      });
   };
 
   handleChangetimeOut = e => {
-      this.setState({ [e.target.name]: e.target.value });
+      this.setState({ 
+        timeOutForm: e.target.value 
+      });
   };
 
   componentWillMount(){
@@ -58,6 +66,8 @@ class AsistenciaIndividual extends Component {
     }
 
     componentDidMount(){
+
+      console.log(this.props.location.state);
 
       this.setState(state => ({
         TimeInToSend : this.props.location.state.InTime,
@@ -93,45 +103,42 @@ class AsistenciaIndividual extends Component {
 
       //"fecha invalida se espera DD/MM/YYYY HH:MM:SS:MS"
 
-      let timeIn1 = this.state.TimeInToSend.split('T')[0];
+      //Time In
 
-      let timeIn3 = timeIn1.split('-')
+      let timeIn1 = this.state.timeInForm.split('T');
 
-      let timeIn4 = timeIn3[2] + "/" + timeIn3[1] + "/" + timeIn3[0]
-
-      let timeIn2 = this.state.TimeInToSend.split('T')[1].split('Z')[0].split('.')[0]
-
-      let timeIn5 = timeIn2 + ":00"
-
-      // console.log(timeIn1 + " " + timeIn2)
-      this.setState.TimeInToSend = timeIn4 + " " + timeIn5
-
-      // this.setState.timeOut = this.state.timeOut.split("-");
+      let timeIn4 = timeIn1[0].split("-")[2] + "/" + timeIn1[0].split("-")[1] + "/" + timeIn1[0].split("-")[0]
       
-      let timeOut1 = this.state.TimeOutToSend.split('T')[0];
+      let timeIn2
 
-      let timeOut3 = timeOut1.split('-')
+      if(timeIn1[1].split(':').length === 2){
+        timeIn2 = timeIn1[1] + ":00"
+      }else{
+        timeIn2 = timeIn1[1]
+      }
 
-      let timeOut4 = timeOut3[2] + "/" + timeOut3[1] + "/" + timeOut3[0]
+      let timeIn3 = timeIn4 + " " + timeIn2
 
-      let timeOut2 = this.state.TimeOutToSend.split('T')[1].split('Z')[0].split('.')[0]
+      //Time Out
 
-      let timeOut5 = timeOut2 + ":00"
+      let timeOut1 = this.state.timeOutForm.split('T');
 
-      this.setState.TimeOutToSend = timeOut4 + " " + timeOut5
+      let timeOut4 = timeOut1[0].split("-")[2] + "/" + timeOut1[0].split("-")[1] + "/" + timeOut1[0].split("-")[0]
+      
+      let timeOut2
 
-      // var timeOut3 = timeOut2[0].split('-')
+      if(timeOut1[1].split(':').length === 2){
+        timeOut2 = timeOut1[1] + ":00"
+      }else{
+        timeOut2 = timeOut1[1]
+      }
 
-      // var timeOut4 = timeOut3[2] + '/' + timeOut3[1] + '/' + timeOut3[0]
-     
-      // const timeOut5 = timeOut4 + " " + timeOut2[1] + ":00:00";
-
-      // console.log(this.setState.timeIn);
+      let timeOut3 = timeOut4 + " " + timeOut2
 
       const asistencias = {
         idAsistencia : this.props.location.state.id,
-        timeIn : this.setState.TimeInToSend,
-        timeOut : this.setState.TimeOutToSend
+        timeIn : timeIn3,
+        timeOut : timeOut3
       }
 
       // console.log(asistencias);
@@ -179,11 +186,11 @@ class AsistenciaIndividual extends Component {
                             <FormGroup style={{display: 'flex', justifyContent: 'space-between'}}>
                                 <InputGroup>
                                 <InputGroup.Addon>Fecha y Hora Entrada</InputGroup.Addon>
-                                <FormControl onChange={this.handleChangetimeIn} name="TimeInToSend" style={{width: 200}} type="datetime-local"  max="9999-12-12T00:00:00.00" defaultValue={this.state.timeInForm} required/>
+                                <FormControl onChange={this.handleChangetimeIn} name="timeInForm" style={{width: 200}} type="datetime-local"  max="9999-12-12T00:00:00.00" defaultValue={this.state.timeInForm} required/>
                                 </InputGroup>
                                 <InputGroup>
                                 <InputGroup.Addon>Fecha y Hora Salida</InputGroup.Addon>
-                                <FormControl onChange={this.handleChangetimeOut} name="TimeOutToSend" style={{width: 200}} type="datetime-local"  max="9999-12-12T00:00:00.00" defaultValue={this.state.timeOutForm} required/>
+                                <FormControl onChange={this.handleChangetimeOut} name="timeOutForm" style={{width: 200}} type="datetime-local"  max="9999-12-12T00:00:00.00" defaultValue={this.state.timeOutForm} required/>
                                 </InputGroup>
                             </FormGroup>
                         </div>

@@ -331,7 +331,7 @@ class RolIndividual extends Component {
                                         checked={this.state.PedidoDelete}
                                         id='23'
                                         disabled
-                                        label="Borrar Pedidos" />
+                                        label="Borrar Pedidos / Estado" />
                                 </Tab.Pane>
                                 {/* Productos */}
                                 <Tab.Pane eventKey="fifth">

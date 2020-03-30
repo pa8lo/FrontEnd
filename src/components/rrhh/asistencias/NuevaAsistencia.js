@@ -102,8 +102,6 @@ class NuevaAsistencia extends Component {
 
         e.preventDefault();
 
-        // const dateIn = (new Date(this.state.timeIn).getTime()/1000|0);
-        // const dateOut = (new Date(this.state.timeOut).getTime()/1000|0);
 
         if(this.empleadosRef.current.value == "None"){
             Swal.fire({
@@ -114,17 +112,6 @@ class NuevaAsistencia extends Component {
             })
             return;
         }
-
-        // if(dateOut < dateIn){
-        //     Swal.fire({
-        //         title: 'Error!',
-        //         text: 'La fecha / hora de salida no puede ser anterior a la de entrada',
-        //         type: 'error',
-        //         confirmButtonText: 'Aceptar'
-        //     })
-        //     return;
-        // }
-
 
         this.setState.timeIn = this.state.timeIn.split("-");
         this.setState.timeOut = this.state.timeOut.split("-");
@@ -151,7 +138,9 @@ class NuevaAsistencia extends Component {
             // timeOut : timeOut5
         }
         
-        this.props.agregarAsistencia(asistencias);
+        console.log(asistencias)
+
+        // this.props.agregarAsistencia(asistencias);
 
         e.currentTarget.reset();
 

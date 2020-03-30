@@ -107,7 +107,7 @@ class MyVerticallyCenteredModal extends Component {
     render() {
   
 
-        console.log(this.props.asistencias)
+        // console.log(this.props.asistencias)
 
         let verificarDatos = () =>{
             if(this.props.asistencias.length === 0){

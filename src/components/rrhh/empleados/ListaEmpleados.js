@@ -120,13 +120,6 @@ class ActionEmpleadoComponent extends React.Component {
                         return;
                     })
                 }else{
-                // Swal.fire({
-                //     title: 'Error!',
-                //     text: '',
-                //     type: 'error',
-                //     confirmButtonText: 'Aceptar'
-                // })
-                // return;
                 }
             })
 

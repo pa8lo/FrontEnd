@@ -38,8 +38,7 @@ class EditarEstado extends Component {
   editarEstado = (e) => {
     e.preventDefault();
 
-    if(this.descripcionRef.current.value == undefined || this.descripcionRef.current.value == null ||
-        this.keyRef.current.value == undefined || this.keyRef.current.value == null){
+    if(this.descripcionRef.current.value == undefined || this.descripcionRef.current.value == null){
         Swal.fire({
             title: 'Error!',
             text: 'Hay datos erroneos en el formulario',

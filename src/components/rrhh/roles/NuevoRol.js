@@ -800,7 +800,7 @@ class NuevoRol extends Component {
                                             value="23" 
                                             checked={this.state.PedidoDelete}
                                             onChange={this.toggleChangePedidoDelete}
-                                            label="Borrar Pedidos" />
+                                            label="Borrar Pedidos / Estado" />
                                     </Tab.Pane>
                                     {/* Productos */}
                                     <Tab.Pane eventKey="fifth">
