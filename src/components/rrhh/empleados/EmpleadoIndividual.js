@@ -288,7 +288,9 @@ class EmpleadoIndividual extends Component {
 
       if(this.state.roles.length === 0) return null;
 
-      console.log(this.props);
+      const permisos = this.props.usuario.Authorizations;
+
+      // console.log(this.props);
 
       let rol_encontrado = [];
 
@@ -325,11 +327,22 @@ class EmpleadoIndividual extends Component {
                 <h2>Departamento: {address.Department === "" ? "Sin Departamento" : address.Department}</h2>
                 <h2>Codigo Postal: {address.Cp}</h2>
                 </Panel.Body>
-                <div className="d-flex justify-content-end">
-                  <div className="text-center">
-                    <button style={buttonStyle} onClick={ () => this.eliminarDireccion(address.id) } type="button" className="btn btn-danger">Borrar</button>
+                  { permisos.filter(permiso => (permiso.id == 3)).length > 0 ?  
+                  <div className="d-flex justify-content-end">
+                    <div className="p-2 text-center">
+                      <button style={buttonStyle} onClick={ () => this.eliminarDireccion(address.id) } type="button" className="btn btn-danger">Borrar</button>
+                    </div>
                   </div>
-                </div>
+
+                  :
+
+                  <div className="d-flex justify-content-end">
+                    <div className="p-2 text-center">
+                      <button style={buttonStyle} disabled type="button" className="btn btn-danger">Borrar</button>
+                    </div>
+                  </div>
+
+                  }
                 <Panel.Body>
                 <hr></hr>
                 </Panel.Body>
@@ -371,11 +384,22 @@ class EmpleadoIndividual extends Component {
                 <h2>Departamento: {address.Department === "" ? "Sin Departamento" : address.Department}</h2>
                 <h2>Codigo Postal: {address.Cp}</h2>
                 </Panel.Body>
-                <div className="d-flex justify-content-end">
-                  <div className="p-2 text-center">
-                    <button style={buttonStyle} onClick={ () => this.eliminarDireccion(address.id) } type="button" className="btn btn-danger">Borrar</button>
+                  { permisos.filter(permiso => (permiso.id == 3)).length > 0 ?  
+                  <div className="d-flex justify-content-end">
+                    <div className="p-2 text-center">
+                      <button style={buttonStyle} onClick={ () => this.eliminarDireccion(address.id) } type="button" className="btn btn-danger">Borrar</button>
+                    </div>
                   </div>
-                </div>
+
+                  :
+
+                  <div className="d-flex justify-content-end">
+                    <div className="p-2 text-center">
+                      <button style={buttonStyle} disabled type="button" className="btn btn-danger">Borrar</button>
+                    </div>
+                  </div>
+
+                  }
                 <Panel.Body>
                 <hr></hr>
                 </Panel.Body>
@@ -426,11 +450,22 @@ class EmpleadoIndividual extends Component {
                   <h2>Departamento: {address.Department === "" ? "Sin Departamento" : address.Department}</h2>
                   <h2>Codigo Postal: {address.Cp}</h2>
                   </Panel.Body>
+                  { permisos.filter(permiso => (permiso.id == 3)).length > 0 ?  
                   <div className="d-flex justify-content-end">
                     <div className="p-2 text-center">
                       <button style={buttonStyle} onClick={ () => this.eliminarDireccion(address.id) } type="button" className="btn btn-danger">Borrar</button>
                     </div>
                   </div>
+
+                  :
+
+                  <div className="d-flex justify-content-end">
+                    <div className="p-2 text-center">
+                      <button style={buttonStyle} disabled type="button" className="btn btn-danger">Borrar</button>
+                    </div>
+                  </div>
+
+                  }
                   <Panel.Body>
                   <hr></hr>
                   </Panel.Body>
