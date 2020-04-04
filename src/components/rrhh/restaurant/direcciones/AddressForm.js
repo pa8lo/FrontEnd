@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import AddressSuggest from './AddressSuggest';
-import AddressInput from './AddressInput';
-import axios from 'axios';
+import React, { Component } from "react";
+import AddressSuggest from "./AddressSuggest";
+import AddressInput from "./AddressInput";
+import axios from "axios";
 
-import Swal from 'sweetalert2'
-import { Redirect } from 'react-router-dom';
+import Swal from "sweetalert2";
+import { Redirect } from "react-router-dom";
 
-const APP_ID_HERE = 'N0fRlxF32W9uEEuH5ZSv';
-const APP_CODE_HERE = '0eDtrgamyvY1fxPeA8m0OQ';
+const APP_ID_HERE = "N0fRlxF32W9uEEuH5ZSv";
+const APP_CODE_HERE = "0eDtrgamyvY1fxPeA8m0OQ";
 
 class AddressForm extends Component {
   constructor(props) {
@@ -27,7 +27,7 @@ class AddressForm extends Component {
     this.onClear = this.onClear.bind(this);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     // console.log(this.props)
   }
 
@@ -40,45 +40,48 @@ class AddressForm extends Component {
     }
 
     const self = this;
-    axios.get('https://autocomplete.geocoder.api.here.com/6.2/suggest.json',
-      {'params': {
-        'app_id': 'N0fRlxF32W9uEEuH5ZSv',
-        'app_code': '0eDtrgamyvY1fxPeA8m0OQ',
-        'query': query,
-        'maxresults': 1,
-      }}).then(function (response) {
-          if (response.data.suggestions.length > 0) {
-            const id = response.data.suggestions[0].locationId;
-            const address = response.data.suggestions[0].address;
-            self.setState({
-              'address' : address,
-              'query' : query,
-              'locationId': id
-            })
-          } else {
-            const state = self.getInitialState();
-            self.setState(state);
-          }
+    axios
+      .get("https://autocomplete.geocoder.api.here.com/6.2/suggest.json", {
+        params: {
+          app_id: "N0fRlxF32W9uEEuH5ZSv",
+          app_code: "0eDtrgamyvY1fxPeA8m0OQ",
+          query: query,
+          maxresults: 1
+        }
+      })
+      .then(function(response) {
+        if (response.data.suggestions.length > 0) {
+          const id = response.data.suggestions[0].locationId;
+          const address = response.data.suggestions[0].address;
+          self.setState({
+            address: address,
+            query: query,
+            locationId: id
+          });
+        } else {
+          const state = self.getInitialState();
+          self.setState(state);
+        }
       });
   }
 
   getInitialState() {
     return {
-      'address': {
-        'street': '',
-        'city': '',
-        'state': '',
-        'postalCode': '',
-        'country': '',
+      address: {
+        street: "",
+        city: "",
+        state: "",
+        postalCode: "",
+        country: ""
       },
-      'query': '',
-      'locationId': '',
-      'isChecked': false,
-      'coords': {},
-      'redirectHome': false,
-      'redirectRRHH' : false,
-      'vali' : false,
-    }
+      query: "",
+      locationId: "",
+      isChecked: false,
+      coords: {},
+      redirectHome: false,
+      redirectRRHH: false,
+      vali: false
+    };
   }
 
   onClear(evt) {
@@ -87,147 +90,176 @@ class AddressForm extends Component {
   }
 
   onAddressChange(evt) {
-    const id = evt.target.id
-    const val = evt.target.value
+    const id = evt.target.id;
+    const val = evt.target.value;
 
-    let state = this.state
+    let state = this.state;
     state.address[id] = val;
     this.setState(state);
   }
 
-  enviarDatos = () => {
-
-    if(this.state.coords.lat === undefined && this.state.coords.lon === undefined){
+  enviarDatos = async () => {
+    if (
+      this.state.coords.lat === undefined &&
+      this.state.coords.lon === undefined
+    ) {
       Swal.fire({
-        title: 'Error!',
-        text: 'Debe Validar la Dirección',
-        type: 'error',
-        confirmButtonText: 'Aceptar'
-      })
+        title: "Error!",
+        text: "Debe Validar la Dirección",
+        type: "error",
+        confirmButtonText: "Aceptar"
+      });
       return;
     }
 
-    let latitud_longitud =  (this.state.coords.lat + ";" + this.state.coords.lon)
+    let latitud_longitud = this.state.coords.lat + ";" + this.state.coords.lon;
+    let Local;
 
-    // console.log(latitud_longitud)
+    await axios
+      .post(
+        "https://roraso.herokuapp.com/Local",
+        (Local = {
+          Adress: this.state.address.street,
+          LatLong: latitud_longitud
+        }),
+        {
+          headers: { "access-token": localStorage.getItem("access-token") }
+        }
+      )
+      .then(res => {
+        if (res.status === 200) {
+          localStorage.setItem("DireccionRestaurant", latitud_longitud);
 
-    localStorage.setItem('DireccionRestaurant', latitud_longitud)
+          Swal.fire({
+            title: "Correcto!",
+            text: "Se ha añadido una direccion al restaurant!!!!",
+            type: "success",
+            confirmButtonText: "Confirmar"
+          });
+          setTimeout(function() {
+            window.location.href = "/RRHH/";
+          }, 3500);
+        } else {
+          Swal.fire({
+            title: "Error!",
+            text: "Se ha producido un error al intentar crear la dirección",
+            type: "error",
+            confirmButtonText: "Aceptar"
+          });
+          return;
+        }
+      })
+      .catch(err => {
+        Swal.fire({
+          title: "Error!",
+          text: "El Servidor no ha respondido la solicitud",
+          type: "error",
+          confirmButtonText: "Aceptar"
+        });
+        return;
+      });
 
-    Swal.fire({
-      title: 'Correcto!',
-      text: 'Se ha añadido una dirección para el restaurant',
-      type: 'success',
-      confirmButtonText: 'Aceptar'
-    }).then((result) => {
-      if (result.value) {
-        this.setState({
-          redirectRRHH: true
-        })
-      }
-    })
+    // Swal.fire({
+    //   title: "Correcto!",
+    //   text: "Se ha añadido una dirección para el restaurant",
+    //   type: "success",
+    //   confirmButtonText: "Aceptar"
+    // }).then(result => {
+    //   if (result.value) {
+    //     this.setState({
+    //       redirectRRHH: true
+    //     });
+    //   }
+    // });
 
-    
     return;
+  };
 
-    // const Address = {
-    //   "address" : this.state.address.street,
-    //   "cp" : this.state.address.postalCode,
-    //   "floor" : this.state.piso,
-    //   "department" : this.state.dpto,
-    //   "latlong" : (this.state.coords.lat + ";" + this.state.coords.lon),
-    //   "client" : this.props.clientId
-    // }
-
-
-
-    // // console.log(this.props)
-    // this.props.agregarDireccionCliente(Address)
-  }
-
-  ToHome(){
+  ToHome() {
     if (this.state.redirectHome) {
-      return <Redirect to='/' />
+      return <Redirect to="/" />;
     }
   }
 
-  ToRRHH(){
+  ToRRHH() {
     if (this.state.redirectRRHH) {
-      return <Redirect to='/rrhh' />
+      return <Redirect to="/rrhh" />;
     }
   }
 
   setRedirectToHome = () => {
     this.setState({
       redirectRRHH: true
-    })
-  }
+    });
+  };
 
   setRedirectToHome = () => {
     this.setState({
       redirectHome: true
-    })
-  }
+    });
+  };
 
   onCheck(evt) {
     let params = {
-        'app_id': APP_ID_HERE,
-        'app_code': APP_CODE_HERE,
-    }
+      app_id: APP_ID_HERE,
+      app_code: APP_CODE_HERE
+    };
 
     if (this.state.locationId.length > 0) {
-      params['locationId'] = this.state.locationId;
+      params["locationId"] = this.state.locationId;
     } else {
-      params['searchtext'] = this.state.address.street
-        + this.state.address.city
-        + this.state.address.state
-        + this.state.address.postalCode
-        + this.state.address.country;
+      params["searchtext"] =
+        this.state.address.street +
+        this.state.address.city +
+        this.state.address.state +
+        this.state.address.postalCode +
+        this.state.address.country;
     }
 
     const self = this;
-    axios.get('https://geocoder.api.here.com/6.2/geocode.json',
-      {'params': params }
-      ).then(function (response) {
-        const view = response.data.Response.View
+    axios
+      .get("https://geocoder.api.here.com/6.2/geocode.json", { params: params })
+      .then(function(response) {
+        const view = response.data.Response.View;
         if (view.length > 0 && view[0].Result.length > 0) {
           const location = view[0].Result[0].Location;
 
           self.setState({
-            'isChecked': 'true',
-            'locationId': '',
-            'query': location.Address.Label,
-            'address': {
-              'street': location.Address.HouseNumber + ' ' + location.Address.Street,
-              'city': location.Address.City,
-              'state': location.Address.State,
-              'postalCode': location.Address.PostalCode,
-              'country': location.Address.Country
+            isChecked: "true",
+            locationId: "",
+            query: location.Address.Label,
+            address: {
+              street:
+                location.Address.HouseNumber + " " + location.Address.Street,
+              city: location.Address.City,
+              state: location.Address.State,
+              postalCode: location.Address.PostalCode,
+              country: location.Address.Country
             },
-            'coords': {
-              'lat': location.DisplayPosition.Latitude,
-              'lon': location.DisplayPosition.Longitude
+            coords: {
+              lat: location.DisplayPosition.Latitude,
+              lon: location.DisplayPosition.Longitude
             },
-            'tipo' : {
-              'piso': 0,
-              'dpto' : ''
+            tipo: {
+              piso: 0,
+              dpto: ""
             }
           });
         } else {
           self.setState({
-            'isChecked' : true,
-            'coords' : null,
-          })
+            isChecked: true,
+            coords: null
+          });
         }
-
       })
-      .catch(function (error) {
-        console.log('caught failed query');
+      .catch(function(error) {
+        console.log("caught failed query");
         self.setState({
-          'isChecked': true,
-          'coords': null,
+          isChecked: true,
+          coords: null
         });
       });
-  } 
+  }
 
   alert() {
     if (!this.state.isChecked) {
@@ -235,79 +267,97 @@ class AddressForm extends Component {
     }
 
     if (this.state.coords === null) {
-      this.state.vali = false
+      this.state.vali = false;
       return (
         <div className="alert alert-warning" role="alert">
           <b>Dirección Invalida.</b> La dirección no fue reconocida
         </div>
       );
     } else {
-      this.state.vali = true
+      this.state.vali = true;
       return (
         <div className="alert alert-success" role="alert">
-          <b>Dirección Valida.</b>  Coodenadas en {this.state.coords.lat}, {this.state.coords.lon}.
+          <b>Dirección Valida.</b> Coodenadas en {this.state.coords.lat},{" "}
+          {this.state.coords.lon}.
         </div>
       );
     }
   }
 
-  getPiso = (piso) => {
+  getPiso = piso => {
     this.setState({
-      piso : piso
-    })
-  }
+      piso: piso
+    });
+  };
 
-  getDepto = (dpto) => {
+  getDepto = dpto => {
     this.setState({
-      dpto : dpto
-    })
-  }
+      dpto: dpto
+    });
+  };
 
-  goBack(){
+  goBack() {
     window.history.back();
   }
 
   render() {
     let result = this.alert();
     return (
-        <div className="container col-md-12">
-          <AddressSuggest
-            query={this.state.query}
-            onChange={this.onQuery}
-            />
-          <AddressInput
-            street={this.state.address.street}
-            city={this.state.address.city}
-            state={this.state.address.state}
-            postalCode={this.state.address.postalCode}
-            country={this.state.address.country}
-            piso={this.getPiso}
-            depto={this.getDepto}
-            onChange={this.onAddressChange}
-            />
-          <br/>
-          { result }
-          <div center="true" align="center" className="form-group">
+      <div className="container col-md-12">
+        <AddressSuggest query={this.state.query} onChange={this.onQuery} />
+        <AddressInput
+          street={this.state.address.street}
+          city={this.state.address.city}
+          state={this.state.address.state}
+          postalCode={this.state.address.postalCode}
+          country={this.state.address.country}
+          piso={this.getPiso}
+          depto={this.getDepto}
+          onChange={this.onAddressChange}
+        />
+        <br />
+        {result}
+        <div center="true" align="center" className="form-group">
+          {this.state.vali === false ? (
+            <button
+              style={{ marginLeft: "10px", width: 80 }}
+              className="btn btn-primary"
+              disabled
+            >
+              Aceptar
+            </button>
+          ) : (
+            <button
+              type="submit"
+              style={{ marginLeft: "10px", width: 80 }}
+              className="btn btn-primary"
+              onClick={() => this.enviarDatos()}
+            >
+              Aceptar
+            </button>
+          )}
 
-          { this.state.vali === false ? 
-          
-          <button style={{marginLeft: "10px", width: 80}} className="btn btn-primary" disabled>Enviar</button>
-
-          :
-
-          <button type="submit" style={{marginLeft: "10px", width: 80}} className="btn btn-primary" onClick={() => this.enviarDatos()}>Enviar</button>
-
-          }
-          
-          <button style={{marginLeft: 10, width: 80}} onClick={this.setRedirectToHome} type="button" className="btn btn-danger">Cancelar</button>
+          <button
+            style={{ marginLeft: 10, width: 80 }}
+            onClick={this.setRedirectToHome}
+            type="button"
+            className="btn btn-danger"
+          >
+            Cancelar
+          </button>
           {this.ToHome()}
           {this.ToRRHH()}
-          <button type="submit" style={{marginLeft: "10px"}} className="btn btn-info" onClick={this.onCheck}>Validar Dirección</button>
-          
-          </div>
+          <button
+            type="submit"
+            style={{ marginLeft: "10px" }}
+            className="btn btn-info"
+            onClick={this.onCheck}
+          >
+            Validar Dirección
+          </button>
         </div>
-        
-      );
+      </div>
+    );
   }
 }
 
