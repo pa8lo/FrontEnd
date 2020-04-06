@@ -7,6 +7,7 @@ import { Redirect } from "react-router-dom";
 
 //CSS
 import "../../../assets/css/empleados/form-alta-empleados.css";
+import Swal from "sweetalert2";
 
 //Redux
 import { connect } from "react-redux";
@@ -18,8 +19,10 @@ class EditarOrder extends Component {
     super(props);
     this.state = {
       delivery: null,
-      redirectHome: false
+      redirectHome: false,
     };
+
+    const deliveryRef = React.createRef();
   }
 
   componentWillMount() {
@@ -29,16 +32,26 @@ class EditarOrder extends Component {
   onChangeDelivery(event) {
     event.preventDefault();
     this.setState({
-      delivery: event.target.value
+      delivery: event.target.value,
     });
   }
 
   editOrder(event) {
     event.preventDefault();
     // console.log(this.props.location.state.id);
+    if (this.state.delivery === null || this.state.delivery === 0) {
+      Swal.fire({
+        title: "Error!",
+        text: "Se debe seleccionar un delivery",
+        type: "error",
+        confirmButtonText: "Aceptar",
+      });
+      return;
+    }
+    // console.log();
     this.props.asignarDelivery([
       this.props.location.state.id,
-      this.state.delivery
+      this.state.delivery,
     ]);
   }
 
@@ -50,7 +63,7 @@ class EditarOrder extends Component {
 
   setRedirectToHome = () => {
     this.setState({
-      redirectHome: true
+      redirectHome: true,
     });
   };
 
@@ -82,8 +95,9 @@ class EditarOrder extends Component {
                 <label>Delivery</label>
                 <select
                   className="form-control"
-                  onChange={event => this.onChangeDelivery(event)}
+                  onChange={(event) => this.onChangeDelivery(event)}
                   required
+                  ref={this.deliveryRef}
                 >
                   <option value="0"></option>
                   {empleadosTag}
@@ -94,7 +108,7 @@ class EditarOrder extends Component {
                   type="button"
                   value="Aceptar"
                   className="btn btn-primary"
-                  onClick={event => this.editOrder(event)}
+                  onClick={(event) => this.editOrder(event)}
                 />
                 <button
                   style={{ marginLeft: 20, width: 80 }}
@@ -114,12 +128,12 @@ class EditarOrder extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   line: state.pedidos.line,
-  empleados: state.empleados.empleados
+  empleados: state.empleados.empleados,
 });
 
 export default connect(mapStateToProps, {
   asignarDelivery,
-  mostrarEmpleados
+  mostrarEmpleados,
 })(EditarOrder);

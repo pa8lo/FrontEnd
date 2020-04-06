@@ -14,17 +14,43 @@ class ReporteGastos extends Component {
     monto_gasto: [],
     datos_gasto: [],
     data_chart: {},
-    hayValor: false
+    hayValor: false,
   };
 
   handleEvent = (event, picker) => {
     let end_date = picker.endDate.format("YYYY-MM-DD");
-    let end_date_finally =
-      end_date.split("-")[0] +
-      "-" +
-      end_date.split("-")[1] +
-      "-" +
-      (parseInt(end_date.split("-")[2]) + 1);
+    let end_date_finally;
+    let month_to_check = parseInt(end_date.split("-")[1]);
+    if (parseInt(end_date.split("-")[2]) === 31) {
+      if (month_to_check <= 9) {
+        end_date_finally =
+          end_date.split("-")[0] + "-0" + (month_to_check + 1) + "-01";
+      } else {
+        end_date_finally =
+          end_date.split("-")[0] + "-" + (month_to_check + 1) + "-01";
+      }
+    } else if (
+      (parseInt(end_date.split("-")[2]) === 30 && month_to_check === 4) ||
+      month_to_check === 6 ||
+      month_to_check === 9 ||
+      month_to_check === 11
+    ) {
+      if (month_to_check <= 9) {
+        end_date_finally =
+          end_date.split("-")[0] +
+          "-0" +
+          (parseInt(end_date.split("-")[1]) + 1) +
+          "-01";
+      } else {
+        end_date_finally =
+          end_date.split("-")[0] +
+          "-" +
+          (parseInt(end_date.split("-")[1]) + 1) +
+          "-01";
+      }
+    }
+
+    console.log(picker.startDate.format("YYYY-MM-DD"), end_date_finally);
 
     const gastos = axios
       .get(
@@ -33,18 +59,18 @@ class ReporteGastos extends Component {
         )}&max=${end_date_finally}`,
         { headers: { "access-token": localStorage.getItem("access-token") } }
       )
-      .then(res => {
+      .then((res) => {
         if (res.status === 200) {
           this.setState({
             reporte_gastos: res.data,
             gastos_total: res.data,
             fecha_gasto: [],
             monto_gasto: [],
-            datos_gasto: []
+            datos_gasto: [],
           });
 
           if (this.state.reporte_gastos.length > 0) {
-            this.state.reporte_gastos.map(gasto => {
+            this.state.reporte_gastos.map((gasto) => {
               this.state.fecha_gasto.push(gasto.datos[0].Date);
               this.state.monto_gasto.push(gasto.datos[0].Amount);
               this.state.datos_gasto.push(gasto.datos[0].Details);
@@ -60,22 +86,22 @@ class ReporteGastos extends Component {
                   borderWidth: 1,
                   hoverBackgroundColor: "rgba(255,99,132,0.4)",
                   hoverBorderColor: "rgba(255,99,132,1)",
-                  data: this.state.monto_gasto
-                }
-              ]
+                  data: this.state.monto_gasto,
+                },
+              ],
             };
 
             console.log(this.state.fecha_gasto);
 
             this.setState({
-              hayValor: true
+              hayValor: true,
             });
           }
         } else {
           console.log("error");
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -104,11 +130,11 @@ class ReporteGastos extends Component {
                   yAxes: [
                     {
                       ticks: {
-                        beginAtZero: true
-                      }
-                    }
-                  ]
-                }
+                        beginAtZero: true,
+                      },
+                    },
+                  ],
+                },
               }}
             />
           </React.Fragment>
@@ -124,7 +150,7 @@ class ReporteGastos extends Component {
                 </tr>
               </thead>
               <tbody>
-                {this.state.gastos_total.map(datos_tabla => (
+                {this.state.gastos_total.map((datos_tabla) => (
                   // console.log(datos_tabla),
                   <tr key={datos_tabla.datos[0].id}>
                     <td>{count++}</td>

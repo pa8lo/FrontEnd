@@ -29,7 +29,7 @@ class ReportePedidosPorHora extends Component {
     monto_gasto: [],
     datos_gasto: [],
     data_chart: {},
-    hayValor: false
+    hayValor: false,
   };
 
   handleEvent = (event, picker) => {
@@ -48,7 +48,7 @@ class ReportePedidosPorHora extends Component {
         )}&max=${end_date_finally}`,
         { headers: { "access-token": localStorage.getItem("access-token") } }
       )
-      .then(res => {
+      .then((res) => {
         // console.log(res.data);
 
         if (res.status === 200) {
@@ -56,11 +56,11 @@ class ReportePedidosPorHora extends Component {
             reporte_pedidos_hr: res.data,
             pedidos_hr_total: res.data,
             fecha_pedidos_hr: [],
-            count_pedidos_hr: []
+            count_pedidos_hr: [],
           });
 
           if (this.state.reporte_pedidos_hr.length > 0) {
-            this.state.reporte_pedidos_hr.map(pedido => {
+            this.state.reporte_pedidos_hr.map((pedido) => {
               this.state.fecha_pedidos_hr.push(pedido.day);
               this.state.count_pedidos_hr.push(pedido.datos.length);
             });
@@ -75,20 +75,20 @@ class ReportePedidosPorHora extends Component {
                   borderWidth: 1,
                   hoverBackgroundColor: "rgba(255,99,132,0.4)",
                   hoverBorderColor: "rgba(255,99,132,1)",
-                  data: this.state.count_pedidos_hr
-                }
-              ]
+                  data: this.state.count_pedidos_hr,
+                },
+              ],
             };
 
             this.setState({
-              hayValor: true
+              hayValor: true,
             });
           }
         } else {
           console.log("error");
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -118,11 +118,11 @@ class ReportePedidosPorHora extends Component {
                     {
                       ticks: {
                         beginAtZero: true,
-                        stepSize: 1
-                      }
-                    }
-                  ]
-                }
+                        stepSize: 1,
+                      },
+                    },
+                  ],
+                },
               }}
             />
           </React.Fragment>
@@ -132,27 +132,19 @@ class ReportePedidosPorHora extends Component {
               <thead>
                 <tr style={{ textAlign: "center" }}>
                   <th style={{ textAlign: "center" }}>#</th>
-                  <th style={{ textAlign: "center" }}>Fecha del Pedido</th>
-                  <th style={{ textAlign: "center" }}>Datos del Cliente</th>
-                  <th style={{ textAlign: "center" }}>Monto del Pedido</th>
+                  <th style={{ textAlign: "center" }}>Fecha de Pedido/s</th>
+                  <th style={{ textAlign: "center" }}>Cantidad de Pedidos</th>
+                  <th style={{ textAlign: "center" }}>Monto de Pedido/s</th>
                 </tr>
               </thead>
               <tbody>
-                {this.state.pedidos_hr_total.map(datos_tabla => (
+                {this.state.pedidos_hr_total.map((datos_tabla) => (
                   // console.log(datos_tabla),
                   <tr key={datos_tabla.datos[0].id}>
                     <td>{count++}</td>
                     <td>{datos_tabla.datos[0].Date}</td>
-                    <td>
-                      {JSON.parse(localStorage.getItem("clientes")).filter(
-                        cliente => cliente.id === datos_tabla.datos[0].Clients
-                      )[0].Name +
-                        " " +
-                        JSON.parse(localStorage.getItem("clientes")).filter(
-                          cliente => cliente.id === datos_tabla.datos[0].Clients
-                        )[0].LastName}
-                    </td>
-                    <td>{datos_tabla.datos[0].Amount}</td>
+                    <td>{datos_tabla.datos.length}</td>
+                    <td>{datos_tabla.amount}</td>
                   </tr>
                 ))}
               </tbody>
