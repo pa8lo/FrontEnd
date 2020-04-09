@@ -1,21 +1,22 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 //Componentes
-import Header from '../../header/IndexHeader';
+import Header from "../../header/IndexHeader";
 import MapaPedidos from "./mapaPedidos";
 import OrderBox from "./orderBox";
 
 //Redux
-import { connect } from 'react-redux';
-import { mostrarPedidos, asignarDelivery } from '../../../actions/pedidosAction';
-import { mostrarEmpleados } from '../../../actions/empleadosAction';
+import { connect } from "react-redux";
+import {
+  mostrarPedidos,
+  asignarDelivery,
+} from "../../../actions/pedidosAction";
+import { mostrarEmpleados } from "../../../actions/empleadosAction";
 
 //CSS
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
 class AsignarPedido extends Component {
-
-  
   constructor(props) {
     super(props);
     this.state = {
@@ -26,34 +27,34 @@ class AsignarPedido extends Component {
   }
 
   componentWillMount() {
-
     this.verifyRestaurant();
     this.props.mostrarPedidos();
     this.props.mostrarEmpleados();
-
-  };
+  }
 
   verifyRestaurant = async () => {
-    if(localStorage.getItem('DireccionRestaurant') === ''){
+    if (
+      localStorage.getItem("DireccionRestaurant") === "" ||
+      localStorage.getItem("DireccionRestaurant") === "0;0"
+    ) {
       Swal.fire({
-        title: 'Debe indicar la direccion del restaurant',
+        title: "Debe indicar la direccion del restaurant",
         text: "¿Desea realizarlo ahora?",
-        icon: 'warning',
+        icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Confirmar',
-        cancelButtonText: 'Cancelar'
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Confirmar",
+        cancelButtonText: "Cancelar",
       }).then((result) => {
         if (result.value) {
-            window.location.href = `/direccion-restaurant`;
+          window.location.href = `/direccion-restaurant`;
         }
-      })
+      });
     }
-  }
-  
-  render() {
+  };
 
+  render() {
     const pedidos = this.props.pedidos;
     const empleados = this.props.empleados;
 
@@ -63,12 +64,12 @@ class AsignarPedido extends Component {
         <div className="table-empleados">
           <MapaPedidos />
         </div>
-        <OrderBox pedidos={pedidos} empleados={empleados}/>
+        <OrderBox pedidos={pedidos} empleados={empleados} />
       </React.Fragment>
     );
   }
 }
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   pedidos: state.pedidos.pedidos,
   empleados: state.empleados.empleados,
   line: state.pedidos.line,
@@ -78,4 +79,4 @@ export default connect(mapStateToProps, {
   mostrarPedidos,
   mostrarEmpleados,
   asignarDelivery,
-})(AsignarPedido); 
+})(AsignarPedido);

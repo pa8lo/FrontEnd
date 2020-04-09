@@ -46,17 +46,17 @@ class AddressForm extends Component {
           app_id: "N0fRlxF32W9uEEuH5ZSv",
           app_code: "0eDtrgamyvY1fxPeA8m0OQ",
           query: query,
-          maxresults: 1
-        }
+          maxresults: 1,
+        },
       })
-      .then(function(response) {
+      .then(function (response) {
         if (response.data.suggestions.length > 0) {
           const id = response.data.suggestions[0].locationId;
           const address = response.data.suggestions[0].address;
           self.setState({
             address: address,
             query: query,
-            locationId: id
+            locationId: id,
           });
         } else {
           const state = self.getInitialState();
@@ -72,7 +72,7 @@ class AddressForm extends Component {
         city: "",
         state: "",
         postalCode: "",
-        country: ""
+        country: "",
       },
       query: "",
       locationId: "",
@@ -80,7 +80,7 @@ class AddressForm extends Component {
       coords: {},
       redirectHome: false,
       redirectRRHH: false,
-      vali: false
+      vali: false,
     };
   }
 
@@ -107,36 +107,37 @@ class AddressForm extends Component {
         title: "Error!",
         text: "Debe Validar la Dirección",
         type: "error",
-        confirmButtonText: "Aceptar"
+        confirmButtonText: "Aceptar",
       });
       return;
     }
 
     let latitud_longitud = this.state.coords.lat + ";" + this.state.coords.lon;
-    let Local;
 
     await axios
-      .post(
+      .put(
         "https://roraso.herokuapp.com/Local",
-        (Local = {
-          Adress: this.state.address.street,
-          LatLong: latitud_longitud
+        (this.data = {
+          Local: {
+            Adress: this.state.address.street,
+            LatLong: latitud_longitud,
+          },
         }),
         {
-          headers: { "access-token": localStorage.getItem("access-token") }
+          headers: { "access-token": localStorage.getItem("access-token") },
         }
       )
-      .then(res => {
+      .then((res) => {
         if (res.status === 200) {
           localStorage.setItem("DireccionRestaurant", latitud_longitud);
 
           Swal.fire({
             title: "Correcto!",
-            text: "Se ha añadido una direccion al restaurant!!!!",
+            text: "Se ha añadido una direccion al restaurant",
             type: "success",
-            confirmButtonText: "Confirmar"
+            confirmButtonText: "Confirmar",
           });
-          setTimeout(function() {
+          setTimeout(function () {
             window.location.href = "/RRHH/";
           }, 3500);
         } else {
@@ -144,33 +145,20 @@ class AddressForm extends Component {
             title: "Error!",
             text: "Se ha producido un error al intentar crear la dirección",
             type: "error",
-            confirmButtonText: "Aceptar"
+            confirmButtonText: "Aceptar",
           });
           return;
         }
       })
-      .catch(err => {
+      .catch((err) => {
         Swal.fire({
           title: "Error!",
           text: "El Servidor no ha respondido la solicitud",
           type: "error",
-          confirmButtonText: "Aceptar"
+          confirmButtonText: "Aceptar",
         });
         return;
       });
-
-    // Swal.fire({
-    //   title: "Correcto!",
-    //   text: "Se ha añadido una dirección para el restaurant",
-    //   type: "success",
-    //   confirmButtonText: "Aceptar"
-    // }).then(result => {
-    //   if (result.value) {
-    //     this.setState({
-    //       redirectRRHH: true
-    //     });
-    //   }
-    // });
 
     return;
   };
@@ -189,20 +177,20 @@ class AddressForm extends Component {
 
   setRedirectToHome = () => {
     this.setState({
-      redirectRRHH: true
+      redirectRRHH: true,
     });
   };
 
   setRedirectToHome = () => {
     this.setState({
-      redirectHome: true
+      redirectHome: true,
     });
   };
 
   onCheck(evt) {
     let params = {
       app_id: APP_ID_HERE,
-      app_code: APP_CODE_HERE
+      app_code: APP_CODE_HERE,
     };
 
     if (this.state.locationId.length > 0) {
@@ -219,7 +207,7 @@ class AddressForm extends Component {
     const self = this;
     axios
       .get("https://geocoder.api.here.com/6.2/geocode.json", { params: params })
-      .then(function(response) {
+      .then(function (response) {
         const view = response.data.Response.View;
         if (view.length > 0 && view[0].Result.length > 0) {
           const location = view[0].Result[0].Location;
@@ -234,29 +222,29 @@ class AddressForm extends Component {
               city: location.Address.City,
               state: location.Address.State,
               postalCode: location.Address.PostalCode,
-              country: location.Address.Country
+              country: location.Address.Country,
             },
             coords: {
               lat: location.DisplayPosition.Latitude,
-              lon: location.DisplayPosition.Longitude
+              lon: location.DisplayPosition.Longitude,
             },
             tipo: {
               piso: 0,
-              dpto: ""
-            }
+              dpto: "",
+            },
           });
         } else {
           self.setState({
             isChecked: true,
-            coords: null
+            coords: null,
           });
         }
       })
-      .catch(function(error) {
+      .catch(function (error) {
         console.log("caught failed query");
         self.setState({
           isChecked: true,
-          coords: null
+          coords: null,
         });
       });
   }
@@ -284,15 +272,15 @@ class AddressForm extends Component {
     }
   }
 
-  getPiso = piso => {
+  getPiso = (piso) => {
     this.setState({
-      piso: piso
+      piso: piso,
     });
   };
 
-  getDepto = dpto => {
+  getDepto = (dpto) => {
     this.setState({
-      dpto: dpto
+      dpto: dpto,
     });
   };
 
