@@ -152,13 +152,37 @@ class Header extends React.Component {
       this.saveClients();
       this.saveStates();
       this.saveCombos();
+      this.setLocationMap();
     } else {
       return;
     }
   }
 
   setLocationMap = async () => {
-    if (localStorage.getItem("DireccionRestaurant") === "")
+    let direccion_local;
+
+    await axios
+      .get("https://roraso.herokuapp.com/Local", {
+        headers: { "access-token": localStorage.getItem("access-token") },
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          direccion_local = res.data[0].LatLong;
+        } else {
+          throw new Error("Se han enviado datos erroneos");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    // localStorage.getItem("DireccionRestaurant") === "" &&
+
+    if (
+      direccion_local === "" ||
+      direccion_local === null ||
+      direccion_local === undefined
+    ) {
       await axios
         .put(
           "https://roraso.herokuapp.com/Local",
@@ -182,6 +206,9 @@ class Header extends React.Component {
         .catch((err) => {
           localStorage.setItem("DireccionRestaurant", "0;0");
         });
+    } else {
+      localStorage.setItem("DireccionRestaurant", direccion_local);
+    }
   };
 
   returnPreviusPage() {
