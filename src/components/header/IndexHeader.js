@@ -61,6 +61,8 @@ class Header extends React.Component {
             alert(err.response.data);
             localStorage.removeItem("access-token");
             window.location.replace("/login");
+          } else {
+            return;
           }
 
           if (localStorage.getItem("status") === "online") {
@@ -144,6 +146,8 @@ class Header extends React.Component {
           localStorage.removeItem("access-token");
 
           window.location.replace("/login");
+        } else {
+          return;
         }
         if (localStorage.getItem("status") === "online") {
           localStorage.setItem("status", "offline");
