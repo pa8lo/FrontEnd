@@ -56,6 +56,13 @@ class Header extends React.Component {
           }
         })
         .catch((err) => {
+          // debugger;
+          if (err.response.status === 403) {
+            alert(err.response.data);
+            localStorage.removeItem("access-token");
+            window.location.replace("/login");
+          }
+
           if (localStorage.getItem("status") === "online") {
             localStorage.setItem("status", "offline");
             Swal.fire({
@@ -132,6 +139,12 @@ class Header extends React.Component {
         }
       })
       .catch((err) => {
+        if (err.response.status === 403) {
+          alert(err.response.data);
+          localStorage.removeItem("access-token");
+
+          window.location.replace("/login");
+        }
         if (localStorage.getItem("status") === "online") {
           localStorage.setItem("status", "offline");
           Swal.fire({
