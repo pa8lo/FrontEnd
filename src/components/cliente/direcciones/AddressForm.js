@@ -36,18 +36,7 @@ class AddressForm extends Component {
   }
 
   onQuery(evt) {
-    if (
-      evt.target.value === " " ||
-      evt.target.value === "  " ||
-      evt.target.value === "   " ||
-      evt.target.value === "    " ||
-      evt.target.value === "     " ||
-      evt.target.value === "      " ||
-      evt.target.value === "       "
-    )
-      return;
-
-    const query = evt.target.value;
+    const query = evt.target.value.replace(/^\s+/g, "");
 
     if (!query.length > 0) {
       this.setState(this.getInitialState());

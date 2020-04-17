@@ -32,7 +32,7 @@ class AddressForm extends Component {
   }
 
   onQuery(evt) {
-    const query = evt.target.value;
+    const query = evt.target.value.replace(/^\s+/g, "");
 
     if (!query.length > 0) {
       this.setState(this.getInitialState());

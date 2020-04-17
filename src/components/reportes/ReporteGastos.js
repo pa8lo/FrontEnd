@@ -61,6 +61,7 @@ class ReporteGastos extends Component {
       )
       .then((res) => {
         if (res.status === 200) {
+          console.log(res.data);
           this.setState({
             reporte_gastos: res.data,
             gastos_total: res.data,
@@ -71,9 +72,9 @@ class ReporteGastos extends Component {
 
           if (this.state.reporte_gastos.length > 0) {
             this.state.reporte_gastos.map((gasto) => {
-              this.state.fecha_gasto.push(gasto.datos[0].Date);
-              this.state.monto_gasto.push(gasto.datos[0].Amount);
-              this.state.datos_gasto.push(gasto.datos[0].Details);
+              this.state.fecha_gasto.push(gasto.day);
+              this.state.monto_gasto.push(gasto.amount);
+              this.state.datos_gasto.push(gasto.datos);
             });
 
             this.state.data_chart = {
@@ -90,8 +91,6 @@ class ReporteGastos extends Component {
                 },
               ],
             };
-
-            console.log(this.state.fecha_gasto);
 
             this.setState({
               hayValor: true,
@@ -150,15 +149,18 @@ class ReporteGastos extends Component {
                 </tr>
               </thead>
               <tbody>
-                {this.state.gastos_total.map((datos_tabla) => (
-                  // console.log(datos_tabla),
-                  <tr key={datos_tabla.datos[0].id}>
-                    <td>{count++}</td>
-                    <td>{datos_tabla.datos[0].Details}</td>
-                    <td>{datos_tabla.datos[0].Date}</td>
-                    <td>{datos_tabla.datos[0].Amount}</td>
-                  </tr>
-                ))}
+                {this.state.gastos_total.map((datos_tabla) =>
+                  datos_tabla.datos.map((gastos_dato) => {
+                    return (
+                      <tr key={gastos_dato.id}>
+                        <td>{count++}</td>
+                        <td>{gastos_dato.Details}</td>
+                        <td>{gastos_dato.Date}</td>
+                        <td>{gastos_dato.Amount}</td>
+                      </tr>
+                    );
+                  })
+                )}
               </tbody>
             </Table>
           </React.Fragment>
