@@ -57,9 +57,13 @@ class Header extends React.Component {
         })
         .catch((err) => {
           // debugger;
+          if (typeof err.response === "undefined") {
+            alert("Se procede a cerrar sesion");
+            localStorage.removeItem("access-token");
+            window.location.replace("/login");
+          }
           if (err.response.status === 403) {
             alert(err.response.data);
-            console.log(err.response);
             localStorage.removeItem("access-token");
             window.location.replace("/login");
           } else {
@@ -142,6 +146,11 @@ class Header extends React.Component {
         }
       })
       .catch((err) => {
+        if (typeof err.response === "undefined") {
+          alert("Se procede a cerrar sesion");
+          localStorage.removeItem("access-token");
+          window.location.replace("/login");
+        }
         if (err.response.status === 403) {
           alert(err.response.data);
           console.log(err.response);
