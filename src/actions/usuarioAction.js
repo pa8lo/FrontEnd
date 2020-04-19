@@ -11,14 +11,10 @@ import Swal from "sweetalert2";
 export const loginUser = (usuario) => async (dispatch) => {
   const { Dni, Password } = usuario;
 
-  // const Pass = parseInt(Password);
-
   const user = {
     Dni: Dni,
     Password: Password,
   };
-
-  // console.log(user)
 
   const loginRes = await axios
     .post("https://roraso.herokuapp.com/User/login", user)
