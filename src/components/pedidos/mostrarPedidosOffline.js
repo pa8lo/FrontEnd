@@ -107,7 +107,7 @@ class mostrarPedidosOffline extends Component {
                 <input style={{width:"250px"}} ref={this.pisoNuevoRef} defaultValue={this.state.pedido.datos_direccion.Floor} type="text" className="form-control" required/>
                 <label>Dpto</label>
                 <input style={{width:"250px"}} ref={this.dptoNuevoRef} defaultValue={this.state.pedido.datos_direccion.Department} type="text" className="form-control" required/>
-                <label>Codigo Postal</label>
+                <label>Código Postal</label>
                 <input style={{width:"250px"}} ref={this.cpNuevoRef} defaultValue={this.state.pedido.datos_direccion.Cp} type="text" className="form-control" required/>
                 </Modal.Body>
 
@@ -287,7 +287,7 @@ class mostrarPedidosOffline extends Component {
                 <input style={{width:"250px"}} ref={this.pisoNuevoRef} defaultValue={this.state.pedido.datos_direccion.Floor} type="text" className="form-control" required/>
                 <label>Dpto</label>
                 <input style={{width:"250px"}} ref={this.dptoNuevoRef} defaultValue={this.state.pedido.datos_direccion.Department} type="text" className="form-control" required/>
-                <label>Codigo Postal</label>
+                <label>Código Postal</label>
                 <input style={{width:"250px"}} ref={this.cpNuevoRef} defaultValue={this.state.pedido.datos_direccion.Cp} type="text" className="form-control" required/>
                 </Modal.Body>
 
@@ -831,7 +831,7 @@ class mostrarPedidosOffline extends Component {
                             <h5>
                             <b>Nombre: </b>  {JSON.parse(localStorage.getItem('clientes')).filter(cliente => (pedido.datos_direccion.Client == cliente.id))[0].Name} 
                             <b> Apellido: </b> {JSON.parse(localStorage.getItem('clientes')).filter(cliente => (pedido.datos_direccion.Client == cliente.id))[0].LastName} 
-                            <b> Telefono: </b> {JSON.parse(localStorage.getItem('clientes')).filter(cliente => (pedido.datos_direccion.Client == cliente.id))[0].Phone}
+                            <b> Teléfono: </b> {JSON.parse(localStorage.getItem('clientes')).filter(cliente => (pedido.datos_direccion.Client == cliente.id))[0].Phone}
                             </h5>
                         
                             :
@@ -839,7 +839,7 @@ class mostrarPedidosOffline extends Component {
                             <h5>
                             <b>Nombre: </b>  Sin Datos 
                             <b> Apellido: </b> Sin Datos
-                            <b> Telefono: </b> Sin Datos
+                            <b> Teléfono: </b> Sin Datos
                             </h5>
 
                         }
@@ -986,7 +986,7 @@ class mostrarPedidosOffline extends Component {
                             <h5>
                             <b>Nombre: </b>  {JSON.parse(localStorage.getItem('clientes')).filter(cliente => (pedido.client == cliente.id))[0].Name} 
                             <b> Apellido: </b> {JSON.parse(localStorage.getItem('clientes')).filter(cliente => (pedido.client == cliente.id))[0].LastName} 
-                            <b> Telefono: </b> {JSON.parse(localStorage.getItem('clientes')).filter(cliente => (pedido.client == cliente.id))[0].Phone}
+                            <b> Teléfono: </b> {JSON.parse(localStorage.getItem('clientes')).filter(cliente => (pedido.client == cliente.id))[0].Phone}
                             </h5>
                         
                             :
@@ -994,7 +994,7 @@ class mostrarPedidosOffline extends Component {
                             <h5>
                             <b>Nombre: </b>  Sin Datos 
                             <b> Apellido: </b> Sin Datos
-                            <b> Telefono: </b> Sin Datos
+                            <b> Teléfono: </b> Sin Datos
                             </h5>
 
                         }

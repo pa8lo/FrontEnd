@@ -331,7 +331,7 @@ class Principal extends Component{
                                         color="inherit"
                                         className={classes.imageTitle}
                                         >
-                                        Categoria - 
+                                        Categoría - 
                                         <span className={classes.imageMarked} />
                                         &nbsp;Sin Conexion
                                         </Typography>
@@ -366,7 +366,7 @@ class Principal extends Component{
                                         color="inherit"
                                         className={classes.imageTitle}
                                         >
-                                        Categoria
+                                        Categoría
                                         <span className={classes.imageMarked} />
                                         </Typography>
                                     </span>
@@ -402,7 +402,7 @@ class Principal extends Component{
                             color="inherit"
                             className={classes.imageTitle}
                             >
-                            Categoria
+                            Categoría
                             <span className={classes.imageMarked} />
                             </Typography>
                         </span>

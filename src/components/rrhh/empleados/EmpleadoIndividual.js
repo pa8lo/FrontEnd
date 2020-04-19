@@ -153,7 +153,7 @@ class MyVerticallyCenteredModal extends Component {
               </Col>
               <Col xs={12} md={6}>
                 <div className="form-group">
-                    <label>Codigo Postal</label>
+                    <label>Código Postal</label>
                     <input ref={this.cpRef} type="text" className="form-control" required/>
                 </div>
               </Col>
@@ -325,7 +325,7 @@ class EmpleadoIndividual extends Component {
                 <Panel.Body key = {address.id}><h2>Domicilio: {address.Adress}</h2>
                 <h2>Piso: {address.Floor === "" ? "Sin Piso" : address.Floor}</h2>
                 <h2>Departamento: {address.Department === "" ? "Sin Departamento" : address.Department}</h2>
-                <h2>Codigo Postal: {address.Cp}</h2>
+                <h2>Código Postal: {address.Cp}</h2>
                 </Panel.Body>
                   { permisos.filter(permiso => (permiso.id == 3)).length > 0 ?  
                   <div className="d-flex justify-content-end">
@@ -382,7 +382,7 @@ class EmpleadoIndividual extends Component {
                 <Panel.Body key = {address.id}><h2>Domicilio: {address.Adress}</h2>
                 <h2>Piso: {address.Floor === "" ? "Sin Piso" : address.Floor}</h2>
                 <h2>Departamento: {address.Department === "" ? "Sin Departamento" : address.Department}</h2>
-                <h2>Codigo Postal: {address.Cp}</h2>
+                <h2>Código Postal: {address.Cp}</h2>
                 </Panel.Body>
                   { permisos.filter(permiso => (permiso.id == 3)).length > 0 ?  
                   <div className="d-flex justify-content-end">
@@ -448,7 +448,7 @@ class EmpleadoIndividual extends Component {
                   <Panel.Body key = {address.id}><h2>Domicilio: {address.Adress}</h2>
                   <h2>Piso: {address.Floor === "" ? "Sin Piso" : address.Floor}</h2>
                   <h2>Departamento: {address.Department === "" ? "Sin Departamento" : address.Department}</h2>
-                  <h2>Codigo Postal: {address.Cp}</h2>
+                  <h2>Código Postal: {address.Cp}</h2>
                   </Panel.Body>
                   { permisos.filter(permiso => (permiso.id == 3)).length > 0 ?  
                   <div className="d-flex justify-content-end">

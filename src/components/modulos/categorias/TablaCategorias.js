@@ -1,55 +1,58 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import ListadoCategorias from './ListaCategorias';
-import Header from '../../header/IndexHeader';
-import StickyButton from '../../bottom/StickyButton';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import ListadoCategorias from "./ListaCategorias";
+import Header from "../../header/IndexHeader";
+import StickyButton from "../../bottom/StickyButton";
 
-import { connect } from 'react-redux';
-import { currentUser } from '../../../actions/usuarioAction';
+import { connect } from "react-redux";
+import { currentUser } from "../../../actions/usuarioAction";
 
 class Categorias extends Component {
-    componentWillMount(){
-        this.props.currentUser();
-    }
+  componentWillMount() {
+    this.props.currentUser();
+  }
 
-    render() {
+  render() {
+    if (this.props.usuario.length === 0) return null;
 
-        if(this.props.usuario.length === 0) return null;
+    const permisos = this.props.usuario.Authorizations;
 
-        const permisos = this.props.usuario.Authorizations;
-        
-        return (
-            <div>
-                <Header 
-                    titulo = 'Lista de Categorias'
-                />
-                <div className="col-12 col-md-12">
-                    <ListadoCategorias/>
-                    <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
-                         
-                        { permisos.filter(permiso => (permiso.id == 16)).length > 0 ?  
-                
-                            <Link to={`/categoria/alta-categoria`} className="btn btn-success">Nueva Categoria</Link> 
-
-                            :  
-
-                            <Link to="#" disabled className="btn btn-success">Nueva Categoria</Link> 
-                        
-                        }
-
-                        
-                    </div>
-                </div>
-                <StickyButton/>
-            </div>
-        );
-    }
+    return (
+      <div>
+        <Header titulo="Lista de Categorías" />
+        <div className="col-12 col-md-12">
+          <ListadoCategorias />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            {permisos.filter((permiso) => permiso.id == 16).length > 0 ? (
+              <Link
+                to={`/categoria/alta-categoria`}
+                className="btn btn-success"
+              >
+                Nueva Categoría
+              </Link>
+            ) : (
+              <Link to="#" disabled className="btn btn-success">
+                Nueva Categoría
+              </Link>
+            )}
+          </div>
+        </div>
+        <StickyButton />
+      </div>
+    );
+  }
 }
 
-const mapStateToProps = state => ({
-    usuario : state.usuario.usuario
+const mapStateToProps = (state) => ({
+  usuario: state.usuario.usuario,
 });
 
 export default connect(mapStateToProps, {
-    currentUser
+  currentUser,
 })(Categorias);

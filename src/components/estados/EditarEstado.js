@@ -16,7 +16,7 @@ import { editarEstado } from "../../actions/estadosAction";
 class EditarEstado extends Component {
   state = {
     // date : ''
-    redirectHome: false
+    redirectHome: false,
   };
 
   descripcionRef = React.createRef();
@@ -30,11 +30,11 @@ class EditarEstado extends Component {
 
   setRedirectToHome = () => {
     this.setState({
-      redirectHome: true
+      redirectHome: true,
     });
   };
 
-  editarEstado = e => {
+  editarEstado = (e) => {
     e.preventDefault();
 
     if (
@@ -45,13 +45,13 @@ class EditarEstado extends Component {
         title: "Error!",
         text: "Hay datos erroneos en el formulario",
         type: "error",
-        confirmButtonText: "Aceptar"
+        confirmButtonText: "Aceptar",
       });
       return;
     } else {
       const estado = {
         id: this.props.location.state.id,
-        descripcion: this.descripcionRef.current.value
+        descripcion: this.descripcionRef.current.value,
       };
 
       // console.log(estado);
@@ -68,7 +68,7 @@ class EditarEstado extends Component {
             <div align="center">
               <form onSubmit={this.editarEstado} className="col-8">
                 <div className="form-group">
-                  <label>Descripcion</label>
+                  <label>Descripción</label>
                   <input
                     ref={this.descripcionRef}
                     type="text"

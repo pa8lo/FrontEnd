@@ -297,7 +297,7 @@ class EditarCombo extends Component {
                                     <input ref={this.nombreRef} type="text" defaultValue={this.props.location.state.Name} className="form-control" required />
                                 </div>
                                 <div className="form-group">
-                                    <label>Descripcion</label>
+                                    <label>Descripción</label>
                                     <input ref={this.descripcionRef} type="text" defaultValue={this.props.location.state.Description} className="form-control" required />
                                 </div>
                                 <div className="form-group">

@@ -9,25 +9,25 @@ class BreadcumbMenu extends Component {
       redirectHome: false,
       redirectSection: false,
       redirectUrlSection: "",
-      redirectUrlProduct: ""
+      redirectUrlProduct: "",
     };
   }
 
   setRedirectToHome = () => {
     this.setState({
-      redirectHome: true
+      redirectHome: true,
     });
   };
 
   setRedirectToSection = () => {
     this.setState({
-      redirectSection: true
+      redirectSection: true,
     });
   };
 
   setRedirectToProduct = () => {
     this.setState({
-      redirectProduct: true
+      redirectProduct: true,
     });
   };
 
@@ -61,7 +61,7 @@ class BreadcumbMenu extends Component {
         style={{
           backgroundColor: "transparent",
           color: "white",
-          marginBottom: "0px"
+          marginBottom: "0px",
         }}
       >
         <Breadcrumb.Item
@@ -257,7 +257,7 @@ class BreadcumbMenu extends Component {
                   style={{ color: "white" }}
                   onClick={() => this.setRedirectToSection()}
                 >
-                  Categoria
+                  CategorÍa
                   {this.ToSection()}
                 </Breadcrumb.Item>
               </React.Fragment>
@@ -270,7 +270,7 @@ class BreadcumbMenu extends Component {
                   style={{ color: "white" }}
                   onClick={() => this.redirectCategoria()}
                 >
-                  Categoria
+                  Categoría
                   {this.ToSection()}
                 </Breadcrumb.Item>
               </React.Fragment>

@@ -59,6 +59,7 @@ class Header extends React.Component {
           // debugger;
           if (err.response.status === 403) {
             alert(err.response.data);
+            console.log(err.response);
             localStorage.removeItem("access-token");
             window.location.replace("/login");
           } else {
@@ -143,8 +144,8 @@ class Header extends React.Component {
       .catch((err) => {
         if (err.response.status === 403) {
           alert(err.response.data);
+          console.log(err.response);
           localStorage.removeItem("access-token");
-
           window.location.replace("/login");
         } else {
           return;
@@ -561,7 +562,7 @@ class Header extends React.Component {
           }}
           className={classes.welcomeText}
         >
-          Panel de Configuracion
+          Panel de Configuración
         </p>
         <Button
           className={classes.buttonSizes}

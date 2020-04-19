@@ -28,60 +28,64 @@ class ReportePedidosPorHora extends Component {
     fecha_gasto: [],
     monto_gasto: [],
     datos_gasto: [],
+    pedidos_hr_total: [],
     data_chart: {},
     hayValor: false,
   };
 
   handleEvent = (event, picker) => {
-    let end_date = picker.endDate.format("YYYY-MM-DD");
-    let end_date_finally =
-      end_date.split("-")[0] +
-      "-" +
-      end_date.split("-")[1] +
-      "-" +
-      (parseInt(end_date.split("-")[2]) + 1);
+    this.setState({
+      data_chart: {},
+      pedidos_hr_total: [],
+    });
 
     const gastos = axios
       .get(
         `https://roraso.herokuapp.com/Reports/Pedidos?min=${picker.startDate.format(
           "YYYY-MM-DD"
-        )}&max=${end_date_finally}`,
+        )}&max=${picker.endDate.format("YYYY-MM-DD")}`,
         { headers: { "access-token": localStorage.getItem("access-token") } }
       )
       .then((res) => {
         // console.log(res.data);
 
         if (res.status === 200) {
-          this.setState({
-            reporte_pedidos_hr: res.data,
-            pedidos_hr_total: res.data,
-            fecha_pedidos_hr: [],
-            count_pedidos_hr: [],
-          });
-
-          if (this.state.reporte_pedidos_hr.length > 0) {
-            this.state.reporte_pedidos_hr.map((pedido) => {
-              this.state.fecha_pedidos_hr.push(pedido.day);
-              this.state.count_pedidos_hr.push(pedido.datos.length);
+          if (res.data.length > 0) {
+            this.setState({
+              reporte_pedidos_hr: res.data,
+              pedidos_hr_total: res.data,
+              fecha_pedidos_hr: [],
+              count_pedidos_hr: [],
             });
 
-            this.state.data_chart = {
-              labels: this.state.fecha_pedidos_hr,
-              datasets: [
-                {
-                  label: "Cantidad Pedido Por Hora",
-                  backgroundColor: "rgba(255,99,132,0.2)",
-                  borderColor: "rgba(255,99,132,1)",
-                  borderWidth: 1,
-                  hoverBackgroundColor: "rgba(255,99,132,0.4)",
-                  hoverBorderColor: "rgba(255,99,132,1)",
-                  data: this.state.count_pedidos_hr,
-                },
-              ],
-            };
+            if (this.state.reporte_pedidos_hr.length > 0) {
+              this.state.reporte_pedidos_hr.map((pedido) => {
+                this.state.fecha_pedidos_hr.push(pedido.day);
+                this.state.count_pedidos_hr.push(pedido.datos.length);
+              });
 
+              this.state.data_chart = {
+                labels: this.state.fecha_pedidos_hr,
+                datasets: [
+                  {
+                    label: "Cantidad Pedido Por Hora",
+                    backgroundColor: "rgba(255,99,132,0.2)",
+                    borderColor: "rgba(255,99,132,1)",
+                    borderWidth: 1,
+                    hoverBackgroundColor: "rgba(255,99,132,0.4)",
+                    hoverBorderColor: "rgba(255,99,132,1)",
+                    data: this.state.count_pedidos_hr,
+                  },
+                ],
+              };
+
+              this.setState({
+                hayValor: true,
+              });
+            }
+          } else {
             this.setState({
-              hayValor: true,
+              hayValor: false,
             });
           }
         } else {

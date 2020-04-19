@@ -18,39 +18,10 @@ class ReporteGastos extends Component {
   };
 
   handleEvent = (event, picker) => {
-    // let end_date = picker.endDate.format("YYYY-MM-DD");
-    // let end_date_finally;
-    // let month_to_check = parseInt(end_date.split("-")[1]);
-    // if (parseInt(end_date.split("-")[2]) === 31) {
-    //   if (month_to_check <= 9) {
-    //     end_date_finally =
-    //       end_date.split("-")[0] + "-0" + (month_to_check + 1) + "-01";
-    //   } else {
-    //     end_date_finally =
-    //       end_date.split("-")[0] + "-" + (month_to_check + 1) + "-01";
-    //   }
-    // } else if (
-    //   (parseInt(end_date.split("-")[2]) === 30 && month_to_check === 4) ||
-    //   month_to_check === 6 ||
-    //   month_to_check === 9 ||
-    //   month_to_check === 11
-    // ) {
-    //   if (month_to_check <= 9) {
-    //     end_date_finally =
-    //       end_date.split("-")[0] +
-    //       "-0" +
-    //       (parseInt(end_date.split("-")[1]) + 1) +
-    //       "-01";
-    //   } else {
-    //     end_date_finally =
-    //       end_date.split("-")[0] +
-    //       "-" +
-    //       (parseInt(end_date.split("-")[1]) + 1) +
-    //       "-01";
-    //   }
-    // }
-
-    // console.log(picker.startDate.format("YYYY-MM-DD"), end_date_finally);
+    this.setState({
+      data_chart: {},
+      gastos_total: [],
+    });
 
     const gastos = axios
       .get(
@@ -61,39 +32,44 @@ class ReporteGastos extends Component {
       )
       .then((res) => {
         if (res.status === 200) {
-          console.log(res.data);
-          this.setState({
-            reporte_gastos: res.data,
-            gastos_total: res.data,
-            fecha_gasto: [],
-            monto_gasto: [],
-            datos_gasto: [],
-          });
-
-          if (this.state.reporte_gastos.length > 0) {
-            this.state.reporte_gastos.map((gasto) => {
-              this.state.fecha_gasto.push(gasto.day);
-              this.state.monto_gasto.push(gasto.amount);
-              this.state.datos_gasto.push(gasto.datos);
+          if (res.data.length > 0) {
+            this.setState({
+              reporte_gastos: res.data,
+              gastos_total: res.data,
+              fecha_gasto: [],
+              monto_gasto: [],
+              datos_gasto: [],
             });
 
-            this.state.data_chart = {
-              labels: this.state.fecha_gasto,
-              datasets: [
-                {
-                  label: "Monto de Gastado",
-                  backgroundColor: "rgba(255,99,132,0.2)",
-                  borderColor: "rgba(255,99,132,1)",
-                  borderWidth: 1,
-                  hoverBackgroundColor: "rgba(255,99,132,0.4)",
-                  hoverBorderColor: "rgba(255,99,132,1)",
-                  data: this.state.monto_gasto,
-                },
-              ],
-            };
+            if (this.state.reporte_gastos.length > 0) {
+              this.state.reporte_gastos.map((gasto) => {
+                this.state.fecha_gasto.push(gasto.day);
+                this.state.monto_gasto.push(gasto.amount);
+                this.state.datos_gasto.push(gasto.datos);
+              });
 
+              this.state.data_chart = {
+                labels: this.state.fecha_gasto,
+                datasets: [
+                  {
+                    label: "Monto de Gastado",
+                    backgroundColor: "rgba(255,99,132,0.2)",
+                    borderColor: "rgba(255,99,132,1)",
+                    borderWidth: 1,
+                    hoverBackgroundColor: "rgba(255,99,132,0.4)",
+                    hoverBorderColor: "rgba(255,99,132,1)",
+                    data: this.state.monto_gasto,
+                  },
+                ],
+              };
+
+              this.setState({
+                hayValor: true,
+              });
+            }
+          } else {
             this.setState({
-              hayValor: true,
+              hayValor: false,
             });
           }
         } else {

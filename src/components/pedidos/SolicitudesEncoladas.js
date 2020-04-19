@@ -113,7 +113,7 @@ class SolicitudesEncoladas extends Component {
                     </Col>
                     <Col align="center" xs={12} md={6}>
                     <div className="form-group">
-                        <label>Codigo Postal</label>
+                        <label>Código Postal</label>
                         {/* <h3>{address.Cp == null ? "Sin CP" : address.Cp}</h3> */}
                     </div>
                     </Col>

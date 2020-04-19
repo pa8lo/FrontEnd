@@ -19,7 +19,7 @@ class NuevoEmpleado extends Component {
   state = {
     roles: [],
     error: false,
-    redirectHome: false
+    redirectHome: false,
   };
 
   dniRef = React.createRef();
@@ -39,19 +39,19 @@ class NuevoEmpleado extends Component {
 
     axios
       .get("https://roraso.herokuapp.com/Rol/rols", {
-        headers: { "access-token": accessToken }
+        headers: { "access-token": accessToken },
       })
-      .then(res => {
+      .then((res) => {
         if (res.data.length === 0) {
           return null;
         } else {
           this.setState({
-            roles: res.data
+            roles: res.data,
           });
           // const rolEmpleado = this.state.roles;
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
@@ -64,11 +64,11 @@ class NuevoEmpleado extends Component {
 
   setRedirectToHome = () => {
     this.setState({
-      redirectHome: true
+      redirectHome: true,
     });
   };
 
-  crearEmpleado = e => {
+  crearEmpleado = (e) => {
     e.preventDefault();
 
     const empleado = {
@@ -78,7 +78,7 @@ class NuevoEmpleado extends Component {
       email: this.emailRef.current.value,
       primerTelefono: this.primerTelefonoRef.current.value,
       segundoTelefono: this.segundoTelefonoRef.current.value,
-      rol: this.rolRef.current.value
+      rol: this.rolRef.current.value,
       // direccion : this.direccionRef.current.value,
       // departamento : this.departamentoRef.current.value,
       // piso : this.pisoRef.current.value,
@@ -99,7 +99,7 @@ class NuevoEmpleado extends Component {
         title: "Error!",
         text: "Faltan o hay errores en el formulario",
         type: "error",
-        confirmButtonText: "Aceptar"
+        confirmButtonText: "Aceptar",
       });
       return;
     } else {
@@ -159,7 +159,7 @@ class NuevoEmpleado extends Component {
                   />
                 </div>
                 <div className="form-group">
-                  <label>1º Telefono / Celular *</label>
+                  <label>1º Teléfono / Celular *</label>
                   <input
                     ref={this.primerTelefonoRef}
                     type="number"
@@ -171,7 +171,7 @@ class NuevoEmpleado extends Component {
                   />
                 </div>
                 <div className="form-group">
-                  <label>2º Telefono / Celular</label>
+                  <label>2º Teléfono / Celular</label>
                   <input
                     ref={this.segundoTelefonoRef}
                     type="number"
@@ -188,7 +188,7 @@ class NuevoEmpleado extends Component {
                       None
                     </option>
 
-                    {this.state.roles.map(rol => (
+                    {this.state.roles.map((rol) => (
                       <ListadoRolesEmpleados key={rol.id} roles={rol} />
                     ))}
                   </select>
@@ -218,8 +218,8 @@ class NuevoEmpleado extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  empleados: state.empleados.empleados
+const mapStateToProps = (state) => ({
+  empleados: state.empleados.empleados,
 });
 
 export default connect(mapStateToProps, { agregarEmpleado })(NuevoEmpleado);
