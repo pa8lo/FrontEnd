@@ -38,7 +38,7 @@ class LoginForm extends React.Component {
             minHeight: "50%",
           }}
         />
-        <Grid container="true" style={{ marginTop: "650px" }}>
+        <Grid container="true" style={{ marginTop: "400px" }}>
           <Row className="show-grid">
             <Col style={{ display: "inline-block" }} xs={5} md={5}>
               <div>
