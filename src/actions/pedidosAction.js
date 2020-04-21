@@ -3,22 +3,22 @@ import {
   AGREGAR_PEDIDO,
   EDITAR_PEDIDO,
   BORRAR_PEDIDO,
-  ASIGNAR_DELIVERY
+  ASIGNAR_DELIVERY,
 } from "../actions/types";
 import axios from "axios";
 
 //CSS
 import Swal from "sweetalert2";
 
-export const mostrarPedidos = () => async dispatch => {
+export const mostrarPedidos = () => async (dispatch) => {
   const pedidos = await axios
-    .get("https://roraso.herokuapp.com/Pedido/Pedidos", {
-      headers: { "access-token": localStorage.getItem("access-token") }
+    .get(`${process.env.REACT_APP_SERVER}/Pedido/Pedidos`, {
+      headers: { "access-token": localStorage.getItem("access-token") },
     })
-    .then(res => {
+    .then((res) => {
       dispatch({
         type: MOSTRAR_PEDIDOS,
-        payload: res.data
+        payload: res.data,
       });
 
       // console.log(res.status)
@@ -29,12 +29,12 @@ export const mostrarPedidos = () => async dispatch => {
           title: "Error!",
           text: "Se ha producido un error al intentar mostrar pedidos",
           type: "error",
-          confirmButtonText: "Aceptar"
+          confirmButtonText: "Aceptar",
         });
         return;
       }
     })
-    .catch(err => {
+    .catch((err) => {
       // console.log(err)
 
       if (err.response) {
@@ -43,7 +43,7 @@ export const mostrarPedidos = () => async dispatch => {
             title: "Error!",
             text: `${err.response.data}`,
             type: "error",
-            confirmButtonText: "Aceptar"
+            confirmButtonText: "Aceptar",
           });
           return;
         }
@@ -52,10 +52,10 @@ export const mostrarPedidos = () => async dispatch => {
             title: "Error!",
             text: `No posee los permisos necesarios`,
             type: "error",
-            confirmButtonText: "Aceptar"
+            confirmButtonText: "Aceptar",
           });
           // localStorage.removeItem("access-token");
-          setTimeout(function() {
+          setTimeout(function () {
             return window.location.replace("/");
           }, 3000);
         }
@@ -67,25 +67,27 @@ export const mostrarPedidos = () => async dispatch => {
 
         dispatch({
           type: MOSTRAR_PEDIDOS,
-          payload: deserializedPedidos
+          payload: deserializedPedidos,
         });
       }
     });
 };
 
-export const eliminarPedido = id => async dispatch => {
+export const eliminarPedido = (id) => async (dispatch) => {
   await axios
     .post(
-      "https://roraso.herokuapp.com/Pedido/Delete",
+      `${process.env.REACT_APP_SERVER}/Pedido/Delete`,
       { id: id },
       { headers: { "access-token": localStorage.getItem("access-token") } }
     )
-    .then(res => {
+    .then((res) => {
       if (res.status === 200) {
         const serializedPedido = localStorage.getItem("pedidos");
         let deserializedPedido = JSON.parse(serializedPedido);
 
-        let nuevo_array = deserializedPedido.filter(pedido => pedido.id !== id);
+        let nuevo_array = deserializedPedido.filter(
+          (pedido) => pedido.id !== id
+        );
 
         localStorage.setItem("pedidos", JSON.stringify(nuevo_array));
 
@@ -93,9 +95,9 @@ export const eliminarPedido = id => async dispatch => {
           title: "Correcto!",
           text: "Se ha borrado un pedido",
           type: "success",
-          confirmButtonText: "Confirmar"
+          confirmButtonText: "Confirmar",
         });
-        setTimeout(function() {
+        setTimeout(function () {
           window.location.href = "/pedidos";
         }, 3500);
       } else {
@@ -103,28 +105,28 @@ export const eliminarPedido = id => async dispatch => {
           title: "Error!",
           text: "Se ha producido un error al intentar borrar el pedido",
           type: "error",
-          confirmButtonText: "Aceptar"
+          confirmButtonText: "Aceptar",
         });
         return;
       }
     })
-    .catch(err => {
+    .catch((err) => {
       Swal.fire({
         title: "Error!",
         text: "El Servidor no ha respondido la solicitud",
         type: "error",
-        confirmButtonText: "Aceptar"
+        confirmButtonText: "Aceptar",
       });
       return window.location.reload();
     });
 
   dispatch({
     type: BORRAR_PEDIDO,
-    payload: id
+    payload: id,
   });
 };
 
-export const agregarPedido = pedido => async dispatch => {
+export const agregarPedido = (pedido) => async (dispatch) => {
   const {
     date,
     user,
@@ -134,7 +136,7 @@ export const agregarPedido = pedido => async dispatch => {
     client,
     product,
     address,
-    observacion
+    observacion,
   } = pedido;
 
   const data = {
@@ -146,29 +148,29 @@ export const agregarPedido = pedido => async dispatch => {
     CombosPorPedido: combo,
     ProductosPorPedido: product,
     Adress: address,
-    Observaciones: observacion
+    Observaciones: observacion,
   };
 
   // console.log(data)
 
   await axios
-    .post("https://roraso.herokuapp.com/Pedido/Create", data, {
-      headers: { "access-token": localStorage.getItem("access-token") }
+    .post(`${process.env.REACT_APP_SERVER}/Pedido/Create`, data, {
+      headers: { "access-token": localStorage.getItem("access-token") },
     })
-    .then(res => {
+    .then((res) => {
       if (res.status === 200) {
         dispatch({
           type: AGREGAR_PEDIDO,
-          payload: pedido
+          payload: pedido,
         });
 
         Swal.fire({
           title: "Correcto!",
           text: "Se ha añadido un nuevo pedido",
           type: "success",
-          confirmButtonText: "Confirmar"
+          confirmButtonText: "Confirmar",
         });
-        setTimeout(function() {
+        setTimeout(function () {
           window.location.href = "/pedidos";
         }, 3500);
       } else {
@@ -176,19 +178,19 @@ export const agregarPedido = pedido => async dispatch => {
           title: "Error!",
           text: "Se ha producido un error al intentar crear el pedido",
           type: "error",
-          confirmButtonText: "Aceptar"
+          confirmButtonText: "Aceptar",
         });
         return;
       }
     })
-    .catch(err => {
+    .catch((err) => {
       if (localStorage.getItem("status") == "offline") {
         Swal.fire({
           title: "Atencion!",
           text:
             "La solicitud fue guardada en la bandeja se enviara una vez se restablezca la conexion",
           type: "warning",
-          confirmButtonText: "Ok"
+          confirmButtonText: "Ok",
         });
 
         if (localStorage.getItem("enviarPedido").length > 0) {
@@ -214,38 +216,38 @@ export const agregarPedido = pedido => async dispatch => {
           title: "Error!",
           text: "El Servidor no ha respondido la solicitud",
           type: "error",
-          confirmButtonText: "Aceptar"
+          confirmButtonText: "Aceptar",
         });
         return;
       }
     });
 };
 
-export const asignarDelivery = line => async dispatch => {
+export const asignarDelivery = (line) => async (dispatch) => {
   const data = {
     Delivery: {
-      id: Number(line[1])
+      id: Number(line[1]),
     },
     Pedido: {
-      id: line[0]
-    }
+      id: line[0],
+    },
   };
   //console.log(data);
   await axios
-    .post("https://roraso.herokuapp.com/Pedido/Asignar", data, {
+    .post(`${process.env.REACT_APP_SERVER}/Pedido/Asignar`, data, {
       headers: {
-        "access-token": localStorage.getItem("access-token")
-      }
+        "access-token": localStorage.getItem("access-token"),
+      },
     })
-    .then(res => {
+    .then((res) => {
       if (res.status === 200) {
         Swal.fire({
           title: "Correcto!",
           text: "Se ha asignado un delivery al pedido",
           type: "success",
-          confirmButtonText: "Confirmar"
+          confirmButtonText: "Confirmar",
         });
-        setTimeout(function() {
+        setTimeout(function () {
           window.location.href = "/mapa";
         }, 1500);
       } else {
@@ -253,28 +255,28 @@ export const asignarDelivery = line => async dispatch => {
           title: "Error!",
           text: "Se ha producido un error al intentar asignar el pedido",
           type: "error",
-          confirmButtonText: "Aceptar"
+          confirmButtonText: "Aceptar",
         });
         return;
       }
     })
-    .catch(err => {
+    .catch((err) => {
       Swal.fire({
         title: "Error!",
         text: "El Servidor no ha respondido la solicitud",
         type: "error",
-        confirmButtonText: "Aceptar"
+        confirmButtonText: "Aceptar",
       });
       return;
     });
 
   dispatch({
     type: ASIGNAR_DELIVERY,
-    payload: line
+    payload: line,
   });
 };
 
-export const editarPedido = pedido => async dispatch => {
+export const editarPedido = (pedido) => async (dispatch) => {
   const {
     id,
     date,
@@ -285,7 +287,7 @@ export const editarPedido = pedido => async dispatch => {
     client,
     product,
     address,
-    observacion
+    observacion,
   } = pedido;
 
   const data = {
@@ -298,24 +300,24 @@ export const editarPedido = pedido => async dispatch => {
     CombosPorPedido: combo,
     ProductosPorPedido: product,
     Adress: address,
-    Observaciones: observacion
+    Observaciones: observacion,
   };
 
   //console.log(data)
 
   await axios
-    .post("https://roraso.herokuapp.com/Pedido/Update", data, {
-      headers: { "access-token": localStorage.getItem("access-token") }
+    .post(`${process.env.REACT_APP_SERVER}/Pedido/Update`, data, {
+      headers: { "access-token": localStorage.getItem("access-token") },
     })
-    .then(res => {
+    .then((res) => {
       if (res.status === 200) {
         Swal.fire({
           title: "Correcto!",
           text: "Se ha modificado un pedido",
           type: "success",
-          confirmButtonText: "Confirmar"
+          confirmButtonText: "Confirmar",
         });
-        setTimeout(function() {
+        setTimeout(function () {
           window.location.href = "/pedidos";
         }, 3500);
       } else {
@@ -323,23 +325,23 @@ export const editarPedido = pedido => async dispatch => {
           title: "Error!",
           text: "Se ha producido un error al intentar editar el pedido",
           type: "error",
-          confirmButtonText: "Aceptar"
+          confirmButtonText: "Aceptar",
         });
         return;
       }
     })
-    .catch(err => {
+    .catch((err) => {
       Swal.fire({
         title: "Error!",
         text: "El Servidor no ha respondido la solicitud",
         type: "error",
-        confirmButtonText: "Aceptar"
+        confirmButtonText: "Aceptar",
       });
       return;
     });
 
   dispatch({
     type: EDITAR_PEDIDO,
-    payload: pedido
+    payload: pedido,
   });
 };

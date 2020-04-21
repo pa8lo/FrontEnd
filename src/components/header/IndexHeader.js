@@ -41,7 +41,7 @@ class Header extends React.Component {
     window.setInterval(function () {
       // console.log("Intervalo de 7 Seg")
       axios
-        .get("https://roraso.herokuapp.com/User/CurrentUser", {
+        .get(`${process.env.REACT_APP_SERVER}/User/CurrentUser`, {
           headers: { "access-token": localStorage.getItem("access-token") },
         })
         .then((res) => {
@@ -131,7 +131,7 @@ class Header extends React.Component {
     }
 
     axios
-      .get("https://roraso.herokuapp.com/User/CurrentUser", {
+      .get(`${process.env.REACT_APP_SERVER}/User/CurrentUser`, {
         headers: { "access-token": localStorage.getItem("access-token") },
       })
       .then((res) => {
@@ -189,7 +189,7 @@ class Header extends React.Component {
     let direccion_local;
 
     await axios
-      .get("https://roraso.herokuapp.com/Local", {
+      .get(`${process.env.REACT_APP_SERVER}/Local`, {
         headers: { "access-token": localStorage.getItem("access-token") },
       })
       .then((res) => {
@@ -212,7 +212,7 @@ class Header extends React.Component {
     ) {
       await axios
         .put(
-          "https://roraso.herokuapp.com/Local",
+          `${process.env.REACT_APP_SERVER}/Local`,
           (this.data = {
             Local: {
               Adress: "default address",
@@ -247,7 +247,7 @@ class Header extends React.Component {
     let categories = [];
 
     await axios
-      .get("https://roraso.herokuapp.com/Category/Categories", {
+      .get(`${process.env.REACT_APP_SERVER}/Category/Categories`, {
         headers: { "access-token": localStorage.getItem("access-token") },
       })
       .then((res) => {
@@ -272,7 +272,7 @@ class Header extends React.Component {
     let products = [];
 
     await axios
-      .get("https://roraso.herokuapp.com/Product/Products", {
+      .get(`${process.env.REACT_APP_SERVER}/Product/Products`, {
         headers: { "access-token": localStorage.getItem("access-token") },
       })
       .then((res) => {
@@ -291,7 +291,7 @@ class Header extends React.Component {
     let combos = [];
 
     await axios
-      .get("https://roraso.herokuapp.com/Offerts/Offerts", {
+      .get(`${process.env.REACT_APP_SERVER}/Offerts/Offerts`, {
         headers: { "access-token": localStorage.getItem("access-token") },
       })
       .then((res) => {
@@ -319,7 +319,7 @@ class Header extends React.Component {
     }
 
     await axios
-      .get("https://roraso.herokuapp.com/Pedido/Pedidos", {
+      .get(`${process.env.REACT_APP_SERVER}/Pedido/Pedidos`, {
         headers: { "access-token": localStorage.getItem("access-token") },
       })
       .then((res) => {
@@ -368,7 +368,7 @@ class Header extends React.Component {
     let clients = [];
 
     await axios
-      .get("https://roraso.herokuapp.com/Client/Clients", {
+      .get(`${process.env.REACT_APP_SERVER}/Client/Clients`, {
         headers: { "access-token": localStorage.getItem("access-token") },
       })
       .then((res) => {
@@ -389,7 +389,7 @@ class Header extends React.Component {
     let states = [];
 
     await axios
-      .get("https://roraso.herokuapp.com/Estado/Estados", {
+      .get(`${process.env.REACT_APP_SERVER}/Estado/Estados`, {
         headers: { "access-token": localStorage.getItem("access-token") },
       })
       .then((res) => {

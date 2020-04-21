@@ -116,7 +116,7 @@ class AddressForm extends Component {
 
     await axios
       .put(
-        "https://roraso.herokuapp.com/Local",
+        `${process.env.REACT_APP_SERVER}/Local`,
         (this.data = {
           Local: {
             Adress: this.state.address.street,

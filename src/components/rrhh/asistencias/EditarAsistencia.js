@@ -24,38 +24,38 @@ class AsistenciaIndividual extends Component {
     timeOutForm: "",
     redirectHome: false,
     TimeInToSend: "",
-    TimeOutToSend: ""
+    TimeOutToSend: "",
   };
 
-  handleChangetimeIn = e => {
+  handleChangetimeIn = (e) => {
     console.log(e.target.value);
 
     this.setState({
-      timeInForm: e.target.value
+      timeInForm: e.target.value,
     });
   };
 
-  handleChangetimeOut = e => {
+  handleChangetimeOut = (e) => {
     this.setState({
-      timeOutForm: e.target.value
+      timeOutForm: e.target.value,
     });
   };
 
   componentWillMount() {
     axios
-      .get("https://roraso.herokuapp.com/User/Users", {
-        headers: { "access-token": localStorage.getItem("access-token") }
+      .get(`${process.env.REACT_APP_SERVER}/User/Users`, {
+        headers: { "access-token": localStorage.getItem("access-token") },
       })
-      .then(res => {
+      .then((res) => {
         if (res.data.length === 0) {
           return null;
         } else {
           this.setState({
-            empleados: res.data
+            empleados: res.data,
           });
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
 
@@ -65,15 +65,15 @@ class AsistenciaIndividual extends Component {
   componentDidMount() {
     console.log(this.props.location.state);
 
-    this.setState(state => ({
+    this.setState((state) => ({
       TimeInToSend: this.props.location.state.InTime,
-      TimeOutToSend: this.props.location.state.OutTime
+      TimeOutToSend: this.props.location.state.OutTime,
     }));
 
     this.setState({
       idEmpleado: this.props.location.idUser,
       nombreEmpleado: this.props.location.userName,
-      timeIn: this.props.location.state.InTime
+      timeIn: this.props.location.state.InTime,
     });
 
     this.state.timeIn = this.props.location.state.InTime.split("T");
@@ -90,11 +90,11 @@ class AsistenciaIndividual extends Component {
 
     this.setState({
       timeInForm: timeIn1,
-      timeOutForm: timeOut1
+      timeOutForm: timeOut1,
     });
   }
 
-  actualizarAsistencia = e => {
+  actualizarAsistencia = (e) => {
     e.preventDefault();
 
     //"fecha invalida se espera DD/MM/YYYY HH:MM:SS:MS"
@@ -144,7 +144,7 @@ class AsistenciaIndividual extends Component {
     const asistencias = {
       idAsistencia: this.props.location.state.id,
       timeIn: timeIn3,
-      timeOut: timeOut3
+      timeOut: timeOut3,
     };
 
     // console.log(asistencias);
@@ -160,7 +160,7 @@ class AsistenciaIndividual extends Component {
 
   setRedirectToHome = () => {
     this.setState({
-      redirectHome: true
+      redirectHome: true,
     });
   };
 
@@ -185,7 +185,7 @@ class AsistenciaIndividual extends Component {
                       {this.state.nombreEmpleado}
                     </option>
 
-                    {this.state.empleados.map(empleado => (
+                    {this.state.empleados.map((empleado) => (
                       <ListadoEmpleadosEdicion
                         key={empleado.id}
                         empleados={empleado}
@@ -249,8 +249,8 @@ class AsistenciaIndividual extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  asistencias: state.asistencias.asistencias
+const mapStateToProps = (state) => ({
+  asistencias: state.asistencias.asistencias,
 });
 
 export default connect(mapStateToProps, { editarAsistencia })(

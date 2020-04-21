@@ -42,7 +42,7 @@ class CambioDeClave extends Component {
 
         var accessToken = localStorage.getItem("access-token");
         axios
-          .post("https://roraso.herokuapp.com/User/ChangePassword", data, {
+          .post(`${process.env.REACT_APP_SERVER}/User/ChangePassword`, data, {
             headers: { "access-token": accessToken },
           })
           .then((res) => {

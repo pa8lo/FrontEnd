@@ -39,7 +39,7 @@ class ConsultarDireccionCliente extends Component {
       if (result.value) {
         axios
           .post(
-            "https://roraso.herokuapp.com/Client/DeleteAddress",
+            `${process.env.REACT_APP_SERVER}/Client/DeleteAddress`,
             { id: id },
             {
               headers: { "access-token": localStorage.getItem("access-token") },

@@ -24,7 +24,7 @@ class NuevaAsistencia extends Component {
     empleados: [],
     redirectHome: false,
     actualDate: "",
-    timeIn5: ""
+    timeIn5: "",
   };
 
   empleadosRef = React.createRef();
@@ -36,19 +36,19 @@ class NuevaAsistencia extends Component {
     // yyyy-MM-ddThh:mm
 
     axios
-      .get("https://roraso.herokuapp.com/User/Users", {
-        headers: { "access-token": localStorage.getItem("access-token") }
+      .get(`${process.env.REACT_APP_SERVER}/User/Users`, {
+        headers: { "access-token": localStorage.getItem("access-token") },
       })
-      .then(res => {
+      .then((res) => {
         if (res.data.length === 0) {
           return null;
         } else {
           this.setState({
-            empleados: res.data
+            empleados: res.data,
           });
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
 
@@ -86,19 +86,19 @@ class NuevaAsistencia extends Component {
     // this.state.timeIn5 = to_send_in_date
 
     this.setState({
-      actualDate: dateTime
+      actualDate: dateTime,
     });
   }
 
-  handleChangetimeIn = e => {
+  handleChangetimeIn = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  handleChangetimeOut = e => {
+  handleChangetimeOut = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  crearAsistencia = e => {
+  crearAsistencia = (e) => {
     e.preventDefault();
 
     if (this.empleadosRef.current.value == "None") {
@@ -106,7 +106,7 @@ class NuevaAsistencia extends Component {
         title: "Error!",
         text: "La asistencia tiene que estar asignada a un usuario",
         type: "error",
-        confirmButtonText: "Aceptar"
+        confirmButtonText: "Aceptar",
       });
       return;
     }
@@ -132,7 +132,7 @@ class NuevaAsistencia extends Component {
 
     const asistencias = {
       user: this.empleadosRef.current.value,
-      timeIn: timeIn5
+      timeIn: timeIn5,
       // timeOut : timeOut5
     };
 
@@ -151,7 +151,7 @@ class NuevaAsistencia extends Component {
 
   setRedirectToHome = () => {
     this.setState({
-      redirectHome: true
+      redirectHome: true,
     });
   };
 
@@ -172,7 +172,7 @@ class NuevaAsistencia extends Component {
                   >
                     <option defaultValue="None">None</option>
 
-                    {this.state.empleados.map(empleado => (
+                    {this.state.empleados.map((empleado) => (
                       <ListadoEmpleados
                         key={empleado.id}
                         empleados={empleado}
@@ -235,8 +235,8 @@ class NuevaAsistencia extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  asistencias: state.asistencias.asistencias
+const mapStateToProps = (state) => ({
+  asistencias: state.asistencias.asistencias,
 });
 
 export default connect(mapStateToProps, { agregarAsistencia })(NuevaAsistencia);

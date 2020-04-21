@@ -26,12 +26,12 @@ const override = css`
 const columnButtonStyle = {
   maxWidth: "100%",
   minWidth: "100%",
-  paddingTop: 3
+  paddingTop: 3,
 };
 
 const buttonStyle = {
   marginLeft: 10,
-  width: 130
+  width: 130,
 };
 
 let col = ["Name", "LastName", "countAss", "Actions"];
@@ -42,7 +42,7 @@ class MyVerticallyCenteredModal extends Component {
     super(...args);
   }
 
-  eliminarAsistencia = id => {
+  eliminarAsistencia = (id) => {
     // console.log(id)
 
     Swal.fire({
@@ -53,26 +53,26 @@ class MyVerticallyCenteredModal extends Component {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Confirmar",
-      cancelButtonText: "Cancelar"
-    }).then(result => {
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
       if (result.value) {
         axios
           .post(
-            "https://roraso.herokuapp.com/Asisstance/Delete",
+            `${process.env.REACT_APP_SERVER}/Asisstance/Delete`,
             { id: id },
             {
-              headers: { "access-token": localStorage.getItem("access-token") }
+              headers: { "access-token": localStorage.getItem("access-token") },
             }
           )
-          .then(res => {
+          .then((res) => {
             if (res.status === 200) {
               Swal.fire({
                 title: "Correcto!",
                 text: "Se ha borrado una asistencia",
                 type: "success",
-                confirmButtonText: "Confirmar"
+                confirmButtonText: "Confirmar",
               });
-              setTimeout(function() {
+              setTimeout(function () {
                 window.location.href = "/rrhh/asistencias";
               }, 3500);
             } else {
@@ -81,17 +81,17 @@ class MyVerticallyCenteredModal extends Component {
                 text:
                   "Se ha producido un error al intentar borrar la asistencia",
                 type: "error",
-                confirmButtonText: "Aceptar"
+                confirmButtonText: "Aceptar",
               });
               return;
             }
           })
-          .catch(err => {
+          .catch((err) => {
             Swal.fire({
               title: "Error!",
               text: "El Servidor no ha respondido la solicitud",
               type: "error",
-              confirmButtonText: "Aceptar"
+              confirmButtonText: "Aceptar",
             });
             return;
           });
@@ -115,7 +115,7 @@ class MyVerticallyCenteredModal extends Component {
 
         return (
           <React.Fragment>
-            {this.props.asistencias.map(asistencia => (
+            {this.props.asistencias.map((asistencia) => (
               // asistenciasss.push(asistencia.InTime.split("T")[0] + " " + asistencia.InTime.split("T")[1].split(".")[0]),
 
               // a = (asistenciasss.sort((a, b) => new Date(a.InTime) > new Date(b.InTime))),
@@ -150,7 +150,7 @@ class MyVerticallyCenteredModal extends Component {
                   md={12}
                   style={{ marginTop: "20px", marginBottom: "40px" }}
                 >
-                  {permisos.filter(permiso => permiso.id == 30).length > 0 ? (
+                  {permisos.filter((permiso) => permiso.id == 30).length > 0 ? (
                     <Link
                       className={buttonStyle}
                       style={{ color: "white", backgroundColor: "#4D4D4D" }}
@@ -158,7 +158,7 @@ class MyVerticallyCenteredModal extends Component {
                         pathname: `/rrhh/asistencias/${asistencia.id}`,
                         state: asistencia,
                         idUser: this.props.asistenciaid,
-                        userName: this.props.asistencianame
+                        userName: this.props.asistencianame,
                       }}
                       className="btn"
                     >
@@ -176,7 +176,7 @@ class MyVerticallyCenteredModal extends Component {
                     </Link>
                   )}
 
-                  {permisos.filter(permiso => permiso.id == 31).length > 0 ? (
+                  {permisos.filter((permiso) => permiso.id == 31).length > 0 ? (
                     <button
                       style={buttonStyle}
                       name="idEliminarAsistencia"
@@ -205,7 +205,7 @@ class MyVerticallyCenteredModal extends Component {
       }
     };
 
-    let verificarOutTime = asistencia => {
+    let verificarOutTime = (asistencia) => {
       if (asistencia === "") {
         return "No hay datos";
       } else {
@@ -259,7 +259,7 @@ class ActionAsistenciaComponent extends Component {
     super(...args);
 
     this.state = {
-      modalShow: false
+      modalShow: false,
     };
   }
 
@@ -291,7 +291,7 @@ class ActionAsistenciaComponent extends Component {
           //   borrarasistencia={this.props.eliminarAsistencia()}
         />
 
-        {permisos.filter(permiso => permiso.id == 29).length > 0 ? (
+        {permisos.filter((permiso) => permiso.id == 29).length > 0 ? (
           <Button
             style={buttonStyle}
             className="btn btn-primary"
@@ -316,7 +316,7 @@ class ActionAsistenciaComponent extends Component {
 
 class ListaAsistencias extends Component {
   state = {
-    loading: true
+    loading: true,
   };
 
   componentDidMount() {
@@ -346,7 +346,7 @@ class ListaAsistencias extends Component {
     } else {
       return (
         <SortableTbl
-          tblData={asistencias.sort(function(a, b) {
+          tblData={asistencias.sort(function (a, b) {
             return b.id - a.id;
           })}
           tHead={tHead}
@@ -362,13 +362,13 @@ class ListaAsistencias extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   asistencias: state.asistencias.asistencias,
-  usuario: state.usuario.usuario
+  usuario: state.usuario.usuario,
 });
 
 export default connect(mapStateToProps, {
   mostrarAsistencias,
   eliminarAsistencia,
-  currentUser
+  currentUser,
 })(ListaAsistencias);

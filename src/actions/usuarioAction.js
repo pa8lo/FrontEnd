@@ -17,7 +17,7 @@ export const loginUser = (usuario) => async (dispatch) => {
   };
 
   const loginRes = await axios
-    .post("https://roraso.herokuapp.com/User/login", user)
+    .post(`${process.env.REACT_APP_SERVER}/User/login`, user)
 
     .then((res) => {
       if (res.status === 200) {
@@ -72,7 +72,7 @@ export const loginUser = (usuario) => async (dispatch) => {
 
 export const fetchCurrentUser = () => async (dispatch) => {
   const user = await axios.get(
-    "https://roraso.herokuapp.com/User/CurrentUser",
+    `${process.env.REACT_APP_SERVER}/User/CurrentUser`,
     { headers: { "access-token": localStorage.getItem("access-token") } }
   );
 
@@ -84,7 +84,7 @@ export const fetchCurrentUser = () => async (dispatch) => {
 
 export const currentUser = () => async (dispatch) => {
   const userId = await axios
-    .get("https://roraso.herokuapp.com/User/CurrentUser", {
+    .get(`${process.env.REACT_APP_SERVER}/User/CurrentUser`, {
       headers: { "access-token": localStorage.getItem("access-token") },
     })
     .then((res) => {
@@ -96,7 +96,7 @@ export const currentUser = () => async (dispatch) => {
     });
 
   const currentUser = await axios.get(
-    `https://roraso.herokuapp.com/User/Authorizations?id=${userId}`,
+    `${process.env.REACT_APP_SERVER}/User/Authorizations?id=${userId}`,
     { headers: { "access-token": localStorage.getItem("access-token") } }
   );
 
