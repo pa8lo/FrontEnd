@@ -10,7 +10,7 @@ import {
 export const fetchCurrentUser = () => async (dispatch) => {
   try {
     const user = await axios.get(
-      `https://rorasowebapp.herokuapp.com/User/CurrentUser`,
+      `${process.env.REACT_APP_BACKEND_SERVER}/User/CurrentUser`,
       { headers: { "access-token": localStorage.getItem("access-token") } }
     );
 

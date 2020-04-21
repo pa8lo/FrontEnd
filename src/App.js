@@ -11,7 +11,7 @@ import Login from "./components/login/Login";
 class App extends Component {
   componentDidMount() {
     axios
-      .get(`https://rorasowebapp.herokuapp.com/User/CurrentUser`, {
+      .get(`${process.env.REACT_APP_BACKEND_SERVER}/User/CurrentUser`, {
         headers: { "access-token": localStorage.getItem("access-token") },
       })
       .then((res) => {
