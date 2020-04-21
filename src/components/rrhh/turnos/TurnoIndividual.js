@@ -105,7 +105,7 @@ class MyVerticallyCenteredModal extends Component {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Ingresar Datos de Direccion
+            Ingresar Datos de Dirección
           </Modal.Title>
         </Modal.Header>
         <form onSubmit={this.crearDireccion} className="col-8">
@@ -113,7 +113,7 @@ class MyVerticallyCenteredModal extends Component {
             <Row className="show-grid">
               <Col xs={12} md={6}>
                 <div className="form-group">
-                  <label>Direccion</label>
+                  <label>Dirección</label>
                   <input
                     ref={this.direccionRef}
                     type="text"
@@ -272,7 +272,7 @@ class EmpleadoIndividual extends Component {
             variant="primary"
             onClick={() => this.setState({ modalShow: true })}
           >
-            Agregar Direccion
+            Agregar Dirección
           </Button>
 
           <Button className="btn btn-info" variant="info">

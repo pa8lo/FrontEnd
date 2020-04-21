@@ -335,7 +335,7 @@ class EnviarPedidosOff extends Component {
 
                               Swal.fire(
                                 "Advertencia!",
-                                "Se ha creado una nueva Direccion y Pedido sin Validar",
+                                "Se ha creado una nueva Dirección y Pedido sin Validar",
                                 "warning"
                               );
                               // setTimeout(function(){
@@ -366,7 +366,7 @@ class EnviarPedidosOff extends Component {
                         Swal.fire({
                           title: "Error!",
                           text:
-                            "Se ha producido un error al intentar crear la direccion",
+                            "Se ha producido un error al intentar crear la dirección",
                           type: "error",
                           confirmButtonText: "Aceptar",
                         });
@@ -377,7 +377,7 @@ class EnviarPedidosOff extends Component {
                       Swal.fire({
                         title: "Error!",
                         text:
-                          "El Servidor no ha respondido al alta de la direccion",
+                          "El Servidor no ha respondido al alta de la dirección",
                         type: "error",
                         confirmButtonText: "Aceptar",
                       });
@@ -469,7 +469,7 @@ class EnviarPedidosOff extends Component {
 
                               Swal.fire(
                                 "Correcto!",
-                                "Se ha creado una nueva Direccion y Pedido",
+                                "Se ha creado una nueva Dirección y Pedido",
                                 "success"
                               );
                             } else {
@@ -497,7 +497,7 @@ class EnviarPedidosOff extends Component {
                         Swal.fire({
                           title: "Error!",
                           text:
-                            "Se ha producido un error al intentar crear la direccion",
+                            "Se ha producido un error al intentar crear la dirección",
                           type: "error",
                           confirmButtonText: "Aceptar",
                         });
@@ -510,7 +510,7 @@ class EnviarPedidosOff extends Component {
                       Swal.fire({
                         title: "Error!",
                         text:
-                          "El Servidor no ha respondido al alta de la direccion",
+                          "El Servidor no ha respondido al alta de la dirección",
                         type: "error",
                         confirmButtonText: "Aceptar",
                       });
@@ -601,7 +601,7 @@ class EnviarPedidosOff extends Component {
 
                             Swal.fire(
                               "Advertencia!",
-                              "Se ha creado una nueva Direccion y Pedido sin Validar",
+                              "Se ha creado una nueva Dirección y Pedido sin Validar",
                               "warning"
                             );
                             setTimeout(function () {
@@ -634,7 +634,7 @@ class EnviarPedidosOff extends Component {
                       Swal.fire({
                         title: "Error!",
                         text:
-                          "Se ha producido un error al intentar crear la direccion",
+                          "Se ha producido un error al intentar crear la dirección",
                         type: "error",
                         confirmButtonText: "Aceptar",
                       });
@@ -647,7 +647,7 @@ class EnviarPedidosOff extends Component {
                     Swal.fire({
                       title: "Error!",
                       text:
-                        "El Servidor no ha respondido al alta de la direccion",
+                        "El Servidor no ha respondido al alta de la dirección",
                       type: "error",
                       confirmButtonText: "Aceptar",
                     });
@@ -657,7 +657,7 @@ class EnviarPedidosOff extends Component {
           } else {
             Swal.fire(
               "Error!",
-              "Error de validador, cambie la direccion del pedido",
+              "Error de validador, cambie la dirección del pedido",
               "error"
             );
           }
@@ -742,7 +742,7 @@ class EnviarPedidosOff extends Component {
 
                       Swal.fire(
                         "Advertencia!",
-                        "Se ha creado una nueva Direccion y Pedido sin Validar",
+                        "Se ha creado una nueva Dirección y Pedido sin Validar",
                         "warning"
                       );
                       setTimeout(function () {
@@ -774,7 +774,7 @@ class EnviarPedidosOff extends Component {
                 Swal.fire({
                   title: "Error!",
                   text:
-                    "Se ha producido un error al intentar crear la direccion",
+                    "Se ha producido un error al intentar crear la dirección",
                   type: "error",
                   confirmButtonText: "Aceptar",
                 });
@@ -786,7 +786,7 @@ class EnviarPedidosOff extends Component {
 
               Swal.fire({
                 title: "Error!",
-                text: "El Servidor no ha respondido al alta de la direccion",
+                text: "El Servidor no ha respondido al alta de la dirección",
                 type: "error",
                 confirmButtonText: "Aceptar",
               });
@@ -971,7 +971,7 @@ class EnviarPedidosOff extends Component {
 
                                   Swal.fire(
                                     "Correcto!",
-                                    "Se ha creado un nuevo Cliente, Direccion y Pedido",
+                                    "Se ha creado un nuevo Cliente, Dirección y Pedido",
                                     "success"
                                   );
                                   // setTimeout(function(){
@@ -1006,7 +1006,7 @@ class EnviarPedidosOff extends Component {
                             Swal.fire({
                               title: "Error!",
                               text:
-                                "Se ha producido un error al intentar crear la direccion",
+                                "Se ha producido un error al intentar crear la dirección",
                               type: "error",
                               confirmButtonText: "Aceptar",
                             });
@@ -1019,7 +1019,7 @@ class EnviarPedidosOff extends Component {
                           Swal.fire({
                             title: "Error!",
                             text:
-                              "El Servidor no ha respondido correctamente al alta de la direccion sin validar",
+                              "El Servidor no ha respondido correctamente al alta de la dirección sin validar",
                             type: "error",
                             confirmButtonText: "Aceptar",
                           });
@@ -1034,9 +1034,9 @@ class EnviarPedidosOff extends Component {
 
                     await axios
                       .get(
-                        `https://roraso.herokuapp.com/Client/Client?Phone=${
-                          response.data.split('"')[3]
-                        }`,
+                        `${
+                          process.env.REACT_APP_BACKEND_SERVER
+                        }/Client/Client?Phone=${response.data.split('"')[3]}`,
                         {
                           headers: {
                             "access-token": localStorage.getItem(
@@ -1129,7 +1129,7 @@ class EnviarPedidosOff extends Component {
 
                                     Swal.fire(
                                       "Correcto!",
-                                      "Se ha creado un nuevo Cliente, Direccion y Pedido",
+                                      "Se ha creado un nuevo Cliente, Dirección y Pedido",
                                       "success"
                                     );
                                     // setTimeout(function(){
@@ -1160,7 +1160,7 @@ class EnviarPedidosOff extends Component {
                               Swal.fire({
                                 title: "Error!",
                                 text:
-                                  "Se ha producido un error al intentar crear la direccion",
+                                  "Se ha producido un error al intentar crear la dirección",
                                 type: "error",
                                 confirmButtonText: "Aceptar",
                               });
@@ -1170,7 +1170,7 @@ class EnviarPedidosOff extends Component {
                           .catch((err) => {
                             Swal.fire({
                               title: "Error!",
-                              text: "Error al momento de crear una direccion",
+                              text: "Error al momento de crear una dirección",
                               type: "error",
                               confirmButtonText: "Aceptar",
                             });
@@ -1179,7 +1179,7 @@ class EnviarPedidosOff extends Component {
                       })
                       .catch((err) => {
                         console.log(
-                          "Este error da cuando busco el numero de telefono"
+                          "Este error da cuando busco el número de telefono"
                         );
                         console.log(err);
                       });
@@ -1188,7 +1188,7 @@ class EnviarPedidosOff extends Component {
               .catch(async function (error) {
                 Swal.fire(
                   "Error!",
-                  "Error de validador, cambie la direccion del pedido",
+                  "Error de validador, cambie la dirección del pedido",
                   "error"
                 );
               });
@@ -1293,7 +1293,7 @@ class EnviarPedidosOff extends Component {
 
                               Swal.fire(
                                 "Correcto!",
-                                "Se ha creado un nuevo Cliente, Direccion y Pedido",
+                                "Se ha creado un nuevo Cliente, Dirección y Pedido",
                                 "success"
                               );
                               // setTimeout(function(){
@@ -1328,7 +1328,7 @@ class EnviarPedidosOff extends Component {
                         Swal.fire({
                           title: "Error!",
                           text:
-                            "Se ha producido un error al intentar crear la direccion",
+                            "Se ha producido un error al intentar crear la dirección",
                           type: "error",
                           confirmButtonText: "Aceptar",
                         });
@@ -1341,7 +1341,7 @@ class EnviarPedidosOff extends Component {
                       Swal.fire({
                         title: "Error!",
                         text:
-                          "El Servidor no ha respondido correctamente al alta de la direccion sin validar",
+                          "El Servidor no ha respondido correctamente al alta de la dirección sin validar",
                         type: "error",
                         confirmButtonText: "Aceptar",
                       });
@@ -1356,9 +1356,9 @@ class EnviarPedidosOff extends Component {
 
                 await axios
                   .get(
-                    `https://roraso.herokuapp.com/Client/Client?Phone=${
-                      response.data.split('"')[3]
-                    }`,
+                    `${
+                      process.env.REACT_APP_BACKEND_SERVER
+                    }/Client/Client?Phone=${response.data.split('"')[3]}`,
                     {
                       headers: {
                         "access-token": localStorage.getItem("access-token"),
@@ -1448,7 +1448,7 @@ class EnviarPedidosOff extends Component {
 
                                 Swal.fire(
                                   "Atencion!",
-                                  "Se ha creado un nuevo Cliente, Direccion y Pedido Sin Validar",
+                                  "Se ha creado un nuevo Cliente, Dirección y Pedido Sin Validar",
                                   "warning"
                                 );
                                 // setTimeout(function(){
@@ -1479,7 +1479,7 @@ class EnviarPedidosOff extends Component {
                           Swal.fire({
                             title: "Error!",
                             text:
-                              "Se ha producido un error al intentar crear la direccion",
+                              "Se ha producido un error al intentar crear la dirección",
                             type: "error",
                             confirmButtonText: "Aceptar",
                           });
@@ -1489,7 +1489,7 @@ class EnviarPedidosOff extends Component {
                       .catch((err) => {
                         Swal.fire({
                           title: "Error!",
-                          text: "Error al momento de crear una direccion",
+                          text: "Error al momento de crear una dirección",
                           type: "error",
                           confirmButtonText: "Aceptar",
                         });
@@ -1498,7 +1498,7 @@ class EnviarPedidosOff extends Component {
                   })
                   .catch((err) => {
                     console.log(
-                      "Este error da cuando busco el numero de telefono"
+                      "Este error da cuando busco el número de telefono"
                     );
                     console.log(err);
                   });
@@ -1606,7 +1606,7 @@ class EnviarPedidosOff extends Component {
 
                             Swal.fire(
                               "Correcto!",
-                              "Se ha creado un nuevo Cliente, Direccion y Pedido",
+                              "Se ha creado un nuevo Cliente, Dirección y Pedido",
                               "success"
                             );
                             // setTimeout(function(){
@@ -1641,7 +1641,7 @@ class EnviarPedidosOff extends Component {
                       Swal.fire({
                         title: "Error!",
                         text:
-                          "Se ha producido un error al intentar crear la direccion",
+                          "Se ha producido un error al intentar crear la dirección",
                         type: "error",
                         confirmButtonText: "Aceptar",
                       });
@@ -1654,7 +1654,7 @@ class EnviarPedidosOff extends Component {
                     Swal.fire({
                       title: "Error!",
                       text:
-                        "El Servidor no ha respondido correctamente al alta de la direccion sin validar",
+                        "El Servidor no ha respondido correctamente al alta de la dirección sin validar",
                       type: "error",
                       confirmButtonText: "Aceptar",
                     });
@@ -1669,9 +1669,9 @@ class EnviarPedidosOff extends Component {
 
               await axios
                 .get(
-                  `https://roraso.herokuapp.com/Client/Client?Phone=${
-                    response.data.split('"')[3]
-                  }`,
+                  `${
+                    process.env.REACT_APP_BACKEND_SERVER
+                  }/Client/Client?Phone=${response.data.split('"')[3]}`,
                   {
                     headers: {
                       "access-token": localStorage.getItem("access-token"),
@@ -1759,7 +1759,7 @@ class EnviarPedidosOff extends Component {
 
                               Swal.fire(
                                 "Atencion!",
-                                "Se ha creado un nuevo Cliente, Direccion y Pedido Sin Validar",
+                                "Se ha creado un nuevo Cliente, Dirección y Pedido Sin Validar",
                                 "warning"
                               );
                               // setTimeout(function(){
@@ -1790,7 +1790,7 @@ class EnviarPedidosOff extends Component {
                         Swal.fire({
                           title: "Error!",
                           text:
-                            "Se ha producido un error al intentar crear la direccion",
+                            "Se ha producido un error al intentar crear la dirección",
                           type: "error",
                           confirmButtonText: "Aceptar",
                         });
@@ -1800,7 +1800,7 @@ class EnviarPedidosOff extends Component {
                     .catch((err) => {
                       Swal.fire({
                         title: "Error!",
-                        text: "Error al momento de crear una direccion",
+                        text: "Error al momento de crear una dirección",
                         type: "error",
                         confirmButtonText: "Aceptar",
                       });
@@ -1809,7 +1809,7 @@ class EnviarPedidosOff extends Component {
                 })
                 .catch((err) => {
                   console.log(
-                    "Este error da cuando busco el numero de telefono"
+                    "Este error da cuando busco el número de telefono"
                   );
                   console.log(err);
                 });

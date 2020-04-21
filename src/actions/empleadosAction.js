@@ -177,7 +177,7 @@ export const agregarEmpleado = (empleado) => async (dispatch) => {
     .catch((err) => {
       Swal.fire({
         title: "Error!",
-        text: "El numero de DNI ya existe en otro empleado",
+        text: "El número de DNI ya existe en otro empleado",
         type: "error",
         confirmButtonText: "Aceptar",
       });

@@ -85,7 +85,7 @@ class MyVerticallyCenteredModal extends Component {
         if (res.status === 200) {
           Swal.fire({
             title: "Correcto!",
-            text: "Se ha agregado una direccion",
+            text: "Se ha agregado una dirección",
             type: "success",
             confirmButtonText: "Aceptar",
           });
@@ -95,7 +95,7 @@ class MyVerticallyCenteredModal extends Component {
         } else {
           Swal.fire({
             title: "Error!",
-            text: "Se ha producido un error al intentar agregar una direccion",
+            text: "Se ha producido un error al intentar agregar una dirección",
             type: "error",
             confirmButtonText: "Aceptar",
           });
@@ -126,7 +126,7 @@ class MyVerticallyCenteredModal extends Component {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Ingresar Datos de Direccion
+            Ingresar Datos de Dirección
           </Modal.Title>
         </Modal.Header>
         <form onSubmit={this.crearDireccion} className="col-8">
@@ -134,7 +134,7 @@ class MyVerticallyCenteredModal extends Component {
             <Row className="show-grid">
               <Col xs={12} md={6}>
                 <div className="form-group">
-                  <label>Direccion</label>
+                  <label>Dirección</label>
                   <input
                     ref={this.direccionRef}
                     type="text"
@@ -661,7 +661,7 @@ class EmpleadoIndividual extends Component {
                   variant="primary"
                   onClick={() => this.setState({ modalShow: true })}
                 >
-                  Agregar Direccion
+                  Agregar Dirección
                 </Button>
               ) : (
                 <Button
@@ -670,7 +670,7 @@ class EmpleadoIndividual extends Component {
                   disabled
                   className="btn btn-success"
                 >
-                  Agregar Direccion
+                  Agregar Dirección
                 </Button>
               )}
 

@@ -34,7 +34,7 @@ const buttonStyle = {
 };
 
 let col = ["Description", "Actions"];
-let tHead = ["Descripcion", "Acciones"];
+let tHead = ["Descripción", "Acciones"];
 
 class ActionEstadoComponent extends Component {
   eliminarEstado = () => {

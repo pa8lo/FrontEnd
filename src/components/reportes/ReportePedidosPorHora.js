@@ -41,7 +41,9 @@ class ReportePedidosPorHora extends Component {
 
     const gastos = axios
       .get(
-        `https://roraso.herokuapp.com/Reports/Pedidos?min=${picker.startDate.format(
+        `${
+          process.env.REACT_APP_BACKEND_SERVER
+        }/Reports/Pedidos?min=${picker.startDate.format(
           "YYYY-MM-DD"
         )}&max=${picker.endDate.format("YYYY-MM-DD")}`,
         { headers: { "access-token": localStorage.getItem("access-token") } }

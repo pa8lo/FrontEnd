@@ -64,7 +64,7 @@ class AddressInput extends Component {
           <AddressItem label="Calle" id="street" value={this.props.street} onChange={this.handleChange} placeholder="" />
           <AddressItem label="Ciudad" id="city" value={this.props.city} onChange={this.handleChange} placeholder="" />
           <AddressItem label="Estado" id="state" value={this.props.state} onChange={this.handleChange} placeholder="" />
-          <AddressItem label="Codigo Postal" id="postalCode" value={this.props.postalCode} onChange={this.handleChange} placeholder="" />
+          <AddressItem label="Código Postal" id="postalCode" value={this.props.postalCode} onChange={this.handleChange} placeholder="" />
           {/* <AddressItem label="Country" id="country" value={this.props.country} onChange={this.handleChange} placeholder="" /> */}
           
         </div>

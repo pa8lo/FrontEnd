@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import AddressItem from './AddressItem';
+import React, { Component } from "react";
+import AddressItem from "./AddressItem";
 
 class AddressInput extends Component {
   constructor(props) {
@@ -9,8 +9,8 @@ class AddressInput extends Component {
   }
 
   state = {
-    depto : false
-  }
+    depto: false,
+  };
 
   tipoDomicilioRef = React.createRef();
   pisoRef = React.createRef();
@@ -21,38 +21,47 @@ class AddressInput extends Component {
   }
 
   handleChangeDomicilio = () => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       depto: !prevState.depto,
     }));
-  }
+  };
 
   handleChangePiso = () => {
-    this.props.piso(this.pisoRef.current.value)
-  }
+    this.props.piso(this.pisoRef.current.value);
+  };
 
   handleChangeDpto = () => {
-    this.props.depto(this.deptoRef.current.value)
-  }
+    this.props.depto(this.deptoRef.current.value);
+  };
 
   mostrarDatosDepto = () => {
-
-    if(this.state.depto){
-      return(
+    if (this.state.depto) {
+      return (
         <div>
           <div className="form-group">
-              <label>Piso</label>
-              <input onChange={this.handleChangePiso} ref={this.pisoRef} type="text" className="form-control"/>
+            <label>Piso</label>
+            <input
+              onChange={this.handleChangePiso}
+              ref={this.pisoRef}
+              type="text"
+              className="form-control"
+            />
           </div>
           <div className="form-group">
-              <label>Departamento</label>
-              <input onChange={this.handleChangeDpto} ref={this.deptoRef} type="text" className="form-control"/>
+            <label>Departamento</label>
+            <input
+              onChange={this.handleChangeDpto}
+              ref={this.deptoRef}
+              type="text"
+              className="form-control"
+            />
           </div>
         </div>
-      )
-    }else{
+      );
+    } else {
       return;
     }
-  }
+  };
 
   render() {
     return (
@@ -61,15 +70,38 @@ class AddressInput extends Component {
           {/* <input type="checkbox" name="tipo_domicilio" value={true} checked={this.state.depto} onChange={this.handleChangeDomicilio}/> <span style={{ marginBottom: '50px', textAlign:"center" }}> Seleccione si debe ingresar piso y/o departamento </span><br/> */}
           {/* {this.mostrarDatosDepto()} */}
           {/* <div><hr></hr></div> */}
-          <AddressItem label="Calle" id="street" value={this.props.street} onChange={this.handleChange} placeholder="" />
-          <AddressItem label="Ciudad" id="city" value={this.props.city} onChange={this.handleChange} placeholder="" />
-          <AddressItem label="Estado" id="state" value={this.props.state} onChange={this.handleChange} placeholder="" />
-          <AddressItem label="Codigo Postal" id="postalCode" value={this.props.postalCode} onChange={this.handleChange} placeholder="" />
+          <AddressItem
+            label="Calle"
+            id="street"
+            value={this.props.street}
+            onChange={this.handleChange}
+            placeholder=""
+          />
+          <AddressItem
+            label="Ciudad"
+            id="city"
+            value={this.props.city}
+            onChange={this.handleChange}
+            placeholder=""
+          />
+          <AddressItem
+            label="Estado"
+            id="state"
+            value={this.props.state}
+            onChange={this.handleChange}
+            placeholder=""
+          />
+          <AddressItem
+            label="Código Postal"
+            id="postalCode"
+            value={this.props.postalCode}
+            onChange={this.handleChange}
+            placeholder=""
+          />
           {/* <AddressItem label="Country" id="country" value={this.props.country} onChange={this.handleChange} placeholder="" /> */}
-          
         </div>
       </div>
-    ); 
+    );
   }
 }
 

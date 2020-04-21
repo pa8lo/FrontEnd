@@ -133,7 +133,7 @@ class AddressForm extends Component {
 
           Swal.fire({
             title: "Correcto!",
-            text: "Se ha añadido una direccion al restaurant",
+            text: "Se ha añadido una dirección al restaurant",
             type: "success",
             confirmButtonText: "Confirmar",
           });

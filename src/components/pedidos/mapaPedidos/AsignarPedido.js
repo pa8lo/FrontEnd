@@ -38,7 +38,7 @@ class AsignarPedido extends Component {
       localStorage.getItem("DireccionRestaurant") === "0;0"
     ) {
       Swal.fire({
-        title: "Debe indicar la direccion del restaurant",
+        title: "Debe indicar la dirección del restaurant",
         text: "¿Desea realizarlo ahora?",
         icon: "warning",
         showCancelButton: true,

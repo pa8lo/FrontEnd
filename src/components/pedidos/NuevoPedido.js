@@ -79,10 +79,10 @@ class MyVerticallyCenteredModal extends Component {
                       (window.location.href = `/clientes/agregar-direccion-cliente/${this.props.client}`)
                     }
                   >
-                    Nueva Direccion
+                    Nueva Dirección
                   </Button>
                 ) : (
-                  <Button disabled>Nueva Direccion</Button>
+                  <Button disabled>Nueva Dirección</Button>
                 )}
               </Col>
               <Col xs={12} md={11}>
@@ -836,7 +836,7 @@ class NuevoPedido extends Component {
     if (localStorage.getItem("status") == "online") {
       axios
         .get(
-          `https://roraso.herokuapp.com/Client/Client?Phone=${this.state.telefonoClient}`,
+          `${process.env.REACT_APP_BACKEND_SERVER}/Client/Client?Phone=${this.state.telefonoClient}`,
           { headers: { "access-token": localStorage.getItem("access-token") } }
         )
         .then((res) => {
@@ -1143,7 +1143,7 @@ class NuevoPedido extends Component {
                   <input
                     ref={this.searchClient}
                     onChange={this.handleSearchClient}
-                    placeholder="Ingrese el Numero de Telefono del Cliente"
+                    placeholder="Ingrese el Número de Telefono del Cliente"
                     type="text"
                     className="form-control"
                     required
@@ -1155,7 +1155,7 @@ class NuevoPedido extends Component {
                       className="form-group"
                     >
                       <label align="center">
-                        Coloque un numero de telefono y verifique si existe
+                        Coloque un número de telefono y verifique si existe
                         domicilio
                       </label>
                     </div>

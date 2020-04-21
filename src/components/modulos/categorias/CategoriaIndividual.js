@@ -237,7 +237,7 @@ class EmpleadoIndividual extends Component {
             variant="primary"
             onClick={() => this.setState({ modalShow: true })}
           >
-            Agregar Direccion
+            Agregar Dirección
           </Button>
 
           <Link

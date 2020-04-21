@@ -23,12 +23,12 @@ const override = css`
 const columnButtonStyle = {
   maxWidth: "100%",
   minWidth: "100%",
-  paddingTop: 3
+  paddingTop: 3,
 };
 
 const buttonStyle = {
   marginLeft: 10,
-  width: 80
+  width: 80,
 };
 
 let col = ["Order", "Delivery", "Direccion", "Validada", "Actions"];
@@ -36,7 +36,7 @@ let tHead = ["Pedido", "Delivery", "Dirección", "Validacion", "Acciones"];
 
 class ActionOrderComponent extends React.Component {
   state = {
-    address: []
+    address: [],
   };
 
   render() {
@@ -56,14 +56,14 @@ class ActionOrderComponent extends React.Component {
       return null;
     } else {
       let pedido = JSON.parse(localStorage.getItem("pedidos")).filter(
-        pedido => pedido.id === id
+        (pedido) => pedido.id === id
       );
 
       if (pedido[0].Adress == null) {
         pedido[0].Adress = {
-          Adress: "Sin Direccion",
-          Department: "Sin Direccion",
-          Floor: "Sin Direccion"
+          Adress: "Sin Dirección",
+          Department: "Sin Dirección",
+          Floor: "Sin Dirección",
         };
       }
 
@@ -80,12 +80,12 @@ class ActionOrderComponent extends React.Component {
 
       return (
         <td style={columnButtonStyle}>
-          {permisos.filter(permiso => permiso.id == 21).length > 0 ? (
+          {permisos.filter((permiso) => permiso.id == 21).length > 0 ? (
             <Link
               style={buttonStyle}
               to={{
                 pathname: `/pedidos/${id}`,
-                state: pedido[0]
+                state: pedido[0],
               }}
               className="btn btn-primary"
             >
@@ -102,12 +102,12 @@ class ActionOrderComponent extends React.Component {
             </Link>
           )}
 
-          {permisos.filter(permiso => permiso.id == 22).length > 0 ? (
+          {permisos.filter((permiso) => permiso.id == 22).length > 0 ? (
             <Link
               style={{ marginLeft: 10, width: 120 }}
               to={{
                 pathname: `/mapa/editar-pedido/${id}`,
-                state: this.props.rowData
+                state: this.props.rowData,
               }}
               className="btn btn-warning"
             >
@@ -131,7 +131,7 @@ class ActionOrderComponent extends React.Component {
 
 class OrderBox extends React.Component {
   state = {
-    loading: true
+    loading: true,
   };
 
   componentDidMount() {
@@ -178,11 +178,11 @@ class OrderBox extends React.Component {
 
           if (pedidos[i].Adress == null) {
             pedidos[i].Adress = {
-              Adress: "Sin Direccion",
+              Adress: "Sin Dirección",
               Department: "",
               Floor: "",
               Cp: "",
-              LatLong: "1;1"
+              LatLong: "1;1",
             };
 
             // console.log(pedidos[i].Adress);
@@ -200,10 +200,10 @@ class OrderBox extends React.Component {
                 pedidos[i].Adress.Department +
                 " " +
                 pedidos[i].Adress.Cp,
-              Validada: "Direccion No Validada",
+              Validada: "Dirección No Validada",
               Delivery:
                 pedidos[i].Delivery.Name + " " + pedidos[i].Delivery.LastName,
-              DeliveryId: pedidos[i].Delivery.id
+              DeliveryId: pedidos[i].Delivery.id,
             });
           } else {
             orders.push({
@@ -217,10 +217,10 @@ class OrderBox extends React.Component {
                 pedidos[i].Adress.Department +
                 " " +
                 pedidos[i].Adress.Cp,
-              Validada: "Direccion Validada",
+              Validada: "Dirección Validada",
               Delivery:
                 pedidos[i].Delivery.Name + " " + pedidos[i].Delivery.LastName,
-              DeliveryId: pedidos[i].Delivery.id
+              DeliveryId: pedidos[i].Delivery.id,
             });
           }
         } else {
@@ -233,9 +233,9 @@ class OrderBox extends React.Component {
               pedidos[i].Adress == []
             ) {
               pedidos[i].Adress = {
-                Adress: "Sin Direccion",
+                Adress: "Sin Dirección",
                 Cp: " ",
-                LatLong: "1;1"
+                LatLong: "1;1",
               };
             }
 
@@ -273,9 +273,9 @@ class OrderBox extends React.Component {
                   pedidos[i].Adress.Department +
                   " " +
                   pedidos[i].Adress.Cp,
-                Validada: "Direccion No Validada",
+                Validada: "Dirección No Validada",
                 Delivery: "Sin Asignar",
-                DeliveryId: null
+                DeliveryId: null,
               });
             } else {
               orders.push({
@@ -289,9 +289,9 @@ class OrderBox extends React.Component {
                   pedidos[i].Adress.Department +
                   " " +
                   pedidos[i].Adress.Cp,
-                Validada: "Direccion Validada",
+                Validada: "Dirección Validada",
                 Delivery: "Sin Asignar",
-                DeliveryId: null
+                DeliveryId: null,
               });
             }
           } else {
@@ -307,7 +307,7 @@ class OrderBox extends React.Component {
               Order: "Pedido " + pedidos[i].id,
               Direccion: pedidos[i].Adress.Adress + pedidos[i].Adress.Cp,
               Delivery: "Sin Asignar",
-              DeliveryId: null
+              DeliveryId: null,
             });
           }
         }
@@ -344,10 +344,10 @@ class OrderBox extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  usuario: state.usuario.usuario
+const mapStateToProps = (state) => ({
+  usuario: state.usuario.usuario,
 });
 
 export default connect(mapStateToProps, {
-  currentUser
+  currentUser,
 })(OrderBox);
