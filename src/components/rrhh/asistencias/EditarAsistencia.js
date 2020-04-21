@@ -43,7 +43,7 @@ class AsistenciaIndividual extends Component {
 
   componentWillMount() {
     axios
-      .get(`${process.env.REACT_APP_SERVER}/User/Users`, {
+      .get(`${process.env.REACT_APP_BACKEND_SERVER}/User/Users`, {
         headers: { "access-token": localStorage.getItem("access-token") },
       })
       .then((res) => {

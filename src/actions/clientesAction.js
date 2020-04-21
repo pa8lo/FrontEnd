@@ -13,7 +13,7 @@ import Swal from "sweetalert2";
 
 export const mostrarClientes = () => async (dispatch) => {
   const clientes = await axios
-    .get(`${process.env.REACT_APP_SERVER}/Client/Clients`, {
+    .get(`${process.env.REACT_APP_BACKEND_SERVER}/Client/Clients`, {
       headers: { "access-token": localStorage.getItem("access-token") },
     })
     .then((res) => {
@@ -63,7 +63,7 @@ export const mostrarClientes = () => async (dispatch) => {
 
 export const mostrarCliente = (telefono) => async (dispatch) => {
   const cliente = await axios.get(
-    `${process.env.REACT_APP_SERVER}/Client/Client?Phone=${telefono}`,
+    `${process.env.REACT_APP_BACKEND_SERVER}/Client/Client?Phone=${telefono}`,
     { headers: { "access-token": localStorage.getItem("access-token") } }
   );
 
@@ -85,7 +85,7 @@ export const agregarCliente = (cliente) => async (dispatch) => {
   };
 
   await axios
-    .post(`${process.env.REACT_APP_SERVER}/Client/CreateClient`, data, {
+    .post(`${process.env.REACT_APP_BACKEND_SERVER}/Client/CreateClient`, data, {
       headers: { "access-token": localStorage.getItem("access-token") },
     })
     .then((res) => {
@@ -154,7 +154,7 @@ export const agregarDireccionCliente = (direccion) => async (dispatch) => {
   // console.log(data)
 
   await axios
-    .post(`${process.env.REACT_APP_SERVER}/Client/AddAddress`, data, {
+    .post(`${process.env.REACT_APP_BACKEND_SERVER}/Client/AddAddress`, data, {
       headers: { "access-token": localStorage.getItem("access-token") },
     })
     .then((res) => {
@@ -197,7 +197,7 @@ export const agregarDireccionCliente = (direccion) => async (dispatch) => {
 export const eliminarCliente = (id) => async (dispatch) => {
   await axios
     .patch(
-      `${process.env.REACT_APP_SERVER}/Client/DeleteClient`,
+      `${process.env.REACT_APP_BACKEND_SERVER}/Client/DeleteClient`,
       { id: id },
       { headers: { "access-token": localStorage.getItem("access-token") } }
     )
@@ -251,7 +251,7 @@ export const editarCliente = (cliente) => async (dispatch) => {
   };
 
   await axios
-    .post(`${process.env.REACT_APP_SERVER}/Client/UpdateUser`, data, {
+    .post(`${process.env.REACT_APP_BACKEND_SERVER}/Client/UpdateUser`, data, {
       headers: { "access-token": localStorage.getItem("access-token") },
     })
     .then((res) => {

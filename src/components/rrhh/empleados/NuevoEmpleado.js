@@ -38,7 +38,7 @@ class NuevoEmpleado extends Component {
     var accessToken = localStorage.getItem("access-token");
 
     axios
-      .get(`${process.env.REACT_APP_SERVER}/Rol/rols`, {
+      .get(`${process.env.REACT_APP_BACKEND_SERVER}/Rol/rols`, {
         headers: { "access-token": accessToken },
       })
       .then((res) => {

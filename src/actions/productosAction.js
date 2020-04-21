@@ -12,7 +12,7 @@ import Swal from "sweetalert2";
 
 export const mostrarProductos = () => async (dispatch) => {
   const productos = await axios
-    .get(`${process.env.REACT_APP_SERVER}/Product/Products`, {
+    .get(`${process.env.REACT_APP_BACKEND_SERVER}/Product/Products`, {
       headers: { "access-token": localStorage.getItem("access-token") },
     })
     .then((res) => {
@@ -73,7 +73,7 @@ export const mostrarProductos = () => async (dispatch) => {
 
 export const mostrarProducto = (id) => async (dispatch) => {
   const producto = await axios.get(
-    `${process.env.REACT_APP_SERVER}/Category/Category?id=${id}`,
+    `${process.env.REACT_APP_BACKEND_SERVER}/Category/Category?id=${id}`,
     { headers: { "access-token": localStorage.getItem("access-token") } }
   );
 
@@ -97,9 +97,13 @@ export const agregarProducto = (producto) => async (dispatch) => {
   };
 
   await axios
-    .post(`${process.env.REACT_APP_SERVER}/Product/CreateProduct`, data, {
-      headers: { "access-token": localStorage.getItem("access-token") },
-    })
+    .post(
+      `${process.env.REACT_APP_BACKEND_SERVER}/Product/CreateProduct`,
+      data,
+      {
+        headers: { "access-token": localStorage.getItem("access-token") },
+      }
+    )
     .then((res) => {
       if (res.status === 200) {
         Swal.fire({
@@ -141,7 +145,7 @@ export const agregarProducto = (producto) => async (dispatch) => {
 export const eliminarProducto = (id) => async (dispatch) => {
   await axios
     .post(
-      `${process.env.REACT_APP_SERVER}/Product/DeleteProduct`,
+      `${process.env.REACT_APP_BACKEND_SERVER}/Product/DeleteProduct`,
       { id: id },
       { headers: { "access-token": localStorage.getItem("access-token") } }
     )
@@ -196,9 +200,13 @@ export const editarProducto = (producto) => async (dispatch) => {
   };
 
   await axios
-    .post(`${process.env.REACT_APP_SERVER}/Product/UpdateProduct`, data, {
-      headers: { "access-token": localStorage.getItem("access-token") },
-    })
+    .post(
+      `${process.env.REACT_APP_BACKEND_SERVER}/Product/UpdateProduct`,
+      data,
+      {
+        headers: { "access-token": localStorage.getItem("access-token") },
+      }
+    )
     .then((res) => {
       if (res.status === 200) {
         Swal.fire({

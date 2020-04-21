@@ -58,7 +58,7 @@ class MyVerticallyCenteredModal extends Component {
       if (result.value) {
         axios
           .post(
-            `${process.env.REACT_APP_SERVER}/Asisstance/Delete`,
+            `${process.env.REACT_APP_BACKEND_SERVER}/Asisstance/Delete`,
             { id: id },
             {
               headers: { "access-token": localStorage.getItem("access-token") },

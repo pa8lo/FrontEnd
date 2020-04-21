@@ -78,7 +78,7 @@ class MyVerticallyCenteredModal extends Component {
     // console.log(data);
 
     axios
-      .post(`${process.env.REACT_APP_SERVER}/User/AddAddress`, data, {
+      .post(`${process.env.REACT_APP_BACKEND_SERVER}/User/AddAddress`, data, {
         headers: { "access-token": localStorage.getItem("access-token") },
       })
       .then((res) => {
@@ -233,7 +233,7 @@ class EmpleadoIndividual extends Component {
       if (result.value) {
         axios
           .post(
-            `${process.env.REACT_APP_SERVER}/Client/DeleteAddress`,
+            `${process.env.REACT_APP_BACKEND_SERVER}/Client/DeleteAddress`,
             { id: id },
             {
               headers: { "access-token": localStorage.getItem("access-token") },
@@ -278,7 +278,7 @@ class EmpleadoIndividual extends Component {
     var accessToken = localStorage.getItem("access-token");
 
     axios
-      .get(`${process.env.REACT_APP_SERVER}/Rol/rols`, {
+      .get(`${process.env.REACT_APP_BACKEND_SERVER}/Rol/rols`, {
         headers: { "access-token": accessToken },
       })
       .then((res) => {

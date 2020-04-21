@@ -12,7 +12,7 @@ import Swal from "sweetalert2";
 
 export const mostrarTurnos = () => async (dispatch) => {
   const turnos = await axios
-    .get(`${process.env.REACT_APP_SERVER}/Turn/Turns`, {
+    .get(`${process.env.REACT_APP_BACKEND_SERVER}/Turn/Turns`, {
       headers: { "access-token": localStorage.getItem("access-token") },
     })
     .then((res) => {
@@ -63,7 +63,7 @@ export const mostrarTurnos = () => async (dispatch) => {
 export const eliminarTurno = (id) => async (dispatch) => {
   await axios
     .post(
-      `${process.env.REACT_APP_SERVER}/Turn/DeleteTurn`,
+      `${process.env.REACT_APP_BACKEND_SERVER}/Turn/DeleteTurn`,
       { id: id },
       { headers: { "access-token": localStorage.getItem("access-token") } }
     )
@@ -119,7 +119,7 @@ export const agregarTurno = (turno) => async (dispatch) => {
   };
 
   await axios
-    .post(`${process.env.REACT_APP_SERVER}/Turn/createTurn`, data, {
+    .post(`${process.env.REACT_APP_BACKEND_SERVER}/Turn/createTurn`, data, {
       headers: { "access-token": localStorage.getItem("access-token") },
     })
     .then((res) => {

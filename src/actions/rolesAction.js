@@ -12,7 +12,7 @@ import Swal from "sweetalert2";
 
 export const mostrarRoles = () => async (dispatch) => {
   const roles = await axios
-    .get(`${process.env.REACT_APP_SERVER}/Rol/rols`, {
+    .get(`${process.env.REACT_APP_BACKEND_SERVER}/Rol/rols`, {
       headers: { "access-token": localStorage.getItem("access-token") },
     })
     .then((res) => {
@@ -62,7 +62,7 @@ export const mostrarRoles = () => async (dispatch) => {
 
 export const mostrarRol = (id) => async (dispatch) => {
   const rol = await axios.get(
-    `${process.env.REACT_APP_SERVER}/Rol/rol?id=${id}`,
+    `${process.env.REACT_APP_BACKEND_SERVER}/Rol/rol?id=${id}`,
     {
       headers: { "access-token": localStorage.getItem("access-token") },
     }
@@ -90,7 +90,7 @@ export const editarRol = (rol) => async (dispatch) => {
   // console.log(data);
 
   await axios
-    .post(`${process.env.REACT_APP_SERVER}/Rol/UpdateRol`, data, {
+    .post(`${process.env.REACT_APP_BACKEND_SERVER}/Rol/UpdateRol`, data, {
       headers: { "access-token": localStorage.getItem("access-token") },
     })
     .then((res) => {
@@ -133,7 +133,7 @@ export const editarRol = (rol) => async (dispatch) => {
 export const eliminarRol = (id) => async (dispatch) => {
   await axios
     .post(
-      `${process.env.REACT_APP_SERVER}/Rol/DeleteRol`,
+      `${process.env.REACT_APP_BACKEND_SERVER}/Rol/DeleteRol`,
       { id: id },
       { headers: { "access-token": localStorage.getItem("access-token") } }
     )
@@ -184,7 +184,7 @@ export const agregarRol = (rol) => async (dispatch) => {
   };
 
   await axios
-    .post(`${process.env.REACT_APP_SERVER}/Rol/CreateRol`, data, {
+    .post(`${process.env.REACT_APP_BACKEND_SERVER}/Rol/CreateRol`, data, {
       headers: { "access-token": localStorage.getItem("access-token") },
     })
     .then((res) => {

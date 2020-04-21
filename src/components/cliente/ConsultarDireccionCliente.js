@@ -39,7 +39,7 @@ class ConsultarDireccionCliente extends Component {
       if (result.value) {
         axios
           .post(
-            `${process.env.REACT_APP_SERVER}/Client/DeleteAddress`,
+            `${process.env.REACT_APP_BACKEND_SERVER}/Client/DeleteAddress`,
             { id: id },
             {
               headers: { "access-token": localStorage.getItem("access-token") },

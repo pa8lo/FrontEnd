@@ -42,9 +42,13 @@ class CambioDeClave extends Component {
 
         var accessToken = localStorage.getItem("access-token");
         axios
-          .post(`${process.env.REACT_APP_SERVER}/User/ChangePassword`, data, {
-            headers: { "access-token": accessToken },
-          })
+          .post(
+            `${process.env.REACT_APP_BACKEND_SERVER}/User/ChangePassword`,
+            data,
+            {
+              headers: { "access-token": accessToken },
+            }
+          )
           .then((res) => {
             if (res.status === 200) {
               Swal.fire(

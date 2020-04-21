@@ -12,7 +12,7 @@ import Swal from "sweetalert2";
 
 export const mostrarAsistencias = () => async (dispatch) => {
   const asistencias = await axios
-    .get(`${process.env.REACT_APP_SERVER}/Asisstance/Asisstances`, {
+    .get(`${process.env.REACT_APP_BACKEND_SERVER}/Asisstance/Asisstances`, {
       headers: { "access-token": localStorage.getItem("access-token") },
     })
     .then((res) => {
@@ -74,7 +74,7 @@ export const agregarAsistencia = (asistencia) => async (dispatch) => {
   // console.log(data)
 
   await axios
-    .post(`${process.env.REACT_APP_SERVER}/Asisstance/Create`, data, {
+    .post(`${process.env.REACT_APP_BACKEND_SERVER}/Asisstance/Create`, data, {
       headers: { "access-token": localStorage.getItem("access-token") },
     })
     .then((res) => {
@@ -128,7 +128,7 @@ export const editarAsistencia = (asistencia) => async (dispatch) => {
   // console.log(data)
 
   await axios
-    .post(`${process.env.REACT_APP_SERVER}/Asisstance/Update`, data, {
+    .post(`${process.env.REACT_APP_BACKEND_SERVER}/Asisstance/Update`, data, {
       headers: { "access-token": localStorage.getItem("access-token") },
     })
     .then((res) => {
@@ -171,7 +171,7 @@ export const editarAsistencia = (asistencia) => async (dispatch) => {
 export const eliminarAsistencia = (id) => async (dispatch) => {
   await axios
     .post(
-      `${process.env.REACT_APP_SERVER}/Asisstance/Delete`,
+      `${process.env.REACT_APP_BACKEND_SERVER}/Asisstance/Delete`,
       { id: id },
       { headers: { "access-token": localStorage.getItem("access-token") } }
     )

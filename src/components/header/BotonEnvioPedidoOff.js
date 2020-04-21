@@ -55,9 +55,13 @@ class EnviarPedidosOff extends Component {
       };
 
       await axios
-        .post(`${process.env.REACT_APP_SERVER}/Pedido/ChangeState`, data, {
-          headers: { "access-token": localStorage.getItem("access-token") },
-        })
+        .post(
+          `${process.env.REACT_APP_BACKEND_SERVER}/Pedido/ChangeState`,
+          data,
+          {
+            headers: { "access-token": localStorage.getItem("access-token") },
+          }
+        )
         .then((res) => {
           if (res.status === 200) {
             Swal.fire({
@@ -120,7 +124,7 @@ class EnviarPedidosOff extends Component {
       // console.log(data);
 
       await axios
-        .post(`${process.env.REACT_APP_SERVER}/Pedido/Create`, data, {
+        .post(`${process.env.REACT_APP_BACKEND_SERVER}/Pedido/Create`, data, {
           headers: { "access-token": localStorage.getItem("access-token") },
         })
         .then((res) => {
@@ -251,7 +255,7 @@ class EnviarPedidosOff extends Component {
                 if (self.state.lat === null || self.state.lon === null) {
                   return await axios
                     .post(
-                      `${process.env.REACT_APP_SERVER}/Client/AddAddress`,
+                      `${process.env.REACT_APP_BACKEND_SERVER}/Client/AddAddress`,
                       (data_dire_semi = {
                         Address: {
                           Adress: JSON.parse(
@@ -286,7 +290,7 @@ class EnviarPedidosOff extends Component {
 
                         await axios
                           .post(
-                            `${process.env.REACT_APP_SERVER}/Pedido/Create`,
+                            `${process.env.REACT_APP_BACKEND_SERVER}/Pedido/Create`,
                             (data_pedido_semi = {
                               Date: JSON.parse(
                                 localStorage.getItem("pedidoSemiCompleto")
@@ -384,7 +388,7 @@ class EnviarPedidosOff extends Component {
 
                   return await axios
                     .post(
-                      `${process.env.REACT_APP_SERVER}/Client/AddAddress`,
+                      `${process.env.REACT_APP_BACKEND_SERVER}/Client/AddAddress`,
                       (data_dire_semi = {
                         Address: {
                           Adress: JSON.parse(
@@ -420,7 +424,7 @@ class EnviarPedidosOff extends Component {
 
                         await axios
                           .post(
-                            `${process.env.REACT_APP_SERVER}/Pedido/Create`,
+                            `${process.env.REACT_APP_BACKEND_SERVER}/Pedido/Create`,
                             (data_pedido_semi = {
                               Date: JSON.parse(
                                 localStorage.getItem("pedidoSemiCompleto")
@@ -517,7 +521,7 @@ class EnviarPedidosOff extends Component {
               .catch(async function (error) {
                 await axios
                   .post(
-                    `${process.env.REACT_APP_SERVER}/Client/AddAddress`,
+                    `${process.env.REACT_APP_BACKEND_SERVER}/Client/AddAddress`,
                     (data_dire_semi = {
                       Address: {
                         Adress: JSON.parse(
@@ -552,7 +556,7 @@ class EnviarPedidosOff extends Component {
 
                       await axios
                         .post(
-                          `${process.env.REACT_APP_SERVER}/Pedido/Create`,
+                          `${process.env.REACT_APP_BACKEND_SERVER}/Pedido/Create`,
                           (data_pedido_semi = {
                             Date: JSON.parse(
                               localStorage.getItem("pedidoSemiCompleto")
@@ -661,7 +665,7 @@ class EnviarPedidosOff extends Component {
         .catch(async function (error) {
           await axios
             .post(
-              `${process.env.REACT_APP_SERVER}/Client/AddAddress`,
+              `${process.env.REACT_APP_BACKEND_SERVER}/Client/AddAddress`,
               (data_dire_semi = {
                 Address: {
                   Adress: JSON.parse(
@@ -695,7 +699,7 @@ class EnviarPedidosOff extends Component {
 
                 await axios
                   .post(
-                    `${process.env.REACT_APP_SERVER}/Pedido/Create`,
+                    `${process.env.REACT_APP_BACKEND_SERVER}/Pedido/Create`,
                     (data_pedido_semi = {
                       Date: JSON.parse(
                         localStorage.getItem("pedidoSemiCompleto")
@@ -869,7 +873,7 @@ class EnviarPedidosOff extends Component {
 
                 await axios
                   .post(
-                    `${process.env.REACT_APP_SERVER}/Client/CreateClient`,
+                    `${process.env.REACT_APP_BACKEND_SERVER}/Client/CreateClient`,
                     JSON.parse(localStorage.getItem("pedidoCompleto"))[0]
                       .datos_cliente,
                     {
@@ -886,7 +890,7 @@ class EnviarPedidosOff extends Component {
 
                       await axios
                         .post(
-                          `${process.env.REACT_APP_SERVER}/Client/AddAddress`,
+                          `${process.env.REACT_APP_BACKEND_SERVER}/Client/AddAddress`,
                           (data_dire = {
                             Address: {
                               Adress: JSON.parse(
@@ -922,7 +926,7 @@ class EnviarPedidosOff extends Component {
 
                             await axios
                               .post(
-                                `${process.env.REACT_APP_SERVER}/Pedido/Create`,
+                                `${process.env.REACT_APP_BACKEND_SERVER}/Pedido/Create`,
                                 (data_pedido = {
                                   Date: JSON.parse(
                                     localStorage.getItem("pedidoCompleto")
@@ -1044,7 +1048,7 @@ class EnviarPedidosOff extends Component {
                       .then(async (res) => {
                         await axios
                           .post(
-                            `${process.env.REACT_APP_SERVER}/Client/AddAddress`,
+                            `${process.env.REACT_APP_BACKEND_SERVER}/Client/AddAddress`,
                             (data_dire = {
                               Address: {
                                 Adress: JSON.parse(
@@ -1080,7 +1084,7 @@ class EnviarPedidosOff extends Component {
 
                               await axios
                                 .post(
-                                  `${process.env.REACT_APP_SERVER}/Pedido/Create`,
+                                  `${process.env.REACT_APP_BACKEND_SERVER}/Pedido/Create`,
                                   (data_pedido = {
                                     Date: JSON.parse(
                                       localStorage.getItem("pedidoCompleto")
@@ -1193,7 +1197,7 @@ class EnviarPedidosOff extends Component {
 
             await axios
               .post(
-                `${process.env.REACT_APP_SERVER}/Client/CreateClient`,
+                `${process.env.REACT_APP_BACKEND_SERVER}/Client/CreateClient`,
                 JSON.parse(localStorage.getItem("pedidoCompleto"))[0]
                   .datos_cliente,
                 {
@@ -1210,7 +1214,7 @@ class EnviarPedidosOff extends Component {
 
                   await axios
                     .post(
-                      `${process.env.REACT_APP_SERVER}/Client/AddAddress`,
+                      `${process.env.REACT_APP_BACKEND_SERVER}/Client/AddAddress`,
                       (data_dire = {
                         Address: {
                           Adress: JSON.parse(
@@ -1244,7 +1248,7 @@ class EnviarPedidosOff extends Component {
 
                         await axios
                           .post(
-                            `${process.env.REACT_APP_SERVER}/Pedido/Create`,
+                            `${process.env.REACT_APP_BACKEND_SERVER}/Pedido/Create`,
                             (data_pedido = {
                               Date: JSON.parse(
                                 localStorage.getItem("pedidoCompleto")
@@ -1364,7 +1368,7 @@ class EnviarPedidosOff extends Component {
                   .then(async (res) => {
                     await axios
                       .post(
-                        `${process.env.REACT_APP_SERVER}/Client/AddAddress`,
+                        `${process.env.REACT_APP_BACKEND_SERVER}/Client/AddAddress`,
                         (data_dire = {
                           Address: {
                             Adress: JSON.parse(
@@ -1399,7 +1403,7 @@ class EnviarPedidosOff extends Component {
 
                           await axios
                             .post(
-                              `${process.env.REACT_APP_SERVER}/Pedido/Create`,
+                              `${process.env.REACT_APP_BACKEND_SERVER}/Pedido/Create`,
                               (data_pedido = {
                                 Date: JSON.parse(
                                   localStorage.getItem("pedidoCompleto")
@@ -1506,7 +1510,7 @@ class EnviarPedidosOff extends Component {
 
           await axios
             .post(
-              `${process.env.REACT_APP_SERVER}/Client/CreateClient`,
+              `${process.env.REACT_APP_BACKEND_SERVER}/Client/CreateClient`,
               JSON.parse(localStorage.getItem("pedidoCompleto"))[0]
                 .datos_cliente,
               {
@@ -1523,7 +1527,7 @@ class EnviarPedidosOff extends Component {
 
                 await axios
                   .post(
-                    `${process.env.REACT_APP_SERVER}/Client/AddAddress`,
+                    `${process.env.REACT_APP_BACKEND_SERVER}/Client/AddAddress`,
                     (data_dire = {
                       Address: {
                         Adress: JSON.parse(
@@ -1557,7 +1561,7 @@ class EnviarPedidosOff extends Component {
 
                       await axios
                         .post(
-                          `${process.env.REACT_APP_SERVER}/Pedido/Create`,
+                          `${process.env.REACT_APP_BACKEND_SERVER}/Pedido/Create`,
                           (data_pedido = {
                             Date: JSON.parse(
                               localStorage.getItem("pedidoCompleto")
@@ -1677,7 +1681,7 @@ class EnviarPedidosOff extends Component {
                 .then(async (res) => {
                   await axios
                     .post(
-                      `${process.env.REACT_APP_SERVER}/Client/AddAddress`,
+                      `${process.env.REACT_APP_BACKEND_SERVER}/Client/AddAddress`,
                       (data_dire = {
                         Address: {
                           Adress: JSON.parse(
@@ -1710,7 +1714,7 @@ class EnviarPedidosOff extends Component {
 
                         await axios
                           .post(
-                            `${process.env.REACT_APP_SERVER}/Pedido/Create`,
+                            `${process.env.REACT_APP_BACKEND_SERVER}/Pedido/Create`,
                             (data_pedido = {
                               Date: JSON.parse(
                                 localStorage.getItem("pedidoCompleto")

@@ -12,7 +12,7 @@ import Swal from "sweetalert2";
 
 export const mostrarPedidos = () => async (dispatch) => {
   const pedidos = await axios
-    .get(`${process.env.REACT_APP_SERVER}/Pedido/Pedidos`, {
+    .get(`${process.env.REACT_APP_BACKEND_SERVER}/Pedido/Pedidos`, {
       headers: { "access-token": localStorage.getItem("access-token") },
     })
     .then((res) => {
@@ -76,7 +76,7 @@ export const mostrarPedidos = () => async (dispatch) => {
 export const eliminarPedido = (id) => async (dispatch) => {
   await axios
     .post(
-      `${process.env.REACT_APP_SERVER}/Pedido/Delete`,
+      `${process.env.REACT_APP_BACKEND_SERVER}/Pedido/Delete`,
       { id: id },
       { headers: { "access-token": localStorage.getItem("access-token") } }
     )
@@ -154,7 +154,7 @@ export const agregarPedido = (pedido) => async (dispatch) => {
   // console.log(data)
 
   await axios
-    .post(`${process.env.REACT_APP_SERVER}/Pedido/Create`, data, {
+    .post(`${process.env.REACT_APP_BACKEND_SERVER}/Pedido/Create`, data, {
       headers: { "access-token": localStorage.getItem("access-token") },
     })
     .then((res) => {
@@ -234,7 +234,7 @@ export const asignarDelivery = (line) => async (dispatch) => {
   };
   //console.log(data);
   await axios
-    .post(`${process.env.REACT_APP_SERVER}/Pedido/Asignar`, data, {
+    .post(`${process.env.REACT_APP_BACKEND_SERVER}/Pedido/Asignar`, data, {
       headers: {
         "access-token": localStorage.getItem("access-token"),
       },
@@ -306,7 +306,7 @@ export const editarPedido = (pedido) => async (dispatch) => {
   //console.log(data)
 
   await axios
-    .post(`${process.env.REACT_APP_SERVER}/Pedido/Update`, data, {
+    .post(`${process.env.REACT_APP_BACKEND_SERVER}/Pedido/Update`, data, {
       headers: { "access-token": localStorage.getItem("access-token") },
     })
     .then((res) => {

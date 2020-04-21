@@ -11,7 +11,7 @@ import Swal from "sweetalert2";
 
 export const mostrarCombos = () => async (dispatch) => {
   const combos = await axios
-    .get(`${process.env.REACT_APP_SERVER}/Offerts/Offerts`, {
+    .get(`${process.env.REACT_APP_BACKEND_SERVER}/Offerts/Offerts`, {
       headers: { "access-token": localStorage.getItem("access-token") },
     })
     .then((res) => {
@@ -83,7 +83,7 @@ export const agregarCombo = (combo) => async (dispatch) => {
   // console.log(data);
 
   await axios
-    .post(`${process.env.REACT_APP_SERVER}/Offerts/Create`, data, {
+    .post(`${process.env.REACT_APP_BACKEND_SERVER}/Offerts/Create`, data, {
       headers: { "access-token": localStorage.getItem("access-token") },
     })
     .then((res) => {
@@ -139,7 +139,7 @@ export const editarCombo = (combo) => async (dispatch) => {
   //console.log(data)
 
   await axios
-    .post(`${process.env.REACT_APP_SERVER}/Offerts/Update`, data, {
+    .post(`${process.env.REACT_APP_BACKEND_SERVER}/Offerts/Update`, data, {
       headers: { "access-token": localStorage.getItem("access-token") },
     })
     .then((res) => {
@@ -206,7 +206,7 @@ export const editarCombo = (combo) => async (dispatch) => {
 export const eliminarCombo = (id) => async (dispatch) => {
   await axios
     .post(
-      `${process.env.REACT_APP_SERVER}/Offerts/Delete`,
+      `${process.env.REACT_APP_BACKEND_SERVER}/Offerts/Delete`,
       { id: id },
       { headers: { "access-token": localStorage.getItem("access-token") } }
     )

@@ -11,7 +11,7 @@ import Swal from "sweetalert2";
 
 export const mostrarEstados = () => async (dispatch) => {
   const estados = await axios
-    .get(`${process.env.REACT_APP_SERVER}/Estado/Estados`, {
+    .get(`${process.env.REACT_APP_BACKEND_SERVER}/Estado/Estados`, {
       headers: { "access-token": localStorage.getItem("access-token") },
     })
     .then((res) => {
@@ -67,7 +67,7 @@ export const agregarEstado = (estado) => async (dispatch) => {
   };
 
   await axios
-    .post(`${process.env.REACT_APP_SERVER}/Estado/Create`, data, {
+    .post(`${process.env.REACT_APP_BACKEND_SERVER}/Estado/Create`, data, {
       headers: { "access-token": localStorage.getItem("access-token") },
     })
     .then((res) => {
@@ -124,7 +124,7 @@ export const editarEstado = (estado) => async (dispatch) => {
   };
 
   await axios
-    .post(`${process.env.REACT_APP_SERVER}/Estado/Update`, data, {
+    .post(`${process.env.REACT_APP_BACKEND_SERVER}/Estado/Update`, data, {
       headers: { "access-token": localStorage.getItem("access-token") },
     })
     .then((res) => {
@@ -176,7 +176,7 @@ export const editarEstadoPedido = (pedido) => async (dispatch) => {
     },
   };
   await axios
-    .post(`${process.env.REACT_APP_SERVER}/Pedido/ChangeState`, data, {
+    .post(`${process.env.REACT_APP_BACKEND_SERVER}/Pedido/ChangeState`, data, {
       headers: { "access-token": localStorage.getItem("access-token") },
     })
     .then((res) => {
@@ -214,7 +214,7 @@ export const editarEstadoPedido = (pedido) => async (dispatch) => {
 export const eliminarEstado = (id) => async (dispatch) => {
   await axios
     .post(
-      `${process.env.REACT_APP_SERVER}/Estado/Delete`,
+      `${process.env.REACT_APP_BACKEND_SERVER}/Estado/Delete`,
       { id: id },
       { headers: { "access-token": localStorage.getItem("access-token") } }
     )

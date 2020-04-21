@@ -41,7 +41,7 @@ class Header extends React.Component {
     window.setInterval(function () {
       // console.log("Intervalo de 7 Seg")
       axios
-        .get(`${process.env.REACT_APP_SERVER}/User/CurrentUser`, {
+        .get(`${process.env.REACT_APP_BACKEND_SERVER}/User/CurrentUser`, {
           headers: { "access-token": localStorage.getItem("access-token") },
         })
         .then((res) => {
@@ -131,7 +131,7 @@ class Header extends React.Component {
     }
 
     axios
-      .get(`${process.env.REACT_APP_SERVER}/User/CurrentUser`, {
+      .get(`${process.env.REACT_APP_BACKEND_SERVER}/User/CurrentUser`, {
         headers: { "access-token": localStorage.getItem("access-token") },
       })
       .then((res) => {
@@ -189,7 +189,7 @@ class Header extends React.Component {
     let direccion_local;
 
     await axios
-      .get(`${process.env.REACT_APP_SERVER}/Local`, {
+      .get(`${process.env.REACT_APP_BACKEND_SERVER}/Local`, {
         headers: { "access-token": localStorage.getItem("access-token") },
       })
       .then((res) => {
@@ -212,7 +212,7 @@ class Header extends React.Component {
     ) {
       await axios
         .put(
-          `${process.env.REACT_APP_SERVER}/Local`,
+          `${process.env.REACT_APP_BACKEND_SERVER}/Local`,
           (this.data = {
             Local: {
               Adress: "default address",
@@ -247,7 +247,7 @@ class Header extends React.Component {
     let categories = [];
 
     await axios
-      .get(`${process.env.REACT_APP_SERVER}/Category/Categories`, {
+      .get(`${process.env.REACT_APP_BACKEND_SERVER}/Category/Categories`, {
         headers: { "access-token": localStorage.getItem("access-token") },
       })
       .then((res) => {
@@ -272,7 +272,7 @@ class Header extends React.Component {
     let products = [];
 
     await axios
-      .get(`${process.env.REACT_APP_SERVER}/Product/Products`, {
+      .get(`${process.env.REACT_APP_BACKEND_SERVER}/Product/Products`, {
         headers: { "access-token": localStorage.getItem("access-token") },
       })
       .then((res) => {
@@ -291,7 +291,7 @@ class Header extends React.Component {
     let combos = [];
 
     await axios
-      .get(`${process.env.REACT_APP_SERVER}/Offerts/Offerts`, {
+      .get(`${process.env.REACT_APP_BACKEND_SERVER}/Offerts/Offerts`, {
         headers: { "access-token": localStorage.getItem("access-token") },
       })
       .then((res) => {
@@ -319,7 +319,7 @@ class Header extends React.Component {
     }
 
     await axios
-      .get(`${process.env.REACT_APP_SERVER}/Pedido/Pedidos`, {
+      .get(`${process.env.REACT_APP_BACKEND_SERVER}/Pedido/Pedidos`, {
         headers: { "access-token": localStorage.getItem("access-token") },
       })
       .then((res) => {
@@ -368,7 +368,7 @@ class Header extends React.Component {
     let clients = [];
 
     await axios
-      .get(`${process.env.REACT_APP_SERVER}/Client/Clients`, {
+      .get(`${process.env.REACT_APP_BACKEND_SERVER}/Client/Clients`, {
         headers: { "access-token": localStorage.getItem("access-token") },
       })
       .then((res) => {
@@ -389,7 +389,7 @@ class Header extends React.Component {
     let states = [];
 
     await axios
-      .get(`${process.env.REACT_APP_SERVER}/Estado/Estados`, {
+      .get(`${process.env.REACT_APP_BACKEND_SERVER}/Estado/Estados`, {
         headers: { "access-token": localStorage.getItem("access-token") },
       })
       .then((res) => {

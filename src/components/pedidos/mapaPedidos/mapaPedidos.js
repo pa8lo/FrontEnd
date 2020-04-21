@@ -30,7 +30,7 @@ class MapaPedidos extends Component {
 
   componentDidMount() {
     axios
-      .get(`${process.env.REACT_APP_SERVER}/Local`, {
+      .get(`${process.env.REACT_APP_BACKEND_SERVER}/Local`, {
         headers: { "access-token": localStorage.getItem("access-token") },
       })
       .then((res) => {

@@ -12,7 +12,7 @@ import Swal from "sweetalert2";
 
 export const mostrarGastos = () => async (dispatch) => {
   const gastos = await axios
-    .get(`${process.env.REACT_APP_SERVER}/Gasto/Expenses`, {
+    .get(`${process.env.REACT_APP_BACKEND_SERVER}/Gasto/Expenses`, {
       headers: { "access-token": localStorage.getItem("access-token") },
     })
     .then((res) => {
@@ -71,7 +71,7 @@ export const agregarGasto = (gasto) => async (dispatch) => {
   };
 
   await axios
-    .post(`${process.env.REACT_APP_SERVER}/Gasto/Create`, data, {
+    .post(`${process.env.REACT_APP_BACKEND_SERVER}/Gasto/Create`, data, {
       headers: { "access-token": localStorage.getItem("access-token") },
     })
     .then((res) => {
@@ -125,7 +125,7 @@ export const editarGasto = (gasto) => async (dispatch) => {
   };
 
   await axios
-    .post(`${process.env.REACT_APP_SERVER}/Gasto/Update`, data, {
+    .post(`${process.env.REACT_APP_BACKEND_SERVER}/Gasto/Update`, data, {
       headers: { "access-token": localStorage.getItem("access-token") },
     })
     .then((res) => {
@@ -168,7 +168,7 @@ export const editarGasto = (gasto) => async (dispatch) => {
 export const eliminarGasto = (id) => async (dispatch) => {
   await axios
     .post(
-      `${process.env.REACT_APP_SERVER}/Gasto/Delete`,
+      `${process.env.REACT_APP_BACKEND_SERVER}/Gasto/Delete`,
       { id: id },
       { headers: { "access-token": localStorage.getItem("access-token") } }
     )

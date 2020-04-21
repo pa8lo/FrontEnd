@@ -18,7 +18,7 @@ import Swal from "sweetalert2";
 
 export const mostrarEmpleados = () => async (dispatch) => {
   const user = await axios
-    .get(`${process.env.REACT_APP_SERVER}/User/users`, {
+    .get(`${process.env.REACT_APP_BACKEND_SERVER}/User/users`, {
       headers: { "access-token": localStorage.getItem("access-token") },
     })
     .then((res) => {
@@ -68,7 +68,7 @@ export const mostrarEmpleados = () => async (dispatch) => {
 
 export const mostrarEmpleado = (id) => async (dispatch) => {
   const user = await axios.get(
-    `${process.env.REACT_APP_SERVER}/User/user?id=${id}`,
+    `${process.env.REACT_APP_BACKEND_SERVER}/User/user?id=${id}`,
     { headers: { "access-token": localStorage.getItem("access-token") } }
   );
 
@@ -81,7 +81,7 @@ export const mostrarEmpleado = (id) => async (dispatch) => {
 export const eliminarEmpleado = (id) => async (dispatch) => {
   await axios
     .patch(
-      `${process.env.REACT_APP_SERVER}/User/DeleteUser`,
+      `${process.env.REACT_APP_BACKEND_SERVER}/User/DeleteUser`,
       { id: id },
       { headers: { "access-token": localStorage.getItem("access-token") } }
     )
@@ -150,7 +150,7 @@ export const agregarEmpleado = (empleado) => async (dispatch) => {
   };
 
   await axios
-    .post(`${process.env.REACT_APP_SERVER}/User/CreateUser`, data, {
+    .post(`${process.env.REACT_APP_BACKEND_SERVER}/User/CreateUser`, data, {
       headers: { "access-token": localStorage.getItem("access-token") },
     })
     .then((res) => {
@@ -219,7 +219,7 @@ export const editarEmpleado = (empleado) => async (dispatch) => {
   //console.log(data);
 
   await axios
-    .put(`${process.env.REACT_APP_SERVER}/User/UpdateUser`, data, {
+    .put(`${process.env.REACT_APP_BACKEND_SERVER}/User/UpdateUser`, data, {
       headers: { "access-token": localStorage.getItem("access-token") },
     })
     .then((res) => {
@@ -282,7 +282,7 @@ export const agregarDireccion = (direccionUser) => async (dispatch) => {
 
   //console.log(data);
 
-  // await axios.post("${process.env.REACT_APP_SERVER}/User/AddAddress",data,
+  // await axios.post("${process.env.REACT_APP_BACKEND_SERVER}/User/AddAddress",data,
   // {headers: { 'access-token': localStorage.getItem('access-token')}})
   //     .then(res => {
   //         console.log(res);

@@ -26,7 +26,7 @@ class NuevoGasto extends Component {
 
   componentWillMount() {
     axios
-      .get(`${process.env.REACT_APP_SERVER}/User/CurrentUser`, {
+      .get(`${process.env.REACT_APP_BACKEND_SERVER}/User/CurrentUser`, {
         headers: { "access-token": localStorage.getItem("access-token") },
       })
       .then((res) => {

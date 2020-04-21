@@ -135,7 +135,7 @@ class ChangePassword extends React.Component {
               buttonProgress: true,
             });
             const res = await axios.post(
-              `${process.env.REACT_APP_SERVER}/User/ChangePassword`,
+              `${process.env.REACT_APP_BACKEND_SERVER}/User/ChangePassword`,
               data,
               { headers: { "access-token": accessToken } }
             );

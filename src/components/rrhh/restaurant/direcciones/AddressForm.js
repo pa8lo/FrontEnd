@@ -116,7 +116,7 @@ class AddressForm extends Component {
 
     await axios
       .put(
-        `${process.env.REACT_APP_SERVER}/Local`,
+        `${process.env.REACT_APP_BACKEND_SERVER}/Local`,
         (this.data = {
           Local: {
             Adress: this.state.address.street,

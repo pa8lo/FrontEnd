@@ -12,7 +12,7 @@ import Swal from "sweetalert2";
 
 export const mostrarCategorias = () => async (dispatch) => {
   const categorias = await axios
-    .get(`${process.env.REACT_APP_SERVER}/Category/Categories`, {
+    .get(`${process.env.REACT_APP_BACKEND_SERVER}/Category/Categories`, {
       headers: { "access-token": localStorage.getItem("access-token") },
     })
     .then((res) => {
@@ -72,7 +72,7 @@ export const mostrarCategorias = () => async (dispatch) => {
 
 export const mostrarCategoria = (id) => async (dispatch) => {
   const categoria = await axios.get(
-    `${process.env.REACT_APP_SERVER}/Category/Category?id=${id}`,
+    `${process.env.REACT_APP_BACKEND_SERVER}/Category/Category?id=${id}`,
     { headers: { "access-token": localStorage.getItem("access-token") } }
   );
 
@@ -91,9 +91,13 @@ export const agregarCategoria = (categoria) => async (dispatch) => {
     Description: Description,
   };
   await axios
-    .post(`${process.env.REACT_APP_SERVER}/Category/CreateCategory`, data, {
-      headers: { "access-token": localStorage.getItem("access-token") },
-    })
+    .post(
+      `${process.env.REACT_APP_BACKEND_SERVER}/Category/CreateCategory`,
+      data,
+      {
+        headers: { "access-token": localStorage.getItem("access-token") },
+      }
+    )
     .then((res) => {
       if (res.status === 200) {
         dispatch({
@@ -168,7 +172,7 @@ export const agregarCategoria = (categoria) => async (dispatch) => {
 export const eliminarCategoria = (id) => async (dispatch) => {
   await axios
     .post(
-      `${process.env.REACT_APP_SERVER}/Category/DeleteCategory`,
+      `${process.env.REACT_APP_BACKEND_SERVER}/Category/DeleteCategory`,
       { id: id },
       { headers: { "access-token": localStorage.getItem("access-token") } }
     )
@@ -222,9 +226,13 @@ export const editarCategoria = (categoria) => async (dispatch) => {
   };
 
   await axios
-    .post(`${process.env.REACT_APP_SERVER}/Category/UpdateCategory`, data, {
-      headers: { "access-token": localStorage.getItem("access-token") },
-    })
+    .post(
+      `${process.env.REACT_APP_BACKEND_SERVER}/Category/UpdateCategory`,
+      data,
+      {
+        headers: { "access-token": localStorage.getItem("access-token") },
+      }
+    )
     .then((res) => {
       if (res.status === 200) {
         dispatch({

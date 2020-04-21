@@ -87,9 +87,13 @@ class ActionEmpleadoComponent extends React.Component {
 
         var accessToken = localStorage.getItem("access-token");
         axios
-          .post(`${process.env.REACT_APP_SERVER}/User/ResetPassword`, data, {
-            headers: { "access-token": accessToken },
-          })
+          .post(
+            `${process.env.REACT_APP_BACKEND_SERVER}/User/ResetPassword`,
+            data,
+            {
+              headers: { "access-token": accessToken },
+            }
+          )
           .then((res) => {
             if (res.status === 200) {
               Swal.fire(
@@ -215,7 +219,7 @@ class ListadoEmpleados extends Component {
 
   componentDidMount() {
     axios
-      .get(`${process.env.REACT_APP_SERVER}/User/CurrentUser`, {
+      .get(`${process.env.REACT_APP_BACKEND_SERVER}/User/CurrentUser`, {
         headers: { "access-token": localStorage.getItem("access-token") },
       })
       .then((res) => {
