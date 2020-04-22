@@ -214,6 +214,7 @@ class MapaPedidos extends Component {
       });
 
       marker = new window.H.map.Marker({ lat: lat, lng: long });
+
       map.addObject(marker);
 
       var bearsMarker = new window.H.map.DomMarker(
@@ -227,6 +228,7 @@ class MapaPedidos extends Component {
       );
       map.addObject(bearsMarker);
     }
+
     var outerElement = document.createElement("div"),
       innerElement = document.createElement("div");
 
@@ -315,19 +317,27 @@ class MapaPedidos extends Component {
         );
         map.addObject(bearsMarker);
       } else {
-        const latitudee = localStorage
-          .getItem("DireccionRestaurant")
-          .split(";")[0];
-        const longitudee = localStorage
-          .getItem("DireccionRestaurant")
-          .split(";")[1];
+        //Tomo del localstorage el valor de Latitud y longitud y lo coloco en el mapa (Restaurant)
+        let latitudee;
+        let longitudee;
+
+        if (localStorage.getItem("DireccionRestaurant").charAt(0) === 0) {
+          latitudee = localStorage.getItem("DireccionRestaurant").split(",")[0];
+          longitudee = localStorage
+            .getItem("DireccionRestaurant")
+            .split(",")[1];
+        } else {
+          latitudee = localStorage.getItem("DireccionRestaurant").split(";")[0];
+          longitudee = localStorage
+            .getItem("DireccionRestaurant")
+            .split(";")[1];
+        }
 
         marker = new window.H.map.Marker({
           lat: latitudee,
           lng: longitudee, // you can add marker here. set specific lat and long
         });
         map.addObject(marker);
-
         var bearsMarker = new window.H.map.DomMarker(
           {
             lat: latitudee,
