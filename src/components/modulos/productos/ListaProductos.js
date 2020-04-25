@@ -143,41 +143,19 @@ class ListadoProductos extends Component {
     this.props.currentUser();
   }
 
-  mostrarProducto = () => {
-    if (
-      this.props.productos == undefined ||
-      this.props.productos == "undefined"
-    )
-      return null;
-
-    const productos = this.props.productos;
-
-    // console.log(productos);
-
-    return (
-      <React.Fragment>
-        {productos.map((producto) => (
-          <Producto
-            nameCat={this.props.nameCat}
-            key={producto.id}
-            info={producto.Products}
-          />
-        ))}
-      </React.Fragment>
-    );
-  };
-
   render() {
+    console.log(this.props.productos);
+
     const productos = this.props.productos;
     const loaded = this.props.loaded || false;
 
-    let products;
+    let _products = [];
     let cat;
 
     if (
-      this.props.productos == undefined ||
-      this.props.productos == null ||
-      this.props.productos == []
+      this.props.productos === undefined ||
+      this.props.productos === null ||
+      this.props.productos === []
     )
       return (
         <div style={{ marginTop: "40px", marginBottom: "40px" }}>
@@ -191,22 +169,26 @@ class ListadoProductos extends Component {
       );
 
     if (productos !== undefined) {
-      this.state.products = productos[0].Products;
+      productos.map((product) => {
+        product.Products.map((ind_producto) => {
+          if (ind_producto.Eliminated !== true) {
+            _products = [ind_producto, ..._products];
+          } else {
+            return;
+          }
+        });
+      });
 
       cat = productos[0].Name;
 
-      for (var i = 0; i < this.state.products.length; i++) {
-        this.state.products[i].catName = cat;
+      console.log(_products);
+
+      for (var i = 0; i < _products.length; i++) {
+        _products[i].catName = cat;
       }
     }
 
-    // console.log(this.products);
-
-    if (
-      this.state.products == undefined ||
-      this.state.products == null ||
-      this.state.products == []
-    )
+    if (_products === undefined || _products === null)
       return (
         <div style={{ marginTop: "40px", marginBottom: "40px" }}>
           <DotLoader
@@ -218,8 +200,8 @@ class ListadoProductos extends Component {
         </div>
       );
 
-    if (this.state.products.length === 0) {
-      if (this.state.products.length === 0 && !loaded) {
+    if (_products.length === 0) {
+      if (_products.length === 0 && !loaded) {
         return (
           <div style={{ marginTop: "40px", marginBottom: "40px" }}>
             <DotLoader
@@ -245,7 +227,7 @@ class ListadoProductos extends Component {
     } else {
       return (
         <SortableTbl
-          tblData={this.state.products.sort(function (a, b) {
+          tblData={_products.sort(function (a, b) {
             return b.id - a.id;
           })}
           tHead={tHead}
