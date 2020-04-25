@@ -1155,7 +1155,7 @@ class NuevoPedido extends Component {
                       className="form-group"
                     >
                       <label align="center">
-                        Coloque un número de telefono y verifique si existe
+                        Coloque un número de teléfono y verifique si existe
                         domicilio
                       </label>
                     </div>

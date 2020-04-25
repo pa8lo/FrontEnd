@@ -27,7 +27,7 @@ class ConsultarDireccionCliente extends Component {
 
   eliminarDireccion = async (id) => {
     Swal.fire({
-      title: "¿Estas seguro que desea eliminar?",
+      title: "¿Estás seguro que desea eliminar?",
       text: "Estas a punto de eliminar una dirección",
       icon: "warning",
       showCancelButton: true,

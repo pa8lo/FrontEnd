@@ -39,7 +39,7 @@ let tHead = ["Descripción", "Acciones"];
 class ActionEstadoComponent extends Component {
   eliminarEstado = () => {
     Swal.fire({
-      title: "¿Estas seguro que desea eliminar?",
+      title: "¿Estás seguro que desea eliminar?",
       text: "Estas a punto de eliminar un estado",
       icon: "warning",
       showCancelButton: true,

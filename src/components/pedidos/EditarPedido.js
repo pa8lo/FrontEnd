@@ -776,7 +776,7 @@ class NuevoPedido extends Component {
                       className="form-group"
                     >
                       <label align="center">
-                        Coloque un número de telefono y verifique su existencia
+                        Coloque un número de teléfono y verifique su existencia
                       </label>
                     </div>
                     <Button

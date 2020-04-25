@@ -47,7 +47,7 @@ class ActionCategoriasComponent extends React.Component {
     const { id } = this.props.rowData;
 
     Swal.fire({
-      title: "¿Estas seguro que desea eliminar?",
+      title: "¿Estás seguro que desea eliminar?",
       text: "Estas a punto de eliminar una categoria",
       icon: "warning",
       showCancelButton: true,

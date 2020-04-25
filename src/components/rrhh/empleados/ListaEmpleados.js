@@ -51,7 +51,7 @@ class ActionEmpleadoComponent extends React.Component {
       });
     } else {
       Swal.fire({
-        title: "¿Estas seguro que desea eliminar?",
+        title: "¿Estás seguro que desea eliminar?",
         text: "Estas a punto de eliminar un empleado",
         icon: "warning",
         showCancelButton: true,
@@ -71,7 +71,7 @@ class ActionEmpleadoComponent extends React.Component {
 
   resetClave = (usuario) => {
     Swal.fire({
-      title: "¿Estas seguro que desea resetear la contraseña?",
+      title: "¿Estás seguro que desea resetear la contraseña?",
       text: "Estas a punto de resetear a defecto la contraseña del usuario",
       icon: "warning",
       showCancelButton: true,

@@ -697,7 +697,7 @@ class mostrarPedidosOffline extends Component {
     // alert(index)
 
     Swal.fire({
-      title: "¿Estas seguro que desea eliminar?",
+      title: "¿Estás seguro que desea eliminar?",
       text: "Estas a punto de eliminar un pedido",
       icon: "warning",
       showCancelButton: true,
@@ -728,7 +728,7 @@ class mostrarPedidosOffline extends Component {
   eliminarPedidoSemiStorage = (index) => {
     // alert(index)
     Swal.fire({
-      title: "¿Estas seguro que desea eliminar?",
+      title: "¿Estás seguro que desea eliminar?",
       text: "Estas a punto de eliminar un pedido",
       icon: "warning",
       showCancelButton: true,
@@ -760,7 +760,7 @@ class mostrarPedidosOffline extends Component {
     // alert(index)
 
     Swal.fire({
-      title: "¿Estas seguro que desea eliminar?",
+      title: "¿Estás seguro que desea eliminar?",
       text: "Estas a punto de eliminar un pedido",
       icon: "warning",
       showCancelButton: true,
@@ -787,7 +787,7 @@ class mostrarPedidosOffline extends Component {
     // alert(index)
 
     Swal.fire({
-      title: "¿Estas seguro que desea eliminar?",
+      title: "¿Estás seguro que desea eliminar?",
       text: "Estas a punto de eliminar un estado",
       icon: "warning",
       showCancelButton: true,

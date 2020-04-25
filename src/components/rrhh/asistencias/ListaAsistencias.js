@@ -46,7 +46,7 @@ class MyVerticallyCenteredModal extends Component {
     // console.log(id)
 
     Swal.fire({
-      title: "¿Estas seguro que desea eliminar?",
+      title: "¿Estás seguro que desea eliminar?",
       text: "Estas a punto de eliminar una asistencia",
       icon: "warning",
       showCancelButton: true,
