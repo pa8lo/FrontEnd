@@ -57,28 +57,26 @@ class Header extends React.Component {
         })
         .catch((err) => {
           // debugger;
-          if (typeof err.response === "undefined") {
+          if (err.message !== "Network Error") {
             alert("Se procede a cerrar sesion");
             localStorage.removeItem("access-token");
             window.location.replace("/login");
           }
-          if (err.response.status === 403) {
+          if (err.message !== "Network Error") {
             alert(err.response.data);
             localStorage.removeItem("access-token");
             window.location.replace("/login");
           } else {
-            return;
-          }
-
-          if (localStorage.getItem("status") === "online") {
-            localStorage.setItem("status", "offline");
-            Swal.fire({
-              title: "No se detecto conexion",
-              text: "Entrando en modo Offline",
-              type: "error",
-              confirmButtonText: "Aceptar",
-            });
-            props.history.push("/");
+            if (localStorage.getItem("status") === "online") {
+              localStorage.setItem("status", "offline");
+              Swal.fire({
+                title: "No se detecto conexion",
+                text: "Entrando en modo Offline",
+                type: "error",
+                confirmButtonText: "Aceptar",
+              });
+              props.history.push("/");
+            }
           }
         });
     }, 7000);
@@ -146,28 +144,27 @@ class Header extends React.Component {
         }
       })
       .catch((err) => {
-        if (typeof err.response === "undefined") {
+        if (err.message !== "Network Error") {
           alert("Se procede a cerrar sesion");
           localStorage.removeItem("access-token");
           window.location.replace("/login");
         }
-        if (err.response.status === 403) {
+        if (err.message !== "Network Error") {
           alert(err.response.data);
           console.log(err.response);
           localStorage.removeItem("access-token");
           window.location.replace("/login");
         } else {
-          return;
-        }
-        if (localStorage.getItem("status") === "online") {
-          localStorage.setItem("status", "offline");
-          Swal.fire({
-            title: "No se detecto conexion",
-            text: "Entrando en modo Offline",
-            type: "error",
-            confirmButtonText: "Aceptar",
-          });
-          this.props.history.push("/");
+          if (localStorage.getItem("status") === "online") {
+            localStorage.setItem("status", "offline");
+            Swal.fire({
+              title: "No se detecto conexion",
+              text: "Entrando en modo Offline",
+              type: "error",
+              confirmButtonText: "Aceptar",
+            });
+            this.props.history.push("/");
+          }
         }
       });
     // console.log(this.props);
