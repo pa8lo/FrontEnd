@@ -123,7 +123,7 @@ class EditarEmpleado extends Component {
       return;
     } else {
       this.setState({ error: false });
-      // this.props.editarEmpleado(empleado);
+      this.props.editarEmpleado(empleado);
     }
   };
 
