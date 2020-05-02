@@ -344,6 +344,7 @@ class ListaAsistencias extends Component {
         </div>
       );
     } else {
+      console.log(asistencias);
       return (
         <SortableTbl
           tblData={asistencias.sort(function (a, b) {

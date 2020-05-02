@@ -135,7 +135,7 @@ export const editarAsistencia = (asistencia) => async (dispatch) => {
       if (res.status === 200) {
         Swal.fire({
           title: "Correcto!",
-          text: "Se ha actualizado una nueva asistencia",
+          text: "Se ha actualizado una asistencia",
           type: "success",
           confirmButtonText: "Confirmar",
         });

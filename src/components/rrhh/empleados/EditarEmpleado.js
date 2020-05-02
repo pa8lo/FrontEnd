@@ -109,6 +109,7 @@ class EditarEmpleado extends Component {
       empleado.dni === "" ||
       empleado.nombre === "" ||
       empleado.apellido === "" ||
+      empleado.email === "" ||
       empleado.primerTelefono === ""
     ) {
       // console.log('error');
@@ -122,7 +123,7 @@ class EditarEmpleado extends Component {
       return;
     } else {
       this.setState({ error: false });
-      this.props.editarEmpleado(empleado);
+      // this.props.editarEmpleado(empleado);
     }
   };
 
@@ -157,7 +158,7 @@ class EditarEmpleado extends Component {
               <div align="center">
                 <form onSubmit={this.crearEmpleado} className="col-8">
                   <div className="form-group">
-                    <label>DNI</label>
+                    <label>DNI *</label>
                     <input
                       //  ref={this.dniRef}
                       disabled
@@ -167,40 +168,44 @@ class EditarEmpleado extends Component {
                     />
                   </div>
                   <div className="form-group">
-                    <label>Nombre</label>
+                    <label>Nombre *</label>
                     <input
                       ref={this.nombreRef}
                       type="text"
                       defaultValue={this.props.location.state.Name}
                       className="form-control"
+                      required
                     />
                   </div>
                   <div className="form-group">
-                    <label>Apellido</label>
+                    <label>Apellido *</label>
                     <input
                       ref={this.apellidoRef}
                       type="text"
                       defaultValue={this.props.location.state.LastName}
                       className="form-control"
+                      required
                     />
                   </div>
                   <div className="form-group">
-                    <label>Email</label>
+                    <label>Email *</label>
                     <input
                       ref={this.emailRef}
                       type="email"
                       pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,4}$"
                       defaultValue={this.props.location.state.Email}
                       className="form-control"
+                      required
                     />
                   </div>
                   <div className="form-group">
-                    <label>1º Teléfono / Celular</label>
+                    <label>1º Teléfono / Celular *</label>
                     <input
                       ref={this.primerTelefonoRef}
                       type="text"
                       defaultValue={this.props.location.state.PrimaryPhone}
                       className="form-control"
+                      required
                     />
                   </div>
                   <div className="form-group">
@@ -255,7 +260,7 @@ class EditarEmpleado extends Component {
             <div align="center">
               <form onSubmit={this.crearEmpleado} className="col-8">
                 <div className="form-group">
-                  <label>DNI</label>
+                  <label>DNI *</label>
                   <input
                     //  ref={this.dniRef}
                     disabled
@@ -265,7 +270,7 @@ class EditarEmpleado extends Component {
                   />
                 </div>
                 <div className="form-group">
-                  <label>Nombre</label>
+                  <label>Nombre *</label>
                   <input
                     ref={this.nombreRef}
                     type="text"
@@ -274,7 +279,7 @@ class EditarEmpleado extends Component {
                   />
                 </div>
                 <div className="form-group">
-                  <label>Apellido</label>
+                  <label>Apellido *</label>
                   <input
                     ref={this.apellidoRef}
                     type="text"
@@ -283,7 +288,7 @@ class EditarEmpleado extends Component {
                   />
                 </div>
                 <div className="form-group">
-                  <label>Email</label>
+                  <label>Email *</label>
                   <input
                     ref={this.emailRef}
                     type="email"
@@ -293,7 +298,7 @@ class EditarEmpleado extends Component {
                   />
                 </div>
                 <div className="form-group">
-                  <label>1º Teléfono / Celular</label>
+                  <label>1º Teléfono / Celular *</label>
                   <input
                     ref={this.primerTelefonoRef}
                     type="text"
