@@ -11,10 +11,8 @@ class LoginForm extends React.Component {
       <div
         style={{
           position: "fixed",
-          top: "-50%",
-          left: "-50%",
-          width: "200%",
-          height: "200%",
+          alignContent: "center",
+          justifyContent: "center",
         }}
       >
         {/* className="background-image"
@@ -38,7 +36,7 @@ class LoginForm extends React.Component {
             minHeight: "50%",
           }}
         />
-        <Grid container="true" style={{ marginTop: "400px" }}>
+        <Grid container="true">
           <Row className="show-grid">
             <Col style={{ display: "inline-block" }} xs={5} md={5}>
               <div>
