@@ -654,7 +654,7 @@ class EmpleadoIndividual extends Component {
               
                   } */}
 
-              {permisos.filter((permiso) => permiso.id == 3).length > 0 ? (
+              {permisos.filter((permiso) => permiso.id == 1).length > 0 ? (
                 <Button
                   style={{ marginLeft: 10, width: 150 }}
                   className="btn btn-success"
