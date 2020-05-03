@@ -413,14 +413,23 @@ class PedidoIndividual extends Component {
                   >
                     Volver
                   </button>
-                  <button
+                  <form>
+                    <input
+                      type="button"
+                      className="btn btn-warning"
+                      style={{ marginLeft: "5px" }}
+                      value="Imprimir"
+                      onClick={() => window.print()}
+                    />
+                  </form>
+                  {/* <button
                     type="button"
                     className="btn btn-warning"
                     style={{ marginLeft: "10px" }}
                     onClick={() => window.print()}
                   >
                     Imprimir
-                  </button>
+                  </button> */}
                   {localStorage.getItem("status") === "online" ? (
                     <Link
                       style={buttonStyle}
