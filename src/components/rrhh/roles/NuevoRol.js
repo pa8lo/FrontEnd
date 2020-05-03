@@ -246,7 +246,7 @@ class NuevoRol extends Component {
       Swal.fire({
         title: "Este permiso esta vinculado con los permisos",
         text:
-          "-Ver Producto, -Ver Cliente, -Ver Usuarios, -Ver Rol ¿Desea agregarlos?",
+          "-Ver Producto, -Ver Cliente, -Ver Empleados, -Ver Rol ¿Desea agregarlos?",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -278,7 +278,7 @@ class NuevoRol extends Component {
       Swal.fire({
         title: "Este permiso esta vinculado con los permisos",
         text:
-          "-Ver Pedido, -Ver Producto, -Ver Cliente, -Ver Usuarios, -Ver Rol ¿Desea agregarlos?",
+          "-Ver Pedido, -Ver Producto, -Ver Cliente, -Ver Empleados, -Ver Rol ¿Desea agregarlos?",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -390,7 +390,7 @@ class NuevoRol extends Component {
     } else {
       Swal.fire({
         title: "Este permiso esta vinculado con los permisos",
-        text: "-Ver Usuarios ¿Desea agregarlos?",
+        text: "-Ver Empleados ¿Desea agregarlos?",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -418,7 +418,7 @@ class NuevoRol extends Component {
     } else {
       Swal.fire({
         title: "Este permiso esta vinculado con los permisos",
-        text: "-Ver Usuarios ¿Desea agregarlos?",
+        text: "-Ver Empleados ¿Desea agregarlos?",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
