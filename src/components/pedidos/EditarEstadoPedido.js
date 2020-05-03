@@ -217,7 +217,7 @@ class EditarEstadoPedido extends Component {
       Swal.fire({
         title: "Atencion!",
         text:
-          "La solicitud fue guardada en la solicitudes encoladas se enviara una vez se restablezca la conexion",
+          "La solicitud fue guardada en Solicitudes Encoladas. Cuando se restablezca la conexión podrá ser enviada al modo Online",
         type: "warning",
         confirmButtonText: "Aceptar",
         cancelButtonText: "Cancelar",

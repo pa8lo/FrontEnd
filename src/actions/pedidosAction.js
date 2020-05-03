@@ -188,7 +188,7 @@ export const agregarPedido = (pedido) => async (dispatch) => {
         Swal.fire({
           title: "Atencion!",
           text:
-            "La solicitud fue guardada en la bandeja se enviara una vez se restablezca la conexion",
+            "La solicitud fue guardada en Solicitudes Encoladas. Cuando se restablezca la conexión podrá ser enviada al modo Online",
           type: "warning",
           confirmButtonText: "Ok",
         });
