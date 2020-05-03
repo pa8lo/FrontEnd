@@ -143,7 +143,7 @@ class ConsultarDireccionCliente extends Component {
                   Volver
                 </button>
 
-                {permisos.filter((permiso) => permiso.id == 8).length > 0 ? (
+                {permisos.filter((permiso) => permiso.id == 7).length > 0 ? (
                   <button
                     style={{ marginLeft: 10, width: 140 }}
                     name="idEliminarAsistencia"
