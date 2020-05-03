@@ -192,10 +192,11 @@ class ListadoPedidos extends Component {
     let client_name = "";
     let client_surname = "";
 
-    const pedidos = this.props.pedidos;
+    const pedidos = JSON.parse(localStorage.getItem("pedidos"));
     const loaded = this.props.loaded || false;
 
-    // console.log(pedidos)
+    // console.log();
+    // console.log(pedidos);
 
     if (pedidos.length === 0) {
       if (pedidos.length === 0 && !loaded) {
