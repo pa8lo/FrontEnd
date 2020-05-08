@@ -657,7 +657,7 @@ class EnviarPedidosOff extends Component {
           } else {
             Swal.fire(
               "Error!",
-              "Error de validador, cambie la dirección del pedido",
+              "No se pudieron completar todos las solicitudes pendientes, reintente por favor",
               "error"
             );
           }
@@ -1188,7 +1188,7 @@ class EnviarPedidosOff extends Component {
               .catch(async function (error) {
                 Swal.fire(
                   "Error!",
-                  "Error de validador, cambie la dirección del pedido",
+                  "No se pudieron completar todos las solicitudes pendientes, reintente por favor",
                   "error"
                 );
               });
