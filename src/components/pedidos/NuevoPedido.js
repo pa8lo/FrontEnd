@@ -136,6 +136,8 @@ class NuevoPedido extends Component {
       finalAmmount: 0,
       redirectHome: false,
       redirectPedido: false,
+      disabled: false,
+      disabledSend: false,
     };
   }
 
@@ -540,6 +542,10 @@ class NuevoPedido extends Component {
   generarPedido = (e) => {
     e.preventDefault();
 
+    this.setState({
+      disabledSend: true,
+    });
+
     let idProductos = [];
 
     if (
@@ -634,7 +640,13 @@ class NuevoPedido extends Component {
         type: "error",
         confirmButtonText: "Ok",
       });
+      this.setState({
+        disabledSend: false,
+      });
     } else {
+      this.setState({
+        disabledSend: false,
+      });
       const a = new Date();
       const fecha = a.toISOString().split("T")[0];
 
@@ -694,6 +706,7 @@ class NuevoPedido extends Component {
           if (result.value) {
             this.setState({
               redirectPedido: true,
+              disabledSend: false,
             });
           }
         });
@@ -751,6 +764,7 @@ class NuevoPedido extends Component {
           if (result.value) {
             this.setState({
               redirectPedido: true,
+              disabledSend: false,
             });
           }
         });
@@ -810,10 +824,14 @@ class NuevoPedido extends Component {
             if (result.value) {
               this.setState({
                 redirectPedido: true,
+                disabledSend: false,
               });
             }
           });
         } else {
+          this.setState({
+            disabledSend: true,
+          });
           const pedido = {
             date: fecha,
             user: localStorage.getItem("usuario"),
@@ -833,6 +851,8 @@ class NuevoPedido extends Component {
   };
 
   buscarDireccion = () => {
+    this.setState({ disabled: true });
+
     if (localStorage.getItem("status") == "online") {
       axios
         .get(
@@ -846,6 +866,7 @@ class NuevoPedido extends Component {
             if (res.data.Cliente && this.state.correctSearchPhone == false) {
               this.setState({
                 correctSearchPhone: true,
+                disabled: false,
               });
 
               // console.log("Encontre telefono")
@@ -875,6 +896,7 @@ class NuevoPedido extends Component {
                     if (result.value) {
                       this.setState({
                         modalShow: true,
+                        disabled: false,
                       });
                       window.location.href = `/clientes/agregar-direccion-cliente/${res.data.Cliente.id}`;
                     }
@@ -910,6 +932,7 @@ class NuevoPedido extends Component {
                 this.setState({
                   modalShow: true,
                   correctSearchPhone: false,
+                  disabled: false,
                 });
               }
 
@@ -986,6 +1009,9 @@ class NuevoPedido extends Component {
         clientes.filter((cliente) => cliente.Phone == this.state.telefonoClient)
           .length > 0
       ) {
+        this.setState({
+          disabled: false,
+        });
         let cliente_encontrado = clientes.filter(
           (cliente) => cliente.Phone == this.state.telefonoClient
         );
@@ -1005,6 +1031,7 @@ class NuevoPedido extends Component {
             this.setState({
               cargaDeCliente: false,
               direDeCliente: true,
+              disabled: false,
             });
           });
         } else {
@@ -1037,11 +1064,13 @@ class NuevoPedido extends Component {
             correctSearchPhone: false,
             cargaDeCliente: false,
             direDeCliente: false,
+            disabled: false,
           });
         }
       } else {
         this.setState({
           correctSearchPhone: false,
+          disabled: false,
         });
 
         Swal.fire({
@@ -1162,9 +1191,10 @@ class NuevoPedido extends Component {
                     <Button
                       className="btn btn-success"
                       variant="primary"
+                      disabled={this.state.disabled}
                       onClick={() => this.buscarDireccion()}
                     >
-                      Verificar
+                      {this.state.disabled ? "Verificando..." : "Verificar"}
                     </Button>
 
                     <MyVerticallyCenteredModal
@@ -1246,6 +1276,7 @@ class NuevoPedido extends Component {
                   className="form-group"
                 >
                   <input
+                    disabled={this.state.disabledSend}
                     type="submit"
                     value="Aceptar"
                     className="btn btn-primary"
