@@ -934,7 +934,7 @@ class mostrarPedidosOffline extends Component {
                                     (producto) =>
                                       producto_a_encontrar.Product ==
                                       producto.id
-                                  )[0].Description
+                                  )[0].Name
                                 : " -Productos no reconocido"
                           )
                         : " -Productos no reconocido"}
@@ -1104,7 +1104,7 @@ class mostrarPedidosOffline extends Component {
                                     (producto) =>
                                       producto_a_encontrar.Product ==
                                       producto.id
-                                  )[0].Description
+                                  )[0].Name
                                 : " -Productos no reconocido"
                           )
                         : " -Productos no reconocido"}
@@ -1287,7 +1287,7 @@ class mostrarPedidosOffline extends Component {
                                 ).filter(
                                   (producto) =>
                                     producto_a_encontrar.Product == producto.id
-                                )[0].Description
+                                )[0].Name
                               : " -Productos no reconocido"
                           )
                         : " -Productos no reconocido"}
