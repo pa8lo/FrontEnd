@@ -906,7 +906,7 @@ class mostrarPedidosOffline extends Component {
                               JSON.parse(localStorage.getItem("combos")).filter(
                                 (combo) => combo_a_encontrar.Offer == combo.id
                               ).length > 0
-                                ? `  ${combo_a_encontrar.Count} -` +
+                                ? `  ${combo_a_encontrar.Count}-` +
                                   JSON.parse(
                                     localStorage.getItem("combos")
                                   ).filter(
@@ -927,7 +927,7 @@ class mostrarPedidosOffline extends Component {
                                 (producto) =>
                                   producto_a_encontrar.Product == producto.id
                               ).length > 0
-                                ? `  ${producto_a_encontrar.Count} -` +
+                                ? `  ${producto_a_encontrar.Count}-` +
                                   JSON.parse(
                                     localStorage.getItem("productos")
                                   ).filter(
@@ -1077,7 +1077,7 @@ class mostrarPedidosOffline extends Component {
                               JSON.parse(localStorage.getItem("combos")).filter(
                                 (combo) => combo_a_encontrar.Offer == combo.id
                               ).length > 0
-                                ? `  ${combo_a_encontrar.Count} -` +
+                                ? `  ${combo_a_encontrar.Count}-` +
                                   JSON.parse(
                                     localStorage.getItem("combos")
                                   ).filter(
@@ -1097,7 +1097,7 @@ class mostrarPedidosOffline extends Component {
                                 (producto) =>
                                   producto_a_encontrar.Product == producto.id
                               ).length > 0
-                                ? `  ${producto_a_encontrar.Count} -` +
+                                ? `  ${producto_a_encontrar.Count}-` +
                                   JSON.parse(
                                     localStorage.getItem("productos")
                                   ).filter(
@@ -1263,7 +1263,7 @@ class mostrarPedidosOffline extends Component {
                             JSON.parse(localStorage.getItem("combos")).filter(
                               (combo) => combo_a_encontrar.Offer == combo.id
                             ).length > 0
-                              ? `  ${combo_a_encontrar.Count} -` +
+                              ? `  ${combo_a_encontrar.Count}-` +
                                 JSON.parse(
                                   localStorage.getItem("combos")
                                 ).filter(
@@ -1281,7 +1281,7 @@ class mostrarPedidosOffline extends Component {
                               (producto) =>
                                 producto_a_encontrar.Product == producto.id
                             ).length > 0
-                              ? `  ${producto_a_encontrar.Count} -` +
+                              ? `  ${producto_a_encontrar.Count}-` +
                                 JSON.parse(
                                   localStorage.getItem("productos")
                                 ).filter(
