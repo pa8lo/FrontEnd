@@ -17,6 +17,7 @@ class NuevaCategoria extends Component {
   state = {
     error: false,
     redirectHome: false,
+    disabledSend: false,
   };
 
   nombreRef = React.createRef();
@@ -24,7 +25,9 @@ class NuevaCategoria extends Component {
 
   crearCategoria = (e) => {
     e.preventDefault();
-
+    this.setState({
+      disabledSend: true,
+    });
     const categoria = {
       Name: this.nombreRef.current.value,
       Description: this.descripcionRef.current.value,
@@ -32,7 +35,7 @@ class NuevaCategoria extends Component {
 
     if (categoria.Name === "" || categoria.Description === "") {
       // console.log('error');
-      this.setState({ error: true });
+      this.setState({ error: true, disabledSend: false });
       Swal.fire({
         title: "Error!",
         text: "Faltan o hay errores en el formulario",
@@ -43,12 +46,9 @@ class NuevaCategoria extends Component {
     } else {
       this.setState({ error: false });
       this.props.agregarCategoria(categoria);
-      // this.props.agregarEmpleado(empleado);
     }
 
     e.currentTarget.reset();
-
-    // console.log(empleado);
   };
 
   ToHome() {
@@ -91,6 +91,7 @@ class NuevaCategoria extends Component {
                 </div>
                 <div className="form-group">
                   <input
+                    disabled={this.state.disabledSend}
                     type="submit"
                     value="Aceptar"
                     className="btn btn-primary"

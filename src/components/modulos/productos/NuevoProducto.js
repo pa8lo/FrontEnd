@@ -17,6 +17,7 @@ class NuevoProducto extends Component {
   state = {
     error: false,
     redirectHome: false,
+    disabledSend: false,
   };
 
   nombreRef = React.createRef();
@@ -25,6 +26,9 @@ class NuevoProducto extends Component {
 
   crearProducto = (e) => {
     e.preventDefault();
+    this.setState({
+      disabledSend: true,
+    });
 
     const producto = {
       name: this.nombreRef.current.value,
@@ -45,6 +49,9 @@ class NuevoProducto extends Component {
         text: "Faltan o hay errores en el formulario",
         type: "error",
         confirmButtonText: "Aceptar",
+      });
+      this.setState({
+        disabledSend: false,
       });
       return;
     } else {
@@ -111,6 +118,7 @@ class NuevoProducto extends Component {
                 </div>
                 <div className="form-group">
                   <input
+                    disabled={this.state.disabledSend}
                     type="submit"
                     value="Aceptar"
                     className="btn btn-primary"

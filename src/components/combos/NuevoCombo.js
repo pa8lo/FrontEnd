@@ -25,6 +25,7 @@ class NuevoCombo extends Component {
     optionsProductsCount: [],
     productoFinal: [],
     redirectHome: false,
+    disabledSend: false,
   };
 
   nombreRef = React.createRef();
@@ -131,6 +132,9 @@ class NuevoCombo extends Component {
 
   agregarCombo = (e) => {
     e.preventDefault();
+    this.setState({
+      disabledSend: true,
+    });
 
     let idProductos = [];
     let cantProductos = [];
@@ -143,6 +147,9 @@ class NuevoCombo extends Component {
         text: "Faltan datos en el formulario",
         type: "error",
         confirmButtonText: "Aceptar",
+      });
+      this.setState({
+        disabledSend: false,
       });
       return;
     }
@@ -161,15 +168,6 @@ class NuevoCombo extends Component {
       []
     );
 
-    // console.log(o);
-
-    // console.log(dict);
-    // console.log(this.state.optionsProductsCount);
-
-    // idProductos.map(prod => (
-    //     idProductos.indexOf(prod)
-    // ));
-
     let ProductosPorCombo = Object.keys(this.state.optionsProductsCount).map(
       (valores) => ({
         Product: parseInt(valores),
@@ -181,12 +179,6 @@ class NuevoCombo extends Component {
     var filtered = o.filter((el) => {
       return el != null;
     });
-
-    // console.log(typeof(ProductosPorCombo));
-    // console.log(typeof(filtered));
-
-    // console.log((ProductosPorCombo));
-    // console.log((filtered));
 
     const combo = {
       nombre: this.nombreRef.current.value,
@@ -254,6 +246,7 @@ class NuevoCombo extends Component {
                 {this.mostrarProductosListos()}
                 <div center="true" align="center" className="form-group">
                   <input
+                    disabled={this.state.disabledSend}
                     type="submit"
                     value="Aceptar"
                     className="btn btn-primary"

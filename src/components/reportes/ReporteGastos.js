@@ -87,7 +87,9 @@ class ReporteGastos extends Component {
     if (this.state.hayValor === false) {
       return (
         <React.Fragment>
-          <h3 style={{ textAlign: "center" }}>No hay valores para mostrar</h3>
+          <h3 style={{ textAlign: "center" }}>
+            {this.state.loading ? "Cargando..." : "No hay valores para mostrar"}
+          </h3>
         </React.Fragment>
       );
     } else {

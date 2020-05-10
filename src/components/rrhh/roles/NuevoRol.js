@@ -62,6 +62,7 @@ class NuevoRol extends Component {
     TADelete: false,
     //Home
     redirectHome: false,
+    disabledSend: false,
   };
 
   nombreRef = React.createRef();
@@ -452,6 +453,10 @@ class NuevoRol extends Component {
 
   crearRol = (e) => {
     e.preventDefault();
+
+    this.setState({
+      disabledSend: true,
+    });
 
     const permisos = [];
 
@@ -944,6 +949,7 @@ class NuevoRol extends Component {
                 </div>
                 <div style={{ marginLeft: 370 }} className="form-group">
                   <input
+                    disabled={this.state.disabledSend}
                     type="submit"
                     value="Aceptar"
                     className="btn btn-primary"

@@ -18,6 +18,7 @@ class NuevoGasto extends Component {
   state = {
     currentUser: "",
     redirectHome: false,
+    disabledSend: false,
   };
 
   detalleRef = React.createRef();
@@ -56,6 +57,9 @@ class NuevoGasto extends Component {
 
   agregarGasto = (e) => {
     e.preventDefault();
+    this.setState({
+      disabledSend: true,
+    });
 
     let fechaArr = this.fechaRef.current.value.split("-");
 
@@ -67,6 +71,9 @@ class NuevoGasto extends Component {
         text: "La fecha esta mal ingresada, favor de chequearla",
         type: "error",
         confirmButtonText: "Aceptar",
+      });
+      this.setState({
+        disabledSend: false,
       });
       return;
     } else {
@@ -123,6 +130,7 @@ class NuevoGasto extends Component {
                 </div>
                 <div center="true" align="center" className="form-group">
                   <input
+                    disabled={this.state.disabledSend}
                     type="submit"
                     value="Aceptar"
                     className="btn btn-primary"

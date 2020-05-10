@@ -17,6 +17,7 @@ class AgregarDatosCliente extends Component {
   state = {
     telefono: "",
     redirectHome: false,
+    disabledSend: false,
   };
 
   nombreRef = React.createRef();
@@ -49,6 +50,10 @@ class AgregarDatosCliente extends Component {
   agregarCliente = (e) => {
     e.preventDefault();
 
+    this.setState({
+      disabledSend: true,
+    });
+
     if (
       this.nombreRef.current.value == undefined ||
       this.telefonoRef.current.value == undefined
@@ -58,6 +63,9 @@ class AgregarDatosCliente extends Component {
         text: "Hay datos erroneos o faltan datos en el formulario",
         type: "error",
         confirmButtonText: "Aceptar",
+      });
+      this.setState({
+        disabledSend: false,
       });
       return;
     } else {
@@ -122,6 +130,7 @@ class AgregarDatosCliente extends Component {
                 </div>
                 <div center="true" align="center" className="form-group">
                   <input
+                    disabled={this.state.disabledSend}
                     type="submit"
                     value="Aceptar"
                     className="btn btn-primary"

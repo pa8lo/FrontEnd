@@ -942,6 +942,7 @@ class NuevoPedido extends Component {
 
               this.setState({
                 correctSearchPhone: false,
+                disabled: false,
               });
               Swal.fire({
                 title: "Sin resultados",
