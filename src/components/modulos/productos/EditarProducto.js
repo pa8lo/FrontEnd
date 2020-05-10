@@ -52,13 +52,10 @@ class EditarProducto extends Component {
       });
       return;
     } else {
-      // console.log("Correcto")
       this.setState({ error: false });
       // console.log(producto);
       this.props.editarProducto(producto);
     }
-
-    e.currentTarget.reset();
   };
 
   ToHome() {

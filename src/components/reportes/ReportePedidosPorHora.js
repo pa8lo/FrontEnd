@@ -31,12 +31,14 @@ class ReportePedidosPorHora extends Component {
     pedidos_hr_total: [],
     data_chart: {},
     hayValor: false,
+    loading: false,
   };
 
   handleEvent = (event, picker) => {
     this.setState({
       data_chart: {},
       pedidos_hr_total: [],
+      loading: true,
     });
 
     const gastos = axios
@@ -83,11 +85,13 @@ class ReportePedidosPorHora extends Component {
 
               this.setState({
                 hayValor: true,
+                loading: false,
               });
             }
           } else {
             this.setState({
               hayValor: false,
+              loading: false,
             });
           }
         } else {
@@ -100,10 +104,16 @@ class ReportePedidosPorHora extends Component {
   };
 
   mostrarInfo = () => {
-    if (this.state.hayValor === false) {
+    if (this.state.hayValor === false && this.state.loading === false) {
       return (
         <React.Fragment>
           <h3 style={{ textAlign: "center" }}>No hay valores para mostrar</h3>
+        </React.Fragment>
+      );
+    } else if (this.state.loading === true) {
+      return (
+        <React.Fragment>
+          <h3 style={{ textAlign: "center" }}>Cargando..</h3>
         </React.Fragment>
       );
     } else {

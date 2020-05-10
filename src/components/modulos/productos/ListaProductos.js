@@ -144,7 +144,7 @@ class ListadoProductos extends Component {
   }
 
   render() {
-    console.log(this.props.productos);
+    // console.log(this.props.productos);
 
     const productos = this.props.productos;
     const loaded = this.props.loaded || false;
@@ -181,7 +181,7 @@ class ListadoProductos extends Component {
 
       cat = productos[0].Name;
 
-      console.log(_products);
+      // console.log(_products);
 
       for (var i = 0; i < _products.length; i++) {
         _products[i].catName = cat;

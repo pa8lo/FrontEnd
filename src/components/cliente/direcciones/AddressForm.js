@@ -84,6 +84,7 @@ class AddressForm extends Component {
       coords: {},
       redirectHome: false,
       vali: false,
+      disableSend: false,
     };
   }
 
@@ -102,6 +103,9 @@ class AddressForm extends Component {
   }
 
   enviarDatos = () => {
+    this.setState({
+      disableSend: true,
+    });
     if (
       this.state.coords.lat === undefined &&
       this.state.coords.lon === undefined
@@ -111,6 +115,9 @@ class AddressForm extends Component {
         text: "Debe Validar la Dirección",
         type: "error",
         confirmButtonText: "Aceptar",
+      });
+      this.setState({
+        disableSend: false,
       });
       return;
     }
@@ -269,6 +276,7 @@ class AddressForm extends Component {
             </button>
           ) : (
             <button
+              disabled={this.state.disableSend}
               type="submit"
               style={{ marginLeft: "10px", width: 80 }}
               className="btn btn-primary"
