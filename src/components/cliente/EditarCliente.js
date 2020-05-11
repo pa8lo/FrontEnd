@@ -111,7 +111,7 @@ class EditarCliente extends Component {
                     step="1"
                     title="Numbers only"
                     className="form-control"
-                    required
+                    disabled
                   />
                 </div>
                 <div center="true" align="center" className="form-group">
