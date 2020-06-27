@@ -6,7 +6,7 @@ const styles = {
       flexGrow: 1,
     },
     menu:{
-      background: '#4D4D4D'
+      background: '#ff8d00'
     },
     menuButton: {
       marginLeft: -12,
