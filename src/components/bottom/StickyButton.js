@@ -12,7 +12,7 @@ class StickyButton extends Component {
                 <Container styles={{ marginRight: -40, marginBottom: -40 }}>
 
                     <Button
-                        styles={{ backgroundColor: "#4D4D4D", marginLeft: "50px" }}
+                        styles={{ backgroundColor: "#ff8d00", marginLeft: "50px" }}
                         id="StickyButtonRedirect"
                         rotate={false}
                         href="/problems"
